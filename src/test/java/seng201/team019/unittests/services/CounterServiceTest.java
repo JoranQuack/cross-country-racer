@@ -1,13 +1,14 @@
-package seng201.team0.unittests.services;
+package seng201.team019.unittests.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seng201.team0.services.CounterService;
+import seng201.team019.services.CounterService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test Counter implementation
+ * 
  * @author seng201 teaching team
  */
 class CounterServiceTest {

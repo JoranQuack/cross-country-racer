@@ -1,9 +1,10 @@
-package seng201.team0.services;
+package seng201.team019.services;
 
-import seng201.team0.models.Counter;
+import seng201.team019.models.Counter;
 
 /**
  * Simple service class to interact with counters
+ * 
  * @author seng201 teaching team
  */
 public class CounterService {
@@ -25,6 +26,7 @@ public class CounterService {
 
     /**
      * Get the current count of the counter
+     * 
      * @return Current count
      */
     public int getCurrentCount() {
