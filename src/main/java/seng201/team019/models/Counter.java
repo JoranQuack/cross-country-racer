@@ -2,7 +2,7 @@ package seng201.team019.models;
 
 /**
  * Simple counter class to keep track of current count
- * 
+ *
  * @author seng201 teaching team
  */
 public class Counter {
@@ -17,7 +17,7 @@ public class Counter {
 
     /**
      * Get current counter count
-     * 
+     *
      * @return Current count
      */
     public int getCount() {
@@ -26,10 +26,11 @@ public class Counter {
 
     /**
      * Set current counter count
-     * 
+     *
      * @param value Value of counter
      */
     public void setCount(int value) {
         count = value;
     }
 }
+
