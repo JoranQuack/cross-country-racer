@@ -1,7 +1,6 @@
 package seng201.team019;
 
 import seng201.team019.gui.ScreenNavigator;
-import seng201.team019.gui.SetupScreenController;
 import seng201.team019.models.Car;
 import seng201.team019.models.Difficulty;
 

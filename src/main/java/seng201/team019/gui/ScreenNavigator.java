@@ -43,7 +43,7 @@ public class ScreenNavigator {
     /**
      * Launches the start screen.
      *
-     * @param gameEnvironment The rocket manager used by the start screen controller
+     * @param gameEnvironment The manager used by the start screen controller
      */
     public void launchStartScreen(GameEnvironment gameEnvironment) {
         ScreenController controller = new StartScreenController(gameEnvironment);
@@ -53,10 +53,20 @@ public class ScreenNavigator {
     /**
      * Launches the setup screen.
      *
-     * @param gameEnvironment The rocket manager used by the setup screen controller
+     * @param gameEnvironment The manager used by the setup screen controller
      */
     public void launchSetupScreen(GameEnvironment gameEnvironment) {
         ScreenController controller = new SetupScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
+     * Launches the dashboard screen.
+     *
+     * @param gameEnvironment The manager used by the dashboard screen controller
+     */
+    public void launchDashboardScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new DashboardScreenController(gameEnvironment);
         launchScreen(controller);
     }
 
