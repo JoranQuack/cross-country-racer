@@ -26,7 +26,7 @@ public class GameEnvironment {
 
     public GameEnvironment(ScreenNavigator navigator) {
         this.navigator = navigator;
-        navigator.launchStartScreen(this);
+        navigator.launchGarageScreen(this);
 
         this.bankBalance = 0.0;
         this.garage = new ArrayList<Car>();

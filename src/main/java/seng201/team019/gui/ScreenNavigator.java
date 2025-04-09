@@ -71,6 +71,26 @@ public class ScreenNavigator {
     }
 
     /**
+     * Launches the garage screen.
+     *
+     * @param gameEnvironment The manager used by the garage screen controller
+     */
+    public void launchGarageScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new GarageScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
+     * Launches the shop screen.
+     * 
+     * @param gameEnvironment The manager used by the shop screen controller
+     */
+    public void launchShopScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new ShopScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
      * Replaces the root border pane's center component with the screen defined by
      * the given
      * {@link ScreenController}.
