@@ -1,8 +1,10 @@
 package seng201.team019.gui;
+
 import seng201.team019.GameEnvironment;
 
 /**
  * Abstract parent class for all {@link GameEnvironment} UI controller classes.
+ * 
  * @author seng201 teaching team
  */
 public abstract class ScreenController {
@@ -10,7 +12,9 @@ public abstract class ScreenController {
     private final GameEnvironment gameEnvironment;
 
     /**
-     * Creates an instance of a ScreenController with the given {@link GameEnvironment}
+     * Creates an instance of a ScreenController with the given
+     * {@link GameEnvironment}
+     * 
      * @param gameEnvironment The game environment used by this ScreenController
      */
     protected ScreenController(final GameEnvironment gameEnvironment) {
@@ -33,10 +37,10 @@ public abstract class ScreenController {
 
     /**
      * Gets the rocket manager associated with this screen controller.
+     * 
      * @return The rocket manager for this controller
      */
-    protected GameEnvironment getRocketManager() {
+    protected GameEnvironment getGameEnvironment() {
         return gameEnvironment;
     }
 }
-
