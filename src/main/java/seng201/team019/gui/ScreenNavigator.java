@@ -40,6 +40,9 @@ public class ScreenNavigator {
         stage.show();
     }
 
+    // The following methods simply allow each screen to be launched with a single
+    // method call. This is a convenience for the main application class.
+
     /**
      * Launches the start screen.
      *
@@ -97,6 +100,16 @@ public class ScreenNavigator {
      */
     public void launchPlayingScreen(GameEnvironment gameEnvironment) {
         ScreenController controller = new PlayingScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
+     * Launches the end screen.
+     *
+     * @param gameEnvironment The manager used by the end screen controller
+     */
+    public void launchEndScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new EndScreenController(gameEnvironment);
         launchScreen(controller);
     }
 
