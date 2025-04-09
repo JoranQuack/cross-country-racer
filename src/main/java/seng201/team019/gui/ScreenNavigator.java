@@ -10,8 +10,10 @@ import seng201.team019.GameEnvironment;
 import java.io.IOException;
 
 /**
- * Class that handles navigation between various {@link ScreenController}s. This navigator
- * uses a {@link BorderPane} layout for the root pane. A launched screen is placed in the
+ * Class that handles navigation between various {@link ScreenController}s. This
+ * navigator
+ * uses a {@link BorderPane} layout for the root pane. A launched screen is
+ * placed in the
  * center area of the border pane, replacing the previous screen if any.
  *
  * @author seng201 teaching team
@@ -38,20 +40,82 @@ public class ScreenNavigator {
         stage.show();
     }
 
+    // The following methods simply allow each screen to be launched with a single
+    // method call. This is a convenience for the main application class.
+
+    /**
+     * Launches the start screen.
+     *
+     * @param gameEnvironment The manager used by the start screen controller
+     */
+    public void launchStartScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new StartScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
 
     /**
      * Launches the setup screen.
      *
-     * @param gameEnvironment The rocket manager used by the setup screen controller
+     * @param gameEnvironment The manager used by the setup screen controller
      */
-    public void launchMainScreen(GameEnvironment gameEnvironment) {
-        ScreenController controller = new MainScreenController(gameEnvironment);
+    public void launchSetupScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new SetupScreenController(gameEnvironment);
         launchScreen(controller);
     }
 
+    /**
+     * Launches the dashboard screen.
+     *
+     * @param gameEnvironment The manager used by the dashboard screen controller
+     */
+    public void launchDashboardScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new DashboardScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
 
     /**
-     * Replaces the root border pane's center component with the screen defined by the given
+     * Launches the garage screen.
+     *
+     * @param gameEnvironment The manager used by the garage screen controller
+     */
+    public void launchGarageScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new GarageScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
+     * Launches the shop screen.
+     * 
+     * @param gameEnvironment The manager used by the shop screen controller
+     */
+    public void launchShopScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new ShopScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
+     * Launches the playing screen.
+     *
+     * @param gameEnvironment The manager used by the playing screen controller
+     */
+    public void launchPlayingScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new PlayingScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
+     * Launches the end screen.
+     *
+     * @param gameEnvironment The manager used by the end screen controller
+     */
+    public void launchEndScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new EndScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
+     * Replaces the root border pane's center component with the screen defined by
+     * the given
      * {@link ScreenController}.
      *
      * @param controller The JavaFX screen controller for the screen to be launched
@@ -60,7 +124,8 @@ public class ScreenNavigator {
         try {
             FXMLLoader setupLoader = new FXMLLoader(getClass().getResource(controller.getFxmlFile()));
             // Set a controller factory that returns the given ScreenController.
-            // This allows us to have screen controllers that take argument(s) in their constructor.
+            // This allows us to have screen controllers that take argument(s) in their
+            // constructor.
             setupLoader.setControllerFactory(param -> controller);
             Parent setupParent = setupLoader.load();
             rootPane.setCenter(setupParent);

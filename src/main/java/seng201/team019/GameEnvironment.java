@@ -24,26 +24,30 @@ public class GameEnvironment {
 
     // TODO: add tuning parts
 
-
     public GameEnvironment(ScreenNavigator navigator) {
         this.navigator = navigator;
-        navigator.launchMainScreen(this);
+        navigator.launchStartScreen(this);
 
         this.bankBalance = 0.0;
         this.garage = new ArrayList<Car>();
         this.racesCompleted = 0;
 
-        // Todo: Add  random cars,opponents, parts, etc. This should be done here and possibly dependent on difficulty.
+        // TODO: Add random cars, opponents, parts, etc.
+        // This should be done here and possibly dependent on difficulty.
 
     }
 
-
-    // Todo: Write javadoc for all thes fucntions. Might not have to because they are just getters/setters.
+    // TODO: Write javadoc for all these functions.
+    // Might not have to because they are just getters/setters.
 
     public void completeGameEnvironmentSetup(Difficulty difficulty, int seasonLength, String name) {
         this.difficulty = difficulty;
         this.seasonLength = seasonLength;
         this.name = name;
+    }
+
+    public void launchSetupScreen() {
+        navigator.launchSetupScreen(this);
     }
 
     public String getName() {
