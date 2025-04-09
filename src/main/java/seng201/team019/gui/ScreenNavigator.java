@@ -91,6 +91,16 @@ public class ScreenNavigator {
     }
 
     /**
+     * Launches the playing screen.
+     *
+     * @param gameEnvironment The manager used by the playing screen controller
+     */
+    public void launchPlayingScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new PlayingScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
      * Replaces the root border pane's center component with the screen defined by
      * the given
      * {@link ScreenController}.
