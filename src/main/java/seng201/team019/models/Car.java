@@ -1,26 +1,27 @@
 package seng201.team019.models;
 
 public class Car {
-    private String name;
-    private double price;
-    private double speed;
-    private double handling;
-    private double reliability;
-    private double fuelConsumption;
-    private Upgrade[] upgrades;
+    private String name; // Name of the car
+    private int age; // Age in years
+    private double price; // Price of the car in NZD
+    private double speed; // Speed in km/h
+    private double handling; // Handling rating (0.0-1.0)
+    private double reliability; // Reliability rating (0.0-1.0)
+    private double fuelConsumption; // Fuel consumption in L/100km
+    private Upgrade[] upgrades; // Array of upgrades applied on the car
+    private boolean ownsCar; // Indicates if the player owns the car
 
-    private int year;
-
-    public Car(String name, String make, String model, int year, double price, double speed, double handling,
-            double acceleration, double fuelConsumption, double reliability) {
+    public Car(String name, int age, double price, double speed, double handling, double reliability,
+            double fuelConsumption) {
         this.name = name;
-        this.year = year;
+        this.age = age;
         this.price = price;
         this.speed = speed;
         this.handling = handling;
         this.reliability = reliability;
         this.fuelConsumption = fuelConsumption;
         this.upgrades = new Upgrade[0]; // Initialize with no upgrades
+        this.ownsCar = false; // Initialize with no ownership
     }
 
     // Getters and setters for the car attributes
@@ -32,12 +33,12 @@ public class Car {
         this.name = name;
     }
 
-    public int getYear() {
-        return year;
+    public int getAge() {
+        return age;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public double getPrice() {
@@ -86,5 +87,13 @@ public class Car {
 
     public void setUpgrades(Upgrade[] upgrades) {
         this.upgrades = upgrades;
+    }
+
+    public boolean isOwnsCar() {
+        return ownsCar;
+    }
+
+    public void setOwnsCar(boolean ownsCar) {
+        this.ownsCar = ownsCar;
     }
 }
