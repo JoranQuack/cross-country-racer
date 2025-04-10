@@ -17,6 +17,7 @@ public class GameEnvironment {
     private final ScreenNavigator navigator;
 
     private List<Car> garage = new ArrayList<Car>();
+    private List<Car> availableCars = new ArrayList<Car>();
     private Double bankBalance;
     private Difficulty difficulty;
     private int racesCompleted;
@@ -35,7 +36,7 @@ public class GameEnvironment {
         this.garage = new ArrayList<Car>();
         this.racesCompleted = 0;
 
-        initializeGarage();
+        initializeAvailableCars();
 
         // TODO: Add random opponents, parts, etc.
         // This should be done here and possibly dependent on difficulty.
@@ -59,7 +60,7 @@ public class GameEnvironment {
      * The CSV file should be in the format:
      * name,year,price,speed,handling,reliability,fuelConsumption
      */
-    public void initializeGarage() {
+    public void initializeAvailableCars() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/data/cars.csv"))) {
             String line;
             br.readLine(); // Skip the header line
@@ -69,7 +70,7 @@ public class GameEnvironment {
                 Car car = new Car(values[0], Integer.parseInt(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]),
                         Double.parseDouble(values[6]));
-                garage.add(car);
+                availableCars.add(car);
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
