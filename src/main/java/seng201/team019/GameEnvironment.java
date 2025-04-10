@@ -64,6 +64,8 @@ public class GameEnvironment {
         return garage.add(car);
     }
 
+    public ScreenNavigator getNavigator() {return navigator;}
+
     public void removeCar(Car car) {
         garage.remove(car);
     }
