@@ -1,5 +1,7 @@
 package seng201.team019.gui;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
 
 /**
@@ -9,11 +11,16 @@ import seng201.team019.GameEnvironment;
  */
 public class DashboardScreenController extends ScreenController {
 
+    // NOTE: Test to check setup is working
+    @FXML
+    private Label DashboardGameStateLabel;
+
     /**
      * Initialize the window
      */
     public void initialize() {
-        // TODO: Add any initialization code here
+        // NOTE: Test to check setup
+        DashboardGameStateLabel.setText(String.format("Name: %s, Difficulty: %s, BankBal: %.2f", getGameEnvironment().getName(), getGameEnvironment().getDifficulty(), getGameEnvironment().getBankBalance()));
     }
 
     public DashboardScreenController(GameEnvironment gameEnvironment) {

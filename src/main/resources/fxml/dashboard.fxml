@@ -17,5 +17,6 @@
   </rowConstraints>
    <children>
       <Label text="Dashboard" />
+       <Label fx:id="DashboardGameStateLabel" text="" GridPane.columnIndex="1" />
    </children>
 </GridPane>
