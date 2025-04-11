@@ -48,7 +48,7 @@ public class Race {
         }
     }
 
-    public void simulatRaceSegment() {
+    public void simulateRaceSegment() {
         if (racer == null ) {
             throw new IllegalStateException("Racer has not been set yet.");
         }
@@ -109,6 +109,16 @@ public class Race {
             return this;
         }
         public Race build() {
+            if (gameEnvironment == null) {
+                throw new IllegalStateException("GameEnvironment has not been set yet.");
+            }
+            if (routes.isEmpty()) {
+                throw new IllegalStateException("Race has no routes.");
+            }
+
+            if (prizeMoney == 0.0f) {
+                throw new IllegalStateException("PrizeMoney has not been set yet.");
+            }
             return new Race(this);
         }
     }
