@@ -2,6 +2,7 @@ package seng201.team019.models;
 
 public class Car {
     private String name; // Name of the car
+    private String model;
     private int age; // Age in years
     private double price; // Price of the car in NZD
     private double speed; // Speed in km/h
@@ -14,6 +15,7 @@ public class Car {
     public Car(String name, int age, double price, double speed, double handling, double reliability,
             double fuelConsumption, int range) {
         this.name = name;
+        this.model = name;
         this.age = age;
         this.price = price;
         this.speed = speed;
@@ -25,6 +27,10 @@ public class Car {
     }
 
     // Getters and setters for the car attributes
+    public String getModel() {
+        return model;
+    }
+
     public String getName() {
         return name;
     }
