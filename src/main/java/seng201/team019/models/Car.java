@@ -9,7 +9,6 @@ public class Car {
     private double reliability; // Reliability rating (0.0-1.0)
     private double fuelConsumption; // Fuel consumption in L/100km
     private Upgrade[] upgrades; // Array of upgrades applied on the car
-    private boolean ownsCar; // Indicates if the player owns the car
 
     public Car(String name, int age, double price, double speed, double handling, double reliability,
             double fuelConsumption) {
@@ -21,7 +20,6 @@ public class Car {
         this.reliability = reliability;
         this.fuelConsumption = fuelConsumption;
         this.upgrades = new Upgrade[0]; // Initialize with no upgrades
-        this.ownsCar = false; // Initialize with no ownership
     }
 
     // Getters and setters for the car attributes
@@ -87,13 +85,5 @@ public class Car {
 
     public void setUpgrades(Upgrade[] upgrades) {
         this.upgrades = upgrades;
-    }
-
-    public boolean isOwnsCar() {
-        return ownsCar;
-    }
-
-    public void setOwnsCar(boolean ownsCar) {
-        this.ownsCar = ownsCar;
     }
 }
