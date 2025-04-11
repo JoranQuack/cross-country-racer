@@ -72,37 +72,41 @@ public class GameEnvironment {
                         Double.parseDouble(values[6]));
                 availableCars.add(car);
             }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (NumberFormatException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean addCar(Car car) {
+        if (!(garage.size() > MAX_GARAGE_SIZE) && !(garage.contains(car)) && (availableCars.contains(car))) {
+            availableCars.remove(car);
+            garage.add(car);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void removeCar(Car car) {
+        garage.remove(car);
+        availableCars.add(car);
+    }
+
+    // Getters and Setters for the GameEnvironment class
+    public ScreenNavigator getNavigator() {
+        return navigator;
     }
 
     public String getName() {
         return name;
     }
 
-    public boolean addCar(Car car) {
-        if (garage.size() > MAX_GARAGE_SIZE) {
-            return false;
-        }
-        if (garage.contains(car)) {
-            return false;
-        }
-        return garage.add(car);
-    }
-
-    public ScreenNavigator getNavigator() {
-        return navigator;
-    }
-
-    public void removeCar(Car car) {
-        garage.remove(car);
-    }
-
     public List<Car> getGarage() {
         return garage;
+    }
+
+    public List<Car> getAvailableCars() {
+        return availableCars;
     }
 
     public Double getBankBalance() {
