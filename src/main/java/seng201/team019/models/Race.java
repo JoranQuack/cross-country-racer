@@ -10,16 +10,21 @@ public class Race {
 
     private final GameEnvironment gameEnvironment;
 
-    private List<Route> routes;
-    private float prizeMoney;
+    private final List<Route> routes;
+    private final float prizeMoney;
 
-    private int numOfOpponents;
+    private final int numOfOpponents;
     private List<Opponent> opponentCars;
 
     private Player racer;
 
-    public Race(GameEnvironment gameEnvironment) {
-        this.gameEnvironment = gameEnvironment;
+    public Race(Builder builder) {
+        this.gameEnvironment = builder.gameEnvironment;
+        this.routes = builder.routes;
+        this.prizeMoney = builder.prizeMoney;
+        this.numOfOpponents = builder.numOfOpponents;
+
+        setupRace();
     }
 
     public float getPrizeMoney() {
@@ -66,5 +71,46 @@ public class Race {
         this.racer = new Player(racerRoute, racerCar);
     }
 
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private GameEnvironment gameEnvironment;
+
+        private List<Route> routes;
+        private float prizeMoney;
+
+        private int numOfOpponents;
+
+        private Builder withGameEnvironment(GameEnvironment gameEnvironment) {
+            this.gameEnvironment = gameEnvironment;
+            return this;
+        }
+
+        public Builder prizeMoney(float prizeMoney) {
+            this.prizeMoney = prizeMoney;
+            return this;
+        }
+
+        public Builder numOfOpponents(int numOfOpponents) {
+            this.numOfOpponents = numOfOpponents;
+            return this;
+        }
+
+        public Builder addRoute(Route route) {
+            this.routes.add(route);
+            return this;
+        }
+
+        public Builder addRoutes(List<Route> routes) {
+            this.routes.addAll(routes);
+            return this;
+        }
+        public Race build() {
+            return new Race(this);
+        }
+    }
 
 }
