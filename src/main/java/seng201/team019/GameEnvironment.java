@@ -30,7 +30,7 @@ public class GameEnvironment {
 
     public GameEnvironment(ScreenNavigator navigator) {
         this.navigator = navigator;
-        navigator.launchStartScreen(this);
+        navigator.launchShopScreen(this);
 
         this.bankBalance = 0.0;
         this.garage = new ArrayList<Car>();
@@ -59,6 +59,7 @@ public class GameEnvironment {
      * Initializes the available cars from a CSV file.
      * The CSV file should be in the format:
      * name,year,price,speed,handling,reliability,fuelConsumption
+     * There must be exactly 5 cars (6 rows inc. header) in the CSV file.
      */
     public void initializeAvailableCars() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/data/cars.csv"))) {
