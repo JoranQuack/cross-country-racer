@@ -7,17 +7,19 @@ public class Car {
     private double speed; // Speed in km/h
     private double handling; // Handling rating (0.0-1.0)
     private double reliability; // Reliability rating (0.0-1.0)
+    private int range; // Range in km
     private double fuelConsumption; // Fuel consumption in L/100km
     private Upgrade[] upgrades; // Array of upgrades applied on the car
 
     public Car(String name, int age, double price, double speed, double handling, double reliability,
-            double fuelConsumption) {
+            double fuelConsumption, int range) {
         this.name = name;
         this.age = age;
         this.price = price;
         this.speed = speed;
         this.handling = handling;
         this.reliability = reliability;
+        this.range = range;
         this.fuelConsumption = fuelConsumption;
         this.upgrades = new Upgrade[0]; // Initialize with no upgrades
     }
@@ -69,6 +71,14 @@ public class Car {
 
     public void setReliability(double reliability) {
         this.reliability = reliability;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
     }
 
     public double getFuelConsumption() {

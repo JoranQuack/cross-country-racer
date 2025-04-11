@@ -69,7 +69,7 @@ public class GameEnvironment {
                 String[] values = line.split(",");
                 Car car = new Car(values[0], Integer.parseInt(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]),
-                        Double.parseDouble(values[6]));
+                        Double.parseDouble(values[6]), Integer.parseInt(values[7]));
                 availableCars.add(car);
             }
         } catch (NumberFormatException | IOException e) {
