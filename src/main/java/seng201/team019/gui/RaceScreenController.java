@@ -55,6 +55,8 @@ public class RaceScreenController extends ScreenController {
         });
 
         RaceRefuelButton.setOnAction(event -> {
+            race.simulateRefuel();
+            renderRace();
             raceStep();
         });
         RaceDontRefuelButton.setOnAction(event -> {

@@ -9,6 +9,8 @@ import java.util.Random;
 
 public class Race {
 
+    public final static long REFUEL_DURATION = Duration.ofMinutes(2).toMillis();
+
     private final GameEnvironment gameEnvironment;
 
     private final List<Route> routes;
@@ -62,6 +64,15 @@ public class Race {
         for (Opponent opponent : opponentCars) {
             double distanceTraveled = opponent.getRoute().simulateDriveByTime(opponent.getCar(),time);
             opponent.updateRaceStats(distanceTraveled, time);
+        }
+    }
+    
+    public void simulateRefuel(){
+        player.updateRaceStats(0,REFUEL_DURATION);
+
+        for (Opponent opponent : opponentCars) {
+            double distanceTraveled = opponent.getRoute().simulateDriveByTime(opponent.getCar(),REFUEL_DURATION);
+            opponent.updateRaceStats(distanceTraveled, REFUEL_DURATION);
         }
     }
 
