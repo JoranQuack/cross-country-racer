@@ -4,7 +4,8 @@ public interface Racer {
     public Route getRoute();
     public Car getCar();
     public double getDistance() ;
-    public void setDistance(double distance);
     public long getTime();
-    public void setTime(long time);
+    public void updateRaceStats(double distance, long time);
+    public void setIsFinished(boolean isFinished);
+    public boolean isFinished();
 }

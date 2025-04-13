@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import seng201.team019.GameEnvironment;
+import seng201.team019.models.Race;
 
 import java.io.IOException;
 
@@ -94,14 +95,37 @@ public class ScreenNavigator {
     }
 
     /**
-     * Launches the playing screen.
+     * Launches the Race Selection screen.
      *
      * @param gameEnvironment The manager used by the playing screen controller
      */
-    public void launchPlayingScreen(GameEnvironment gameEnvironment) {
-        ScreenController controller = new PlayingScreenController(gameEnvironment);
+    public void launchRaceSelectionScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new RaceSelectionScreenController(gameEnvironment);
         launchScreen(controller);
     }
+
+    /**
+     * Launches the Race Setup screen.
+     *
+     * @param gameEnvironment The manager used by the playing screen controller
+     */
+    public void launchRaceSetupScreen(GameEnvironment gameEnvironment,Race selectedRace) {
+        ScreenController controller = new RaceSetupScreenController(gameEnvironment,selectedRace);
+        launchScreen(controller);
+    }
+
+    /**
+     * Launches the Race Setup screen.
+     *
+     * @param gameEnvironment The manager used by the playing screen controller
+     */
+    public void lauchRaceScreen(GameEnvironment gameEnvironment,Race selectedRace) {
+        ScreenController controller = new RaceScreenController(gameEnvironment,selectedRace);
+        launchScreen(controller);
+    }
+
+
+
 
     /**
      * Launches the end screen.

@@ -23,6 +23,13 @@ public class DashboardScreenController extends ScreenController {
         DashboardGameStateLabel.setText(String.format("Name: %s, Difficulty: %s, BankBal: %.2f", getGameEnvironment().getName(), getGameEnvironment().getDifficulty(), getGameEnvironment().getBankBalance()));
     }
 
+
+    @FXML
+    public void onPlayClicked() {
+        getGameEnvironment().getNavigator().launchRaceSelectionScreen(getGameEnvironment());
+    }
+
+
     public DashboardScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }

@@ -2,6 +2,7 @@ package seng201.team019.models;
 
 import seng201.team019.GameEnvironment;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,7 +17,7 @@ public class Race {
     private final int numOfOpponents;
     private List<Opponent> opponentCars;
 
-    private Player racer;
+    private Player player;
 
     public Race(Builder builder) {
         this.gameEnvironment = builder.gameEnvironment;
@@ -49,26 +50,37 @@ public class Race {
     }
 
     public void simulateRaceSegment() {
-        if (racer == null ) {
+        if (player == null ) {
             throw new IllegalStateException("Racer has not been set yet.");
         }
 
-        double distanceToStop = racer.getDistance();
+        double distanceToStop = player.getRoute().getDistanceBetweenFuelStops();
 
-        long time = racer.getRoute().simulateDriveByDistance(racer.getCar(),distanceToStop);
-        racer.setDistance(racer.getDistance()+distanceToStop);
-        racer.setTime(racer.getTime()+time);
+        long time = player.getRoute().simulateDriveByDistance(player.getCar(),distanceToStop);
+        player.updateRaceStats(distanceToStop, time);
 
         for (Opponent opponent : opponentCars) {
             double distanceTraveled = opponent.getRoute().simulateDriveByTime(opponent.getCar(),time);
-            opponent.setDistance(opponent.getDistance() + distanceTraveled);
-            opponent.setTime(opponent.getTime() + time);
+            opponent.updateRaceStats(distanceTraveled, time);
         }
     }
 
-    //simulate turn then call it one after another
-    public void setRacerRoute(Route racerRoute, Car racerCar) {
-        this.racer = new Player(racerRoute, racerCar);
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public List<Racer> getRacers() {
+        List<Racer> racers = new ArrayList<>(opponentCars);
+        racers.add(player);
+        return racers;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
     }
 
 
@@ -79,12 +91,12 @@ public class Race {
     public static class Builder {
         private GameEnvironment gameEnvironment;
 
-        private List<Route> routes;
+        private List<Route> routes = new ArrayList<>();
         private float prizeMoney;
 
         private int numOfOpponents;
 
-        private Builder withGameEnvironment(GameEnvironment gameEnvironment) {
+        public Builder withGameEnvironment(GameEnvironment gameEnvironment) {
             this.gameEnvironment = gameEnvironment;
             return this;
         }
@@ -100,7 +112,7 @@ public class Race {
         }
 
         public Builder addRoute(Route route) {
-            this.routes.add(route);
+            routes.add(route);
             return this;
         }
 
