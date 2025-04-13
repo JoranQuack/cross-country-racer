@@ -56,10 +56,13 @@ public class Race {
             throw new IllegalStateException("Racer has not been set yet.");
         }
 
+        //updates the players distance and time
         double distanceToStop = player.getRoute().getDistanceBetweenFuelStops();
-
         long time = player.getRoute().simulateDriveByDistance(player.getCar(),distanceToStop);
+
         player.updateRaceStats(distanceToStop, time);
+        //updates the players fuel
+        player.setFuelAmount(player.getFuelAmount() - player.getCar().getFuelConsumption()*distanceToStop/100);
 
         for (Opponent opponent : opponentCars) {
             double distanceTraveled = opponent.getRoute().simulateDriveByTime(opponent.getCar(),time);
@@ -69,6 +72,7 @@ public class Race {
     
     public void simulateRefuel(){
         player.updateRaceStats(0,REFUEL_DURATION);
+        player.setFuelAmount(player.getCar().getFuelCapacity());
 
         for (Opponent opponent : opponentCars) {
             double distanceTraveled = opponent.getRoute().simulateDriveByTime(opponent.getCar(),REFUEL_DURATION);

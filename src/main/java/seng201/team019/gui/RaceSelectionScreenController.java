@@ -23,7 +23,7 @@ public class RaceSelectionScreenController extends ScreenController {
     private void onPlayRaceClicked(){
         //TODO : add logic to get race based on what one is clicked. For now will just make my own race object here but in future will be defined in GameEnvironment.
 
-        Route route = new Route("Straight line",100,1,0,10);
+        Route route = new Route("Straight line",300,1,0,10);
         Race race = Race.builder()
                 .withGameEnvironment(getGameEnvironment())
                 .numOfOpponents(3)

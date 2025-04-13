@@ -6,12 +6,14 @@ public class Player implements Racer {
     private Double distance;
     private long time;
     private boolean isFinished;
+    private double fuelAmount;
 
     public Player(Route route, Car car) {
         this.route = route;
         this.car = car;
         distance = 0d;
         isFinished = false;
+        fuelAmount = car.getFuelCapacity();
     }
 
     public Route getRoute() {
@@ -37,6 +39,18 @@ public class Player implements Racer {
 
     public long getTime() {
         return time;
+    }
+
+    public double getFuelAmount() {
+        return fuelAmount;
+    }
+
+    public void setFuelAmount(double fuelAmount) {
+        this.fuelAmount = fuelAmount;
+    }
+
+    public boolean isOutOfFuel(){
+        return fuelAmount <= 0;
     }
 
     /**

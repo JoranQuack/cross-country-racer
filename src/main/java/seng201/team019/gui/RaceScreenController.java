@@ -24,7 +24,7 @@ public class RaceScreenController extends ScreenController {
     private final Race race;
 
     @FXML
-    private Label RacePlayerRouteLabel, RacePlayerCarLabel, RacePlayerDistanceLabel, RacePlayerTimeLabel, RacestatsLabel;
+    private Label RacePlayerRouteLabel, RacePlayerCarLabel, RacePlayerDistanceLabel, RacePlayerTimeLabel, RacestatsLabel,RacePlayerFuelLabel;
 
 
     @FXML
@@ -93,6 +93,7 @@ public class RaceScreenController extends ScreenController {
         //update players stats
         RacePlayerDistanceLabel.setText(String.format("%skm(%.2f%%)", race.getPlayer().getDistance(), race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance()) * 100));
         RacePlayerTimeLabel.setText(formatTime(race.getPlayer().getTime()));
+        RacePlayerFuelLabel.setText(String.format("%s%%",race.getPlayer().getFuelAmount()/race.getPlayer().getCar().getFuelCapacity()*100));
 
         if (race.getPlayer().isFinished()) {
             RaceRefuelButton.setDisable(true);

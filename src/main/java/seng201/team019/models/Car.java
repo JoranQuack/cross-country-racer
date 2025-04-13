@@ -10,6 +10,7 @@ public class Car {
     private double fuelConsumption; // Fuel consumption in L/100km
     private Upgrade[] upgrades; // Array of upgrades applied on the car
     private boolean ownsCar; // Indicates if the player owns the car
+    private final double fuelCapacity; //gives the fuel capacity in L;
 
     public Car(String name, int age, double price, double speed, double handling, double reliability,
             double fuelConsumption) {
@@ -22,6 +23,7 @@ public class Car {
         this.fuelConsumption = fuelConsumption;
         this.upgrades = new Upgrade[0]; // Initialize with no upgrades
         this.ownsCar = false; // Initialize with no ownership
+        this.fuelCapacity = 40; //TODO: this should probably be in the csv
     }
 
     // Getters and setters for the car attributes
@@ -44,6 +46,7 @@ public class Car {
     public double getPrice() {
         return price;
     }
+
 
     public void setPrice(double price) {
         this.price = price;
@@ -96,4 +99,12 @@ public class Car {
     public void setOwnsCar(boolean ownsCar) {
         this.ownsCar = ownsCar;
     }
+
+    public double getFuelCapacity() {
+        return fuelCapacity;
+    }
+    public void setFuelCapacity(double fuelCapacity) {
+
+    }
 }
+
