@@ -1,29 +1,32 @@
 package seng201.team019.models;
 
 public class Opponent implements Racer {
-    private final int id;
+    private final String name;
     private final Route route;
     private final Car car;
     private Double distance;
     private long time;
     private boolean isFinished;
 
-    public Opponent(int id, Route route, Car car) {
-        this.id = id;
+    public Opponent(String name, Route route, Car car) {
+        this.name = name;
         this.route = route;
         this.car = car;
         distance = 0d;
         isFinished = false;
     }
 
+
+    public String getName() {
+        return name;
+    }
+
     public Route getRoute() {
         return route;
     }
-    public Car getCar(){
+
+    public Car getCar() {
         return car;
-    }
-    public int getId() {
-        return id;
     }
 
     public double getDistance() {
@@ -47,17 +50,18 @@ public class Opponent implements Racer {
 
     /**
      * Updates the distance and time
+     *
      * @param distance the distance to be increased
-     * @param time the time to be increased
+     * @param time     the time to be increased
      */
     public void updateRaceStats(double distance, long time) {
         if (this.isFinished) return;
-        else if (this.distance+distance>=route.getDistance()) {
-            double diff = route.getDistance()-this.distance;
-            this.distance +=diff;
-            this.time +=(long) (time*(diff/distance));
+        else if (this.distance + distance >= route.getDistance()) {
+            double diff = route.getDistance() - this.distance;
+            this.distance += diff;
+            this.time += (long) (time * (diff / distance));
             isFinished = true;
-        }else {
+        } else {
             this.distance += distance;
             this.time += time;
         }

@@ -39,7 +39,7 @@ public class RaceSetupScreenController extends ScreenController {
     @FXML
     private void onStartClicked(){
         //this should be set
-        Player player =  new Player(selectedRace.getRoutes().getFirst(),getGameEnvironment().getAvailableCars().getFirst());
+        Player player =  new Player(getGameEnvironment().getName(),selectedRace.getRoutes().getFirst(),getGameEnvironment().getAvailableCars().getFirst());
         selectedRace.setPlayer(player);
         getGameEnvironment().getNavigator().lauchRaceScreen(getGameEnvironment(), selectedRace);
     }

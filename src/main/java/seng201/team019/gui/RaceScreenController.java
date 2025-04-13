@@ -93,7 +93,7 @@ public class RaceScreenController extends ScreenController {
         //update players stats
         RacePlayerDistanceLabel.setText(String.format("%skm(%.2f%%)", race.getPlayer().getDistance(), race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance()) * 100));
         RacePlayerTimeLabel.setText(formatTime(race.getPlayer().getTime()));
-        RacePlayerFuelLabel.setText(String.format("%s%%",race.getPlayer().getFuelAmount()/race.getPlayer().getCar().getFuelCapacity()*100));
+        RacePlayerFuelLabel.setText(String.format("%.2f%%",race.getPlayer().getFuelAmount()/race.getPlayer().getCar().getFuelCapacity()*100));
 
         if (race.getPlayer().isFinished()) {
             RaceRefuelButton.setDisable(true);
@@ -117,7 +117,7 @@ public class RaceScreenController extends ScreenController {
 
         for (int i = 0; i < racers.size(); i++) {
             Racer racer = racers.get(i);
-            stats += String.format("%d.%s \n %.2f%% - %s\n", i + 1, racer.getCar().getName(), racer.getRoute().normalizeDistance(racer.getDistance()) * 100, formatTime(racer.getTime()));
+            stats += String.format("%d.%s(%s) \n %.2f%% - %s\n", i + 1,racer.getName(), racer.getCar().getName(), racer.getRoute().normalizeDistance(racer.getDistance()) * 100, formatTime(racer.getTime()));
         }
 
         RacestatsLabel.setText(stats);

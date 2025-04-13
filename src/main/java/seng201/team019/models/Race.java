@@ -1,6 +1,7 @@
 package seng201.team019.models;
 
 import seng201.team019.GameEnvironment;
+import seng201.team019.services.RandomNameGeneratorService;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -39,14 +40,17 @@ public class Race {
     }
 
     public void setupRace() {
+        // generate a random List of cars
         Random rand = new Random();
+        RandomNameGeneratorService randName = new RandomNameGeneratorService();
         List<Car> availableCars = gameEnvironment.getAvailableCars();
         opponentCars = new ArrayList<>();
 
         for (int i = 0; i < numOfOpponents; i++) {
             Car randCar = availableCars.get(rand.nextInt(availableCars.size()));
+            String name = randName.generateName();
             Route randRoute = routes.get(rand.nextInt(routes.size()));
-            Opponent opponent = new Opponent(i, randRoute, randCar);
+            Opponent opponent = new Opponent(name, randRoute, randCar);
             opponentCars.add(opponent);
         }
     }

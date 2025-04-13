@@ -8,4 +8,5 @@ public interface Racer {
     public void updateRaceStats(double distance, long time);
     public void setIsFinished(boolean isFinished);
     public boolean isFinished();
+    public String getName();
 }

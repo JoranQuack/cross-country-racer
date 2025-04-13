@@ -1,6 +1,7 @@
 package seng201.team019.models;
 
 public class Player implements Racer {
+    private final String name;
     private final Route route;
     private final Car car;
     private Double distance;
@@ -8,12 +9,17 @@ public class Player implements Racer {
     private boolean isFinished;
     private double fuelAmount;
 
-    public Player(Route route, Car car) {
+    public Player(String name ,Route route, Car car) {
+        this.name = name;
         this.route = route;
         this.car = car;
         distance = 0d;
         isFinished = false;
         fuelAmount = car.getFuelCapacity();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Route getRoute() {
