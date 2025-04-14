@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class RandomNameGeneratorService {
     private static final List<String> ANIMALS = List.of("Cat", "Dog", "Kiwi", "Monkey");
-    private static final List<String> PREFIXES = List.of("Speedy", "Check", "Quick", "Annoying");
+    private static final List<String> PREFIXES = List.of("Speedy", "Cheeky", "Quick", "Annoying");
     private final Random rand = new Random();
 
     public String generateName() {

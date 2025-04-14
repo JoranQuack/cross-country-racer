@@ -24,7 +24,7 @@ public class RaceScreenController extends ScreenController {
     private final Race race;
 
     @FXML
-    private Label RacePlayerRouteLabel, RacePlayerCarLabel, RacePlayerDistanceLabel, RacePlayerTimeLabel, RacestatsLabel,RacePlayerFuelLabel;
+    private Label RacePlayerDistanceLabel, RacePlayerTimeLabel, RacestatsLabel,RacePlayerFuelLabel;
 
 
     @FXML
@@ -36,14 +36,8 @@ public class RaceScreenController extends ScreenController {
     public void initialize() {
         // initialize gui
         Player player = race.getPlayer();
-        RacePlayerCarLabel.setText(String.format("%s", player.getCar().getName()));
-        RacePlayerRouteLabel.setText(String.format("Description: %s, Stops: %s, Distance: %skm",
-                player.getRoute().getDescription(),
-                player.getRoute().getFuelStopCount(),
-                player.getRoute().getDistance()
-        ));
-        renderRaceLeaderboard();
 
+        renderRaceLeaderboard();
 
         //add action to buttons
         RaceStartButton.setOnAction(event -> {
@@ -91,7 +85,7 @@ public class RaceScreenController extends ScreenController {
      */
     public void renderRace() {
         //update players stats
-        RacePlayerDistanceLabel.setText(String.format("%skm(%.2f%%)", race.getPlayer().getDistance(), race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance()) * 100));
+        RacePlayerDistanceLabel.setText(String.format("%.2fkm(%.2f%%)", race.getPlayer().getDistance(), race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance()) * 100));
         RacePlayerTimeLabel.setText(formatTime(race.getPlayer().getTime()));
         RacePlayerFuelLabel.setText(String.format("%.2f%%",race.getPlayer().getFuelAmount()/race.getPlayer().getCar().getFuelCapacity()*100));
 
@@ -100,7 +94,6 @@ public class RaceScreenController extends ScreenController {
             RaceDontRefuelButton.setDisable(true);
             RaceFinishButton.setDisable(false);
         }
-
 
         // TODO: Implement better ui for racers
 
