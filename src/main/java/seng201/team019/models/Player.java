@@ -1,5 +1,9 @@
 package seng201.team019.models;
 
+import java.util.List;
+
+import static java.util.Collections.max;
+
 public class Player implements Racer {
     private final String name;
     private final Route route;
@@ -7,6 +11,7 @@ public class Player implements Racer {
     private Double distance;
     private long time;
     private boolean isFinished;
+    private boolean didDNF;
     private double fuelAmount;
 
     public Player(String name ,Route route, Car car) {
@@ -15,6 +20,7 @@ public class Player implements Racer {
         this.car = car;
         distance = 0d;
         isFinished = false;
+        didDNF = false;
         fuelAmount = car.getFuelCapacity();
     }
 
@@ -26,6 +32,11 @@ public class Player implements Racer {
         return route;
     }
 
+    public Car getCar() {
+        return car;
+    }
+
+
     public void setIsFinished(boolean isFinished) {
         this.isFinished = isFinished;
     }
@@ -34,9 +45,6 @@ public class Player implements Racer {
         return isFinished;
     }
 
-    public Car getCar() {
-        return car;
-    }
 
     public double getDistance() {
         return distance;
@@ -52,11 +60,19 @@ public class Player implements Racer {
     }
 
     public void setFuelAmount(double fuelAmount) {
-        this.fuelAmount = fuelAmount;
+        this.fuelAmount = max(List.of(fuelAmount,0d));
     }
 
     public boolean isOutOfFuel(){
         return fuelAmount <= 0;
+    }
+
+    public void setDidDNF(boolean didDNF) {
+        this.didDNF = didDNF;
+    }
+
+    public boolean didDNF() {
+        return didDNF;
     }
 
     /**
@@ -66,15 +82,24 @@ public class Player implements Racer {
      * @param time     the time to be increased
      */
     public void updateRaceStats(double distance, long time) {
-        if (this.isFinished) return;
+        //player is no longer racing return.
+        if (this.isFinished || this.didDNF);
+        //player runs out of fuel
+        else if (this.getFuelAmount()-this.getCar().getFuelConsumption()*distance/100 <=0) {
+            this.setDidDNF(true);
+            this.setIsFinished(true);
+        }
+        //player makes it and overshoots and need to subtract the difference
         else if (this.distance+distance>=route.getDistance()) {
             double diff = route.getDistance()-this.distance;
             this.distance +=diff;
             this.time +=(long) (time*(diff/distance));
             isFinished = true;
-        }else {
+        } else {
             this.distance += distance;
             this.time += time;
         }
+        // Updates the players fuel
+        this.setFuelAmount(getFuelAmount() - getCar().getFuelConsumption() * distance / 100);
     }
 }

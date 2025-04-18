@@ -7,6 +7,7 @@ public class Opponent implements Racer {
     private Double distance;
     private long time;
     private boolean isFinished;
+    private boolean didDNF;
 
     public Opponent(String name, Route route, Car car) {
         this.name = name;
@@ -14,6 +15,7 @@ public class Opponent implements Racer {
         this.car = car;
         distance = 0d;
         isFinished = false;
+        didDNF = false;
     }
 
 
@@ -45,6 +47,14 @@ public class Opponent implements Racer {
 
     public boolean isFinished() {
         return isFinished;
+    }
+
+    public void setDidDNF(boolean didDNF) {
+        this.didDNF = didDNF;
+    }
+
+    public boolean didDNF() {
+        return didDNF;
     }
 
 

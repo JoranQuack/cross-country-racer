@@ -9,4 +9,6 @@ public interface Racer {
     public void setIsFinished(boolean isFinished);
     public boolean isFinished();
     public String getName();
+    public boolean didDNF();
+    public void setDidDNF(boolean didDNF);
 }

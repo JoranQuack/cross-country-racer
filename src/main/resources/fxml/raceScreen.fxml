@@ -46,10 +46,11 @@
                         <Label fx:id="RacePlayerFuelLabel" text="100%" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <Button fx:id="RaceStartButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Start" />
-                  <Button fx:id="RaceRefuelButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Refule" />
-                  <Button fx:id="RaceDontRefuelButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Dont refuel" />
-                  <Button fx:id="RaceFinishButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Finish" />
+                  <Button fx:id="RaceStartButton" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" prefHeight="50.0" text="Start" VBox.vgrow="NEVER" />
+                  <Button fx:id="RaceRefuelButton" disable="true" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" prefHeight="50.0" text="Refule" VBox.vgrow="NEVER" />
+                  <Button fx:id="RaceDontRefuelButton" disable="true" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" prefHeight="50.0" text="Dont refuel" VBox.vgrow="NEVER" />
+                  <Button fx:id="RaceSimulateRemainingButton" disable="true" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" prefHeight="50.0" text="Simulate Remaining" VBox.vgrow="NEVER" />
+                  <Button fx:id="RaceFinishButton" disable="true" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" prefHeight="50.0" text="Finish" VBox.vgrow="NEVER" />
                </children>
                <GridPane.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

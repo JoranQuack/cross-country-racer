@@ -16,10 +16,9 @@ public class Race {
 
     private final List<Route> routes;
     private final float prizeMoney;
-
+    private final long duration;
     private final int numOfOpponents;
     private List<Opponent> opponentCars;
-
     private Player player;
 
     public Race(Builder builder) {
@@ -27,6 +26,7 @@ public class Race {
         this.routes = builder.routes;
         this.prizeMoney = builder.prizeMoney;
         this.numOfOpponents = builder.numOfOpponents;
+        this.duration = builder.duration;
 
         setupRace();
     }
@@ -56,32 +56,63 @@ public class Race {
     }
 
     public void simulateRaceSegment() {
-        if (player == null ) {
+        if (player == null) {
             throw new IllegalStateException("Racer has not been set yet.");
         }
 
-        //updates the players distance and time
+        //get distance traveled and time passed by players
         double distanceToStop = player.getRoute().getDistanceBetweenFuelStops();
-        long time = player.getRoute().simulateDriveByDistance(player.getCar(),distanceToStop);
+        long time = player.getRoute().simulateDriveByDistance(player.getCar(), distanceToStop);
 
         player.updateRaceStats(distanceToStop, time);
-        //updates the players fuel
-        player.setFuelAmount(player.getFuelAmount() - player.getCar().getFuelConsumption()*distanceToStop/100);
 
-        for (Opponent opponent : opponentCars) {
-            double distanceTraveled = opponent.getRoute().simulateDriveByTime(opponent.getCar(),time);
+        // Update opponent stats
+        updateRacersStats(opponentCars, time);
+
+        SetDNFOfDurationExceedingRacers();
+    }
+
+    public void simulateRemaining() {
+        List<Opponent> remainingOpponents = opponentCars.stream().filter((opponent -> !opponent.isFinished())).toList();
+        for (Opponent opponent : remainingOpponents) {
+            double distanceTraveled = opponent.getRoute().getDistance() - opponent.getDistance();
+            long time = opponent.getRoute().simulateDriveByDistance(opponent.getCar(), distanceTraveled);
             opponent.updateRaceStats(distanceTraveled, time);
         }
+        SetDNFOfDurationExceedingRacers();
     }
-    
-    public void simulateRefuel(){
-        player.updateRaceStats(0,REFUEL_DURATION);
-        player.setFuelAmount(player.getCar().getFuelCapacity());
 
-        for (Opponent opponent : opponentCars) {
-            double distanceTraveled = opponent.getRoute().simulateDriveByTime(opponent.getCar(),REFUEL_DURATION);
-            opponent.updateRaceStats(distanceTraveled, REFUEL_DURATION);
+    public void simulateRefuel() {
+
+        player.setFuelAmount(player.getCar().getFuelCapacity());
+        player.updateRaceStats(0, REFUEL_DURATION);
+
+        // Updates opponents car starts
+        updateRacersStats(opponentCars, REFUEL_DURATION);
+
+        SetDNFOfDurationExceedingRacers();
+    }
+
+
+    public void updateRacersStats(List<? extends Racer> racers, long time) {
+        for (Racer racer : racers) {
+            double distanceTraveled = racer.getRoute().simulateDriveByTime(racer.getCar(), time);
+            racer.updateRaceStats(distanceTraveled, time);
         }
+    }
+
+    public void SetDNFOfDurationExceedingRacers() {
+        for (Racer racer : getRacers()) {
+            if (racer.getTime() <= this.duration) continue;
+            racer.setDidDNF(true);
+        }
+    }
+
+    public boolean isRaceFinished() {
+        if (getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished)) {
+            return true;
+        }
+        return false;
     }
 
     public void setPlayer(Player player) {
@@ -112,6 +143,7 @@ public class Race {
 
         private List<Route> routes = new ArrayList<>();
         private float prizeMoney;
+        private long duration;
 
         private int numOfOpponents;
 
@@ -130,6 +162,11 @@ public class Race {
             return this;
         }
 
+        public Builder duration(long time) {
+            this.duration = time;
+            return this;
+        }
+
         public Builder addRoute(Route route) {
             routes.add(route);
             return this;
@@ -139,6 +176,7 @@ public class Race {
             this.routes.addAll(routes);
             return this;
         }
+
         public Race build() {
             if (gameEnvironment == null) {
                 throw new IllegalStateException("GameEnvironment has not been set yet.");
@@ -149,6 +187,9 @@ public class Race {
 
             if (prizeMoney == 0.0f) {
                 throw new IllegalStateException("PrizeMoney has not been set yet.");
+            }
+            if (duration == 0) {
+                throw new IllegalStateException("Duration has not been set yet.");
             }
             return new Race(this);
         }
