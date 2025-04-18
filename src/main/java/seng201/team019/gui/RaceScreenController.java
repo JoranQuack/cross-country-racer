@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
+import seng201.team019.services.DateFormaterService;
 
 import java.time.Duration;
 import java.util.Comparator;
@@ -79,9 +80,11 @@ public class RaceScreenController extends ScreenController {
      * Renders the race.
      */
     public void renderRace() {
+        DateFormaterService dateFormater = new DateFormaterService();
+
         // Changes in Race button
         if (race.isRaceFinished()) {
-            System.out.println("Race finished");
+
             RaceRefuelButton.setDisable(true);
             RaceDontRefuelButton.setDisable(true);
             RaceSimulateRemainingButton.setDisable(true);
@@ -103,7 +106,7 @@ public class RaceScreenController extends ScreenController {
             RacePlayerFuelLabel.setText("DNF");
         } else {
             RacePlayerDistanceLabel.setText(String.format("%.2fkm(%.2f%%)", race.getPlayer().getDistance(), race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance()) * 100));
-            RacePlayerTimeLabel.setText(formatTime(race.getPlayer().getTime()));
+            RacePlayerTimeLabel.setText(dateFormater.formatTime(race.getPlayer().getTime()));
             RacePlayerFuelLabel.setText(String.format("%.2f%%", race.getPlayer().getFuelAmount() / race.getPlayer().getCar().getFuelCapacity() * 100));
         }
 
@@ -116,7 +119,9 @@ public class RaceScreenController extends ScreenController {
 
     //this is temporary and is just used to render all racers
     private void renderRaceLeaderboard() {
+        DateFormaterService dateFormater = new DateFormaterService();
         StringBuilder stats = new StringBuilder();
+
         Comparator<Racer> filterByDistance = Comparator.comparing(
                         (Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())
                 ).reversed()
@@ -125,7 +130,7 @@ public class RaceScreenController extends ScreenController {
         // print Leaderboard positions
         int pos = 0;
         for (Racer racer : race.getRacers().stream().filter(racer -> !racer.didDNF()).sorted(filterByDistance).toList()) {
-            stats.append(String.format("%s.%s(%s) \n %.2f%% - %s\n", ++pos, racer.getName(), racer.getCar().getName(), racer.getRoute().normalizeDistance(racer.getDistance()) * 100, formatTime(racer.getTime())));
+            stats.append(String.format("%s.%s(%s) \n %.2f%% - %s\n", ++pos, racer.getName(), racer.getCar().getName(), racer.getRoute().normalizeDistance(racer.getDistance()) * 100, dateFormater.formatTime(racer.getTime())));
         }
 
         //print dnf
@@ -136,20 +141,6 @@ public class RaceScreenController extends ScreenController {
         RacestatsLabel.setText(stats.toString());
 
     }
-
-
-    //TODO: possibly add this to a race service
-    /**
-     * Returns nice string of a time in milliseconds
-     *
-     * @param time is the time in milliseconds
-     * @return formatted string
-     */
-    public String formatTime(long time) {
-        Duration duration = Duration.ofMillis(time);
-        return String.format("%02d:%02d:%02d.%03d%n", duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart(), duration.toMillisPart());
-    }
-
 
     @Override
     protected String getFxmlFile() {
