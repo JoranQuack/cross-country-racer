@@ -5,8 +5,8 @@ import seng201.team019.models.Car;
 import seng201.team019.models.Difficulty;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +29,6 @@ public class GameEnvironment {
     // TODO: add tuning parts
 
     public GameEnvironment(ScreenNavigator navigator) {
-        this.navigator = navigator;
-        navigator.launchShopScreen(this);
 
         this.bankBalance = 0.0;
         this.garage = new ArrayList<Car>();
@@ -40,10 +38,11 @@ public class GameEnvironment {
 
         // TODO: Add random opponents, parts, etc.
         // This should be done here and possibly dependent on difficulty.
-    }
 
-    // TODO: Write javadoc for all these functions.
-    // Might not have to because they are just getters/setters.
+        this.navigator = navigator;
+        // navigator.launchStartScreen(this);
+        navigator.launchShopScreen(this); // TESTING ONLY
+    }
 
     public void completeGameEnvironmentSetup(Difficulty difficulty, int seasonLength, String name) {
         this.difficulty = difficulty;
@@ -62,7 +61,8 @@ public class GameEnvironment {
      * There must be exactly 5 cars (6 rows inc. header) in the CSV file.
      */
     public void initializeAvailableCars() {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/data/cars.csv"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                getClass().getResourceAsStream("/data/cars.csv")))) {
             String line;
             br.readLine(); // Skip the header line
             // read each line and create a Car object
@@ -73,8 +73,10 @@ public class GameEnvironment {
                         Double.parseDouble(values[6]), Integer.parseInt(values[7]));
                 availableCars.add(car);
             }
-        } catch (NumberFormatException | IOException e) {
+            System.out.println("Loaded " + availableCars.size() + " cars from CSV");
+        } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Failed to load cars from CSV file");
         }
     }
 
