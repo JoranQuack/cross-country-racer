@@ -1,5 +1,7 @@
 package seng201.team019.models;
 
+import javafx.scene.image.Image;
+
 public class Car {
     private String name; // Name of the car
     private String model;
@@ -10,12 +12,12 @@ public class Car {
     private double reliability; // Reliability rating (0.0-1.0)
     private int range; // Range in km
     private double fuelConsumption; // Fuel consumption in L/100km
+    private String imagePath; // Path to the car image (always a PNG file with same name as the car)
     private Upgrade[] upgrades; // Array of upgrades applied on the car
 
     public Car(String name, int age, double price, double speed, double handling, double reliability,
             double fuelConsumption, int range) {
         this.name = name;
-        this.model = name;
         this.age = age;
         this.price = price;
         this.speed = speed;
@@ -23,7 +25,10 @@ public class Car {
         this.reliability = reliability;
         this.range = range;
         this.fuelConsumption = fuelConsumption;
-        this.upgrades = new Upgrade[0]; // Initialize with no upgrades
+
+        model = name; // Initialize model with the same value as name
+        imagePath = "images/" + name + ".png"; // Initialize image path based on name
+        upgrades = new Upgrade[0]; // Initialize with no upgrades
     }
 
     // Getters and setters for the car attributes
@@ -93,6 +98,10 @@ public class Car {
 
     public void setFuelConsumption(double fuelConsumption) {
         this.fuelConsumption = fuelConsumption;
+    }
+
+    public Image getImage() {
+        return new Image(getClass().getResourceAsStream("/" + imagePath));
     }
 
     public Upgrade[] getUpgrades() {

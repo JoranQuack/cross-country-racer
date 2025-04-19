@@ -197,6 +197,7 @@ public class ShopScreenController extends ScreenController {
 
             Car car = cars.get(i);
 
+            ImageView carImage = (ImageView) getClass().getDeclaredField("car" + i + "Image").get(this);
             Label carNameLabel = (Label) getClass().getDeclaredField("car" + i + "NameLabel").get(this);
             Label carRangeLabel = (Label) getClass().getDeclaredField("car" + i + "RangeLabel").get(this);
             Label carSpeedLabel = (Label) getClass().getDeclaredField("car" + i + "SpeedLabel").get(this);
@@ -206,6 +207,7 @@ public class ShopScreenController extends ScreenController {
                     .getDeclaredField("car" + i + "ReliabilityProgressBar").get(this);
             Label carPriceLabel = (Label) getClass().getDeclaredField("car" + i + "PriceLabel").get(this);
 
+            carImage.setImage(car.getImage());
             carNameLabel.setText(car.getName());
             carRangeLabel.setText(String.valueOf(car.getRange()));
             carSpeedLabel.setText(String.valueOf(String.format("%.0f", car.getSpeed())));
