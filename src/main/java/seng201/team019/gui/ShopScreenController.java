@@ -196,7 +196,6 @@ public class ShopScreenController extends ScreenController {
             }
 
             Car car = cars.get(i);
-            System.out.println("Setting up car " + i + ": " + car.getName());
 
             Label carNameLabel = (Label) getClass().getDeclaredField("car" + i + "NameLabel").get(this);
             Label carRangeLabel = (Label) getClass().getDeclaredField("car" + i + "RangeLabel").get(this);

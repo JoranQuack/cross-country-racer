@@ -73,7 +73,6 @@ public class GameEnvironment {
                         Double.parseDouble(values[6]), Integer.parseInt(values[7]));
                 availableCars.add(car);
             }
-            System.out.println("Loaded " + availableCars.size() + " cars from CSV");
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Failed to load cars from CSV file");
