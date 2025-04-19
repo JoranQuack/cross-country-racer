@@ -18,6 +18,10 @@ targetCompatibility = "${javaVersion}"
 
 repositories {
     mavenCentral()
+    // Add Gluon repository
+    maven {
+        url 'https://nexus.gluonhq.com/nexus/content/repositories/releases/'
+    }
 }
 
 dependencies {
@@ -32,6 +36,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+
+    // https://mvnrepository.com/artifact/com.gluonhq/charm-glisten
+    implementation("com.gluonhq:charm-glisten:6.2.3")
 
 }
 
