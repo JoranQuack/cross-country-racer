@@ -12,6 +12,6 @@ public class DateFormaterService {
      */
     public String formatTime(long time) {
         Duration duration = Duration.ofMillis(time);
-        return String.format("%02d:%02d:%02d.%03d%n", duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart(), duration.toMillisPart());
+        return String.format("%02d:%02d:%02d.%03d", duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart(), duration.toMillisPart());
     }
 }

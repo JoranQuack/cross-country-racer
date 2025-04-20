@@ -107,7 +107,7 @@ public class RaceScreenController extends ScreenController {
         } else {
             RacePlayerDistanceLabel.setText(String.format("%.2fkm(%.2f%%)", race.getPlayer().getDistance(), race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance()) * 100));
             RacePlayerTimeLabel.setText(dateFormater.formatTime(race.getPlayer().getTime()));
-            RacePlayerFuelLabel.setText(String.format("%.2f%%", race.getPlayer().getFuelAmount() / race.getPlayer().getCar().getFuelCapacity() * 100));
+            RacePlayerFuelLabel.setText(String.format("%.2f%%", race.getPlayer().getNormalizedAmount() * 100));
         }
 
         // TODO: Implement better ui for racers leaderboard

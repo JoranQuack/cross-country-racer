@@ -65,7 +65,7 @@ public class Opponent implements Racer {
      * @param time     the time to be increased
      */
     public void updateRaceStats(double distance, long time) {
-        if (this.isFinished) return;
+        if (this.isFinished || this.didDNF) return;
         else if (this.distance + distance >= route.getDistance()) {
             double diff = route.getDistance() - this.distance;
             this.distance += diff;
