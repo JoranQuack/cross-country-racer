@@ -5,6 +5,7 @@ import seng201.team019.services.RandomNameGeneratorService;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -113,6 +114,15 @@ public class Race {
             return true;
         }
         return false;
+    }
+
+    public int getPlayerFinishedPosition() {
+        Comparator<Racer> filterByDistance = Comparator.comparing(
+                        (Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())
+                ).reversed()
+                .thenComparing(Racer::getTime);
+
+        return 1+getRacers().stream().filter((racer -> !racer.didDNF())).sorted(filterByDistance).toList().indexOf(player);
     }
 
     public void setPlayer(Player player) {

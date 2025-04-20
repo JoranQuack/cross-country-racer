@@ -124,6 +124,11 @@ public class ScreenNavigator {
         launchScreen(controller);
     }
 
+    public void launchRaceFinishScreen(GameEnvironment gameEnvironment,Race selectedRace) {
+        ScreenController controller = new RaceFinishScreenController(gameEnvironment,selectedRace);
+        launchScreen(controller);
+    }
+
 
 
 

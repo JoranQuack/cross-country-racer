@@ -66,7 +66,7 @@ public class RaceScreenController extends ScreenController {
         });
 
         RaceFinishButton.setOnAction(event -> {
-            getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+            getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(),race);
         });
     }
 
