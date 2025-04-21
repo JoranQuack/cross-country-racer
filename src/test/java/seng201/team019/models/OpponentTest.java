@@ -1,27 +1,31 @@
 package seng201.team019.models;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
+
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 public class OpponentTest {
 
     private Opponent opponent;
-    private static Route route;
-    private static Car car;
 
-    @BeforeAll
-    public static void init() {
-        route = new Route("Route", 100, 0.5, 0.5, 10);
-        car = new Car("CarName", 0, 100, 100, 1, 1, 10);
-    }
+    @Mock
+    private Route route;
+
+    @Mock
+    private Car car;
 
     @BeforeEach
     public void setUp() {
         opponent = new Opponent("Name", route, car);
     }
-
 
     @Test
     public void updateRaceStatsTestPlayerHasDNF() {
@@ -45,9 +49,10 @@ public class OpponentTest {
 
     @Test
     public void updateRaceStatsTestOvershootDistance() {
+        when(route.getDistance()).thenReturn(100d);
+
         double distance = route.getDistance() + 10;
         long time = route.simulateDriveByDistance(car, distance);
-
         long actualTime = (long) (time * (route.getDistance() / distance));
 
         opponent.updateRaceStats(distance, time);
@@ -58,12 +63,12 @@ public class OpponentTest {
         Assertions.assertFalse(opponent.didDNF());
     }
 
-
-
     @Test
     public void updateRaceStatsTest() {
+        when(route.getDistance()).thenReturn(100d);
+
         double distance = 50;
-        long time = route.simulateDriveByDistance(car, distance);
+        long time = Duration.ofHours(1).toMillis();
 
         opponent.updateRaceStats(distance, time);
 
@@ -71,6 +76,5 @@ public class OpponentTest {
         Assertions.assertEquals(time, opponent.getTime());
         Assertions.assertFalse(opponent.didDNF());
         Assertions.assertFalse(opponent.isFinished());
-
     }
 }

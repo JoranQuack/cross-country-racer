@@ -1,30 +1,39 @@
 package seng201.team019.models;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
+
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 public class PlayerTest {
 
     private Player player;
-    private static Route route;
-    private static Car car;
 
-    @BeforeAll
-    public static void init() {
-        route = new Route("Route", 100, 0.5, 0.5, 10);
-        car = new Car("CarName", 0, 100, 100, 1, 1, 10);
-    }
+    @Mock
+    private static Route route;
+
+    @Mock
+    private static Car car;
 
     @BeforeEach
     public void setUp() {
         player = new Player("Name", route, car);
+        player.setFuelAmount(40);
     }
 
     @Test
     public void setFuelAmountTestIsLessThanZero() {
+        when(car.getFuelCapacity()).thenReturn(40d);
+
         player.setFuelAmount(-1);
+
         Assertions.assertEquals(0, player.getFuelAmount());
         Assertions.assertEquals(0, player.getNormalizedAmount());
     }
@@ -52,9 +61,11 @@ public class PlayerTest {
 
     @Test
     public void updateRaceStatsTestOvershootDistance() {
-        double distance = route.getDistance() + 10;
-        long time = route.simulateDriveByDistance(car, distance);
+        when(car.getFuelConsumption()).thenReturn(10d);
+        when(route.getDistance()).thenReturn(100d);
 
+        double distance = route.getDistance() + 10;
+        long time = Duration.ofHours(1).toMillis();
         long actualTime = (long) (time * (route.getDistance() / distance));
 
         player.updateRaceStats(distance, time);
@@ -68,8 +79,11 @@ public class PlayerTest {
 
     @Test
     public void updateRaceStatsTestRunsOutOfFuel() {
+        when(car.getFuelConsumption()).thenReturn(10d);
+        when(route.getDistance()).thenReturn(100d);
+
         double distance = route.getDistance() + 10;
-        long time = route.simulateDriveByDistance(car, distance);
+        long time = Duration.ofHours(1).toMillis();
 
         player.setFuelAmount(10);
         player.updateRaceStats(distance, time);
@@ -80,8 +94,11 @@ public class PlayerTest {
 
     @Test
     public void updateRaceStatsTestRunsOutOfFuelAndOvershootDistance() {
+        when(car.getFuelConsumption()).thenReturn(10d);
+        when(route.getDistance()).thenReturn(100d);
+
         double distance = route.getDistance() + 10;
-        long time = route.simulateDriveByDistance(car, distance);
+        long time = Duration.ofHours(1).toMillis();
 
         player.setFuelAmount(10);
         player.updateRaceStats(distance, time);
@@ -92,17 +109,19 @@ public class PlayerTest {
 
     @Test
     public void updateRaceStatsTest() {
-        double distance = 50;
-        long time = route.simulateDriveByDistance(car, distance);
-        double expectedFuelLevel = player.getFuelAmount()-car.getFuelConsumption()*distance/100;
+        when(car.getFuelConsumption()).thenReturn(10d);
+        when(route.getDistance()).thenReturn(100d);
+
+        double distance = 50d;
+        long time = Duration.ofHours(1).toMillis();
+        double expectedFuelLevel = player.getFuelAmount() - car.getFuelConsumption() * distance / 100;
 
         player.updateRaceStats(distance, time);
 
         Assertions.assertEquals(distance, player.getDistance());
         Assertions.assertEquals(time, player.getTime());
+        Assertions.assertEquals(expectedFuelLevel, player.getFuelAmount());
         Assertions.assertFalse(player.didDNF());
         Assertions.assertFalse(player.isFinished());
-        Assertions.assertEquals(player.getFuelAmount(), expectedFuelLevel);
-
     }
 }
