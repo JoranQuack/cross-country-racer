@@ -40,8 +40,8 @@ public class GameEnvironment {
         // This should be done here and possibly dependent on difficulty.
 
         this.navigator = navigator;
-        // navigator.launchStartScreen(this);
-        navigator.launchShopScreen(this); // TESTING ONLY
+        navigator.launchStartScreen(this);
+        // navigator.launchShopScreen(this); // TESTING ONLY
     }
 
     public void completeGameEnvironmentSetup(Difficulty difficulty, int seasonLength, String name) {
