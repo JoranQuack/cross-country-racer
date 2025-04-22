@@ -1,0 +1,11 @@
+Name,AgeYears,PriceNZD,TopSpeed_kmh,Handling_0to1,Reliability_0to1,FuelConsumption_L100km
+Toyota Hilux SR5,2,68000,175,0.5,0.9,8.5
+Ford Ranger Wildtrak,1,82000,180,0.55,0.75,9.0
+Toyota RAV4 Hybrid GX,3,51000,180,0.65,0.95,4.8
+Suzuki Swift GL,5,15000,170,0.7,0.85,5.1
+Mazda CX-5 GSX,3,55000,200,0.75,0.9,7.4
+Tesla Model 3 RWD,2,74000,225,0.8,0.7,0.0
+Kia Stonic LX,4,19000,175,0.6,0.8,6.0
+Mitsubishi Outlander PHEV LS,3,69000,170,0.6,0.8,1.9
+Subaru WRX,2,66000,240,0.85,0.7,9.9
+Honda Jazz Life,6,17000,180,0.65,0.9,5.8

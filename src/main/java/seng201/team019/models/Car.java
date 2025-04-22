@@ -1,4 +1,110 @@
 package seng201.team019.models;
 
 public class Car {
+    private String name; // Name of the car
+    private int age; // Age in years
+    private double price; // Price of the car in NZD
+    private double speed; // Speed in km/h
+    private double handling; // Handling rating (0.0-1.0)
+    private double reliability; // Reliability rating (0.0-1.0)
+    private double fuelConsumption; // Fuel consumption in L/100km
+    private Upgrade[] upgrades; // Array of upgrades applied on the car
+    private boolean ownsCar; // Indicates if the player owns the car
+    private final double fuelCapacity; //gives the fuel capacity in L;
+
+    public Car(String name, int age, double price, double speed, double handling, double reliability,
+            double fuelConsumption) {
+        this.name = name;
+        this.age = age;
+        this.price = price;
+        this.speed = speed;
+        this.handling = handling;
+        this.reliability = reliability;
+        this.fuelConsumption = fuelConsumption;
+        this.upgrades = new Upgrade[0]; // Initialize with no upgrades
+        this.ownsCar = false; // Initialize with no ownership
+        this.fuelCapacity = 40; //TODO: this should probably be in the csv
+    }
+
+    // Getters and setters for the car attributes
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public double getHandling() {
+        return handling;
+    }
+
+    public void setHandling(double handling) {
+        this.handling = handling;
+    }
+
+    public double getReliability() {
+        return reliability;
+    }
+
+    public void setReliability(double reliability) {
+        this.reliability = reliability;
+    }
+
+    public double getFuelConsumption() {
+        return fuelConsumption;
+    }
+
+    public void setFuelConsumption(double fuelConsumption) {
+        this.fuelConsumption = fuelConsumption;
+    }
+
+    public Upgrade[] getUpgrades() {
+        return upgrades;
+    }
+
+    public void setUpgrades(Upgrade[] upgrades) {
+        this.upgrades = upgrades;
+    }
+
+    public boolean isOwnsCar() {
+        return ownsCar;
+    }
+
+    public void setOwnsCar(boolean ownsCar) {
+        this.ownsCar = ownsCar;
+    }
+
+    public double getFuelCapacity() {
+        return fuelCapacity;
+    }
+    public void setFuelCapacity(double fuelCapacity) {
+
+    }
 }
+
