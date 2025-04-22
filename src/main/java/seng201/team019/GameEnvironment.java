@@ -107,10 +107,6 @@ public class GameEnvironment {
         return garage;
     }
 
-    public List<Car> getAvailableCars() {
-        return availableCars;
-    }
-
     public Double getBankBalance() {
         return bankBalance;
     }
