@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Button?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team019.gui.DashboardScreenController">
   <columnConstraints>
@@ -18,5 +19,6 @@
    <children>
       <Label text="Dashboard" />
        <Label fx:id="DashboardGameStateLabel" text="" GridPane.columnIndex="1" />
+       <Button layoutX="274.0" layoutY="159.0" onAction="#onPlayClicked" text="Play" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    </children>
 </GridPane>

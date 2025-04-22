@@ -40,6 +40,15 @@ dependencies {
     // https://mvnrepository.com/artifact/com.gluonhq/charm-glisten
     implementation("com.gluonhq:charm-glisten:6.2.3")
 
+    // help was found here https://www.baeldung.com/mockito-junit-5-extension for version and just got same version for mockito-junit-jupiter.
+
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation 'org.mockito:mockito-core:5.11.0'
+
+    // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.11.0'
+
+
 }
 
 application {
@@ -49,7 +58,7 @@ application {
 
 javafx {
     version = "${javafxVersion}"
-    modules = [ 'javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 test {
@@ -67,7 +76,7 @@ jar {
         attributes 'Main-Class': mainClassName
     }
     from {
-        configurations.runtimeClasspath.collect {it.isDirectory()?it:zipTree(it)}
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 

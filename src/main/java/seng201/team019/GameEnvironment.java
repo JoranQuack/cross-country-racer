@@ -134,4 +134,8 @@ public class GameEnvironment {
     public Difficulty getDifficulty() {
         return difficulty;
     }
+
+    public List<Car> getAvailableCars() {
+        return availableCars;
+    }
 }

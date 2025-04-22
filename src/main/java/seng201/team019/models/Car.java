@@ -14,6 +14,8 @@ public class Car {
     private double fuelConsumption; // Fuel consumption in L/100km
     private String imagePath; // Path to the car image (always a PNG file with same name as the car)
     private Upgrade[] upgrades; // Array of upgrades applied on the car
+    private boolean ownsCar; // Indicates if the player owns the car
+    private final double fuelCapacity; // gives the fuel capacity in L;
 
     public Car(String name, int age, double price, double speed, double handling, double reliability,
             double fuelConsumption, int range) {
@@ -29,6 +31,9 @@ public class Car {
         model = name; // Initialize model with the same value as name
         imagePath = "images/" + name + ".png"; // Initialize image path based on name
         upgrades = new Upgrade[0]; // Initialize with no upgrades
+        this.upgrades = new Upgrade[0]; // Initialize with no upgrades
+        this.ownsCar = false; // Initialize with no ownership
+        this.fuelCapacity = 40; // TODO: calculate the fuel capacity based on the car model
     }
 
     // Getters and setters for the car attributes
@@ -110,5 +115,21 @@ public class Car {
 
     public void setUpgrades(Upgrade[] upgrades) {
         this.upgrades = upgrades;
+    }
+
+    public boolean isOwnsCar() {
+        return ownsCar;
+    }
+
+    public void setOwnsCar(boolean ownsCar) {
+        this.ownsCar = ownsCar;
+    }
+
+    public double getFuelCapacity() {
+        return fuelCapacity;
+    }
+
+    public void setFuelCapacity(double fuelCapacity) {
+
     }
 }
