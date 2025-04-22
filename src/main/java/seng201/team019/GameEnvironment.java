@@ -5,8 +5,8 @@ import seng201.team019.models.Car;
 import seng201.team019.models.Difficulty;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +29,6 @@ public class GameEnvironment {
     // TODO: add tuning parts
 
     public GameEnvironment(ScreenNavigator navigator) {
-        this.navigator = navigator;
-        navigator.launchStartScreen(this);
 
         this.bankBalance = 0.0;
         this.garage = new ArrayList<Car>();
@@ -40,10 +38,11 @@ public class GameEnvironment {
 
         // TODO: Add random opponents, parts, etc.
         // This should be done here and possibly dependent on difficulty.
-    }
 
-    // TODO: Write javadoc for all these functions.
-    // Might not have to because they are just getters/setters.
+        this.navigator = navigator;
+        // navigator.launchStartScreen(this);
+        navigator.launchShopScreen(this); // TESTING ONLY
+    }
 
     public void completeGameEnvironmentSetup(Difficulty difficulty, int seasonLength, String name) {
         this.difficulty = difficulty;
@@ -59,9 +58,11 @@ public class GameEnvironment {
      * Initializes the available cars from a CSV file.
      * The CSV file should be in the format:
      * name,year,price,speed,handling,reliability,fuelConsumption
+     * There must be exactly 5 cars (6 rows inc. header) in the CSV file.
      */
     public void initializeAvailableCars() {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/data/cars.csv"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                getClass().getResourceAsStream("/data/cars.csv")))) {
             String line;
             br.readLine(); // Skip the header line
             // read each line and create a Car object
@@ -69,40 +70,45 @@ public class GameEnvironment {
                 String[] values = line.split(",");
                 Car car = new Car(values[0], Integer.parseInt(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]),
-                        Double.parseDouble(values[6]));
+                        Double.parseDouble(values[6]), Integer.parseInt(values[7]));
                 availableCars.add(car);
             }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Failed to load cars from CSV file");
         }
+    }
+
+    public boolean addCar(Car car) {
+        if (!(garage.size() > MAX_GARAGE_SIZE) && !(garage.contains(car)) && (availableCars.contains(car))) {
+            availableCars.remove(car);
+            garage.add(car);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void removeCar(Car car) {
+        garage.remove(car);
+        availableCars.add(car);
+    }
+
+    // Getters and Setters for the GameEnvironment class
+    public ScreenNavigator getNavigator() {
+        return navigator;
     }
 
     public String getName() {
         return name;
     }
 
-    public boolean addCar(Car car) {
-        if (garage.size() > MAX_GARAGE_SIZE) {
-            return false;
-        }
-        if (garage.contains(car)) {
-            return false;
-        }
-        return garage.add(car);
-    }
-
-    public ScreenNavigator getNavigator() {
-        return navigator;
-    }
-
-    public void removeCar(Car car) {
-        garage.remove(car);
-    }
-
     public List<Car> getGarage() {
         return garage;
+    }
+
+    public List<Car> getAvailableCars() {
+        return availableCars;
     }
 
     public Double getBankBalance() {
