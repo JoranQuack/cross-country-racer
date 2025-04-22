@@ -1,5 +1,6 @@
 package seng201.team019.gui;
 
+import java.time.Year;
 import java.util.List;
 
 import com.gluonhq.charm.glisten.control.ProgressBar;
@@ -208,7 +209,7 @@ public class ShopScreenController extends ScreenController {
             Label carPriceLabel = (Label) getClass().getDeclaredField("car" + i + "PriceLabel").get(this);
 
             carImage.setImage(car.getImage());
-            carNameLabel.setText(car.getName());
+            carNameLabel.setText(String.format("%s %s", car.getModel(), (Year.now().getValue() - car.getAge())));
             carRangeLabel.setText(String.valueOf(car.getRange()));
             carSpeedLabel.setText(String.valueOf(String.format("%.0f", car.getSpeed())));
             carHandlingProgressBar.setProgress(car.getHandling());
