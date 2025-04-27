@@ -1,0 +1,20 @@
+{
+  "prizeMoney": 100,
+  "numOfOpponents": 3,
+  "routes": [
+    {
+      "description": "Route 1",
+      "distance": 100,
+      "straightness": 1,
+      "gradeVariation": 1,
+      "fuelStops":1
+    },
+    {
+      "description": "Route 2",
+      "distance": 100,
+      "straightness": 1,
+      "gradeVariation": 1,
+      "fuelStops":1
+    }
+  ]
+}
