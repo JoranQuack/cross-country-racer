@@ -1,11 +1,11 @@
 package seng201.team019.models;
 
-import java.time.Duration;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.concurrent.TimeUnit;
 
 public class Route {
-
-    //General Properties (See project Spec)
     private final String description;
 
     //All distances in Kilometers always double type. Time in Milliseconds always long type.
@@ -18,8 +18,12 @@ public class Route {
     //TODO: This assumes they are evenly spaced. May not be in future.
     private final int fuelStops;
 
-    //TODO: this is long and messy maybe think about another way to do this.
-    public Route(String description, double distance, double straightness, double gradeVariation,int fuelStops) {
+    @JsonCreator
+    public Route(@JsonProperty("description") String description,
+                 @JsonProperty("distance") double distance,
+                 @JsonProperty("straightness") double straightness,
+                 @JsonProperty("gradeVariation") double gradeVariation,
+                 @JsonProperty("fuelStops") int fuelStops) {
         // TODO: add validation for params
         this.description = description;
         this.distance = distance;
@@ -41,12 +45,11 @@ public class Route {
     }
 
     /**
-     *
      * @param car car object that is driving
      * @return the average speed that the car drives on the WHOLE route;
      */
     public double computeAverageSpeed(Car car) {
-        return car.getSpeed()*this.straightness*(1-this.gradeVariation);
+        return car.getSpeed() * this.straightness * (1 - this.gradeVariation);
     }
 
     /**
@@ -54,37 +57,36 @@ public class Route {
      * @return float between 0 and 1 that is
      */
     public float normalizeDistance(double distance) {
-        return (float) (distance/this.distance);
+        return (float) (distance / this.distance);
     }
 
     /**
-     *
      * @return distance between each fuel stop.
      */
     public double getDistanceBetweenFuelStops() {
-        return distance/(double) fuelStops;
+        return distance / (double) fuelStops;
     }
 
 
     /**
-     * @param car the car that will be driving.
+     * @param car      the car that will be driving.
      * @param distance the distance to be traveled.
      * @return time used up to travel distance on route in MILLISECONDS!
      */
-    public long simulateDriveByDistance(Car car,double distance) {
+    public long simulateDriveByDistance(Car car, double distance) {
         double velocity = computeAverageSpeed(car);
-        return (long) (distance/velocity*TimeUnit.HOURS.toMillis(1));
+        return (long) (distance / velocity * TimeUnit.HOURS.toMillis(1));
     }
 
     /**
-     * @param car the car that will be driving.
+     * @param car  the car that will be driving.
      * @param time the time to pass in MILLISECONDS.
      * @return Distance traveled by the car in time.
      */
-    public double simulateDriveByTime(Car car,long time) {
+    public double simulateDriveByTime(Car car, long time) {
         double velocity = computeAverageSpeed(car);
         double timeInHours = time / (double) TimeUnit.HOURS.toMillis(1);
-        return velocity*timeInHours;
+        return velocity * timeInHours;
     }
 
 }
