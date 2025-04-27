@@ -85,18 +85,16 @@ public class GameEnvironment {
         JsonRaceDeserializer jsonRaceDeserializer = new JsonRaceDeserializer(this);
 
         //TODO: Look into making this not hard coded looked into it but ran into problems when running as jar because of paths
-        String[] raceFiles = {
+        String[] raceFileNames = {
                 "/data/races/race1.json",
                 "/data/races/race2.json"
         };
 
-        for (String raceFile : raceFiles) {
-            try (InputStream is = getClass().getResourceAsStream(raceFile)) {
-                if (is == null) {
-                    throw new IOException("Resource not found: " + raceFile);
-                }
-                races.add(jsonRaceDeserializer.readJsonRaceString(is));
-            } catch (IOException | NullPointerException e) {
+        for (String raceFileName : raceFileNames) {
+            try {
+                InputStream is = jsonRaceDeserializer.readJsonRaceFile(raceFileName);
+                races.add(jsonRaceDeserializer.readRaceFromInputStream(is));
+            } catch (IOException|NullPointerException e) {
                 e.printStackTrace();
             }
         }
