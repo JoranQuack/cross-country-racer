@@ -22,4 +22,12 @@ public class JsonRaceDeserializer {
         raceBuilder.withGameEnvironment(gameEnvironment);
         return raceBuilder.build();
     }
+
+    public Race readJsonRaceFile(String jsonFileName) throws IOException, NullPointerException{
+        InputStream is = getClass().getResourceAsStream(jsonFileName);
+        if (is == null) {
+            throw new IOException("Resource not found: " + jsonFileName);
+        }
+        return readJsonRaceString(is);
+    }
 }
