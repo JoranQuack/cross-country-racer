@@ -11,22 +11,31 @@ import seng201.team019.GameEnvironment;
  */
 public class DashboardScreenController extends ScreenController {
 
-    // NOTE: Test to check setup is working
     @FXML
-    private Label DashboardGameStateLabel;
+    private Label DashboardBankBalLabel, DashboardRacesCompletedLabel;
 
     /**
      * Initialize the window
      */
     public void initialize() {
-        // NOTE: Test to check setup
-        DashboardGameStateLabel.setText(String.format("Name: %s, Difficulty: %s, BankBal: %.2f", getGameEnvironment().getName(), getGameEnvironment().getDifficulty(), getGameEnvironment().getBankBalance()));
+        DashboardBankBalLabel.setText(String.format("$%.2f",getGameEnvironment().getBankBalance()));
+        DashboardRacesCompletedLabel.setText(String.format("%d",getGameEnvironment().getRacesCompleted()));
     }
 
 
     @FXML
-    public void onPlayClicked() {
+    private void DashboardRaceAction() {
         getGameEnvironment().getNavigator().launchRaceSelectionScreen(getGameEnvironment());
+    }
+
+    @FXML
+    private void DashboardGarageAction() {
+        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
+    }
+
+    @FXML
+    private void DashboardShopAction() {
+        getGameEnvironment().getNavigator().launchShopScreen(getGameEnvironment());
     }
 
 
