@@ -3,10 +3,10 @@ package seng201.team019;
 import seng201.team019.gui.ScreenNavigator;
 import seng201.team019.models.Car;
 import seng201.team019.models.Difficulty;
+import seng201.team019.models.Race;
+import seng201.team019.services.JsonRaceDeserializer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +18,7 @@ public class GameEnvironment {
 
     private List<Car> garage = new ArrayList<Car>();
     private List<Car> availableCars = new ArrayList<Car>();
+    private List<Race> races = new ArrayList<Race>();
     private Double bankBalance;
     private Difficulty difficulty;
     private int racesCompleted;
@@ -35,6 +36,7 @@ public class GameEnvironment {
         this.racesCompleted = 0;
 
         initializeAvailableCars();
+        initializeRaces();
 
         // TODO: Add random opponents, parts, etc.
         // This should be done here and possibly dependent on difficulty.
@@ -76,6 +78,25 @@ public class GameEnvironment {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Failed to load cars from CSV file");
+        }
+    }
+
+    public void initializeRaces() {
+        JsonRaceDeserializer jsonRaceDeserializer = new JsonRaceDeserializer(this);
+
+        //TODO: Look into making this not hard coded looked into it but ran into problems when running as jar because of paths
+        String[] raceFileNames = {
+                "/data/races/race1.json",
+                "/data/races/race2.json"
+        };
+
+        for (String raceFileName : raceFileNames) {
+            try {
+                InputStream is = jsonRaceDeserializer.readJsonRaceFile(raceFileName);
+                races.add(jsonRaceDeserializer.readRaceFromInputStream(is));
+            } catch (IOException|NullPointerException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -133,5 +154,9 @@ public class GameEnvironment {
 
     public List<Car> getAvailableCars() {
         return availableCars;
+    }
+
+    public List<Race> getRaces() {
+        return races;
     }
 }

@@ -1,5 +1,6 @@
 package seng201.team019.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import seng201.team019.GameEnvironment;
 import seng201.team019.services.RandomNameGeneratorService;
 
@@ -151,10 +152,13 @@ public class Race {
     public static class Builder {
         private GameEnvironment gameEnvironment;
 
+        @JsonProperty("routes")
         private List<Route> routes = new ArrayList<>();
+        @JsonProperty("prizeMoney")
         private float prizeMoney;
+        @JsonProperty("duration")
         private long duration;
-
+        @JsonProperty("numOfOpponents")
         private int numOfOpponents;
 
         public Builder withGameEnvironment(GameEnvironment gameEnvironment) {
@@ -182,7 +186,7 @@ public class Race {
             return this;
         }
 
-        public Builder addRoutes(List<Route> routes) {
+        public Builder Routes(List<Route> routes) {
             this.routes.addAll(routes);
             return this;
         }
