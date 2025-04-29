@@ -1,34 +1,83 @@
 package seng201.team019.gui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
-import seng201.team019.models.Route;
 
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 public class RaceSelectionScreenController extends ScreenController {
+
+
+
+    @FXML
+    VBox raceListView;
+
+
 
     /**
      * Initialize the window
      */
     public void initialize() {
-        // TODO: Add any initialization code here
+
+        for (Race race : getGameEnvironment().getRaces()) {
+
+            if (race == null) {
+                continue;
+            }
+
+            Pane racePane = makeRaceListElement(race);
+            Separator separator = new Separator();
+
+            raceListView.getChildren().addAll(racePane,separator);
+        }
     }
+
+
 
     public RaceSelectionScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
+    private Pane makeRaceListElement(Race race) {
+        Pane hBox = new HBox();
+        hBox.setPadding(new Insets(4));
+
+
+        VBox vBox = new VBox(8);
+        Label nameLabel = new Label("Race Name");
+
+
+        nameLabel.setFont(new Font(20));
+
+        vBox.getChildren().addAll(
+                nameLabel,
+                new Label(String.format("Opponents: %s",race.getNumOfOpponents())),
+                new Label(String.format("prize money: $%.2f", race.getPrizeMoney())),
+                new Label(String.format("Number of routes: %s", race.getRoutes().size()))
+
+        );
+
+        hBox.getChildren().addAll(
+                vBox
+        );
+
+        hBox.setOnMouseClicked(e -> {
+            getGameEnvironment().getNavigator().launchRaceSetupScreen(getGameEnvironment(), race);
+        });
+
+        return hBox;
+    }
 
     @FXML
-    private void onPlayRaceClicked(){
-        //TODO : add logic to get race based on what one is clicked. For now will just make my own race object here but in future will be defined in GameEnvironment.
-
-        Race race = getGameEnvironment().getRaces().get(1);
-
-        getGameEnvironment().getNavigator().launchRaceSetupScreen(getGameEnvironment(),race);
+    private void raceSelectionBackOnAction(){
+        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 
 
