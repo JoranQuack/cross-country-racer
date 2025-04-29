@@ -34,9 +34,9 @@
         </ButtonBar>
         <SplitPane dividerPositions="0.65" prefWidth="200.0">
           <items>
-            <ScrollPane>
+            <ScrollPane hbarPolicy="NEVER" prefViewportHeight="335.0">
               <content>
-                <VBox alignment="TOP_CENTER" prefWidth="372.0" spacing="10.0">
+                <VBox alignment="TOP_CENTER" prefWidth="362.0" spacing="10.0">
                   <children>
                     <GridPane fx:id="car0Grid" alignment="TOP_CENTER" style="-fx-background-color: e7f3f5; -fx-background-radius: 10;">
                       <columnConstraints>
@@ -54,7 +54,7 @@
                         <HBox alignment="CENTER" GridPane.rowIndex="1">
                           <children>
                             <Label fx:id="car0NameLabel" text="car0 name" />
-                            <Label text="" />
+                            <Label text=" (active)" />
                           </children>
                         </HBox>
                         <Button fx:id="car0CustomiseButton" mnemonicParsing="false" text="Customise" GridPane.columnIndex="1" GridPane.rowSpan="2" />
@@ -260,7 +260,7 @@
                     <HBox alignment="CENTER_RIGHT">
                       <children>
                         <Label fx:id="numUpgradesLabel" text="[numUpgrades]" />
-                        <Label text="" />
+                        <Label text=" Upgrades" />
                       </children>
                     </HBox>
                   </children>
