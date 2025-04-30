@@ -156,10 +156,14 @@ public class ShopScreenController extends ScreenController {
     @FXML
     private ProgressBar car4ReliabilityProgressBar;
 
+    @FXML
+    private Label balanceLabel;
+
     /**
      * Initialize the window
      */
     public void initialize() {
+        updateBalanceLabel();
         initializeCars();
     }
 
@@ -216,6 +220,13 @@ public class ShopScreenController extends ScreenController {
     }
 
     /**
+     * Update the balance label
+     */
+    private void updateBalanceLabel() {
+        balanceLabel.setText(String.format("Balance: $%.2f", super.getGameEnvironment().getBankBalance()));
+    }
+
+    /**
      * Buy a car from the shop
      * 
      * @param car the car to buy
@@ -227,7 +238,9 @@ public class ShopScreenController extends ScreenController {
         } else if (getGameEnvironment().addCar(car)) {
             System.out.println("Bought car: " + car.getModel());
             super.getGameEnvironment().setBankBalance(super.getGameEnvironment().getBankBalance() - car.getPrice());
-            initializeCars(); // Refresh the car list after purchase
+
+            initializeCars();
+            updateBalanceLabel();
         } else {
             System.out.println("Car already owned or garage full: " + car.getModel());
         }
