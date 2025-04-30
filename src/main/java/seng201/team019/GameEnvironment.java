@@ -31,7 +31,7 @@ public class GameEnvironment {
 
     public GameEnvironment(ScreenNavigator navigator) {
 
-        this.bankBalance = 0.0;
+        this.bankBalance = 20000.0;
         this.garage = new ArrayList<Car>();
         this.racesCompleted = 0;
 
@@ -84,7 +84,8 @@ public class GameEnvironment {
     public void initializeRaces() {
         JsonRaceDeserializer jsonRaceDeserializer = new JsonRaceDeserializer(this);
 
-        //TODO: Look into making this not hard coded looked into it but ran into problems when running as jar because of paths
+        // TODO: Look into making this not hard coded looked into it but ran into
+        // problems when running as jar because of paths
         String[] raceFileNames = {
                 "/data/races/race1.json",
                 "/data/races/race2.json"
@@ -94,7 +95,7 @@ public class GameEnvironment {
             try {
                 InputStream is = jsonRaceDeserializer.readJsonRaceFile(raceFileName);
                 races.add(jsonRaceDeserializer.readRaceFromInputStream(is));
-            } catch (IOException|NullPointerException e) {
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
         }
