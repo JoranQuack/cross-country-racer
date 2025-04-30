@@ -233,6 +233,16 @@ public class ShopScreenController extends ScreenController {
         }
     }
 
+    @FXML
+    private void onHomeButtonClicked() {
+        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+    }
+
+    @FXML
+    private void onBackButtonClicked() {
+        onHomeButtonClicked(); // Redirect to the dashboard screen for now
+    }
+
     public ShopScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
