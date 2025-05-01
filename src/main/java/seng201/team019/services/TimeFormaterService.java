@@ -1,9 +1,8 @@
 package seng201.team019.services;
 
-import java.sql.Time;
 import java.time.Duration;
 
-public class DateFormaterService {
+public class TimeFormaterService {
     /**
      * Returns nice string of a time in milliseconds
      *

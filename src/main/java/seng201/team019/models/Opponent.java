@@ -5,7 +5,7 @@ public class Opponent implements Racer {
     private final Route route;
     private final Car car;
     private Double distance;
-    private long time;
+    private long finishTime;
     private boolean isFinished;
     private boolean didDNF;
 
@@ -36,13 +36,15 @@ public class Opponent implements Racer {
     }
 
 
-    public long getTime() {
-        return time;
+    public long getFinishTime() {
+        return finishTime;
     }
 
 
-    public void setIsFinished(boolean isFinished) {
+
+    public void setIsFinished(boolean isFinished,long finishTime) {
         this.isFinished = isFinished;
+        this.finishTime = finishTime;
     }
 
     public boolean isFinished() {
@@ -62,18 +64,16 @@ public class Opponent implements Racer {
      * Updates the distance and time
      *
      * @param distance the distance to be increased
-     * @param time     the time to be increased
+     * @param time     the current time at this distance
      */
-    public void updateRaceStats(double distance, long time) {
+    public void updateStats(double distance, long time) {
         if (this.isFinished || this.didDNF) return;
-        else if (this.distance + distance >= route.getDistance()) {
-            double diff = route.getDistance() - this.distance;
-            this.distance += diff;
-            this.time += (long) (time * (diff / distance));
-            isFinished = true;
-        } else {
-            this.distance += distance;
-            this.time += time;
+
+        this.distance += distance;
+
+        if (this.distance >= route.getDistance()) {
+            this.distance = route.getDistance();
+            setIsFinished(true, time);
         }
     }
 }

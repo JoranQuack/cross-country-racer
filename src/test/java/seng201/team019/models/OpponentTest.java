@@ -28,9 +28,9 @@ public class OpponentTest {
     }
 
     @Test
-    public void updateRaceStatsTestPlayerHasDNF() {
+    public void updateStatsTestPlayerHasDNF() {
         opponent.setDidDNF(true);
-        opponent.updateRaceStats(10, 10);
+        opponent.updateStats(10, 10);
 
         Assertions.assertTrue(opponent.didDNF());
         Assertions.assertEquals(0d, opponent.getDistance());
@@ -38,9 +38,9 @@ public class OpponentTest {
     }
 
     @Test
-    public void updateRaceStatsTestPlayerHasFinished() {
+    public void updateStatsTestPlayerHasFinished() {
         opponent.setIsFinished(true);
-        opponent.updateRaceStats(10, 10);
+        opponent.updateStats(10, 10);
 
         Assertions.assertTrue(opponent.isFinished());
         Assertions.assertEquals(0d, opponent.getDistance());
@@ -48,14 +48,14 @@ public class OpponentTest {
     }
 
     @Test
-    public void updateRaceStatsTestOvershootDistance() {
+    public void updateStatsTestOvershootDistance() {
         when(route.getDistance()).thenReturn(100d);
 
         double distance = route.getDistance() + 10;
         long time = route.simulateDriveByDistance(car, distance);
         long actualTime = (long) (time * (route.getDistance() / distance));
 
-        opponent.updateRaceStats(distance, time);
+        opponent.updateStats(distance, time);
 
         Assertions.assertEquals(route.getDistance(), opponent.getDistance());
         Assertions.assertEquals(actualTime, opponent.getTime());
@@ -64,13 +64,13 @@ public class OpponentTest {
     }
 
     @Test
-    public void updateRaceStatsTest() {
+    public void updateStatsTest() {
         when(route.getDistance()).thenReturn(100d);
 
         double distance = 50;
         long time = Duration.ofHours(1).toMillis();
 
-        opponent.updateRaceStats(distance, time);
+        opponent.updateStats(distance, time);
 
         Assertions.assertEquals(distance, opponent.getDistance());
         Assertions.assertEquals(time, opponent.getTime());

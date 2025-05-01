@@ -2,19 +2,16 @@ package seng201.team019.services;
 
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 public class DateFormaterServiceTest {
 
-    private DateFormaterService dateFormaterService;
+    private TimeFormaterService dateFormaterService;
 
     @BeforeEach
     public void init() {
-        dateFormaterService = new DateFormaterService();
+        dateFormaterService = new TimeFormaterService();
     }
 
     @Test

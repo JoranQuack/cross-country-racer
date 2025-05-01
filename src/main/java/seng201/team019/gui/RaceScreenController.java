@@ -1,12 +1,13 @@
 package seng201.team019.gui;
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
-import seng201.team019.services.DateFormaterService;
+import seng201.team019.services.TimeFormaterService;
 
 import java.time.Duration;
 import java.util.Comparator;
@@ -21,12 +22,13 @@ public class RaceScreenController extends ScreenController {
     private final Race race;
 
     @FXML
-    private Label RacePlayerDistanceLabel, RacePlayerTimeLabel, RacestatsLabel, RacePlayerFuelLabel;
+    private Label RacePlayerDistanceLabel, RacePlayerTimeLabel, RacestatsLabel, RacePlayerFuelLabel,RaceTimeLabel;
 
 
     @FXML
-    private Button RaceStartButton, RaceRefuelButton, RaceDontRefuelButton, RaceSimulateRemainingButton, RaceFinishButton;
+    private Button RaceStartButton, RaceRefuelButton, RaceContinueButton;
 
+    AnimationTimer gameLoop;
     /**
      * Initialize the window
      */
@@ -37,42 +39,30 @@ public class RaceScreenController extends ScreenController {
 
         //add action to buttons
         RaceStartButton.setOnAction(event -> {
-            race.simulateRaceSegment();
-            renderRace();
-
-            // when race start we need to disable start and enable race buttons
             RaceStartButton.setDisable(true);
             RaceRefuelButton.setDisable(false);
-            RaceDontRefuelButton.setDisable(false);
+            gameLoop.start();
         });
 
         RaceRefuelButton.setOnAction(event -> {
-            race.simulateRefuel();
-            renderRace();
+            System.out.println("RaceRefuelButton clicked");
+            // TODO: Add functionality for player to refuel
         });
 
-        RaceDontRefuelButton.setOnAction(event -> {
-            race.simulateRaceSegment();
-            renderRace();
-        });
-
-        RaceSimulateRemainingButton.setOnAction(event -> {
-            race.simulateRemaining();
-            renderRace();
-
-            // when we simulate remaining we need to disable all other race buttons
-            RaceSimulateRemainingButton.setDisable(true);
-            RaceFinishButton.setDisable(false);
-        });
-
-        RaceFinishButton.setOnAction(event -> {
+        // TODO: Add functionality for this to button to be activated if race is over
+        //  consider override the stop method of animation timer with a super and an if statement to check if finished
+        RaceContinueButton.setOnAction(event -> {
             getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(),race);
         });
+
+
+
     }
 
     public RaceScreenController(GameEnvironment gameEnvironment, Race selectedRace) {
         super(gameEnvironment);
         this.race = selectedRace;
+        this.gameLoop = makeGameLoop();
     }
 
 
@@ -80,36 +70,10 @@ public class RaceScreenController extends ScreenController {
      * Renders the race.
      */
     public void renderRace() {
-        DateFormaterService dateFormater = new DateFormaterService();
+        TimeFormaterService timeFormater = new TimeFormaterService();
 
-        // Changes in Race button
-        if (race.isRaceFinished()) {
-
-            RaceRefuelButton.setDisable(true);
-            RaceDontRefuelButton.setDisable(true);
-            RaceSimulateRemainingButton.setDisable(true);
-            RaceFinishButton.setDisable(false);
-        } else if (race.getPlayer().didDNF()) {
-            RaceRefuelButton.setDisable(true);
-            RaceDontRefuelButton.setDisable(true);
-            RaceSimulateRemainingButton.setDisable(false);
-        } else if (race.getPlayer().isFinished()) {
-            RaceRefuelButton.setDisable(true);
-            RaceDontRefuelButton.setDisable(true);
-            RaceSimulateRemainingButton.setDisable(false);
-        }
-
-        // change players race stats on sidebar
-        if (race.getPlayer().didDNF()) {
-            RacePlayerDistanceLabel.setText("DNF");
-            RacePlayerTimeLabel.setText("DNF");
-            RacePlayerFuelLabel.setText("DNF");
-        } else {
-            RacePlayerDistanceLabel.setText(String.format("%.2fkm(%.2f%%)", race.getPlayer().getDistance(), race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance()) * 100));
-            RacePlayerTimeLabel.setText(dateFormater.formatTime(race.getPlayer().getTime()));
-            RacePlayerFuelLabel.setText(String.format("%.2f%%", race.getPlayer().getNormalizedAmount() * 100));
-        }
-
+        RaceTimeLabel.setText(timeFormater.formatTime(race.getRaceTime()));
+        RacePlayerFuelLabel.setText(String.format("%.1f", race.getPlayer().getNormalizedFuelAmount()*100));
         // TODO: Implement better ui for racers leaderboard
         // Update race leaderboard
         renderRaceLeaderboard();
@@ -119,18 +83,18 @@ public class RaceScreenController extends ScreenController {
 
     //this is temporary and is just used to render all racers
     private void renderRaceLeaderboard() {
-        DateFormaterService dateFormater = new DateFormaterService();
+        TimeFormaterService dateFormater = new TimeFormaterService();
         StringBuilder stats = new StringBuilder();
 
         Comparator<Racer> filterByDistance = Comparator.comparing(
                         (Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())
                 ).reversed()
-                .thenComparing(Racer::getTime);
+                .thenComparing(Racer::getFinishTime);
 
         // print Leaderboard positions
         int pos = 0;
         for (Racer racer : race.getRacers().stream().filter(racer -> !racer.didDNF()).sorted(filterByDistance).toList()) {
-            stats.append(String.format("%s.%s(%s) \n %.2f%% - %s\n", ++pos, racer.getName(), racer.getCar().getName(), racer.getRoute().normalizeDistance(racer.getDistance()) * 100, dateFormater.formatTime(racer.getTime())));
+            stats.append(String.format("%s.%s(%s) %.2f%%\n", ++pos, racer.getName(), racer.getCar().getName(), racer.getRoute().normalizeDistance(racer.getDistance()) * 100));
         }
 
         //print dnf
@@ -141,6 +105,39 @@ public class RaceScreenController extends ScreenController {
         RacestatsLabel.setText(stats.toString());
 
     }
+
+
+    private AnimationTimer makeGameLoop() {
+        return new AnimationTimer() {
+            long lastTime = System.nanoTime()/Duration.ofMillis(1).toNanos();
+            @Override
+            public void handle(long now) {
+                if (lastTime <= 0) {return;}
+                long nowMilli = now/Duration.ofMillis(1).toNanos(); //convert to milliseconds
+                long delta = (nowMilli - lastTime)*1000;
+
+                lastTime = nowMilli;
+
+                if (race.incrementRaceTime(delta)) {
+                    race.SetDNFOfDurationExceedingRacers();
+
+                    RaceRefuelButton.setDisable(true);
+                    RaceContinueButton.setDisable(false);
+
+                    System.out.println("race is finished:"+race.getRaceTime());
+                    this.stop();
+                }
+
+                updateRacers(delta);
+                renderRace();
+            }
+        };
+    }
+
+    private void updateRacers(long delta) {
+        race.updateRacers(delta);
+
+    };
 
     @Override
     protected String getFxmlFile() {

@@ -20,8 +20,11 @@ public class Race {
     private final float prizeMoney;
     private final long duration;
     private final int numOfOpponents;
+
     private List<Opponent> opponentCars;
     private Player player;
+
+    private long raceTime;
 
     public Race(Builder builder) {
         this.gameEnvironment = builder.gameEnvironment;
@@ -33,20 +36,14 @@ public class Race {
         setupRace();
     }
 
-    public float getPrizeMoney() {
-        return prizeMoney;
-    }
-
-    public int getNumOfOpponents() {
-        return numOfOpponents;
-    }
-
     public void setupRace() {
         // generate a random List of cars
         Random rand = new Random();
         RandomNameGeneratorService randName = new RandomNameGeneratorService();
         List<Car> availableCars = gameEnvironment.getAvailableCars();
         opponentCars = new ArrayList<>();
+        raceTime = 0;
+
 
         for (int i = 0; i < numOfOpponents; i++) {
             Car randCar = availableCars.get(rand.nextInt(availableCars.size()));
@@ -57,55 +54,39 @@ public class Race {
         }
     }
 
-    public void simulateRaceSegment() {
-        if (player == null) {
-            throw new IllegalStateException("Racer has not been set yet.");
+    public boolean incrementRaceTime(long delta) {
+        if (raceTime+delta >= duration) {
+            raceTime = duration;
+            return true;
         }
-
-        //get distance traveled and time passed by players
-        double distanceToStop = player.getRoute().getDistanceBetweenFuelStops();
-        long time = player.getRoute().simulateDriveByDistance(player.getCar(), distanceToStop);
-
-        player.updateRaceStats(distanceToStop, time);
-
-        // Update opponent stats
-        updateRacersStats(opponentCars, time);
-
-        SetDNFOfDurationExceedingRacers();
+        raceTime += delta;
+        return false;
     }
 
-    public void simulateRemaining() {
-        List<Opponent> remainingOpponents = opponentCars.stream().filter((opponent -> !opponent.isFinished())).toList();
-        for (Opponent opponent : remainingOpponents) {
-            double distanceTraveled = opponent.getRoute().getDistance() - opponent.getDistance();
-            long time = opponent.getRoute().simulateDriveByDistance(opponent.getCar(), distanceTraveled);
-            opponent.updateRaceStats(distanceTraveled, time);
-        }
-        SetDNFOfDurationExceedingRacers();
+    public long getRaceTime() {
+        return raceTime;
     }
 
-    public void simulateRefuel() {
-
-        player.setFuelAmount(player.getCar().getFuelCapacity());
-        player.updateRaceStats(0, REFUEL_DURATION);
-
-        // Updates opponents car starts
-        updateRacersStats(opponentCars, REFUEL_DURATION);
-
-        SetDNFOfDurationExceedingRacers();
+    public float getPrizeMoney() {
+        return prizeMoney;
     }
 
+    public int getNumOfOpponents() {
+        return numOfOpponents;
+    }
 
-    public void updateRacersStats(List<? extends Racer> racers, long time) {
-        for (Racer racer : racers) {
-            double distanceTraveled = racer.getRoute().simulateDriveByTime(racer.getCar(), time);
-            racer.updateRaceStats(distanceTraveled, time);
+    public void updateRacers(long delta) {
+        for (Racer racer : getRacers()) {
+            double distanceTraveled = racer.getRoute().simulateDriveByTime(racer.getCar(), delta);
+            racer.updateStats(distanceTraveled,delta);
         }
     }
+
 
     public void SetDNFOfDurationExceedingRacers() {
         for (Racer racer : getRacers()) {
-            if (racer.getTime() <= this.duration) continue;
+            if (racer.isFinished()) continue;
+            racer.setIsFinished(true,duration);
             racer.setDidDNF(true);
         }
     }
@@ -121,7 +102,7 @@ public class Race {
         Comparator<Racer> filterByDistance = Comparator.comparing(
                         (Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())
                 ).reversed()
-                .thenComparing(Racer::getTime);
+                .thenComparing(Racer::getFinishTime);
 
         return 1+getRacers().stream().filter((racer -> !racer.didDNF())).sorted(filterByDistance).toList().indexOf(player);
     }
