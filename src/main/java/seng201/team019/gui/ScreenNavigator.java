@@ -86,7 +86,7 @@ public class ScreenNavigator {
 
     /**
      * Launches the shop screen.
-     * 
+     *
      * @param gameEnvironment The manager used by the shop screen controller
      */
     public void launchShopScreen(GameEnvironment gameEnvironment) {
@@ -97,7 +97,7 @@ public class ScreenNavigator {
     /**
      * Launches the Race Selection screen.
      *
-     * @param gameEnvironment The manager used by the playing screen controller
+     * @param gameEnvironment The manager used by the RaceSelection screen controller
      */
     public void launchRaceSelectionScreen(GameEnvironment gameEnvironment) {
         ScreenController controller = new RaceSelectionScreenController(gameEnvironment);
@@ -107,30 +107,35 @@ public class ScreenNavigator {
     /**
      * Launches the Race Setup screen.
      *
-     * @param gameEnvironment The manager used by the playing screen controller
+     * @param gameEnvironment The manager used by the RaceSetup screen controller
+     * @param selectedRace    The race used by the RaceSetup screen controller
      */
-    public void launchRaceSetupScreen(GameEnvironment gameEnvironment,Race selectedRace) {
-        ScreenController controller = new RaceSetupScreenController(gameEnvironment,selectedRace);
+    public void launchRaceSetupScreen(GameEnvironment gameEnvironment, Race selectedRace) {
+        ScreenController controller = new RaceSetupScreenController(gameEnvironment, selectedRace);
         launchScreen(controller);
     }
 
     /**
      * Launches the Race Setup screen.
      *
-     * @param gameEnvironment The manager used by the playing screen controller
+     * @param gameEnvironment The manager used by the Race screen controller
+     * @param selectedRace    The race used by the Race screen controller
      */
-    public void lauchRaceScreen(GameEnvironment gameEnvironment,Race selectedRace) {
-        ScreenController controller = new RaceScreenController(gameEnvironment,selectedRace);
+    public void lauchRaceScreen(GameEnvironment gameEnvironment, Race selectedRace) {
+        ScreenController controller = new RaceScreenController(gameEnvironment, selectedRace);
         launchScreen(controller);
     }
 
-    public void launchRaceFinishScreen(GameEnvironment gameEnvironment,Race selectedRace) {
-        ScreenController controller = new RaceFinishScreenController(gameEnvironment,selectedRace);
+    /**
+     * Launches the Race Setup screen.
+     *
+     * @param gameEnvironment The manager used by the RaceFinish screen controller
+     * @param selectedRace    The race used by the RaceFinish screen controller
+     */
+    public void launchRaceFinishScreen(GameEnvironment gameEnvironment, Race selectedRace) {
+        ScreenController controller = new RaceFinishScreenController(gameEnvironment, selectedRace);
         launchScreen(controller);
     }
-
-
-
 
     /**
      * Launches the end screen.

@@ -8,7 +8,6 @@ import seng201.team019.GameEnvironment;
  * @author seng201 teaching team
  */
 public class GarageScreenController extends ScreenController {
-
     /**
      * Initialize the window
      */
