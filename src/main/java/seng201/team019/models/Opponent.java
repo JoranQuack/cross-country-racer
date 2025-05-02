@@ -1,64 +1,9 @@
 package seng201.team019.models;
 
-public class Opponent implements Racer {
-    private final String name;
-    private final Route route;
-    private final Car car;
-    private Double distance;
-    private long finishTime;
-    private boolean isFinished;
-    private boolean didDNF;
-
+public class Opponent extends Racer {
     public Opponent(String name, Route route, Car car) {
-        this.name = name;
-        this.route = route;
-        this.car = car;
-        distance = 0d;
-        isFinished = false;
-        didDNF = false;
+        super(name,route,car);
     }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public Route getRoute() {
-        return route;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-
-    public long getFinishTime() {
-        return finishTime;
-    }
-
-
-
-    public void setIsFinished(boolean isFinished,long finishTime) {
-        this.isFinished = isFinished;
-        this.finishTime = finishTime;
-    }
-
-    public boolean isFinished() {
-        return isFinished;
-    }
-
-    public void setDidDNF(boolean didDNF) {
-        this.didDNF = didDNF;
-    }
-
-    public boolean didDNF() {
-        return didDNF;
-    }
-
 
     /**
      * Updates the distance and time
@@ -67,12 +12,12 @@ public class Opponent implements Racer {
      * @param time     the current time at this distance
      */
     public void updateStats(double distance, long time) {
-        if (this.isFinished || this.didDNF) return;
+        if (isFinished() || didDNF()) return;
 
-        this.distance += distance;
+        incrementDistance(distance);
 
-        if (this.distance >= route.getDistance()) {
-            this.distance = route.getDistance();
+        if (getDistance() >= route.getDistance()) {
+            setDistance(route.getDistance());
             setIsFinished(true, time);
         }
     }
