@@ -26,6 +26,7 @@ public class RaceSetupScreenController extends ScreenController {
 
     private int selectedRouteIndex = -1;
 
+
     /**
      * Initialize the window
      */

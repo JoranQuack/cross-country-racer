@@ -67,6 +67,7 @@ public class Player implements Racer {
         return fuelAmount;
     }
 
+
     /**
      * Returns the normalized fuel amount
      */

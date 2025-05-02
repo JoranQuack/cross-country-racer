@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
+import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
 import seng201.team019.services.TimeFormaterService;
@@ -22,20 +23,25 @@ public class RaceScreenController extends ScreenController {
     private final Race race;
 
     @FXML
-    private Label RacePlayerDistanceLabel, RacePlayerTimeLabel, RacestatsLabel, RacePlayerFuelLabel,RaceTimeLabel;
-
+    private Label RacePlayerDistanceToFuelLabel, RacestatsLabel, RacePlayerFuelLabel, RaceTimeLabel,RacePlayerIsRefuelingLabel;
 
     @FXML
     private Button RaceStartButton, RaceRefuelButton, RaceContinueButton;
 
-    AnimationTimer gameLoop;
+    @FXML
+    private Button RaceSpeedMultiplierOne, RaceSpeedMultiplierTen, RaceSpeedMultiplierHundred;
+
+    private final AnimationTimer gameLoop;
+
+    private int gameSpeedMultiplier = 1;
+    private boolean PlayerRefuleClicked =false;
+
     /**
      * Initialize the window
      */
     public void initialize() {
         // initialize gui
         renderRace();
-
 
         //add action to buttons
         RaceStartButton.setOnAction(event -> {
@@ -47,14 +53,37 @@ public class RaceScreenController extends ScreenController {
         RaceRefuelButton.setOnAction(event -> {
             System.out.println("RaceRefuelButton clicked");
             // TODO: Add functionality for player to refuel
+            PlayerRefuleClicked = true;
+
+
+
         });
 
         // TODO: Add functionality for this to button to be activated if race is over
         //  consider override the stop method of animation timer with a super and an if statement to check if finished
         RaceContinueButton.setOnAction(event -> {
-            getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(),race);
+            getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(), race);
         });
 
+
+        // Multiplier buttons
+        RaceSpeedMultiplierOne.setOnAction((event) -> {
+                    gameSpeedMultiplier = 1;
+                    toggleGameSpeedMultiplierButtons();
+                }
+        );
+        RaceSpeedMultiplierTen.setOnAction(
+                (event) -> {
+                    gameSpeedMultiplier = 10;
+                    toggleGameSpeedMultiplierButtons();
+                }
+        );
+        RaceSpeedMultiplierHundred.setOnAction(
+                (event) -> {
+                    gameSpeedMultiplier = 100;
+                    toggleGameSpeedMultiplierButtons();
+                }
+        );
 
 
     }
@@ -65,6 +94,11 @@ public class RaceScreenController extends ScreenController {
         this.gameLoop = makeGameLoop();
     }
 
+    public void toggleGameSpeedMultiplierButtons() {
+        RaceSpeedMultiplierOne.setDisable(gameSpeedMultiplier == 1);
+        RaceSpeedMultiplierTen.setDisable(gameSpeedMultiplier == 10);
+        RaceSpeedMultiplierHundred.setDisable(gameSpeedMultiplier == 100);
+    }
 
     /**
      * Renders the race.
@@ -73,7 +107,9 @@ public class RaceScreenController extends ScreenController {
         TimeFormaterService timeFormater = new TimeFormaterService();
 
         RaceTimeLabel.setText(timeFormater.formatTime(race.getRaceTime()));
-        RacePlayerFuelLabel.setText(String.format("%.1f", race.getPlayer().getNormalizedFuelAmount()*100));
+        RacePlayerFuelLabel.setText(String.format("%.1f", race.getPlayer().getNormalizedFuelAmount() * 100));
+        RacePlayerDistanceToFuelLabel.setText(String.format("%.2fKM", race.getPlayer().getRoute().getDistanceToNextFuelStop(race.getPlayer().getDistance())));
+        RacePlayerIsRefuelingLabel.setText(PlayerRefuleClicked ? "Yes":"No");
         // TODO: Implement better ui for racers leaderboard
         // Update race leaderboard
         renderRaceLeaderboard();
@@ -109,12 +145,15 @@ public class RaceScreenController extends ScreenController {
 
     private AnimationTimer makeGameLoop() {
         return new AnimationTimer() {
-            long lastTime = System.nanoTime()/Duration.ofMillis(1).toNanos();
+            long lastTime = System.nanoTime() / Duration.ofMillis(1).toNanos();
+
             @Override
             public void handle(long now) {
-                if (lastTime <= 0) {return;}
-                long nowMilli = now/Duration.ofMillis(1).toNanos(); //convert to milliseconds
-                long delta = (nowMilli - lastTime)*1000;
+                if (lastTime <= 0) {
+                    return;
+                }
+                long nowMilli = now / Duration.ofMillis(1).toNanos(); //convert to milliseconds
+                long delta = (nowMilli - lastTime) * gameSpeedMultiplier;
 
                 lastTime = nowMilli;
 
@@ -124,7 +163,7 @@ public class RaceScreenController extends ScreenController {
                     RaceRefuelButton.setDisable(true);
                     RaceContinueButton.setDisable(false);
 
-                    System.out.println("race is finished:"+race.getRaceTime());
+                    System.out.println("race is finished:" + race.getRaceTime());
                     this.stop();
                 }
 
@@ -137,7 +176,9 @@ public class RaceScreenController extends ScreenController {
     private void updateRacers(long delta) {
         race.updateRacers(delta);
 
-    };
+    }
+
+    ;
 
     @Override
     protected String getFxmlFile() {

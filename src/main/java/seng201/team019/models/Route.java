@@ -67,6 +67,18 @@ public class Route {
         return distance / (double) fuelStops;
     }
 
+    public double getDistanceToNextFuelStop(double currentDistance) {
+
+        if (currentDistance > distance) {
+            return -1;
+        }
+        int numberOfStopPassed = (int) Math.floor(currentDistance / getDistanceBetweenFuelStops());
+
+
+        // Distance from start to next stop - current distance = distance to next stop
+        return (numberOfStopPassed+1)*getDistanceBetweenFuelStops()-currentDistance;
+
+    }
 
     /**
      * @param car      the car that will be driving.
