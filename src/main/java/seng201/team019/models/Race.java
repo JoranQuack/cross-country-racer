@@ -77,7 +77,7 @@ public class Race {
 
     public void updateRacers(long delta) {
         for (Racer racer : getRacers()) {
-            double distanceTraveled = racer.getRoute().simulateDriveByTime(racer.getCar(), delta);
+            float distanceTraveled = racer.getRoute().simulateDriveByTime(racer.getCar(), delta);
             racer.updateStats(distanceTraveled,raceTime);
         }
     }

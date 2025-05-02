@@ -55,7 +55,7 @@ public class Player extends Racer {
      * @param distance the distance to be increased
      * @param time     the time of the race at the current moment.
      */
-    public void updateStats(double distance, long time) {
+    public void updateStats(float distance, long time) {
         //player is no longer racing return.
         if (isFinished() || didDNF()) {return;} ;
 

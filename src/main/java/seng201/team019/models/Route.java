@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 public class Route {
     private final String description;
 
-    //All distances in Kilometers always double type. Time in Milliseconds always long type.
-    private final double distance;
+    // Distances in Kilometers always float type
+    private final float distance;
 
     //these range between 1 and 0
     private final double straightness;
@@ -20,7 +20,7 @@ public class Route {
 
     @JsonCreator
     public Route(@JsonProperty("description") String description,
-                 @JsonProperty("distance") double distance,
+                 @JsonProperty("distance") float distance,
                  @JsonProperty("straightness") double straightness,
                  @JsonProperty("gradeVariation") double gradeVariation,
                  @JsonProperty("fuelStops") int fuelStops) {
@@ -36,7 +36,7 @@ public class Route {
         return description;
     }
 
-    public double getDistance() {
+    public float getDistance() {
         return distance;
     }
 
@@ -56,19 +56,18 @@ public class Route {
      * @param distance distance of segment on route
      * @return float between 0 and 1 that is
      */
-    public float normalizeDistance(double distance) {
-        return (float) (distance / this.distance);
+    public float normalizeDistance(float distance) {
+        return distance / getDistance();
     }
 
     /**
      * @return distance between each fuel stop.
      */
-    public double getDistanceBetweenFuelStops() {
-        return distance / (double) fuelStops;
+    public float getDistanceBetweenFuelStops() {
+        return distance / (float) fuelStops;
     }
 
-    public double getDistanceToNextFuelStop(double currentDistance) {
-
+    public float getDistanceToNextFuelStop(float currentDistance) {
         if (currentDistance > distance) {
             return -1;
         }
@@ -85,7 +84,7 @@ public class Route {
      * @param distance the distance to be traveled.
      * @return time used up to travel distance on route in MILLISECONDS!
      */
-    public long simulateDriveByDistance(Car car, double distance) {
+    public long simulateDriveByDistance(Car car, float distance) {
         double velocity = computeAverageSpeed(car);
         return (long) (distance / velocity * TimeUnit.HOURS.toMillis(1));
     }
@@ -95,10 +94,10 @@ public class Route {
      * @param time the time to pass in MILLISECONDS.
      * @return Distance traveled by the car in time.
      */
-    public double simulateDriveByTime(Car car, long time) {
+    public float simulateDriveByTime(Car car, long time) {
         double velocity = computeAverageSpeed(car);
-        double timeInHours = time / (double) TimeUnit.HOURS.toMillis(1);
-        return velocity * timeInHours;
+        float timeInHours = time / (float) TimeUnit.HOURS.toMillis(1);
+        return (float) velocity * timeInHours;
     }
 
 }

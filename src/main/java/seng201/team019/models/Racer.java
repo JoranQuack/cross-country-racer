@@ -6,7 +6,7 @@ public abstract class Racer {
     protected final Route route;
     protected final Car car;
 
-    protected Double distance;
+    protected float distance;
 
     protected long finishTime;
     protected boolean isFinished;
@@ -16,10 +16,11 @@ public abstract class Racer {
         this.name = name;
         this.route = route;
         this.car = car;
-        distance = 0d;
+        distance = 0;
         isFinished = false;
         didDNF = false;
     }
+
     public String getName() {
         return name;
     }
@@ -32,7 +33,7 @@ public abstract class Racer {
         return car;
     }
 
-    public void setIsFinished(boolean isFinished,long finishTime) {
+    public void setIsFinished(boolean isFinished, long finishTime) {
         this.isFinished = isFinished;
         this.finishTime = finishTime;
     }
@@ -49,15 +50,15 @@ public abstract class Racer {
         return didDNF;
     }
 
-    public double getDistance() {
+    public float getDistance() {
         return distance;
     }
 
-    public void setDistance(double distance) {
+    public void setDistance(float distance) {
         this.distance = distance;
     }
 
-    public void incrementDistance(Double distance) {
+    public void incrementDistance(float distance) {
         this.distance += distance;
     }
 
@@ -65,7 +66,6 @@ public abstract class Racer {
         return finishTime;
     }
 
-
-    public abstract void updateStats(double distance, long time);
+    public abstract void updateStats(float distance, long time);
 
 }

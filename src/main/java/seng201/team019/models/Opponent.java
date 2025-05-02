@@ -11,7 +11,7 @@ public class Opponent extends Racer {
      * @param distance the distance to be increased
      * @param time     the current time at this distance
      */
-    public void updateStats(double distance, long time) {
+    public void updateStats(float distance, long time) {
         if (isFinished() || didDNF()) return;
 
         incrementDistance(distance);
