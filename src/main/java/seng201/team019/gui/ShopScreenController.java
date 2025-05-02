@@ -2,6 +2,8 @@ package seng201.team019.gui;
 
 import java.time.Year;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.gluonhq.charm.glisten.control.ProgressBar;
 
@@ -14,11 +16,11 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
 
 /**
- * Controller for the main.fxml window
- *
- * @author seng201 teaching team
+ * Controller for the shop.fxml window
  */
 public class ShopScreenController extends ScreenController {
+    private static final Logger LOGGER = Logger.getLogger(ShopScreenController.class.getName());
+
     @FXML
     private GridPane car0Grid;
 
@@ -154,68 +156,104 @@ public class ShopScreenController extends ScreenController {
     @FXML
     private ProgressBar car4ReliabilityProgressBar;
 
+    @FXML
+    private Label balanceLabel;
+
     /**
      * Initialize the window
-     * 
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
      */
-    public void initialize()
-            throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+    public void initialize() {
+        updateBalanceLabel();
         initializeCars();
-        // initializeBuyButtons();
     }
 
     /**
      * Initialize the cars in the shop
-     * 
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
      */
-    private void initializeCars()
-            throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+    private void initializeCars() {
         List<Car> cars = super.getGameEnvironment().getAvailableCars();
         System.out.println("Cars available: " + cars.size());
 
-        // Make all car grids visible by default
-        for (int i = 0; i < 5; i++) {
-            GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
-            carGrid.setVisible(true);
-        }
-
-        // Populate with car data or hide if no car available
-        for (int i = 0; i < 5; i++) {
-            GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
-
-            if (i >= cars.size()) {
-                carGrid.setVisible(false);
-                continue;
+        try {
+            // Make all car grids visible by default
+            for (int i = 0; i < 5; i++) {
+                GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
+                carGrid.setVisible(true);
             }
 
-            Car car = cars.get(i);
+            // Populate with car data or hide if no car available
+            for (int i = 0; i < 5; i++) {
+                GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
 
-            ImageView carImage = (ImageView) getClass().getDeclaredField("car" + i + "Image").get(this);
-            Label carNameLabel = (Label) getClass().getDeclaredField("car" + i + "NameLabel").get(this);
-            Label carRangeLabel = (Label) getClass().getDeclaredField("car" + i + "RangeLabel").get(this);
-            Label carSpeedLabel = (Label) getClass().getDeclaredField("car" + i + "SpeedLabel").get(this);
-            ProgressBar carHandlingProgressBar = (ProgressBar) getClass()
-                    .getDeclaredField("car" + i + "HandlingProgressBar").get(this);
-            ProgressBar carReliabilityProgressBar = (ProgressBar) getClass()
-                    .getDeclaredField("car" + i + "ReliabilityProgressBar").get(this);
-            Label carPriceLabel = (Label) getClass().getDeclaredField("car" + i + "PriceLabel").get(this);
+                if (i >= cars.size()) {
+                    carGrid.setVisible(false);
+                    continue;
+                }
 
-            carImage.setImage(car.getImage());
-            carNameLabel.setText(String.format("%s %s", car.getModel(), (Year.now().getValue() - car.getAge())));
-            carRangeLabel.setText(String.valueOf(car.getRange()));
-            carSpeedLabel.setText(String.valueOf(String.format("%.0f", car.getSpeed())));
-            carHandlingProgressBar.setProgress(car.getHandling());
-            carReliabilityProgressBar.setProgress(car.getReliability());
-            carPriceLabel.setText(String.format("%.0f", car.getPrice()));
+                Car car = cars.get(i);
+
+                ImageView carImage = (ImageView) getClass().getDeclaredField("car" + i + "Image").get(this);
+                Label carNameLabel = (Label) getClass().getDeclaredField("car" + i + "NameLabel").get(this);
+                Label carRangeLabel = (Label) getClass().getDeclaredField("car" + i + "RangeLabel").get(this);
+                Label carSpeedLabel = (Label) getClass().getDeclaredField("car" + i + "SpeedLabel").get(this);
+                ProgressBar carHandlingProgressBar = (ProgressBar) getClass()
+                        .getDeclaredField("car" + i + "HandlingProgressBar").get(this);
+                ProgressBar carReliabilityProgressBar = (ProgressBar) getClass()
+                        .getDeclaredField("car" + i + "ReliabilityProgressBar").get(this);
+                Label carPriceLabel = (Label) getClass().getDeclaredField("car" + i + "PriceLabel").get(this);
+                Button carBuyButton = (Button) getClass().getDeclaredField("car" + i + "BuyButton").get(this);
+
+                carImage.setImage(car.getImage());
+                carNameLabel.setText(String.format("%s %s", car.getModel(), (Year.now().getValue() - car.getAge())));
+                carRangeLabel.setText(String.valueOf(car.getRange()));
+                carSpeedLabel.setText(String.valueOf(String.format("%.0f", car.getSpeed())));
+                carHandlingProgressBar.setProgress(car.getHandling());
+                carReliabilityProgressBar.setProgress(car.getReliability());
+                carPriceLabel.setText(String.format("%.0f", car.getPrice()));
+
+                final Car currentCar = car;
+                carBuyButton.setOnAction(event -> buyCar(currentCar));
+            }
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+            LOGGER.log(Level.SEVERE, "Error initializing car shop UI", e);
         }
+    }
+
+    /**
+     * Update the balance label
+     */
+    private void updateBalanceLabel() {
+        balanceLabel.setText(String.format("Balance: $%.2f", super.getGameEnvironment().getBankBalance()));
+    }
+
+    /**
+     * Buy a car from the shop
+     * 
+     * @param car the car to buy
+     */
+    private void buyCar(Car car) {
+        if (car.getPrice() > super.getGameEnvironment().getBankBalance()) {
+            System.out.println("Not enough money to buy car: " + car.getModel());
+            return;
+        } else if (getGameEnvironment().addCar(car)) {
+            System.out.println("Bought car: " + car.getModel());
+            super.getGameEnvironment().setBankBalance(super.getGameEnvironment().getBankBalance() - car.getPrice());
+
+            initializeCars();
+            updateBalanceLabel();
+        } else {
+            System.out.println("Car already owned or garage full: " + car.getModel());
+        }
+    }
+
+    @FXML
+    private void onHomeButtonClicked() {
+        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+    }
+
+    @FXML
+    private void onBackButtonClicked() {
+        onHomeButtonClicked(); // Redirect to the dashboard screen for now
     }
 
     public ShopScreenController(GameEnvironment gameEnvironment) {
