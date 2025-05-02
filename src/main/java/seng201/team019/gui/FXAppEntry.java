@@ -2,8 +2,6 @@ package seng201.team019.gui;
 
 import seng201.team019.GameEnvironment;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
