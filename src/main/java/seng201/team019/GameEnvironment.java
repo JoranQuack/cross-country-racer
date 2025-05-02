@@ -31,7 +31,7 @@ public class GameEnvironment {
 
     public GameEnvironment(ScreenNavigator navigator) {
 
-        this.bankBalance = 20000.0;
+        this.bankBalance = 200000.0;
         this.garage = new ArrayList<Car>();
         this.racesCompleted = 0;
 
@@ -114,6 +114,13 @@ public class GameEnvironment {
     public void removeCar(Car car) {
         garage.remove(car);
         availableCars.add(car);
+    }
+
+    public void setActiveCar(Car car) {
+        if (garage.contains(car)) {
+            garage.remove(car);
+            garage.add(0, car);
+        }
     }
 
     // Getters and Setters for the GameEnvironment class
