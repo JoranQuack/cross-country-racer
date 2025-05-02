@@ -23,19 +23,11 @@ public class FXAppEntry extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        // Load the icon image
         Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
-
-        // Set the icon on the stage
         primaryStage.getIcons().add(icon);
-
-        // Create a scene (example)
-        Scene scene = new Scene(new Label("Hello World!"), 300, 200);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("My JavaFX App");
-
-        // Show the stage
+        primaryStage.setTitle("Car Game");
         primaryStage.show();
+
         new GameEnvironment(new ScreenNavigator(primaryStage));
     }
 }
