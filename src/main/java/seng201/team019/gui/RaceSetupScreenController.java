@@ -72,9 +72,7 @@ public class RaceSetupScreenController extends ScreenController {
             }
         }
     }
-
-
-
+    
     @FXML
     private void onBackClicked(){
         getGameEnvironment().getNavigator().launchRaceSelectionScreen(getGameEnvironment());

@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
-import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
 import seng201.team019.services.TimeFormaterService;
@@ -53,10 +52,7 @@ public class RaceScreenController extends ScreenController {
         RaceRefuelButton.setOnAction(event -> {
             System.out.println("RaceRefuelButton clicked");
             // TODO: Add functionality for player to refuel
-            PlayerRefuleClicked = true;
-
-
-
+            race.getPlayer().setIsRefuelingNextStop(true);
         });
 
         // TODO: Add functionality for this to button to be activated if race is over
@@ -109,7 +105,7 @@ public class RaceScreenController extends ScreenController {
         RaceTimeLabel.setText(timeFormater.formatTime(race.getRaceTime()));
         RacePlayerFuelLabel.setText(String.format("%.1f", race.getPlayer().getNormalizedFuelAmount() * 100));
         RacePlayerDistanceToFuelLabel.setText(String.format("%.2fKM", race.getPlayer().getRoute().getDistanceToNextFuelStop(race.getPlayer().getDistance())));
-        RacePlayerIsRefuelingLabel.setText(PlayerRefuleClicked ? "Yes":"No");
+        RacePlayerIsRefuelingLabel.setText(race.getPlayer().isRefuelingNextStop() ? "Yes":"No");
         // TODO: Implement better ui for racers leaderboard
         // Update race leaderboard
         renderRaceLeaderboard();

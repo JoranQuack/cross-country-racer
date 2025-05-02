@@ -1,5 +1,6 @@
 package seng201.team019.models;
 
+import java.time.Duration;
 import java.util.List;
 
 import static java.util.Collections.max;
@@ -15,6 +16,8 @@ public class Player implements Racer {
     private boolean isFinished;
     private boolean didDNF;
     private double fuelAmount;
+    private boolean isRefuelingNextStop;
+    private long startRefuelTime;
 
     public Player(String name, Route route, Car car) {
         this.name = name;
@@ -24,6 +27,8 @@ public class Player implements Racer {
         isFinished = false;
         didDNF = false;
         fuelAmount = car.getFuelCapacity();
+        isRefuelingNextStop =false;
+        startRefuelTime = -1;
     }
 
     public String getName() {
@@ -67,6 +72,13 @@ public class Player implements Racer {
         return fuelAmount;
     }
 
+    public void setIsRefuelingNextStop(boolean refuelingNextStop) {
+        this.isRefuelingNextStop = refuelingNextStop;
+    }
+
+    public boolean isRefuelingNextStop() {
+        return isRefuelingNextStop;
+    }
 
     /**
      * Returns the normalized fuel amount
@@ -80,6 +92,10 @@ public class Player implements Racer {
         this.fuelAmount = max(List.of(fuelAmount, 0d));
     }
 
+    public void fillFuelAmount() {
+        this.fuelAmount = car.getFuelCapacity();
+    }
+
     public boolean isOutOfFuel() {
         return fuelAmount == 0f;
     }
@@ -88,19 +104,45 @@ public class Player implements Racer {
      * Updates the distance and time
      *
      * @param distance the distance to be increased
-     * @param time     the time to be increased
+     * @param time     the time of the race at the current moment.
      */
     public void updateStats(double distance, long time) {
         //player is no longer racing return.
         if (this.isFinished || this.didDNF) {return;} ;
 
-        this.distance += distance;
-        this.setFuelAmount(getFuelAmount() - getCar().getFuelConsumption() * distance / 100);
+        if (this.isRefuelingNextStop && distance-route.getDistanceToNextFuelStop(this.distance)>=0) {
+            if (distance-route.getDistanceToNextFuelStop(this.distance)<0) {
+                this.distance += route.getDistanceToNextFuelStop(this.distance);
+            }
 
-        if (this.isOutOfFuel()){
+            // we need to set the start refuel time if it is not set.
+            if (this.startRefuelTime == -1) {
+                this.startRefuelTime = time;
+            }
+
+            // we need to delay the restart after refuel and then dont continue racing
+            if (time<=this.startRefuelTime + Duration.ofSeconds(20).toMillis() ) {
+                fillFuelAmount();
+                return;
+            // player is done refueling so we need to let them move on
+            } else {
+                setIsRefuelingNextStop(false);
+                this.startRefuelTime = -1;
+            }
+        }
+
+
+        // Player is not refueling and is not Finished or DNF.
+        this.distance += distance;
+
+        this.setFuelAmount(getFuelAmount() - getCar().getFuelConsumption() * distance /100);
+
+        // The player ran out of fuel
+        if (isOutOfFuel()){
             setDidDNF(true);
             setIsFinished(true,time);
         }
+        // Player is finished the race
         else if (this.distance >= route.getDistance()) {
             this.distance = route.getDistance();
             setIsFinished(true,time);
