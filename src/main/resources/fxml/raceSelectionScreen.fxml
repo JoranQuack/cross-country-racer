@@ -21,7 +21,7 @@
           <RowConstraints maxHeight="265.0" minHeight="10.0" percentHeight="90.0" prefHeight="265.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ScrollPane fitToWidth="true" prefHeight="200.0" prefViewportWidth="3.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <ScrollPane fitToWidth="true" prefHeight="200.0" prefViewportWidth="3.0" prefWidth="200.0" style="-fx-background-color: transparent;" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <content>
                   <VBox fx:id="raceListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" spacing="8.0" />
                </content>

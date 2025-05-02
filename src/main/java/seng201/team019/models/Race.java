@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Race {
 
@@ -98,13 +99,19 @@ public class Race {
         return false;
     }
 
-    public int getPlayerFinishedPosition() {
-        Comparator<Racer> filterByDistance = Comparator.comparing(
-                        (Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())
-                ).reversed()
-                .thenComparing(Racer::getFinishTime);
+    public List<Racer> getOrderedRacers() {
+        Comparator<Racer> raceOrderComparator = Comparator.comparing(Racer::didDNF).reversed() // Dnf Last
+                .thenComparing((Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())).reversed() // order by those with the most distance traveld
+                .thenComparing((Racer racer) -> racer.isFinished() ? racer.getFinishTime(): Long.MAX_VALUE); // if there are multiple finishers order by Finish time
 
-        return 1+getRacers().stream().filter((racer -> !racer.didDNF())).sorted(filterByDistance).toList().indexOf(player);
+        return getRacers().stream().sorted(raceOrderComparator).collect(Collectors.toList());
+    }
+
+    public int getPlayerFinishedPosition() {
+        if(player.didDNF()) {
+            return -1;
+        }
+        return 1+getOrderedRacers().indexOf(player);
     }
 
     public void setPlayer(Player player) {

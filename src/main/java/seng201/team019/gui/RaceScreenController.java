@@ -2,9 +2,21 @@ package seng201.team019.gui;
 
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.SplitPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import seng201.team019.GameEnvironment;
+import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
 import seng201.team019.services.TimeFormaterService;
@@ -22,7 +34,7 @@ public class RaceScreenController extends ScreenController {
     private final Race race;
 
     @FXML
-    private Label RacePlayerDistanceToFuelLabel, RacestatsLabel, RacePlayerFuelLabel, RaceTimeLabel,RacePlayerIsRefuelingLabel;
+    private Label RacePlayerDistanceToFuelLabel, RacePlayerFuelLabel, RaceTimeLabel, RacePlayerIsRefuelingLabel;
 
     @FXML
     private Button RaceStartButton, RaceRefuelButton, RaceContinueButton;
@@ -30,10 +42,13 @@ public class RaceScreenController extends ScreenController {
     @FXML
     private Button RaceSpeedMultiplierOne, RaceSpeedMultiplierTen, RaceSpeedMultiplierHundred;
 
+    @FXML
+    private VBox RaceLeaderboard;
+
     private final AnimationTimer gameLoop;
 
     private int gameSpeedMultiplier = 1;
-    private boolean PlayerRefuleClicked =false;
+    private boolean PlayerRefuleClicked = false;
 
     /**
      * Initialize the window
@@ -105,7 +120,7 @@ public class RaceScreenController extends ScreenController {
         RaceTimeLabel.setText(timeFormater.formatTime(race.getRaceTime()));
         RacePlayerFuelLabel.setText(String.format("%.1f", race.getPlayer().getNormalizedFuelAmount() * 100));
         RacePlayerDistanceToFuelLabel.setText(String.format("%.2fKM", race.getPlayer().getRoute().getDistanceToNextFuelStop(race.getPlayer().getDistance())));
-        RacePlayerIsRefuelingLabel.setText(race.getPlayer().isRefuelingNextStop() ? "Yes":"No");
+        RacePlayerIsRefuelingLabel.setText(race.getPlayer().isRefuelingNextStop() ? "Yes" : "No");
         // TODO: Implement better ui for racers leaderboard
         // Update race leaderboard
         renderRaceLeaderboard();
@@ -115,40 +130,32 @@ public class RaceScreenController extends ScreenController {
 
     //this is temporary and is just used to render all racers
     private void renderRaceLeaderboard() {
-        TimeFormaterService dateFormater = new TimeFormaterService();
         StringBuilder stats = new StringBuilder();
-
-        Comparator<Racer> filterByDistance = Comparator.comparing(
-                        (Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())
-                ).reversed()
-                .thenComparing(Racer::getFinishTime);
+        RaceLeaderboard.getChildren().clear(); // TODO: MAke this more efficient avoid unnecessary clears
 
         // print Leaderboard positions
         int pos = 0;
-        for (Racer racer : race.getRacers().stream().filter(racer -> !racer.didDNF()).sorted(filterByDistance).toList()) {
-            stats.append(String.format("%s.%s(%s) %.2f%%\n", ++pos, racer.getName(), racer.getCar().getName(), racer.getRoute().normalizeDistance(racer.getDistance()) * 100));
+        for (Racer racer : race.getOrderedRacers()) {
+            Pane raceLeaderboardRow = makeRaceLeaderboardRow(++pos,racer);
+            RaceLeaderboard.getChildren().addAll(raceLeaderboardRow ,new Separator());
+            VBox.setVgrow(RaceLeaderboard, Priority.ALWAYS);
         }
 
-        //print dnf
-        for (Racer racer : race.getRacers().stream().filter(Racer::didDNF).toList()) {
-            stats.append(String.format("DNF. %s(%s) \n", racer.getName(), racer.getCar().getName()));
-        }
-
-        RacestatsLabel.setText(stats.toString());
 
     }
 
 
     private AnimationTimer makeGameLoop() {
         return new AnimationTimer() {
-            long lastTime = System.nanoTime() / Duration.ofMillis(1).toNanos();
+            long lastTime = Duration.ofNanos(System.nanoTime()).toMillis();
+
 
             @Override
             public void handle(long now) {
                 if (lastTime <= 0) {
                     return;
                 }
-                long nowMilli = now / Duration.ofMillis(1).toNanos(); //convert to milliseconds
+                long nowMilli = Duration.ofNanos(now).toMillis();  //convert to milliseconds
                 long delta = (nowMilli - lastTime) * gameSpeedMultiplier;
 
                 lastTime = nowMilli;
@@ -169,12 +176,40 @@ public class RaceScreenController extends ScreenController {
         };
     }
 
+    private Pane makeRaceLeaderboardRow(int row, Racer racer) {
+        HBox leaderboardRow = new HBox(4);
+        leaderboardRow.setMaxWidth(Double.MAX_VALUE);
+        leaderboardRow.setPadding(new Insets(4));
+        leaderboardRow.setAlignment(Pos.CENTER_LEFT);
+
+        Label leaderboardPosLabel = new Label(racer.didDNF() ? "DNF" : String.valueOf(row));
+        leaderboardPosLabel.setFont(Font.font(null, FontWeight.BOLD, 15));
+
+
+        VBox racerInfo = new VBox();
+        HBox.setHgrow(racerInfo, Priority.ALWAYS);
+
+
+        Label racerNameLabel = new Label(racer.getName() + (racer instanceof Player ? " (You)" : ""));
+        Label racerCarLabel = new Label(racer.getCar().getName());
+        racerNameLabel.setFont(Font.font(null, FontWeight.SEMI_BOLD, 15));
+        racerCarLabel.setFont(Font.font(null,FontPosture.ITALIC, 12));
+
+        racerInfo.getChildren().addAll(racerNameLabel, racerCarLabel);
+
+        Label racerDistanceLabel = new Label();
+        racerDistanceLabel.setText(String.format("%.2fKM (%.1f%%)", racer.getDistance(), racer.getRoute().normalizeDistance(racer.getDistance()) * 100));
+        racerDistanceLabel.setAlignment(Pos.CENTER_RIGHT);
+
+        leaderboardRow.getChildren().addAll(leaderboardPosLabel, racerInfo, racerDistanceLabel);
+
+        return leaderboardRow;
+    }
+
     private void updateRacers(long delta) {
         race.updateRacers(delta);
 
     }
-
-    ;
 
     @Override
     protected String getFxmlFile() {
