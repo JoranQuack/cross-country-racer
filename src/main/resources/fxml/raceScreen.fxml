@@ -51,8 +51,8 @@
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Button fx:id="RaceSpeedMultiplierOne" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="x1" HBox.hgrow="ALWAYS" />
-                              <Button fx:id="RaceSpeedMultiplierTen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="x10" HBox.hgrow="ALWAYS" />
-                              <Button fx:id="RaceSpeedMultiplierHundred" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="x100" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="RaceSpeedMultiplierTen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="x100" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="RaceSpeedMultiplierHundred" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="x500" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                      </children>

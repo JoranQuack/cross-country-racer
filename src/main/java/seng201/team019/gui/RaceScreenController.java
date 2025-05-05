@@ -85,13 +85,13 @@ public class RaceScreenController extends ScreenController {
         );
         RaceSpeedMultiplierTen.setOnAction(
                 (event) -> {
-                    gameSpeedMultiplier = 10;
+                    gameSpeedMultiplier = 100;
                     toggleGameSpeedMultiplierButtons();
                 }
         );
         RaceSpeedMultiplierHundred.setOnAction(
                 (event) -> {
-                    gameSpeedMultiplier = 100;
+                    gameSpeedMultiplier = 500;
                     toggleGameSpeedMultiplierButtons();
                 }
         );
@@ -107,8 +107,8 @@ public class RaceScreenController extends ScreenController {
 
     public void toggleGameSpeedMultiplierButtons() {
         RaceSpeedMultiplierOne.setDisable(gameSpeedMultiplier == 1);
-        RaceSpeedMultiplierTen.setDisable(gameSpeedMultiplier == 10);
-        RaceSpeedMultiplierHundred.setDisable(gameSpeedMultiplier == 100);
+        RaceSpeedMultiplierTen.setDisable(gameSpeedMultiplier == 100);
+        RaceSpeedMultiplierHundred.setDisable(gameSpeedMultiplier == 500);
     }
 
     /**
