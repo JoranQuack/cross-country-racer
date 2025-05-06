@@ -1,21 +1,23 @@
 package seng201.team019.models;
 
 public class Upgrade {
-    private String name; // Name of the part
+    private String name;
     private double price; // Price of the part in NZD
     private String imagePath; // Path to the part image (always a PNG file with same name as the part)
+    private String description;
 
-    private double speedBonus; // Positive is better
-    private double handlingBonus; // Positive is better
-    private double reliabilityBonus; // Positive is better
-    private double rangeBonus; // Positive is better
+    private double speedBonus;
+    private double handlingBonus;
+    private double reliabilityBonus;
+    private double rangeBonus;
     private double fuelConsumptionBonus; // Negative is better
 
     public Upgrade(String name, double price, double speedBonus, double handlingBonus,
-            double reliabilityBonus, double rangeBonus, double fuelConsumptionBonus) {
+            double reliabilityBonus, double rangeBonus, double fuelConsumptionBonus, String description) {
         this.name = name;
         this.price = price;
         this.imagePath = "images/" + name + ".png"; // Initialize image path based on name
+        this.description = description;
 
         this.speedBonus = speedBonus;
         this.handlingBonus = handlingBonus;
@@ -63,5 +65,9 @@ public class Upgrade {
 
     public double getFuelConsumptionBonus() {
         return fuelConsumptionBonus;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

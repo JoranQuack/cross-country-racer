@@ -101,7 +101,7 @@ public class GameEnvironment {
                 String[] values = line.split(",");
                 Upgrade part = new Upgrade(values[0], Double.parseDouble(values[1]), Double.parseDouble(values[2]),
                         Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]),
-                        Double.parseDouble(values[6]));
+                        Double.parseDouble(values[6]), values[7]);
                 availableParts.add(part);
             }
         } catch (IOException e) {
