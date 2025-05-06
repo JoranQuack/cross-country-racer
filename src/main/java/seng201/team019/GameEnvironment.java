@@ -2,6 +2,7 @@ package seng201.team019;
 
 import seng201.team019.gui.ScreenNavigator;
 import seng201.team019.models.Car;
+import seng201.team019.models.Upgrade;
 import seng201.team019.models.Difficulty;
 import seng201.team019.models.Race;
 import seng201.team019.services.JsonRaceDeserializer;
@@ -18,6 +19,7 @@ public class GameEnvironment {
 
     private List<Car> garage = new ArrayList<Car>();
     private List<Car> availableCars = new ArrayList<Car>();
+    private List<Upgrade> availableParts = new ArrayList<Upgrade>();
     private List<Race> races = new ArrayList<Race>();
     private Double bankBalance;
     private Difficulty difficulty;
@@ -37,6 +39,7 @@ public class GameEnvironment {
         this.racesCompleted = 0;
 
         initializeAvailableCars();
+        initializeAvailableParts();
         initializeRaces();
 
         // TODO: Add random opponents, parts, etc.
@@ -79,6 +82,31 @@ public class GameEnvironment {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Failed to load cars from CSV file");
+        }
+    }
+
+    /**
+     * Initializes the available parts from a CSV file.
+     * The CSV file should be in the format:
+     * name,price,speedBonus,handlingBonus,reliabilityBonus,rangeBonus,fuelConsumptionBonus
+     * There must be exactly 5 parts (6 rows inc. header) in the CSV file.
+     */
+    public void initializeAvailableParts() {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                getClass().getResourceAsStream("/data/upgrades.csv")))) {
+            String line;
+            br.readLine(); // Skip the header line
+            // read each line and create a Upgrade object
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                Upgrade part = new Upgrade(values[0], Double.parseDouble(values[1]), Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]),
+                        Double.parseDouble(values[6]));
+                availableParts.add(part);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load parts from CSV file");
         }
     }
 
@@ -175,5 +203,9 @@ public class GameEnvironment {
 
     public List<Race> getRaces() {
         return races;
+    }
+
+    public List<Upgrade> getAvailableParts() {
+        return availableParts;
     }
 }

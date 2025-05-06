@@ -5,11 +5,11 @@ public class Upgrade {
     private double price; // Price of the part in NZD
     private String imagePath; // Path to the part image (always a PNG file with same name as the part)
 
-    private double speedBonus; // Positive
-    private double handlingBonus; // Positive
-    private double reliabilityBonus; // Positive
-    private double rangeBonus; // Positive
-    private double fuelConsumptionBonus; // Negative
+    private double speedBonus; // Positive is better
+    private double handlingBonus; // Positive is better
+    private double reliabilityBonus; // Positive is better
+    private double rangeBonus; // Positive is better
+    private double fuelConsumptionBonus; // Negative is better
 
     public Upgrade(String name, double price, double speedBonus, double handlingBonus,
             double reliabilityBonus, double rangeBonus, double fuelConsumptionBonus) {
