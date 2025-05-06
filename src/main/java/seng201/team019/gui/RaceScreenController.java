@@ -6,9 +6,8 @@ import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
-import seng201.team019.services.DateFormaterService;
+import seng201.team019.services.DateFormatterService;
 
-import java.time.Duration;
 import java.util.Comparator;
 
 /**
@@ -17,15 +16,34 @@ import java.util.Comparator;
  * @author seng201 teaching team
  */
 public class RaceScreenController extends ScreenController {
+    @FXML
+    private Label RacestatsLabel;
+
+    @FXML
+    private Label RacePlayerDistanceLabel;
+
+    @FXML
+    private Label RacePlayerTimeLabel;
+
+    @FXML
+    private Label RacePlayerFuelLabel;
+
+    @FXML
+    private Button RaceStartButton;
+
+    @FXML
+    private Button RaceRefuelButton;
+
+    @FXML
+    private Button RaceDontRefuelButton;
+
+    @FXML
+    private Button RaceSimulateRemainingButton;
+
+    @FXML
+    private Button RaceFinishButton;
 
     private final Race race;
-
-    @FXML
-    private Label RacePlayerDistanceLabel, RacePlayerTimeLabel, RacestatsLabel, RacePlayerFuelLabel;
-
-
-    @FXML
-    private Button RaceStartButton, RaceRefuelButton, RaceDontRefuelButton, RaceSimulateRemainingButton, RaceFinishButton;
 
     /**
      * Initialize the window
@@ -34,8 +52,7 @@ public class RaceScreenController extends ScreenController {
         // initialize gui
         renderRace();
 
-
-        //add action to buttons
+        // add action to buttons
         RaceStartButton.setOnAction(event -> {
             race.simulateRaceSegment();
             renderRace();
@@ -66,7 +83,7 @@ public class RaceScreenController extends ScreenController {
         });
 
         RaceFinishButton.setOnAction(event -> {
-            getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(),race);
+            getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(), race);
         });
     }
 
@@ -75,12 +92,11 @@ public class RaceScreenController extends ScreenController {
         this.race = selectedRace;
     }
 
-
     /**
      * Renders the race.
      */
     public void renderRace() {
-        DateFormaterService dateFormater = new DateFormaterService();
+        DateFormatterService dateFormatter = new DateFormatterService();
 
         // Changes in Race button
         if (race.isRaceFinished()) {
@@ -105,8 +121,9 @@ public class RaceScreenController extends ScreenController {
             RacePlayerTimeLabel.setText("DNF");
             RacePlayerFuelLabel.setText("DNF");
         } else {
-            RacePlayerDistanceLabel.setText(String.format("%.2fkm(%.2f%%)", race.getPlayer().getDistance(), race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance()) * 100));
-            RacePlayerTimeLabel.setText(dateFormater.formatTime(race.getPlayer().getTime()));
+            RacePlayerDistanceLabel.setText(String.format("%.2fkm(%.2f%%)", race.getPlayer().getDistance(),
+                    race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance()) * 100));
+            RacePlayerTimeLabel.setText(dateFormatter.formatTime(race.getPlayer().getTime()));
             RacePlayerFuelLabel.setText(String.format("%.2f%%", race.getPlayer().getNormalizedAmount() * 100));
         }
 
@@ -116,24 +133,25 @@ public class RaceScreenController extends ScreenController {
 
     }
 
-
-    //this is temporary and is just used to render all racers
+    // this is temporary and is just used to render all racers
     private void renderRaceLeaderboard() {
-        DateFormaterService dateFormater = new DateFormaterService();
+        DateFormatterService dateFormatter = new DateFormatterService();
         StringBuilder stats = new StringBuilder();
 
         Comparator<Racer> filterByDistance = Comparator.comparing(
-                        (Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())
-                ).reversed()
+                (Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())).reversed()
                 .thenComparing(Racer::getTime);
 
         // print Leaderboard positions
         int pos = 0;
-        for (Racer racer : race.getRacers().stream().filter(racer -> !racer.didDNF()).sorted(filterByDistance).toList()) {
-            stats.append(String.format("%s.%s(%s) \n %.2f%% - %s\n", ++pos, racer.getName(), racer.getCar().getName(), racer.getRoute().normalizeDistance(racer.getDistance()) * 100, dateFormater.formatTime(racer.getTime())));
+        for (Racer racer : race.getRacers().stream().filter(racer -> !racer.didDNF()).sorted(filterByDistance)
+                .toList()) {
+            stats.append(String.format("%s.%s(%s) \n %.2f%% - %s\n", ++pos, racer.getName(), racer.getCar().getName(),
+                    racer.getRoute().normalizeDistance(racer.getDistance()) * 100,
+                    dateFormatter.formatTime(racer.getTime())));
         }
 
-        //print dnf
+        // print dnf
         for (Racer racer : race.getRacers().stream().filter(Racer::didDNF).toList()) {
             stats.append(String.format("DNF. %s(%s) \n", racer.getName(), racer.getCar().getName()));
         }

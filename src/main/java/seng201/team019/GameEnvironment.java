@@ -24,6 +24,7 @@ public class GameEnvironment {
     private int racesCompleted;
     private int seasonLength;
     private String name;
+    private Car selectedCar;
 
     // TODO: add way to track stats for end of game
 
@@ -31,7 +32,7 @@ public class GameEnvironment {
 
     public GameEnvironment(ScreenNavigator navigator) {
 
-        this.bankBalance = 20000.0;
+        this.bankBalance = 200000.0;
         this.garage = new ArrayList<Car>();
         this.racesCompleted = 0;
 
@@ -116,7 +117,22 @@ public class GameEnvironment {
         availableCars.add(car);
     }
 
+    public void setActiveCar(Car car) {
+        if (garage.contains(car)) {
+            garage.remove(car);
+            garage.add(0, car);
+        }
+    }
+
     // Getters and Setters for the GameEnvironment class
+    public Car getSelectedCar() {
+        return selectedCar;
+    }
+
+    public void setSelectedCar(Car selectedCar) {
+        this.selectedCar = selectedCar;
+    }
+
     public ScreenNavigator getNavigator() {
         return navigator;
     }

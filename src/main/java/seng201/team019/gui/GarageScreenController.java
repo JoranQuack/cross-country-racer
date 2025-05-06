@@ -1,6 +1,5 @@
 package seng201.team019.gui;
 
-import java.time.Year;
 import java.util.List;
 
 import com.gluonhq.charm.glisten.control.ProgressBar;
@@ -15,9 +14,9 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
 
 /**
- * Controller for the main.fxml window
- *
- * @author seng201 teaching team
+ * Controller for the garage.fxml window.
+ * Handles displaying the player's car collection, showing car statistics,
+ * and providing functionality to set active cars and customise vehicles.
  */
 public class GarageScreenController extends ScreenController {
     @FXML
@@ -111,77 +110,104 @@ public class GarageScreenController extends ScreenController {
     private Label numUpgradesLabel;
 
     /**
-     * Initialize the window
-     * 
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
+     * Initializes the window by hiding the car stats panel and populating
+     * the car grid with vehicles from the player's garage.
      */
-    public void initialize()
-            throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+    public void initialize() {
         hideCarStats();
         initializeCars();
     }
 
     /**
-     * Initialize the cars in the shop
-     * 
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
+     * Populates the UI with cars from the player's garage.
+     * Makes all car grids visible by default, then either displays car data
+     * or hides the grid if no car is available for that position.
+     * Also sets up event handlers for mouse interactions and button clicks.
      */
-    private void initializeCars()
-            throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+    private void initializeCars() {
         List<Car> cars = super.getGameEnvironment().getGarage();
         System.out.println("Cars in garage: " + cars.size());
 
         // Make all car grids visible by default
         for (int i = 0; i < 5; i++) {
-            GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
-            carGrid.setVisible(true);
+            try {
+                GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
+                carGrid.setVisible(true);
+            } catch (Exception e) {
+                System.err.println("Error accessing car grid " + i + ": " + e.getMessage());
+            }
         }
 
         // Populate with car data or hide if no car available
         for (int i = 0; i < 5; i++) {
-            GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
+            try {
+                GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
 
-            if (i >= cars.size()) {
-                carGrid.setVisible(false);
-                continue;
-            }
+                if (i >= cars.size()) {
+                    carGrid.setVisible(false);
+                    continue;
+                }
 
-            Car car = cars.get(i);
+                Car car = cars.get(i);
 
-            ImageView carImage = (ImageView) getClass().getDeclaredField("car" + i + "Image").get(this);
-            Label carNameLabel = (Label) getClass().getDeclaredField("car" + i + "NameLabel").get(this);
-            Button carCustomiseButton = (Button) getClass().getDeclaredField("car" + i + "CustomiseButton").get(this);
+                ImageView carImage = (ImageView) getClass().getDeclaredField("car" + i + "Image").get(this);
+                Label carNameLabel = (Label) getClass().getDeclaredField("car" + i + "NameLabel").get(this);
+                Button carCustomiseButton = (Button) getClass().getDeclaredField("car" + i + "CustomiseButton")
+                        .get(this);
 
-            carImage.setImage(car.getImage());
-            carNameLabel.setText(String.format("%s %s", car.getModel(), (Year.now().getValue() - car.getAge())));
+                carImage.setImage(car.getImage());
+                carNameLabel.setText(car.getName());
 
-            carGrid.setOnMouseEntered(event -> {
-                setCarStats(car);
-            });
-            carGrid.setOnMouseExited(event -> {
-                hideCarStats();
-            });
-
-            carCustomiseButton.setOnAction(event -> {
-                System.out.println("Customise button clicked for: " + car.getModel());
-            });
-
-            if (i != 0) {
-                Button carActiveButton = (Button) getClass().getDeclaredField("car" + i + "ActiveButton").get(this);
-                carActiveButton.setOnAction(event -> {
-                    // super.getGameEnvironment().setActiveCar(car);
-                    System.out.println("Active car set to: " + car.getModel());
+                carGrid.setOnMouseEntered(event -> {
+                    setCarStats(car);
                 });
+                carGrid.setOnMouseExited(event -> {
+                    hideCarStats();
+                });
+
+                carCustomiseButton.setOnAction(event -> {
+                    customizeCar(car);
+                });
+
+                if (i != 0) {
+                    Button carActiveButton = (Button) getClass().getDeclaredField("car" + i + "ActiveButton").get(this);
+                    carActiveButton.setOnAction(event -> {
+                        setActiveCar(car);
+                    });
+                }
+            } catch (Exception e) {
+                System.err.println("Error setting up car " + i + ": " + e.getMessage());
             }
         }
     }
 
+    /**
+     * Sets the selected car when the customise button is clicked.
+     * Navigates to the car customisation screen.
+     * 
+     * @param car The car to customise
+     */
+    private void customizeCar(Car car) {
+        super.getGameEnvironment().setSelectedCar(car);
+        getGameEnvironment().getNavigator().launchCarCustomisationScreen(getGameEnvironment());
+    }
+
+    /**
+     * Sets the active car in the garage.
+     * 
+     * @param car
+     */
+    public void setActiveCar(Car car) {
+        super.getGameEnvironment().setActiveCar(car);
+        initializeCars();
+    }
+
+    /**
+     * Displays the statistics for the given car in the stats panel.
+     * Shows range, speed, handling, reliability, and number of upgrades.
+     * 
+     * @param car The car whose statistics should be displayed
+     */
     private void setCarStats(Car car) {
         statsContainer.setVisible(true);
         rangeLabel.setText(Integer.toString(car.getRange()));
@@ -191,31 +217,56 @@ public class GarageScreenController extends ScreenController {
         numUpgradesLabel.setText(Integer.toString(car.getUpgrades().length));
     }
 
+    /**
+     * Hides the car statistics panel.
+     * Called when the mouse exits a car grid.
+     */
     private void hideCarStats() {
         statsContainer.setVisible(false);
     }
 
+    /**
+     * Handles the back button click event.
+     * Returns to the dashboard screen.
+     */
     @FXML
     public void onBackButtonClicked() {
-        // TODO: Add any back button functionality here
-        // For now, it just goes back to the dashboard screen
-        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+        onHomeButtonClicked(); // Calls the home button action to navigate back to the dashboard for now.
     }
 
+    /**
+     * Handles the home button click event.
+     * Returns to the dashboard screen.
+     */
     @FXML
     public void onHomeButtonClicked() {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 
+    /**
+     * Creates a GarageScreenController with the given game environment.
+     * 
+     * @param gameEnvironment The game environment for this controller
+     */
     public GarageScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
+    /**
+     * Gets the FXML file path for this controller.
+     * 
+     * @return The path to the garage.fxml file
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/garage.fxml";
     }
 
+    /**
+     * Gets the window title for this screen.
+     * 
+     * @return The title string for the garage screen
+     */
     @Override
     protected String getTitle() {
         return "Garage";

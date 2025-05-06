@@ -85,6 +85,17 @@ public class ScreenNavigator {
     }
 
     /**
+     * Launches the car customisation screen.
+     *
+     * @param gameEnvironment The manager used by the car customisation screen
+     *                        controller
+     */
+    public void launchCarCustomisationScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new CarCustomisationScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
      * Launches the shop screen.
      *
      * @param gameEnvironment The manager used by the shop screen controller
@@ -121,7 +132,7 @@ public class ScreenNavigator {
      * @param gameEnvironment The manager used by the Race screen controller
      * @param selectedRace    The race used by the Race screen controller
      */
-    public void lauchRaceScreen(GameEnvironment gameEnvironment, Race selectedRace) {
+    public void launchRaceScreen(GameEnvironment gameEnvironment, Race selectedRace) {
         ScreenController controller = new RaceScreenController(gameEnvironment, selectedRace);
         launchScreen(controller);
     }
