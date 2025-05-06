@@ -1,5 +1,7 @@
 package seng201.team019.models;
 
+import javafx.scene.image.Image;
+
 public class Upgrade {
     private String name;
     private double price; // Price of the part in NZD
@@ -43,8 +45,8 @@ public class Upgrade {
         this.price = price;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public Image getImage() {
+        return new Image(getClass().getResourceAsStream("/" + imagePath));
     }
 
     public double getSpeedBonus() {
