@@ -12,17 +12,34 @@ import seng201.team019.models.Route;
 import java.util.List;
 
 public class RaceSetupScreenController extends ScreenController {
+    @FXML
+    private Label RaceSetupPrizeMoneyLabel;
+
+    @FXML
+    private Label RaceSetupNumOfOpsLabel;
+
+    @FXML
+    private Button RaceSetupRouteButton1;
+
+    @FXML
+    private Button RaceSetupRouteButton2;
+
+    @FXML
+    private Button RaceSetupRouteButton3;
+
+    @FXML
+    private Button RaceSetupRouteButton4;
+
+    @FXML
+    private Label RaceSetupRouteDescriptionLabel;
+
+    @FXML
+    private Label RaceSetupRouteDistanceLabel;
+
+    @FXML
+    private Label RaceSetupRouteFuelStopsLabel;
 
     private final Race selectedRace;
-
-    @FXML
-    private Label RaceSetupPrizeMoneyLabel, RaceSetupNumOfOpsLabel;
-
-    @FXML
-    private Button RaceSetupRouteButton1, RaceSetupRouteButton2, RaceSetupRouteButton3, RaceSetupRouteButton4;
-
-    @FXML
-    private Label RaceSetupRouteDescriptionLabel, RaceSetupRouteDistanceLabel, RaceSetupRouteFuelStopsLabel;
 
     private int selectedRouteIndex = -1;
 
