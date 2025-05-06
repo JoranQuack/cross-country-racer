@@ -157,7 +157,7 @@ public class GarageScreenController extends ScreenController {
                         .get(this);
 
                 carImage.setImage(car.getImage());
-                carNameLabel.setText(String.format("%s %s", car.getModel(), (Year.now().getValue() - car.getAge())));
+                carNameLabel.setText(car.getName());
 
                 carGrid.setOnMouseEntered(event -> {
                     setCarStats(car);
@@ -167,7 +167,7 @@ public class GarageScreenController extends ScreenController {
                 });
 
                 carCustomiseButton.setOnAction(event -> {
-                    System.out.println("Customise button clicked for: " + car.getModel());
+                    customizeCar(car);
                 });
 
                 if (i != 0) {
@@ -180,6 +180,17 @@ public class GarageScreenController extends ScreenController {
                 System.err.println("Error setting up car " + i + ": " + e.getMessage());
             }
         }
+    }
+
+    /**
+     * Sets the selected car when the customise button is clicked.
+     * Navigates to the car customisation screen.
+     * 
+     * @param car The car to customise
+     */
+    private void customizeCar(Car car) {
+        super.getGameEnvironment().setSelectedCar(car);
+        getGameEnvironment().getNavigator().launchCarCustomisationScreen(getGameEnvironment());
     }
 
     /**

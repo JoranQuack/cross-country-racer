@@ -85,6 +85,17 @@ public class ScreenNavigator {
     }
 
     /**
+     * Launches the car customisation screen.
+     *
+     * @param gameEnvironment The manager used by the car customisation screen
+     *                        controller
+     */
+    public void launchCarCustomisationScreen(GameEnvironment gameEnvironment) {
+        ScreenController controller = new CarCustomisationScreenController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
      * Launches the shop screen.
      * 
      * @param gameEnvironment The manager used by the shop screen controller
@@ -109,8 +120,8 @@ public class ScreenNavigator {
      *
      * @param gameEnvironment The manager used by the playing screen controller
      */
-    public void launchRaceSetupScreen(GameEnvironment gameEnvironment,Race selectedRace) {
-        ScreenController controller = new RaceSetupScreenController(gameEnvironment,selectedRace);
+    public void launchRaceSetupScreen(GameEnvironment gameEnvironment, Race selectedRace) {
+        ScreenController controller = new RaceSetupScreenController(gameEnvironment, selectedRace);
         launchScreen(controller);
     }
 
@@ -119,18 +130,15 @@ public class ScreenNavigator {
      *
      * @param gameEnvironment The manager used by the playing screen controller
      */
-    public void lauchRaceScreen(GameEnvironment gameEnvironment,Race selectedRace) {
-        ScreenController controller = new RaceScreenController(gameEnvironment,selectedRace);
+    public void launchRaceScreen(GameEnvironment gameEnvironment, Race selectedRace) {
+        ScreenController controller = new RaceScreenController(gameEnvironment, selectedRace);
         launchScreen(controller);
     }
 
-    public void launchRaceFinishScreen(GameEnvironment gameEnvironment,Race selectedRace) {
-        ScreenController controller = new RaceFinishScreenController(gameEnvironment,selectedRace);
+    public void launchRaceFinishScreen(GameEnvironment gameEnvironment, Race selectedRace) {
+        ScreenController controller = new RaceFinishScreenController(gameEnvironment, selectedRace);
         launchScreen(controller);
     }
-
-
-
 
     /**
      * Launches the end screen.
