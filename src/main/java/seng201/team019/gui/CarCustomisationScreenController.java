@@ -145,7 +145,7 @@ public class CarCustomisationScreenController extends ScreenController {
         speedLabel.setText(String.valueOf((int) car.getSpeed()));
         handlingProgressBar.setProgress(car.getHandling());
         reliabilityProgressBar.setProgress(car.getReliability());
-        numUpgradesLabel.setText(String.valueOf(car.getUpgrades().length));
+        numUpgradesLabel.setText(String.valueOf(car.getUpgrades().size()));
         fuelConsumptionLabel.setText(String.format("%.2f", car.getFuelConsumption()));
         fuelCapacityLabel.setText(String.valueOf((int) car.getFuelCapacity()));
     }
