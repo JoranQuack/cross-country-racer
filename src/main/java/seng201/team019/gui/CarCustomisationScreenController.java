@@ -13,6 +13,12 @@ import seng201.team019.models.Car;
 
 public class CarCustomisationScreenController extends ScreenController {
     @FXML
+    private Label fuelConsumptionLabel;
+
+    @FXML
+    private Label fuelCapacityLabel;
+
+    @FXML
     private ImageView carImage;
 
     @FXML
@@ -136,10 +142,12 @@ public class CarCustomisationScreenController extends ScreenController {
         modelNameLabel.setText(car.getModel());
         ageLabel.setText(String.valueOf(car.getAge()));
         rangeLabel.setText(String.valueOf(car.getRange()));
-        speedLabel.setText(String.valueOf(car.getSpeed()));
+        speedLabel.setText(String.valueOf((int) car.getSpeed()));
         handlingProgressBar.setProgress(car.getHandling());
         reliabilityProgressBar.setProgress(car.getReliability());
         numUpgradesLabel.setText(String.valueOf(car.getUpgrades().length));
+        fuelConsumptionLabel.setText(String.format("%.2f", car.getFuelConsumption()));
+        fuelCapacityLabel.setText(String.valueOf((int) car.getFuelCapacity()));
     }
 
     @FXML

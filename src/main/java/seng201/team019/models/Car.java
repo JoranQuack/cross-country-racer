@@ -29,9 +29,8 @@ public class Car {
 
         model = name; // Initialize model with the same value as name
         imagePath = "images/" + name + ".png"; // Initialize image path based on name
-        upgrades = new Upgrade[0]; // Initialize with no upgrades
         this.upgrades = new Upgrade[0]; // Initialize with no upgrades
-        this.fuelCapacity = 40; // Initialize fuel capacity to a default value (e.g., 40L)
+        this.fuelCapacity = (range / 100) * fuelConsumption; // Calculate fuel capacity based on range and consumption
     }
 
     // Getters and setters for the car attributes
@@ -117,9 +116,5 @@ public class Car {
 
     public double getFuelCapacity() {
         return fuelCapacity;
-    }
-
-    public void setFuelCapacity(double fuelCapacity) {
-
     }
 }
