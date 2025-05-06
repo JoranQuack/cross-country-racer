@@ -24,6 +24,7 @@ public class GameEnvironment {
     private int racesCompleted;
     private int seasonLength;
     private String name;
+    private Car selectedCar;
 
     // TODO: add way to track stats for end of game
 
@@ -124,6 +125,14 @@ public class GameEnvironment {
     }
 
     // Getters and Setters for the GameEnvironment class
+    public Car getSelectedCar() {
+        return selectedCar;
+    }
+
+    public void setSelectedCar(Car selectedCar) {
+        this.selectedCar = selectedCar;
+    }
+
     public ScreenNavigator getNavigator() {
         return navigator;
     }

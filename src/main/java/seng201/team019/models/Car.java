@@ -14,7 +14,7 @@ public class Car {
     private double fuelConsumption; // Fuel consumption in L/100km
     private String imagePath; // Path to the car image (always a PNG file with same name as the car)
     private Upgrade[] upgrades; // Array of upgrades applied on the car
-    private final double fuelCapacity; // gives the fuel capacity in L;
+    private final double fuelCapacity; // gives the fuel capacity in L
 
     public Car(String name, int age, double price, double speed, double handling, double reliability,
             double fuelConsumption, int range) {
