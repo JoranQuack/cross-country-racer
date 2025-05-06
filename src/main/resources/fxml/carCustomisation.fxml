@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -44,11 +45,14 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                        <TextField alignment="CENTER" promptText="Name Your Car" GridPane.rowIndex="1" />
-                        <VBox fx:id="statsContainer" alignment="TOP_CENTER" prefHeight="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowSpan="2147483647">
+                        <ImageView fx:id="carImage" fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <TextField fx:id="carName" alignment="CENTER" onInputMethodTextChanged="#onCarNameChanged" promptText="Name Your Car" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </GridPane.margin></TextField>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowSpan="2147483647">
                            <children>
-                              <Label text="Stats:">
+                              <Label text="Info:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -62,11 +66,45 @@
                                     <RowConstraints vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
+                                    <Label text="Model" />
+                                    <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label fx:id="modelNameLabel" text="[modelName]" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </GridPane>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Age" />
+                                    <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label fx:id="ageLabel" text="[age]" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </GridPane>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
                                     <Label text="Range" />
                                     <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                        <children>
                                           <Label fx:id="rangeLabel" text="[range]" />
-                                          <Label text="km" />
+                                          <Label text=" km" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -84,7 +122,7 @@
                                     <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                        <children>
                                           <Label fx:id="speedLabel" text="[speed]" />
-                                          <Label text="km/h" />
+                                          <Label text=" km/h" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -125,7 +163,45 @@
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </VBox>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" GridPane.rowIndex="2">
+                           <content>
+                              <VBox prefWidth="400.0">
+                                 <children>
+                                    <GridPane fx:id="part1Grid">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <ImageView fx:id="part1Image" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label fx:id="part1Label" text="part1" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="10.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <VBox alignment="CENTER" GridPane.columnIndex="2">
+                                             <children>
+                                                <Button fx:id="part1AddButton" mnemonicParsing="false" text="Add" />
+                                                <Button fx:id="part2RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
                      </children>
                   </GridPane>
                </children>
