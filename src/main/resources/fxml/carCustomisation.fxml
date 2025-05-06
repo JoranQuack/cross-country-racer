@@ -46,7 +46,7 @@
                     </rowConstraints>
                      <children>
                         <ImageView fx:id="carImage" fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                        <TextField fx:id="carName" alignment="CENTER" onInputMethodTextChanged="#onCarNameChanged" promptText="Name Your Car" GridPane.rowIndex="1">
+                        <TextField fx:id="carName" alignment="CENTER" onKeyTyped="#onCarNameChanged" promptText="Name Your Car" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin></TextField>

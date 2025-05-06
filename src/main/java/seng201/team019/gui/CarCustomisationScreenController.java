@@ -148,7 +148,6 @@ public class CarCustomisationScreenController extends ScreenController {
         String newName = carName.getText();
         Car car = getGameEnvironment().getSelectedCar();
         car.setName(newName);
-        initializeCar(); // Refresh the car info display
     }
 
     /**
