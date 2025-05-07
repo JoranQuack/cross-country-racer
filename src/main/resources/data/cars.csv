@@ -1,6 +1,6 @@
 Name,AgeYears,PriceNZD,TopSpeed_kmh,Handling_0to1,Reliability_0to1,FuelConsumption_L100km,TankSize_L
-Ford Ranger Wildtrak,1,82000,195,0.3,0.7,9.0,80
-Suzuki Swift GL,5,15000,124,0.2,0.4,5.1,37
-Mazda CX-5 GSX,3,55000,207,0.32,0.5,7.4,56
-Kia Stonic LX,4,19000,175,0.2,0.42,6.0,45
-Honda Jazz Life,6,17000,131,0.25,0.3,5.8,40
+Ford Ranger,1,82000,195,0.3,0.7,9.0,80
+Suzuki Swift,5,15000,124,0.2,0.4,5.1,37
+Mazda CX-5,3,55000,207,0.32,0.5,7.4,56
+Kia Stonic,4,19000,175,0.2,0.42,6.0,45
+Honda Jazz,6,17000,131,0.25,0.3,5.8,40
