@@ -11,11 +11,11 @@ public class Upgrade {
     private double speedBonus;
     private double handlingBonus;
     private double reliabilityBonus;
-    private double rangeBonus;
+    private int fuelCapacityBonus;
     private double fuelConsumptionBonus; // Negative is better
 
     public Upgrade(String name, double price, double speedBonus, double handlingBonus,
-            double reliabilityBonus, double rangeBonus, double fuelConsumptionBonus, String description) {
+            double reliabilityBonus, int fuelCapacityBonus, double fuelConsumptionBonus, String description) {
         this.name = name;
         this.price = price;
         this.imagePath = "images/" + name + ".png"; // Initialize image path based on name
@@ -24,7 +24,7 @@ public class Upgrade {
         this.speedBonus = speedBonus;
         this.handlingBonus = handlingBonus;
         this.reliabilityBonus = reliabilityBonus;
-        this.rangeBonus = rangeBonus;
+        this.fuelCapacityBonus = fuelCapacityBonus;
         this.fuelConsumptionBonus = fuelConsumptionBonus;
     }
 
@@ -61,8 +61,8 @@ public class Upgrade {
         return reliabilityBonus;
     }
 
-    public double getRangeBonus() {
-        return rangeBonus;
+    public int getFuelCapacityBonus() {
+        return fuelCapacityBonus;
     }
 
     public double getFuelConsumptionBonus() {

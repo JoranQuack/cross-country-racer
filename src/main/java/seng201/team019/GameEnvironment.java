@@ -93,8 +93,9 @@ public class GameEnvironment {
             // read each line and create a Upgrade object
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                Upgrade part = new Upgrade(values[0], Double.parseDouble(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]),
+                Upgrade part = new Upgrade(values[0], Double.parseDouble(values[1]),
+                        Double.parseDouble(values[2]), Double.parseDouble(values[3]),
+                        Double.parseDouble(values[4]), Integer.parseInt(values[5]),
                         Double.parseDouble(values[6]), values[7]);
                 availableParts.add(part);
             }

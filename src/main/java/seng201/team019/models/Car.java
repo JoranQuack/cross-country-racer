@@ -17,23 +17,23 @@ public class Car {
     private double fuelConsumption; // Fuel consumption in L/100km
     private String imagePath; // Path to the car image (always a PNG file with same name as the car)
     private List<Upgrade> upgrades = new ArrayList<Upgrade>(); // Array of upgrades applied on the car
-    private double fuelCapacity; // gives the fuel capacity in L
+    private int fuelCapacity; // gives the fuel capacity in L
 
     public Car(String name, int age, double price, double speed, double handling, double reliability,
-            double fuelConsumption, int range) {
+            double fuelConsumption, int fuelCapacity) {
         this.name = name;
         this.age = age;
         this.price = price;
         this.speed = speed;
         this.handling = handling;
         this.reliability = reliability;
-        this.range = range;
+        this.fuelCapacity = fuelCapacity;
         this.fuelConsumption = fuelConsumption;
 
         model = name; // Initialize model with the same value as name
         imagePath = "images/" + name + ".png"; // Initialize image path based on name
         upgrades = new ArrayList<Upgrade>();
-        updateFuelCapacity();
+        updateRange();
     }
 
     public void addUpgrade(Upgrade upgrade) {
@@ -41,8 +41,9 @@ public class Car {
         speed += upgrade.getSpeedBonus();
         handling += upgrade.getHandlingBonus();
         reliability += upgrade.getReliabilityBonus();
-        range += upgrade.getRangeBonus();
+        fuelCapacity += upgrade.getFuelCapacityBonus();
         fuelConsumption += upgrade.getFuelConsumptionBonus();
+        updateRange(); // Update range after adding an upgrade
     }
 
     public void removeUpgrade(Upgrade upgrade) {
@@ -50,12 +51,13 @@ public class Car {
         speed -= upgrade.getSpeedBonus();
         handling -= upgrade.getHandlingBonus();
         reliability -= upgrade.getReliabilityBonus();
-        range -= upgrade.getRangeBonus();
+        fuelCapacity -= upgrade.getFuelCapacityBonus();
         fuelConsumption -= upgrade.getFuelConsumptionBonus();
+        updateRange(); // Update range after removing an upgrade
     }
 
-    public void updateFuelCapacity() {
-        fuelCapacity = (range / 100) * fuelConsumption;
+    public void updateRange() {
+        range = (int) ((fuelCapacity / fuelConsumption) * 100);
     }
 
     // Getters and setters for the car attributes
@@ -135,7 +137,7 @@ public class Car {
         return upgrades;
     }
 
-    public double getFuelCapacity() {
+    public int getFuelCapacity() {
         return fuelCapacity;
     }
 }

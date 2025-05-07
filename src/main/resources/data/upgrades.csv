@@ -1,6 +1,6 @@
-Name,Price,SpeedBonus,HandlingBonus,ReliabilityBonus,RangeBonus,FuelConsumptionBonus,Description
-Turbocharger,1500,15.0,2.0,-1.0,-2.0,-0.5,Boosts speed significantly but slightly reduces reliability and range.
-Sport Tires,800,3.0,12.0,-0.5,-1.0,-0.2,Improves handling greatly with minor speed and reliability trade-offs.
-Lightweight Frame,1200,8.0,3.0,-2.0,10.0,-0.8,Increases speed and range but reduces reliability slightly.
-Reinforced Suspension,1000,1.0,10.0,5.0,-1.0,-0.3,Enhances handling and reliability with minor range and fuel efficiency costs.
-Eco Engine,2000,-2.0,1.0,3.0,15.0,-5.0,Improves fuel efficiency and range but slightly reduces speed.
+Name,Price,SpeedBonus,HandlingBonus,ReliabilityBonus,FuelCapacityBonus,FuelConsumptionBonus,Description
+Turbocharger,1500,100.0,0.0,0.0,0,0.0,Boosts speed
+Sport Tires,800,0.0,0.5,0,0,0,Improves handling
+Larger Tank,1200,0.0,0.0,0.0,50,0.0,Increases fuel capacity
+Reinforced Suspension,1000,0.0,0.0,0.5,0,0,Enhances reliability
+Eco Engine,2000,0,0,0,0,-5.0,Improves fuel efficiency
