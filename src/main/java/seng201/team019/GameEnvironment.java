@@ -29,26 +29,19 @@ public class GameEnvironment {
     private String name;
     private Car selectedCar;
 
-    // TODO: add way to track stats for end of game
-
-    // TODO: add tuning parts
-
     public GameEnvironment(ScreenNavigator navigator) {
 
         this.bankBalance = 200000.0;
         this.garage = new ArrayList<Car>();
+        this.ownUpgrades = new ArrayList<Upgrade>();
         this.racesCompleted = 0;
 
         initializeAvailableCars();
         initializeAvailableParts();
         initializeRaces();
 
-        // TODO: Add random opponents, parts, etc.
-        // This should be done here and possibly dependent on difficulty.
-
         this.navigator = navigator;
         navigator.launchStartScreen(this);
-        // navigator.launchShopScreen(this); // TESTING ONLY
     }
 
     public void completeGameEnvironmentSetup(Difficulty difficulty, int seasonLength, String name) {
@@ -168,6 +161,16 @@ public class GameEnvironment {
         bankBalance += part.getPrice() / 2;
         ownUpgrades.remove(part);
         availableParts.add(part);
+    }
+
+    public void equipPart(Upgrade part) {
+        getSelectedCar().addUpgrade(part);
+        ownUpgrades.remove(part);
+    }
+
+    public void unequipPart(Upgrade part) {
+        getSelectedCar().removeUpgrade(part);
+        ownUpgrades.add(part);
     }
 
     // Getters and Setters for the GameEnvironment class

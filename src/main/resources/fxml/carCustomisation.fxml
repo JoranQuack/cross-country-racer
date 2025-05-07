@@ -206,144 +206,127 @@
                 </VBox>
                 <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" GridPane.rowIndex="2">
                   <content>
-                    <VBox prefWidth="400.0">
+                    <VBox prefWidth="400.0" spacing="5.0">
                       <children>
-                        <GridPane fx:id="part0Grid">
+                        <GridPane fx:id="part0Grid" style="-fx-background-radius: 10;">
                           <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                           </rowConstraints>
                           <children>
                             <ImageView fx:id="part0Image" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                            <Label fx:id="part0Label" text="part0" GridPane.columnIndex="1">
+                            <Label fx:id="part0NameLabel" text="part0" GridPane.columnIndex="1">
                               <GridPane.margin>
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                            <VBox alignment="CENTER" GridPane.columnIndex="2">
-                              <children>
-                                <Button fx:id="part0AddButton" mnemonicParsing="false" text="Add" />
-                                <Button fx:id="part0RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" />
-                              </children>
-                            </VBox>
+                          <Button fx:id="part0AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
+                          <Button fx:id="part0RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
                           </children>
-                          <padding>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                          </padding>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
                         </GridPane>
-                        <GridPane fx:id="part1Grid">
+                        <GridPane fx:id="part1Grid" style="-fx-background-radius: 10;">
                           <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                           </rowConstraints>
                           <children>
                             <ImageView fx:id="part1Image" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                            <Label fx:id="part1Label" text="part1" GridPane.columnIndex="1">
+                            <Label fx:id="part1NameLabel" text="part1" GridPane.columnIndex="1">
                               <GridPane.margin>
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                            <VBox alignment="CENTER" GridPane.columnIndex="2">
-                              <children>
-                                <Button fx:id="part1AddButton" mnemonicParsing="false" text="Add" />
-                                <Button fx:id="part1RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" />
-                              </children>
-                            </VBox>
+                          <Button fx:id="part1AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
+                          <Button fx:id="part1RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
                           </children>
                           <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </padding>
                         </GridPane>
-                        <GridPane fx:id="part2Grid">
+                        <GridPane fx:id="part2Grid" style="-fx-background-radius: 10;">
                           <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                           </rowConstraints>
                           <children>
                             <ImageView fx:id="part2Image" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                            <Label fx:id="part2Label" text="part2" GridPane.columnIndex="1">
+                            <Label fx:id="part2NameLabel" text="part2" GridPane.columnIndex="1">
                               <GridPane.margin>
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                            <VBox alignment="CENTER" GridPane.columnIndex="2">
-                              <children>
-                                <Button fx:id="part2AddButton" mnemonicParsing="false" text="Add" />
-                                <Button fx:id="part2RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" />
-                              </children>
-                            </VBox>
+                          <Button fx:id="part2AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
+                          <Button fx:id="part2RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
                           </children>
                           <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </padding>
                         </GridPane>
-                        <GridPane fx:id="part3Grid">
+                        <GridPane fx:id="part3Grid" style="-fx-background-radius: 10;">
                           <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                           </rowConstraints>
                           <children>
                             <ImageView fx:id="part3Image" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                            <Label fx:id="part3Label" text="part3" GridPane.columnIndex="1">
+                            <Label fx:id="part3NameLabel" text="part3" GridPane.columnIndex="1">
                               <GridPane.margin>
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                            <VBox alignment="CENTER" GridPane.columnIndex="2">
-                              <children>
-                                <Button fx:id="part3AddButton" mnemonicParsing="false" text="Add" />
-                                <Button fx:id="part3RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" />
-                              </children>
-                            </VBox>
+                          <Button fx:id="part3AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
+                          <Button fx:id="part3RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
                           </children>
                           <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </padding>
                         </GridPane>
-                        <GridPane fx:id="part4Grid">
+                        <GridPane fx:id="part4Grid" style="-fx-background-radius: 10;">
                           <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                           </rowConstraints>
                           <children>
                             <ImageView fx:id="part4Image" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                            <Label fx:id="part4Label" text="part4" GridPane.columnIndex="1">
+                            <Label fx:id="part4NameLabel" text="part4" GridPane.columnIndex="1">
                               <GridPane.margin>
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                            <VBox alignment="CENTER" GridPane.columnIndex="2">
-                              <children>
-                                <Button fx:id="part4AddButton" mnemonicParsing="false" text="Add" />
-                                <Button fx:id="part4RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" />
-                              </children>
-                            </VBox>
+                          <Button fx:id="part4AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
+                          <Button fx:id="part4RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
                           </children>
                           <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </padding>
                         </GridPane>
                       </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                 </padding>
                     </VBox>
                   </content>
                 </ScrollPane>

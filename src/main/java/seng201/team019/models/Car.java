@@ -32,6 +32,7 @@ public class Car {
 
         model = name; // Initialize model with the same value as name
         imagePath = "images/" + name + ".png"; // Initialize image path based on name
+        upgrades = new ArrayList<Upgrade>();
         updateFuelCapacity();
     }
 
@@ -132,10 +133,6 @@ public class Car {
 
     public List<Upgrade> getUpgrades() {
         return upgrades;
-    }
-
-    public void setUpgrades(List<Upgrade> upgrades) {
-        this.upgrades = upgrades;
     }
 
     public double getFuelCapacity() {

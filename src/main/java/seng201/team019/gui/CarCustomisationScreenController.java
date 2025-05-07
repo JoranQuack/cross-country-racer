@@ -1,5 +1,8 @@
 package seng201.team019.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.gluonhq.charm.glisten.control.ProgressBar;
 
 import javafx.fxml.FXML;
@@ -10,8 +13,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
+import seng201.team019.models.Upgrade;
 
 public class CarCustomisationScreenController extends ScreenController {
+    @FXML
+    private Label part0NameLabel;
+
+    @FXML
+    private Label part1NameLabel;
+
+    @FXML
+    private Label part2NameLabel;
+
+    @FXML
+    private Label part3NameLabel;
+
+    @FXML
+    private Label part4NameLabel;
+
     @FXML
     private Label fuelConsumptionLabel;
 
@@ -52,9 +71,6 @@ public class CarCustomisationScreenController extends ScreenController {
     private ImageView part0Image;
 
     @FXML
-    private Label part0Label;
-
-    @FXML
     private Button part0AddButton;
 
     @FXML
@@ -65,9 +81,6 @@ public class CarCustomisationScreenController extends ScreenController {
 
     @FXML
     private ImageView part1Image;
-
-    @FXML
-    private Label part1Label;
 
     @FXML
     private Button part1AddButton;
@@ -82,9 +95,6 @@ public class CarCustomisationScreenController extends ScreenController {
     private ImageView part2Image;
 
     @FXML
-    private Label part2Label;
-
-    @FXML
     private Button part2AddButton;
 
     @FXML
@@ -95,9 +105,6 @@ public class CarCustomisationScreenController extends ScreenController {
 
     @FXML
     private ImageView part3Image;
-
-    @FXML
-    private Label part3Label;
 
     @FXML
     private Button part3AddButton;
@@ -112,9 +119,6 @@ public class CarCustomisationScreenController extends ScreenController {
     private ImageView part4Image;
 
     @FXML
-    private Label part4Label;
-
-    @FXML
     private Button part4AddButton;
 
     @FXML
@@ -126,7 +130,7 @@ public class CarCustomisationScreenController extends ScreenController {
      */
     public void initialize() {
         initializeCar();
-        // initializeParts();
+        initializeParts();
     }
 
     /**
@@ -148,6 +152,86 @@ public class CarCustomisationScreenController extends ScreenController {
         numUpgradesLabel.setText(String.valueOf(car.getUpgrades().size()));
         fuelConsumptionLabel.setText(String.format("%.2f", car.getFuelConsumption()));
         fuelCapacityLabel.setText(String.valueOf((int) car.getFuelCapacity()));
+    }
+
+    /**
+     * Initializes the parts grid with tuning parts from the player's garage.
+     * Each part grid is populated with the corresponding part image, label, and
+     * buttons.
+     */
+    private void initializeParts() {
+        List<Upgrade> carParts = super.getGameEnvironment().getSelectedCar().getUpgrades();
+        List<Upgrade> ownedParts = super.getGameEnvironment().getOwnUpgrades();
+
+        List<Upgrade> parts = new ArrayList<>();
+        parts.addAll(carParts);
+        parts.addAll(ownedParts);
+
+        try {
+            // Make all part grids visible by default, and set buttons to be visible
+            for (int i = 0; i < 5; i++) {
+                GridPane partGrid = (GridPane) getClass().getDeclaredField("part" + i + "Grid").get(this);
+                Button partAddButton = (Button) getClass().getDeclaredField("part" + i + "AddButton").get(this);
+                partGrid.setVisible(true);
+                Button partRemoveButton = (Button) getClass().getDeclaredField("part" + i + "RemoveButton").get(this);
+                partAddButton.setVisible(true);
+                partAddButton.setMouseTransparent(false);
+                partRemoveButton.setVisible(true);
+                partRemoveButton.setMouseTransparent(false);
+            }
+
+            // Populate with part data or hide if no part available
+            for (int i = 0; i < 5; i++) {
+                GridPane partGrid = (GridPane) getClass().getDeclaredField("part" + i + "Grid").get(this);
+
+                if (i >= parts.size()) {
+                    partGrid.setVisible(false);
+                    continue;
+                }
+
+                Upgrade part = parts.get(i);
+
+                ImageView partImage = (ImageView) getClass().getDeclaredField("part" + i + "Image").get(this);
+                Label partNameLabel = (Label) getClass().getDeclaredField("part" + i + "NameLabel").get(this);
+                Button partAddButton = (Button) getClass().getDeclaredField("part" + i + "AddButton").get(this);
+                Button partRemoveButton = (Button) getClass().getDeclaredField("part" + i + "RemoveButton").get(this);
+
+                partImage.setImage(part.getImage());
+                partNameLabel.setText(part.getName());
+
+                initializePartButtons(part, partGrid, partImage, partNameLabel, partAddButton, partRemoveButton,
+                        ownedParts);
+
+            }
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Initializes one part's buttons based on whether the part is owned or not.
+     */
+    private void initializePartButtons(Upgrade part, GridPane partGrid, ImageView partImage,
+            Label partNameLabel, Button partAddButton, Button partRemoveButton, List<Upgrade> ownedParts) {
+        if (ownedParts.contains(part)) {
+            partGrid.setStyle("-fx-background-color: null;");
+            partRemoveButton.setVisible(false);
+            partRemoveButton.setMouseTransparent(true);
+            partAddButton.setOnAction(event -> {
+                getGameEnvironment().equipPart(part);
+                initializeParts();
+                initializeCar();
+            });
+        } else {
+            partGrid.setStyle("-fx-background-color: #e7f3f5;");
+            partAddButton.setVisible(false);
+            partAddButton.setMouseTransparent(true);
+            partRemoveButton.setOnAction(event -> {
+                getGameEnvironment().unequipPart(part);
+                initializeParts();
+                initializeCar();
+            });
+        }
     }
 
     @FXML
