@@ -19,6 +19,7 @@ public class GameEnvironment {
 
     private List<Car> garage = new ArrayList<Car>();
     private List<Car> availableCars = new ArrayList<Car>();
+    private List<Upgrade> ownUpgrades = new ArrayList<Upgrade>();
     private List<Upgrade> availableParts = new ArrayList<Upgrade>();
     private List<Race> races = new ArrayList<Race>();
     private Double bankBalance;
@@ -152,6 +153,23 @@ public class GameEnvironment {
         }
     }
 
+    public boolean buyPart(Upgrade part) {
+        if (bankBalance >= part.getPrice()) {
+            bankBalance -= part.getPrice();
+            ownUpgrades.add(part);
+            availableParts.remove(part);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void sellPart(Upgrade part) {
+        bankBalance += part.getPrice() / 2;
+        ownUpgrades.remove(part);
+        availableParts.add(part);
+    }
+
     // Getters and Setters for the GameEnvironment class
     public Car getSelectedCar() {
         return selectedCar;
@@ -207,5 +225,13 @@ public class GameEnvironment {
 
     public List<Upgrade> getAvailableParts() {
         return availableParts;
+    }
+
+    public List<Upgrade> getOwnUpgrades() {
+        return ownUpgrades;
+    }
+
+    public void setOwnUpgrades(List<Upgrade> ownUpgrades) {
+        this.ownUpgrades = ownUpgrades;
     }
 }

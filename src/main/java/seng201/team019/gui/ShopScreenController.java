@@ -264,7 +264,6 @@ public class ShopScreenController extends ScreenController {
      */
     private void initializeCars() {
         List<Car> cars = super.getGameEnvironment().getAvailableCars();
-        System.out.println("Cars available: " + cars.size());
 
         try {
             // Make all car grids visible by default
@@ -316,7 +315,6 @@ public class ShopScreenController extends ScreenController {
      */
     private void initializeParts() {
         List<Upgrade> parts = super.getGameEnvironment().getAvailableParts();
-        System.out.println("Parts available: " + parts.size());
 
         try {
             // Make all part grids visible by default
@@ -339,8 +337,8 @@ public class ShopScreenController extends ScreenController {
                 ImageView partImage = (ImageView) getClass().getDeclaredField("part" + i + "Image").get(this);
                 Label partNameLabel = (Label) getClass().getDeclaredField("part" + i + "NameLabel").get(this);
                 Label partPriceLabel = (Label) getClass().getDeclaredField("part" + i + "PriceLabel").get(this);
-                // Button partBuyButton = (Button) getClass().getDeclaredField("part" + i +
-                // "BuyButton").get(this);
+                Button partBuyButton = (Button) getClass().getDeclaredField("part" + i +
+                        "BuyButton").get(this);
                 Label partDescriptionLabel = (Label) getClass().getDeclaredField("part" + i + "DescriptionLabel")
                         .get(this);
 
@@ -349,8 +347,8 @@ public class ShopScreenController extends ScreenController {
                 partPriceLabel.setText(String.format("%.0f", part.getPrice()));
                 partDescriptionLabel.setText(part.getDescription());
 
-                // final Upgrade currentPart = part;
-                // partBuyButton.setOnAction(event -> buyPart(currentPart));
+                final Upgrade currentPart = part;
+                partBuyButton.setOnAction(event -> buyPart(currentPart));
             }
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             LOGGER.log(Level.SEVERE, "Error initializing parts shop UI", e);
@@ -371,16 +369,28 @@ public class ShopScreenController extends ScreenController {
      */
     private void buyCar(Car car) {
         if (car.getPrice() > super.getGameEnvironment().getBankBalance()) {
-            System.out.println("Not enough money to buy car: " + car.getModel());
             return;
         } else if (getGameEnvironment().addCar(car)) {
-            System.out.println("Bought car: " + car.getModel());
             super.getGameEnvironment().setBankBalance(super.getGameEnvironment().getBankBalance() - car.getPrice());
 
             initializeCars();
             updateBalanceLabel();
         } else {
             System.out.println("Car already owned or garage full: " + car.getModel());
+        }
+    }
+
+    /**
+     * Buy a part from the shop
+     * 
+     * @param part the part to buy
+     */
+    private void buyPart(Upgrade part) {
+        if (super.getGameEnvironment().buyPart(part)) {
+            initializeParts();
+            updateBalanceLabel();
+        } else {
+            System.out.println("Not enough money to buy part: " + part.getName());
         }
     }
 
