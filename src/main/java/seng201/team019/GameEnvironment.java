@@ -125,8 +125,15 @@ public class GameEnvironment {
         }
     }
 
-    public boolean addCar(Car car) {
-        if (!(garage.size() > MAX_GARAGE_SIZE) && !(garage.contains(car)) && (availableCars.contains(car))) {
+    /**
+     * Buys a car from the available cars list and adds it to the garage.
+     * 
+     * @param car
+     * @return true if the car was successfully bought and added to the garage,
+     */
+    public boolean buyCar(Car car) {
+        if (bankBalance >= car.getPrice()) {
+            bankBalance -= car.getPrice();
             availableCars.remove(car);
             garage.add(car);
             return true;
@@ -135,11 +142,29 @@ public class GameEnvironment {
         }
     }
 
-    public void removeCar(Car car) {
-        garage.remove(car);
-        availableCars.add(car);
+    /**
+     * Sells a car from the garage and adds it back to the available cars list.
+     * 
+     * @param car
+     * @return true if the car was successfully sold and added back to the available
+     *         cars list.
+     */
+    public boolean sellCar(Car car) {
+        if (garage.contains(car) && (garage.size() > 1)) {
+            bankBalance += car.getPrice() / 2;
+            garage.remove(car);
+            availableCars.add(car);
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    /**
+     * Sets the active car in the garage (the first car in the list).
+     * 
+     * @param car
+     */
     public void setActiveCar(Car car) {
         if (garage.contains(car)) {
             garage.remove(car);
@@ -147,6 +172,13 @@ public class GameEnvironment {
         }
     }
 
+    /**
+     * Buys a part from the available parts list and adds it to the own upgrades
+     * list.
+     * 
+     * @param part
+     * @return
+     */
     public boolean buyPart(Upgrade part) {
         if (bankBalance >= part.getPrice()) {
             bankBalance -= part.getPrice();
@@ -158,17 +190,33 @@ public class GameEnvironment {
         }
     }
 
+    /**
+     * Sells a part from the own upgrades list and adds it back to the available
+     * parts list.
+     * 
+     * @param part
+     */
     public void sellPart(Upgrade part) {
         bankBalance += part.getPrice() / 2;
         ownUpgrades.remove(part);
         availableParts.add(part);
     }
 
+    /**
+     * Equips a part to the selected car and removes it from the own upgrades
+     * 
+     * @param part
+     */
     public void equipPart(Upgrade part) {
         getSelectedCar().addUpgrade(part);
         ownUpgrades.remove(part);
     }
 
+    /**
+     * Unequips a part from the selected car and adds it back to the own upgrades
+     * 
+     * @param part
+     */
     public void unequipPart(Upgrade part) {
         getSelectedCar().removeUpgrade(part);
         ownUpgrades.add(part);
