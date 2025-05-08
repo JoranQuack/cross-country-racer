@@ -30,7 +30,7 @@ public class PlayerTest {
 
     @Test
     public void setFuelAmountTestIsLessThanZero() {
-        when(car.getFuelCapacity()).thenReturn((int) 40d);
+        when(car.getFuelCapacity()).thenReturn(40);
 
         player.setFuelAmount(-1);
 
