@@ -25,7 +25,6 @@
       <children>
         <ButtonBar prefWidth="200.0">
           <buttons>
-            <Button mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" />
             <Button mnemonicParsing="false" onAction="#onHomeButtonClicked" text="Home" />
           </buttons>
           <VBox.margin>
