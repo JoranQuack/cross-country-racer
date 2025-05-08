@@ -13,8 +13,6 @@ import java.util.List;
 
 public class GameEnvironment {
 
-    private static final int MAX_GARAGE_SIZE = 5;
-
     private final ScreenNavigator navigator;
 
     private List<Car> garage = new ArrayList<Car>();
