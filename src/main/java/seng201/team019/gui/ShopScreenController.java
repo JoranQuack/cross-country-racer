@@ -14,11 +14,102 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
+import seng201.team019.models.Upgrade;
 
 /**
  * Controller for the shop.fxml window
  */
 public class ShopScreenController extends ScreenController {
+    @FXML
+    private GridPane part0Grid;
+
+    @FXML
+    private ImageView part0Image;
+
+    @FXML
+    private Label part0NameLabel;
+
+    @FXML
+    private Button part0BuyButton;
+
+    @FXML
+    private Label part0PriceLabel;
+
+    @FXML
+    private Label part0DescriptionLabel;
+
+    @FXML
+    private GridPane part1Grid;
+
+    @FXML
+    private ImageView part1Image;
+
+    @FXML
+    private Label part1NameLabel;
+
+    @FXML
+    private Button part1BuyButton;
+
+    @FXML
+    private Label part1PriceLabel;
+
+    @FXML
+    private Label part1DescriptionLabel;
+
+    @FXML
+    private GridPane part2Grid;
+
+    @FXML
+    private ImageView part2Image;
+
+    @FXML
+    private Label part2NameLabel;
+
+    @FXML
+    private Button part2BuyButton;
+
+    @FXML
+    private Label part2PriceLabel;
+
+    @FXML
+    private Label part2DescriptionLabel;
+
+    @FXML
+    private GridPane part3Grid;
+
+    @FXML
+    private ImageView part3Image;
+
+    @FXML
+    private Label part3NameLabel;
+
+    @FXML
+    private Button part3BuyButton;
+
+    @FXML
+    private Label part3PriceLabel;
+
+    @FXML
+    private Label part3DescriptionLabel;
+
+    @FXML
+    private GridPane part4Grid;
+
+    @FXML
+    private ImageView part4Image;
+
+    @FXML
+    private Label part4NameLabel;
+
+    @FXML
+    private Button part4BuyButton;
+
+    @FXML
+    private Label part4PriceLabel;
+
+    @FXML
+    private Label part4DescriptionLabel;
+
     private static final Logger LOGGER = Logger.getLogger(ShopScreenController.class.getName());
 
     @FXML
@@ -165,6 +256,7 @@ public class ShopScreenController extends ScreenController {
     public void initialize() {
         updateBalanceLabel();
         initializeCars();
+        initializeParts();
     }
 
     /**
@@ -172,7 +264,6 @@ public class ShopScreenController extends ScreenController {
      */
     private void initializeCars() {
         List<Car> cars = super.getGameEnvironment().getAvailableCars();
-        System.out.println("Cars available: " + cars.size());
 
         try {
             // Make all car grids visible by default
@@ -220,6 +311,51 @@ public class ShopScreenController extends ScreenController {
     }
 
     /**
+     * Initialize the parts in the shop
+     */
+    private void initializeParts() {
+        List<Upgrade> parts = super.getGameEnvironment().getAvailableParts();
+
+        try {
+            // Make all part grids visible by default
+            for (int i = 0; i < 5; i++) {
+                GridPane partGrid = (GridPane) getClass().getDeclaredField("part" + i + "Grid").get(this);
+                partGrid.setVisible(true);
+            }
+
+            // Populate with part data or hide if no part available
+            for (int i = 0; i < 5; i++) {
+                GridPane partGrid = (GridPane) getClass().getDeclaredField("part" + i + "Grid").get(this);
+
+                if (i >= parts.size()) {
+                    partGrid.setVisible(false);
+                    continue;
+                }
+
+                Upgrade part = parts.get(i);
+
+                ImageView partImage = (ImageView) getClass().getDeclaredField("part" + i + "Image").get(this);
+                Label partNameLabel = (Label) getClass().getDeclaredField("part" + i + "NameLabel").get(this);
+                Label partPriceLabel = (Label) getClass().getDeclaredField("part" + i + "PriceLabel").get(this);
+                Button partBuyButton = (Button) getClass().getDeclaredField("part" + i +
+                        "BuyButton").get(this);
+                Label partDescriptionLabel = (Label) getClass().getDeclaredField("part" + i + "DescriptionLabel")
+                        .get(this);
+
+                partImage.setImage(part.getImage());
+                partNameLabel.setText(part.getName());
+                partPriceLabel.setText(String.format("%.0f", part.getPrice()));
+                partDescriptionLabel.setText(part.getDescription());
+
+                final Upgrade currentPart = part;
+                partBuyButton.setOnAction(event -> buyPart(currentPart));
+            }
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+            LOGGER.log(Level.SEVERE, "Error initializing parts shop UI", e);
+        }
+    }
+
+    /**
      * Update the balance label
      */
     private void updateBalanceLabel() {
@@ -233,10 +369,8 @@ public class ShopScreenController extends ScreenController {
      */
     private void buyCar(Car car) {
         if (car.getPrice() > super.getGameEnvironment().getBankBalance()) {
-            System.out.println("Not enough money to buy car: " + car.getModel());
             return;
         } else if (getGameEnvironment().addCar(car)) {
-            System.out.println("Bought car: " + car.getModel());
             super.getGameEnvironment().setBankBalance(super.getGameEnvironment().getBankBalance() - car.getPrice());
 
             initializeCars();
@@ -246,14 +380,23 @@ public class ShopScreenController extends ScreenController {
         }
     }
 
-    @FXML
-    private void onHomeButtonClicked() {
-        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+    /**
+     * Buy a part from the shop
+     * 
+     * @param part the part to buy
+     */
+    private void buyPart(Upgrade part) {
+        if (super.getGameEnvironment().buyPart(part)) {
+            initializeParts();
+            updateBalanceLabel();
+        } else {
+            System.out.println("Not enough money to buy part: " + part.getName());
+        }
     }
 
     @FXML
-    private void onBackButtonClicked() {
-        onHomeButtonClicked(); // Redirect to the dashboard screen for now
+    private void onHomeButtonClicked() {
+        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 
     public ShopScreenController(GameEnvironment gameEnvironment) {

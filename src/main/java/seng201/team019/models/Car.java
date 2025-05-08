@@ -1,5 +1,8 @@
 package seng201.team019.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.image.Image;
 
 public class Car {
@@ -13,25 +16,48 @@ public class Car {
     private int range; // Range in km
     private double fuelConsumption; // Fuel consumption in L/100km
     private String imagePath; // Path to the car image (always a PNG file with same name as the car)
-    private Upgrade[] upgrades; // Array of upgrades applied on the car
-    private final double fuelCapacity; // gives the fuel capacity in L
+    private List<Upgrade> upgrades = new ArrayList<Upgrade>(); // Array of upgrades applied on the car
+    private int fuelCapacity; // gives the fuel capacity in L
 
     public Car(String name, int age, double price, double speed, double handling, double reliability,
-            double fuelConsumption, int range) {
+            double fuelConsumption, int fuelCapacity) {
         this.name = name;
         this.age = age;
         this.price = price;
         this.speed = speed;
         this.handling = handling;
         this.reliability = reliability;
-        this.range = range;
+        this.fuelCapacity = fuelCapacity;
         this.fuelConsumption = fuelConsumption;
 
         model = name; // Initialize model with the same value as name
         imagePath = "images/" + name + ".png"; // Initialize image path based on name
-        upgrades = new Upgrade[0]; // Initialize with no upgrades
-        this.upgrades = new Upgrade[0]; // Initialize with no upgrades
-        this.fuelCapacity = 40; // Initialize fuel capacity to a default value (e.g., 40L)
+        upgrades = new ArrayList<Upgrade>();
+        updateRange();
+    }
+
+    public void addUpgrade(Upgrade upgrade) {
+        upgrades.add(upgrade);
+        speed += upgrade.getSpeedBonus();
+        handling += upgrade.getHandlingBonus();
+        reliability += upgrade.getReliabilityBonus();
+        fuelCapacity += upgrade.getFuelCapacityBonus();
+        fuelConsumption += upgrade.getFuelConsumptionBonus();
+        updateRange(); // Update range after adding an upgrade
+    }
+
+    public void removeUpgrade(Upgrade upgrade) {
+        upgrades.remove(upgrade);
+        speed -= upgrade.getSpeedBonus();
+        handling -= upgrade.getHandlingBonus();
+        reliability -= upgrade.getReliabilityBonus();
+        fuelCapacity -= upgrade.getFuelCapacityBonus();
+        fuelConsumption -= upgrade.getFuelConsumptionBonus();
+        updateRange(); // Update range after removing an upgrade
+    }
+
+    public void updateRange() {
+        range = (int) ((fuelCapacity / fuelConsumption) * 100);
     }
 
     // Getters and setters for the car attributes
@@ -107,19 +133,11 @@ public class Car {
         return new Image(getClass().getResourceAsStream("/" + imagePath));
     }
 
-    public Upgrade[] getUpgrades() {
+    public List<Upgrade> getUpgrades() {
         return upgrades;
     }
 
-    public void setUpgrades(Upgrade[] upgrades) {
-        this.upgrades = upgrades;
-    }
-
-    public double getFuelCapacity() {
+    public int getFuelCapacity() {
         return fuelCapacity;
-    }
-
-    public void setFuelCapacity(double fuelCapacity) {
-
     }
 }

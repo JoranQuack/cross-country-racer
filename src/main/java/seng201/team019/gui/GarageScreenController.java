@@ -214,7 +214,7 @@ public class GarageScreenController extends ScreenController {
         speedLabel.setText(String.format("%.0f", car.getSpeed()));
         handlingProgressBar.setProgress(car.getHandling());
         reliabilityProgressBar.setProgress(car.getReliability());
-        numUpgradesLabel.setText(Integer.toString(car.getUpgrades().length));
+        numUpgradesLabel.setText(Integer.toString(car.getUpgrades().size()));
     }
 
     /**

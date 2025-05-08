@@ -2,6 +2,7 @@ package seng201.team019;
 
 import seng201.team019.gui.ScreenNavigator;
 import seng201.team019.models.Car;
+import seng201.team019.models.Upgrade;
 import seng201.team019.models.Difficulty;
 import seng201.team019.models.Race;
 import seng201.team019.services.JsonRaceDeserializer;
@@ -18,6 +19,8 @@ public class GameEnvironment {
 
     private List<Car> garage = new ArrayList<Car>();
     private List<Car> availableCars = new ArrayList<Car>();
+    private List<Upgrade> ownUpgrades = new ArrayList<Upgrade>();
+    private List<Upgrade> availableParts = new ArrayList<Upgrade>();
     private List<Race> races = new ArrayList<Race>();
     private Double bankBalance;
     private Difficulty difficulty;
@@ -26,25 +29,19 @@ public class GameEnvironment {
     private String name;
     private Car selectedCar;
 
-    // TODO: add way to track stats for end of game
-
-    // TODO: add tuning parts
-
     public GameEnvironment(ScreenNavigator navigator) {
 
         this.bankBalance = 200000.0;
         this.garage = new ArrayList<Car>();
+        this.ownUpgrades = new ArrayList<Upgrade>();
         this.racesCompleted = 0;
 
         initializeAvailableCars();
+        initializeAvailableParts();
         initializeRaces();
-
-        // TODO: Add random opponents, parts, etc.
-        // This should be done here and possibly dependent on difficulty.
 
         this.navigator = navigator;
         navigator.launchStartScreen(this);
-        // navigator.launchShopScreen(this); // TESTING ONLY
     }
 
     public void completeGameEnvironmentSetup(Difficulty difficulty, int seasonLength, String name) {
@@ -79,6 +76,32 @@ public class GameEnvironment {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Failed to load cars from CSV file");
+        }
+    }
+
+    /**
+     * Initializes the available parts from a CSV file.
+     * The CSV file should be in the format:
+     * name,price,speedBonus,handlingBonus,reliabilityBonus,rangeBonus,fuelConsumptionBonus
+     * There must be exactly 5 parts (6 rows inc. header) in the CSV file.
+     */
+    public void initializeAvailableParts() {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                getClass().getResourceAsStream("/data/upgrades.csv")))) {
+            String line;
+            br.readLine(); // Skip the header line
+            // read each line and create a Upgrade object
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                Upgrade part = new Upgrade(values[0], Double.parseDouble(values[1]),
+                        Double.parseDouble(values[2]), Double.parseDouble(values[3]),
+                        Double.parseDouble(values[4]), Integer.parseInt(values[5]),
+                        Double.parseDouble(values[6]), values[7]);
+                availableParts.add(part);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load parts from CSV file");
         }
     }
 
@@ -122,6 +145,33 @@ public class GameEnvironment {
             garage.remove(car);
             garage.add(0, car);
         }
+    }
+
+    public boolean buyPart(Upgrade part) {
+        if (bankBalance >= part.getPrice()) {
+            bankBalance -= part.getPrice();
+            ownUpgrades.add(part);
+            availableParts.remove(part);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void sellPart(Upgrade part) {
+        bankBalance += part.getPrice() / 2;
+        ownUpgrades.remove(part);
+        availableParts.add(part);
+    }
+
+    public void equipPart(Upgrade part) {
+        getSelectedCar().addUpgrade(part);
+        ownUpgrades.remove(part);
+    }
+
+    public void unequipPart(Upgrade part) {
+        getSelectedCar().removeUpgrade(part);
+        ownUpgrades.add(part);
     }
 
     // Getters and Setters for the GameEnvironment class
@@ -175,5 +225,17 @@ public class GameEnvironment {
 
     public List<Race> getRaces() {
         return races;
+    }
+
+    public List<Upgrade> getAvailableParts() {
+        return availableParts;
+    }
+
+    public List<Upgrade> getOwnUpgrades() {
+        return ownUpgrades;
+    }
+
+    public void setOwnUpgrades(List<Upgrade> ownUpgrades) {
+        this.ownUpgrades = ownUpgrades;
     }
 }
