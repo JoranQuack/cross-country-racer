@@ -5,6 +5,7 @@ import java.util.List;
 import com.gluonhq.charm.glisten.control.ProgressBar;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -218,6 +219,7 @@ public class GarageScreenController extends ScreenController {
     public void setActiveCar(Car car) {
         super.getGameEnvironment().setActiveCar(car);
         initializeCars();
+        showAlert(AlertType.INFORMATION, "Car Set Active", "You have set " + car.getName() + " as your active car.");
     }
 
     /**
