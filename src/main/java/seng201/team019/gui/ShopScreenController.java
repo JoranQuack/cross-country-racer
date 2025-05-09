@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import seng201.team019.GameEnvironment;
@@ -394,8 +395,11 @@ public class ShopScreenController extends ScreenController {
         if (getGameEnvironment().buyCar(car)) {
             initializeCars();
             updateBalanceLabel();
+            showAlert(AlertType.INFORMATION, "Purchase Successful",
+                    "You have successfully purchased the " + car.getModel() + "!");
         } else {
-            // TODO: Show error message to user
+            showAlert(AlertType.ERROR, "Purchase Failed",
+                    "You don't have enough money to buy this car.");
         }
     }
 
@@ -408,8 +412,11 @@ public class ShopScreenController extends ScreenController {
         if (super.getGameEnvironment().buyPart(part)) {
             initializeParts();
             updateBalanceLabel();
+            showAlert(AlertType.INFORMATION, "Purchase Successful",
+                    "You have successfully purchased the " + part.getName() + "!");
         } else {
-            // TODO: Show error message to user
+            showAlert(AlertType.ERROR, "Purchase Failed",
+                    "You don't have enough money to buy this part.");
         }
     }
 
