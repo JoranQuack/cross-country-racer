@@ -37,7 +37,6 @@ public class CSVReader {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Failed to load from CSV file: " + resourcePath);
         }
 
         return items;

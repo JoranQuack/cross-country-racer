@@ -126,7 +126,6 @@ public class GarageScreenController extends ScreenController {
      */
     private void initializeCars() {
         List<Car> cars = super.getGameEnvironment().getGarage();
-        System.out.println("Cars in garage: " + cars.size());
 
         // Make all car grids visible by default
         for (int i = 0; i < 5; i++) {
@@ -134,7 +133,7 @@ public class GarageScreenController extends ScreenController {
                 GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
                 carGrid.setVisible(true);
             } catch (Exception e) {
-                System.err.println("Error accessing car grid " + i + ": " + e.getMessage());
+                e.printStackTrace();
             }
         }
 
@@ -176,7 +175,7 @@ public class GarageScreenController extends ScreenController {
                     });
                 }
             } catch (Exception e) {
-                System.err.println("Error setting up car " + i + ": " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }
