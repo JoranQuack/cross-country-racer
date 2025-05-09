@@ -374,7 +374,7 @@ public class ShopScreenController extends ScreenController {
             initializeCars();
             updateBalanceLabel();
         } else {
-            System.out.println("Car already owned or garage full: " + car.getModel());
+            // TODO: Show error message to user
         }
     }
 
@@ -388,7 +388,7 @@ public class ShopScreenController extends ScreenController {
             initializeParts();
             updateBalanceLabel();
         } else {
-            System.out.println("Not enough money to buy part: " + part.getName());
+            // TODO: Show error message to user
         }
     }
 
