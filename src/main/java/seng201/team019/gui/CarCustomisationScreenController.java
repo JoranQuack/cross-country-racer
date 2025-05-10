@@ -248,7 +248,7 @@ public class CarCustomisationScreenController extends ScreenController {
      */
     @FXML
     public void onBackButtonClicked() {
-        onHomeButtonClicked(); // Calls the home button action to navigate back to the dashboard for now.
+        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
     }
 
     /**

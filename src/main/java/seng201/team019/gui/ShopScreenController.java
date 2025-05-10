@@ -368,9 +368,7 @@ public class ShopScreenController extends ScreenController {
      * @param car the car to buy
      */
     private void buyCar(Car car) {
-        if (car.getPrice() > super.getGameEnvironment().getBankBalance()) {
-            return;
-        } else if (getGameEnvironment().addCar(car)) {
+        if (getGameEnvironment().buyCar(car)) {
             super.getGameEnvironment().setBankBalance(super.getGameEnvironment().getBankBalance() - car.getPrice());
 
             initializeCars();

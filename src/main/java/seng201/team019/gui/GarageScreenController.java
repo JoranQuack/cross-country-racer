@@ -226,15 +226,6 @@ public class GarageScreenController extends ScreenController {
     }
 
     /**
-     * Handles the back button click event.
-     * Returns to the dashboard screen.
-     */
-    @FXML
-    public void onBackButtonClicked() {
-        onHomeButtonClicked(); // Calls the home button action to navigate back to the dashboard for now.
-    }
-
-    /**
      * Handles the home button click event.
      * Returns to the dashboard screen.
      */
