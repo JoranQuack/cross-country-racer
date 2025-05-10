@@ -8,10 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -22,7 +23,10 @@ import seng201.team019.models.Racer;
 import seng201.team019.services.TimeFormaterService;
 
 import java.time.Duration;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for the main.fxml window
@@ -45,10 +49,19 @@ public class RaceScreenController extends ScreenController {
     @FXML
     private VBox RaceLeaderboard;
 
+    @FXML
+    private Pane raceProgressLineWrapper;
+
+    @FXML
+    private Line raceProgressLine;
+
+    private final Map<Racer, Circle> racerCircles = new HashMap<>();
+
     private final AnimationTimer gameLoop;
 
+
+
     private int gameSpeedMultiplier = 1;
-    private boolean PlayerRefuleClicked = false;
 
     /**
      * Initialize the window
@@ -56,6 +69,7 @@ public class RaceScreenController extends ScreenController {
     public void initialize() {
         // initialize gui
         renderRace();
+        initializeProgressLine();
 
         //add action to buttons
         RaceStartButton.setOnAction(event -> {
@@ -125,10 +139,11 @@ public class RaceScreenController extends ScreenController {
         // Update race leaderboard
         renderRaceLeaderboard();
 
+        renderRaceProgressLine();
+
     }
 
 
-    //this is temporary and is just used to render all racers
     private void renderRaceLeaderboard() {
         StringBuilder stats = new StringBuilder();
         RaceLeaderboard.getChildren().clear(); // TODO: MAke this more efficient avoid unnecessary clears
@@ -140,8 +155,19 @@ public class RaceScreenController extends ScreenController {
             RaceLeaderboard.getChildren().addAll(raceLeaderboardRow ,new Separator());
             VBox.setVgrow(RaceLeaderboard, Priority.ALWAYS);
         }
+    }
 
+    private void renderRaceProgressLine() {
+        for (Map.Entry<Racer, Circle> entry : racerCircles.entrySet()) {
+            // Get the key from the entry
+            Racer racer = entry.getKey();
 
+            // Get the value from the entry
+            Circle racerDot = entry.getValue();
+
+            racerDot.setCenterX(racer.getRoute().normalizeDistance(racer.getDistance())*(raceProgressLine.endXProperty().getValue()) );
+
+        }
     }
 
 
@@ -206,9 +232,21 @@ public class RaceScreenController extends ScreenController {
         return leaderboardRow;
     }
 
+    private void initializeProgressLine(){
+        raceProgressLine.endXProperty().bind(raceProgressLineWrapper.widthProperty());;
+
+        for (Racer racer : race.getRacers()) {
+            Circle racerDot = new Circle(5);
+            racerDot.setCenterX(raceProgressLine.getStartX());
+            racerDot.setCenterY(raceProgressLine.getLayoutY()); // getLayoutY() as we offset lne 40px down in fxml layout.
+            racerDot.setFill(Color.RED);
+            raceProgressLineWrapper.getChildren().add(racerDot);
+            racerCircles.put(racer, racerDot);
+        }
+    }
+
     private void updateRacers(long delta) {
         race.updateRacers(delta);
-
     }
 
     @Override
