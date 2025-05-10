@@ -10,6 +10,8 @@ import com.gluonhq.charm.glisten.control.ProgressBar;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import seng201.team019.GameEnvironment;
@@ -20,6 +22,12 @@ import seng201.team019.models.Upgrade;
  * Controller for the shop.fxml window
  */
 public class ShopScreenController extends ScreenController {
+    @FXML
+    private Tab carsTab;
+
+    @FXML
+    private Tab partsTab;
+
     @FXML
     private GridPane part0Grid;
 
@@ -265,6 +273,14 @@ public class ShopScreenController extends ScreenController {
     private void initializeCars() {
         List<Car> cars = super.getGameEnvironment().getAvailableCars();
 
+        if (cars.isEmpty()) {
+            Label noCarsLabel = new Label("You've bought all the cars!");
+            javafx.scene.layout.StackPane centerPane = new javafx.scene.layout.StackPane(noCarsLabel);
+            centerPane.setPrefSize(800, 400);
+            carsTab.setContent(centerPane);
+            return;
+        }
+
         try {
             // Make all car grids visible by default
             for (int i = 0; i < 5; i++) {
@@ -315,6 +331,14 @@ public class ShopScreenController extends ScreenController {
      */
     private void initializeParts() {
         List<Upgrade> parts = super.getGameEnvironment().getAvailableParts();
+
+        if (parts.isEmpty()) {
+            Label noPartsLabel = new Label("You've bought all the parts!");
+            javafx.scene.layout.StackPane centerPane = new javafx.scene.layout.StackPane(noPartsLabel);
+            centerPane.setPrefSize(800, 400);
+            partsTab.setContent(centerPane);
+            return;
+        }
 
         try {
             // Make all part grids visible by default
@@ -369,12 +393,13 @@ public class ShopScreenController extends ScreenController {
      */
     private void buyCar(Car car) {
         if (getGameEnvironment().buyCar(car)) {
-            super.getGameEnvironment().setBankBalance(super.getGameEnvironment().getBankBalance() - car.getPrice());
-
             initializeCars();
             updateBalanceLabel();
+            showAlert(AlertType.INFORMATION, "Purchase Successful",
+                    "You have successfully purchased the " + car.getModel() + "!");
         } else {
-            System.out.println("Car already owned or garage full: " + car.getModel());
+            showAlert(AlertType.ERROR, "Purchase Failed",
+                    "You don't have enough money to buy this car.");
         }
     }
 
@@ -387,8 +412,11 @@ public class ShopScreenController extends ScreenController {
         if (super.getGameEnvironment().buyPart(part)) {
             initializeParts();
             updateBalanceLabel();
+            showAlert(AlertType.INFORMATION, "Purchase Successful",
+                    "You have successfully purchased the " + part.getName() + "!");
         } else {
-            System.out.println("Not enough money to buy part: " + part.getName());
+            showAlert(AlertType.ERROR, "Purchase Failed",
+                    "You don't have enough money to buy this part.");
         }
     }
 

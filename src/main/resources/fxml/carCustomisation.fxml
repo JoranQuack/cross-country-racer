@@ -206,7 +206,7 @@
                 </VBox>
                 <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" GridPane.rowIndex="2">
                   <content>
-                    <VBox prefWidth="400.0" spacing="5.0">
+                    <VBox fx:id="partsVBox" alignment="TOP_CENTER" prefWidth="400.0" spacing="5.0">
                       <children>
                         <GridPane fx:id="part0Grid" style="-fx-background-radius: 10;">
                           <columnConstraints>

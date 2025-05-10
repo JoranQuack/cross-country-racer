@@ -5,9 +5,12 @@ import java.util.List;
 import com.gluonhq.charm.glisten.control.ProgressBar;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import seng201.team019.GameEnvironment;
@@ -19,6 +22,12 @@ import seng201.team019.models.Car;
  * and providing functionality to set active cars and customise vehicles.
  */
 public class GarageScreenController extends ScreenController {
+    @FXML
+    private AnchorPane mainAnchorPane;
+
+    @FXML
+    private SplitPane mainSplitPane;
+
     @FXML
     private GridPane car0Grid;
 
@@ -126,7 +135,17 @@ public class GarageScreenController extends ScreenController {
      */
     private void initializeCars() {
         List<Car> cars = super.getGameEnvironment().getGarage();
-        System.out.println("Cars in garage: " + cars.size());
+
+        if (cars.isEmpty()) {
+            mainSplitPane.setVisible(false);
+
+            Label noCarsLabel = new Label("You have no cars in your garage. Get some in the shop!");
+            javafx.scene.layout.StackPane centerPane = new javafx.scene.layout.StackPane(noCarsLabel);
+            centerPane.setPrefSize(580, 300);
+            mainAnchorPane.getChildren().add(centerPane);
+
+            return;
+        }
 
         // Make all car grids visible by default
         for (int i = 0; i < 5; i++) {
@@ -134,7 +153,7 @@ public class GarageScreenController extends ScreenController {
                 GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
                 carGrid.setVisible(true);
             } catch (Exception e) {
-                System.err.println("Error accessing car grid " + i + ": " + e.getMessage());
+                e.printStackTrace();
             }
         }
 
@@ -176,7 +195,7 @@ public class GarageScreenController extends ScreenController {
                     });
                 }
             } catch (Exception e) {
-                System.err.println("Error setting up car " + i + ": " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -200,6 +219,7 @@ public class GarageScreenController extends ScreenController {
     public void setActiveCar(Car car) {
         super.getGameEnvironment().setActiveCar(car);
         initializeCars();
+        showAlert(AlertType.INFORMATION, "Car Set Active", "You have set " + car.getName() + " as your active car.");
     }
 
     /**

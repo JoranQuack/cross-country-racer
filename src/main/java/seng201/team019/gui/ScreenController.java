@@ -1,5 +1,9 @@
 package seng201.team019.gui;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import seng201.team019.GameEnvironment;
 
 /**
@@ -19,6 +23,28 @@ public abstract class ScreenController {
      */
     protected ScreenController(final GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
+    }
+
+    /**
+     * Shows an alert dialog to the user
+     * 
+     * @param type    the type of alert (ERROR, INFORMATION, etc.)
+     * @param title   the title of the alert
+     * @param content the content message
+     */
+    public void showAlert(AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+
+        alert.setTitle(title);
+        alert.setContentText(content);
+
+        alert.setHeaderText(null);
+        alert.setGraphic(null);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+
+        alert.showAndWait();
     }
 
     /**

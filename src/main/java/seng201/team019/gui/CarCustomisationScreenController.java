@@ -11,11 +11,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
 import seng201.team019.models.Upgrade;
 
 public class CarCustomisationScreenController extends ScreenController {
+    @FXML
+    private VBox partsVBox;
+
     @FXML
     private Label part0NameLabel;
 
@@ -166,6 +170,13 @@ public class CarCustomisationScreenController extends ScreenController {
         List<Upgrade> parts = new ArrayList<>();
         parts.addAll(carParts);
         parts.addAll(ownedParts);
+
+        if (parts.isEmpty()) {
+            Label noPartsLabel = new Label("You have no parts to equip. Buy parts from the shop!");
+            partsVBox.getChildren().clear();
+            partsVBox.getChildren().add(noPartsLabel);
+            return;
+        }
 
         try {
             // Make all part grids visible by default, and set buttons to be visible

@@ -22,7 +22,7 @@
          <children>
         <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
           <tabs>
-            <Tab text="Cars">
+            <Tab fx:id="carsTab" text="Cars">
               <content>
                 <ScrollPane hbarPolicy="NEVER" minViewportHeight="200.0" minViewportWidth="200.0" prefViewportHeight="200.0" prefViewportWidth="200.0">
                   <content>
@@ -573,7 +573,7 @@
                 </ScrollPane>
               </content>
             </Tab>
-            <Tab text="Parts">
+            <Tab fx:id="partsTab" text="Parts">
                 <content>
                     <ScrollPane hbarPolicy="NEVER" minViewportHeight="200.0" minViewportWidth="200.0" prefViewportHeight="200.0" prefViewportWidth="200.0">
                       <content>
