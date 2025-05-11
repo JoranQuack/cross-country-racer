@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seng201.team019.GameEnvironment;
 import seng201.team019.services.RandomNameGeneratorService;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -43,7 +42,6 @@ public class Race {
         opponentCars = new ArrayList<>();
         raceTime = 0;
 
-
         for (int i = 0; i < numOfOpponents; i++) {
             Car randCar = availableCars.get(rand.nextInt(availableCars.size()));
             String name = randName.generateName();
@@ -54,7 +52,7 @@ public class Race {
     }
 
     public boolean incrementRaceTime(long delta) {
-        if (raceTime+delta >= duration) {
+        if (raceTime + delta >= duration) {
             raceTime = duration;
             return true;
         }
@@ -78,15 +76,15 @@ public class Race {
     public void updateRacers(long delta) {
         for (Racer racer : getRacers()) {
             float distanceTraveled = racer.simulateDriveByTime(delta);
-            racer.updateStats(distanceTraveled,raceTime);
+            racer.updateStats(distanceTraveled, raceTime);
         }
     }
 
-
     public void SetDNFOfDurationExceedingRacers() {
         for (Racer racer : getRacers()) {
-            if (racer.isFinished()) continue;
-            racer.setIsFinished(true,duration);
+            if (racer.isFinished())
+                continue;
+            racer.setIsFinished(true, duration);
             racer.setDidDNF(true);
         }
     }
@@ -100,17 +98,32 @@ public class Race {
 
     public List<Racer> getOrderedRacers() {
         Comparator<Racer> raceOrderComparator = Comparator.comparing(Racer::didDNF).reversed() // Dnf Last
-                .thenComparing((Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())).reversed() // order by those with the most distance traveld
-                .thenComparing((Racer racer) -> racer.isFinished() ? racer.getFinishTime(): Long.MAX_VALUE); // if there are multiple finishers order by Finish time
+                .thenComparing((Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())).reversed() // order
+                                                                                                                    // by
+                                                                                                                    // those
+                                                                                                                    // with
+                                                                                                                    // the
+                                                                                                                    // most
+                                                                                                                    // distance
+                                                                                                                    // traveld
+                .thenComparing((Racer racer) -> racer.isFinished() ? racer.getFinishTime() : Long.MAX_VALUE); // if
+                                                                                                              // there
+                                                                                                              // are
+                                                                                                              // multiple
+                                                                                                              // finishers
+                                                                                                              // order
+                                                                                                              // by
+                                                                                                              // Finish
+                                                                                                              // time
 
         return getRacers().stream().sorted(raceOrderComparator).collect(Collectors.toList());
     }
 
     public int getPlayerFinishedPosition() {
-        if(player.didDNF()) {
+        if (player.didDNF()) {
             return -1;
         }
-        return 1+getOrderedRacers().indexOf(player);
+        return 1 + getOrderedRacers().indexOf(player);
     }
 
     public void setPlayer(Player player) {
@@ -130,7 +143,6 @@ public class Race {
     public List<Route> getRoutes() {
         return routes;
     }
-
 
     public static Builder builder() {
         return new Builder();

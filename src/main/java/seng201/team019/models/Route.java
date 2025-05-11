@@ -3,27 +3,25 @@ package seng201.team019.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.concurrent.TimeUnit;
-
 public class Route {
     private final String description;
 
     // Distances in Kilometers always float type
     private final float distance;
 
-    //these range between 1 and 0
+    // these range between 1 and 0
     private final double straightness;
     private final double gradeVariation;
 
-    //TODO: This assumes they are evenly spaced. May not be in future.
+    // TODO: This assumes they are evenly spaced. May not be in future.
     private final int fuelStops;
 
     @JsonCreator
     public Route(@JsonProperty("description") String description,
-                 @JsonProperty("distance") float distance,
-                 @JsonProperty("straightness") double straightness,
-                 @JsonProperty("gradeVariation") double gradeVariation,
-                 @JsonProperty("fuelStops") int fuelStops) {
+            @JsonProperty("distance") float distance,
+            @JsonProperty("straightness") double straightness,
+            @JsonProperty("gradeVariation") double gradeVariation,
+            @JsonProperty("fuelStops") int fuelStops) {
         // TODO: add validation for params
         this.description = description;
         this.distance = distance;
@@ -73,9 +71,8 @@ public class Route {
         }
         int numberOfStopPassed = (int) Math.floor(currentDistance / getDistanceBetweenFuelStops());
 
-
         // Distance from start to next stop - current distance = distance to next stop
-        return (numberOfStopPassed+1)*getDistanceBetweenFuelStops()-currentDistance;
+        return (numberOfStopPassed + 1) * getDistanceBetweenFuelStops() - currentDistance;
     }
 
 }

@@ -49,7 +49,7 @@ public class PlayerTest {
 
     @Test
     public void updateStatsTestPlayerHasFinished() {
-        player.setIsFinished(true,0);
+        player.setIsFinished(true, 0);
         player.updateStats(10, 10);
 
         Assertions.assertTrue(player.isFinished());
@@ -64,7 +64,7 @@ public class PlayerTest {
 
         float distance = route.getDistance() + 10;
         long time = Duration.ofHours(1).toMillis();
-        long actualTime = (long) (time * (route.getDistance() / distance));
+        // long actualTime = (long) (time * (route.getDistance() / distance));
 
         player.updateStats(distance, time);
 

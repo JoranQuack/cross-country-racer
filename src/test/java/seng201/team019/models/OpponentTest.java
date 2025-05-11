@@ -38,7 +38,7 @@ public class OpponentTest {
 
     @Test
     public void updateStatsTestPlayerHasFinished() {
-        opponent.setIsFinished(true,0);
+        opponent.setIsFinished(true, 0);
         opponent.updateStats(10, 10);
 
         Assertions.assertTrue(opponent.isFinished());
@@ -51,8 +51,8 @@ public class OpponentTest {
 
         float distance = route.getDistance() + 10;
         long time = Duration.ofHours(1).toMillis();
-        
-        long actualTime = (long) (time * (route.getDistance() / distance));
+
+        // long actualTime = (long) (time * (route.getDistance() / distance));
 
         opponent.updateStats(distance, time);
 
