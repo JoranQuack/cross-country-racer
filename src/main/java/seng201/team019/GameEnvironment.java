@@ -2,8 +2,10 @@ package seng201.team019;
 
 import seng201.team019.gui.ScreenNavigator;
 import seng201.team019.models.Car;
+import seng201.team019.models.Upgrade;
 import seng201.team019.models.Difficulty;
 import seng201.team019.models.Race;
+import seng201.team019.services.CSVReader;
 import seng201.team019.services.JsonRaceDeserializer;
 
 import java.io.*;
@@ -12,75 +14,86 @@ import java.util.List;
 
 public class GameEnvironment {
 
-    private static final int MAX_GARAGE_SIZE = 5;
+    private final ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
 
-    private final ScreenNavigator navigator;
+    private List<Car> garage = new ArrayList<Car>(); // List of cars owned by the player
+    private List<Car> availableCars = new ArrayList<Car>(); // List of cars available for purchase
 
-    private List<Car> garage = new ArrayList<Car>();
-    private List<Car> availableCars = new ArrayList<Car>();
-    private List<Race> races = new ArrayList<Race>();
-    private Double bankBalance;
-    private Difficulty difficulty;
-    private int racesCompleted;
-    private int seasonLength;
-    private String name;
+    private List<Upgrade> ownUpgrades = new ArrayList<Upgrade>(); // List of upgrades owned by the player
+    private List<Upgrade> availableParts = new ArrayList<Upgrade>(); // List of upgrades available for purchase
 
-    // TODO: add way to track stats for end of game
+    private List<Race> races = new ArrayList<Race>(); // List of races available in the game
 
-    // TODO: add tuning parts
+    private String name; // Name of the player
+    private Double bankBalance; // Player's bank balance
+    private Difficulty difficulty; // Difficulty level of the game (easy or hard)
+    private int racesCompleted; // Number of races completed by the player
+    private int seasonLength; // Length of the season in number of races
 
+    private Car selectedCar; // The car currently selected by the player in the garage
+
+    /**
+     * Constructor for the GameEnvironment class.
+     * Initializes the game environment with a ScreenNavigator instance.
+     * Sets the initial bank balance, available cars and parts, and initializes
+     * some game data.
+     */
     public GameEnvironment(ScreenNavigator navigator) {
 
-        this.bankBalance = 20000.0;
+        this.bankBalance = 200000.0;
         this.garage = new ArrayList<Car>();
+        this.ownUpgrades = new ArrayList<Upgrade>();
         this.racesCompleted = 0;
 
         initializeAvailableCars();
+        initializeAvailableParts();
         initializeRaces();
-
-        // TODO: Add random opponents, parts, etc.
-        // This should be done here and possibly dependent on difficulty.
 
         this.navigator = navigator;
         navigator.launchStartScreen(this);
-        // navigator.launchShopScreen(this); // TESTING ONLY
     }
 
+    /**
+     * Completes the game environment setup by setting the difficulty, season
+     * length,
+     * and name.
+     * 
+     * @param difficulty
+     * @param seasonLength
+     * @param name
+     */
     public void completeGameEnvironmentSetup(Difficulty difficulty, int seasonLength, String name) {
         this.difficulty = difficulty;
         this.seasonLength = seasonLength;
         this.name = name;
     }
 
+    /**
+     * Launches the setup screen for the game environment.
+     */
     public void launchSetupScreen() {
         navigator.launchSetupScreen(this);
     }
 
     /**
-     * Initializes the available cars from a CSV file.
-     * The CSV file should be in the format:
-     * name,year,price,speed,handling,reliability,fuelConsumption
-     * There must be exactly 5 cars (6 rows inc. header) in the CSV file.
+     * Initializes the available cars and parts by reading from CSV files.
      */
     public void initializeAvailableCars() {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                getClass().getResourceAsStream("/data/cars.csv")))) {
-            String line;
-            br.readLine(); // Skip the header line
-            // read each line and create a Car object
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                Car car = new Car(values[0], Integer.parseInt(values[1]), Double.parseDouble(values[2]),
-                        Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]),
-                        Double.parseDouble(values[6]), Integer.parseInt(values[7]));
-                availableCars.add(car);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Failed to load cars from CSV file");
-        }
+        CSVReader reader = new CSVReader();
+        availableCars = reader.readCSV("/data/cars.csv", CSVReader.carParser);
     }
 
+    /**
+     * Initializes the available parts by reading from a CSV file.
+     */
+    public void initializeAvailableParts() {
+        CSVReader reader = new CSVReader();
+        availableParts = reader.readCSV("/data/upgrades.csv", CSVReader.upgradeParser);
+    }
+
+    /**
+     * Initializes races by reading from JSON files.
+     */
     public void initializeRaces() {
         JsonRaceDeserializer jsonRaceDeserializer = new JsonRaceDeserializer(this);
 
@@ -101,8 +114,15 @@ public class GameEnvironment {
         }
     }
 
-    public boolean addCar(Car car) {
-        if (!(garage.size() > MAX_GARAGE_SIZE) && !(garage.contains(car)) && (availableCars.contains(car))) {
+    /**
+     * Buys a car from the available cars list and adds it to the garage.
+     * 
+     * @param car
+     * @return true if the car was successfully bought and added to the garage,
+     */
+    public boolean buyCar(Car car) {
+        if (bankBalance >= car.getPrice()) {
+            bankBalance -= car.getPrice();
             availableCars.remove(car);
             garage.add(car);
             return true;
@@ -111,12 +131,95 @@ public class GameEnvironment {
         }
     }
 
-    public void removeCar(Car car) {
-        garage.remove(car);
-        availableCars.add(car);
+    /**
+     * Sells a car from the garage and adds it back to the available cars list.
+     * 
+     * @param car
+     * @return true if the car was successfully sold and added back to the available
+     *         cars list.
+     */
+    public boolean sellCar(Car car) {
+        if (garage.contains(car) && (garage.size() > 1)) {
+            bankBalance += car.getPrice() / 2;
+            garage.remove(car);
+            availableCars.add(car);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Sets the active car in the garage (the first car in the list).
+     * 
+     * @param car
+     */
+    public void setActiveCar(Car car) {
+        if (garage.contains(car)) {
+            garage.remove(car);
+            garage.add(0, car);
+        }
+    }
+
+    /**
+     * Buys a part from the available parts list and adds it to the own upgrades
+     * list.
+     * 
+     * @param part
+     * @return
+     */
+    public boolean buyPart(Upgrade part) {
+        if (bankBalance >= part.getPrice()) {
+            bankBalance -= part.getPrice();
+            ownUpgrades.add(part);
+            availableParts.remove(part);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Sells a part from the own upgrades list and adds it back to the available
+     * parts list.
+     * 
+     * @param part
+     */
+    public void sellPart(Upgrade part) {
+        bankBalance += part.getPrice() / 2;
+        ownUpgrades.remove(part);
+        availableParts.add(part);
+    }
+
+    /**
+     * Equips a part to the selected car and removes it from the own upgrades
+     * 
+     * @param part
+     */
+    public void equipPart(Upgrade part) {
+        getSelectedCar().addUpgrade(part);
+        ownUpgrades.remove(part);
+    }
+
+    /**
+     * Unequips a part from the selected car and adds it back to the own upgrades
+     * 
+     * @param part
+     */
+    public void unequipPart(Upgrade part) {
+        getSelectedCar().removeUpgrade(part);
+        ownUpgrades.add(part);
     }
 
     // Getters and Setters for the GameEnvironment class
+    public Car getSelectedCar() {
+        return selectedCar;
+    }
+
+    public void setSelectedCar(Car selectedCar) {
+        this.selectedCar = selectedCar;
+    }
+
     public ScreenNavigator getNavigator() {
         return navigator;
     }
@@ -159,5 +262,17 @@ public class GameEnvironment {
 
     public List<Race> getRaces() {
         return races;
+    }
+
+    public List<Upgrade> getAvailableParts() {
+        return availableParts;
+    }
+
+    public List<Upgrade> getOwnUpgrades() {
+        return ownUpgrades;
+    }
+
+    public void setOwnUpgrades(List<Upgrade> ownUpgrades) {
+        this.ownUpgrades = ownUpgrades;
     }
 }

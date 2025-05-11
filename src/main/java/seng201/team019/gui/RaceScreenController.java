@@ -95,6 +95,7 @@ public class RaceScreenController extends ScreenController {
         });
 
         // add action to buttons
+        // add action to buttons
         RaceStartButton.setOnAction(event -> {
             RaceStartButton.setDisable(true);
             RaceRefuelButton.setDisable(false);
