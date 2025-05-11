@@ -21,7 +21,7 @@ public class RaceFinishScreenController extends ScreenController {
 
     public void initialize() {
         int pos = race.getPlayerFinishedPosition();
-        String playerFinishedPositionString = pos == 0 ? "DNF" : String.valueOf(pos);
+        String playerFinishedPositionString = pos == -1 ? "DNF" : String.valueOf(pos);
         RaceFinishedPositionLabel.setText(playerFinishedPositionString);
         RaceFinishedProfitLabel.setText(String.format("$%.2f",race.getPrizeMoney()));
     }

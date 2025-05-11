@@ -132,7 +132,7 @@ public class RaceTest {
 
             Assertions.assertEquals(racers.stream().allMatch(Racer::isFinished), race.isRaceFinished());
 
-            racers.forEach(r -> r.setIsFinished(true));
+            racers.forEach(r -> r.setIsFinished(true,0));
 
             Assertions.assertEquals(racers.stream().allMatch(Racer::isFinished), race.isRaceFinished());
         }

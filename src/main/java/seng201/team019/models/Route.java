@@ -3,27 +3,25 @@ package seng201.team019.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.concurrent.TimeUnit;
-
 public class Route {
     private final String description;
 
-    //All distances in Kilometers always double type. Time in Milliseconds always long type.
-    private final double distance;
+    // Distances in Kilometers always float type
+    private final float distance;
 
-    //these range between 1 and 0
+    // these range between 1 and 0
     private final double straightness;
     private final double gradeVariation;
 
-    //TODO: This assumes they are evenly spaced. May not be in future.
+    // TODO: This assumes they are evenly spaced. May not be in future.
     private final int fuelStops;
 
     @JsonCreator
     public Route(@JsonProperty("description") String description,
-                 @JsonProperty("distance") double distance,
-                 @JsonProperty("straightness") double straightness,
-                 @JsonProperty("gradeVariation") double gradeVariation,
-                 @JsonProperty("fuelStops") int fuelStops) {
+            @JsonProperty("distance") float distance,
+            @JsonProperty("straightness") double straightness,
+            @JsonProperty("gradeVariation") double gradeVariation,
+            @JsonProperty("fuelStops") int fuelStops) {
         // TODO: add validation for params
         this.description = description;
         this.distance = distance;
@@ -36,7 +34,7 @@ public class Route {
         return description;
     }
 
-    public double getDistance() {
+    public float getDistance() {
         return distance;
     }
 
@@ -56,37 +54,25 @@ public class Route {
      * @param distance distance of segment on route
      * @return float between 0 and 1 that is
      */
-    public float normalizeDistance(double distance) {
-        return (float) (distance / this.distance);
+    public float normalizeDistance(float distance) {
+        return distance / getDistance();
     }
 
     /**
      * @return distance between each fuel stop.
      */
-    public double getDistanceBetweenFuelStops() {
-        return distance / (double) fuelStops;
+    public float getDistanceBetweenFuelStops() {
+        return distance / (float) fuelStops;
     }
 
+    public float getDistanceToNextFuelStop(float currentDistance) {
+        if (currentDistance > distance) {
+            return -1;
+        }
+        int numberOfStopPassed = (int) Math.floor(currentDistance / getDistanceBetweenFuelStops());
 
-    /**
-     * @param car      the car that will be driving.
-     * @param distance the distance to be traveled.
-     * @return time used up to travel distance on route in MILLISECONDS!
-     */
-    public long simulateDriveByDistance(Car car, double distance) {
-        double velocity = computeAverageSpeed(car);
-        return (long) (distance / velocity * TimeUnit.HOURS.toMillis(1));
-    }
-
-    /**
-     * @param car  the car that will be driving.
-     * @param time the time to pass in MILLISECONDS.
-     * @return Distance traveled by the car in time.
-     */
-    public double simulateDriveByTime(Car car, long time) {
-        double velocity = computeAverageSpeed(car);
-        double timeInHours = time / (double) TimeUnit.HOURS.toMillis(1);
-        return velocity * timeInHours;
+        // Distance from start to next stop - current distance = distance to next stop
+        return (numberOfStopPassed + 1) * getDistanceBetweenFuelStops() - currentDistance;
     }
 
 }

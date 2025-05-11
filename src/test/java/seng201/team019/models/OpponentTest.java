@@ -28,52 +28,49 @@ public class OpponentTest {
     }
 
     @Test
-    public void updateRaceStatsTestPlayerHasDNF() {
+    public void updateStatsTestPlayerHasDNF() {
         opponent.setDidDNF(true);
-        opponent.updateRaceStats(10, 10);
+        opponent.updateStats(10, 10);
 
         Assertions.assertTrue(opponent.didDNF());
         Assertions.assertEquals(0d, opponent.getDistance());
-        Assertions.assertEquals(0, opponent.getTime());
     }
 
     @Test
-    public void updateRaceStatsTestPlayerHasFinished() {
-        opponent.setIsFinished(true);
-        opponent.updateRaceStats(10, 10);
+    public void updateStatsTestPlayerHasFinished() {
+        opponent.setIsFinished(true, 0);
+        opponent.updateStats(10, 10);
 
         Assertions.assertTrue(opponent.isFinished());
-        Assertions.assertEquals(0d, opponent.getDistance());
-        Assertions.assertEquals(0, opponent.getTime());
+        Assertions.assertEquals(0f, opponent.getDistance());
     }
 
     @Test
-    public void updateRaceStatsTestOvershootDistance() {
-        when(route.getDistance()).thenReturn(100d);
+    public void updateStatsTestOvershootDistance() {
+        when(route.getDistance()).thenReturn(100f);
 
-        double distance = route.getDistance() + 10;
-        long time = route.simulateDriveByDistance(car, distance);
-        long actualTime = (long) (time * (route.getDistance() / distance));
+        float distance = route.getDistance() + 10;
+        long time = Duration.ofHours(1).toMillis();
 
-        opponent.updateRaceStats(distance, time);
+        // long actualTime = (long) (time * (route.getDistance() / distance));
+
+        opponent.updateStats(distance, time);
 
         Assertions.assertEquals(route.getDistance(), opponent.getDistance());
-        Assertions.assertEquals(actualTime, opponent.getTime());
         Assertions.assertTrue(opponent.isFinished());
         Assertions.assertFalse(opponent.didDNF());
     }
 
     @Test
-    public void updateRaceStatsTest() {
-        when(route.getDistance()).thenReturn(100d);
+    public void updateStatsTest() {
+        when(route.getDistance()).thenReturn(100f);
 
-        double distance = 50;
+        float distance = 50;
         long time = Duration.ofHours(1).toMillis();
 
-        opponent.updateRaceStats(distance, time);
+        opponent.updateStats(distance, time);
 
         Assertions.assertEquals(distance, opponent.getDistance());
-        Assertions.assertEquals(time, opponent.getTime());
         Assertions.assertFalse(opponent.didDNF());
         Assertions.assertFalse(opponent.isFinished());
     }

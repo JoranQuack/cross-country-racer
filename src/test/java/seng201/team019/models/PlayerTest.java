@@ -35,91 +35,87 @@ public class PlayerTest {
         player.setFuelAmount(-1);
 
         Assertions.assertEquals(0, player.getFuelAmount());
-        Assertions.assertEquals(0, player.getNormalizedAmount());
+        Assertions.assertEquals(0, player.getNormalizedFuelAmount());
     }
 
     @Test
-    public void updateRaceStatsTestPlayerHasDNF() {
+    public void updateStatsTestPlayerHasDNF() {
         player.setDidDNF(true);
-        player.updateRaceStats(10, 10);
+        player.updateStats(10, 10);
 
         Assertions.assertTrue(player.didDNF());
         Assertions.assertEquals(0d, player.getDistance());
-        Assertions.assertEquals(0, player.getTime());
     }
 
     @Test
-    public void updateRaceStatsTestPlayerHasFinished() {
-        player.setIsFinished(true);
-        player.updateRaceStats(10, 10);
+    public void updateStatsTestPlayerHasFinished() {
+        player.setIsFinished(true, 0);
+        player.updateStats(10, 10);
 
         Assertions.assertTrue(player.isFinished());
         Assertions.assertEquals(0d, player.getDistance());
-        Assertions.assertEquals(0, player.getTime());
         Assertions.assertFalse(player.isOutOfFuel());
     }
 
     @Test
-    public void updateRaceStatsTestOvershootDistance() {
+    public void updateStatsTestOvershootDistance() {
         when(car.getFuelConsumption()).thenReturn(10d);
-        when(route.getDistance()).thenReturn(100d);
+        when(route.getDistance()).thenReturn(100f);
 
-        double distance = route.getDistance() + 10;
+        float distance = route.getDistance() + 10;
         long time = Duration.ofHours(1).toMillis();
-        long actualTime = (long) (time * (route.getDistance() / distance));
+        // long actualTime = (long) (time * (route.getDistance() / distance));
 
-        player.updateRaceStats(distance, time);
+        player.updateStats(distance, time);
 
         Assertions.assertEquals(route.getDistance(), player.getDistance());
-        Assertions.assertEquals(actualTime, player.getTime());
         Assertions.assertTrue(player.isFinished());
         Assertions.assertFalse(player.didDNF());
         Assertions.assertFalse(player.isOutOfFuel());
     }
 
     @Test
-    public void updateRaceStatsTestRunsOutOfFuel() {
+    public void updateStatsTestRunsOutOfFuel() {
         when(car.getFuelConsumption()).thenReturn(10d);
-        when(route.getDistance()).thenReturn(100d);
+        when(route.getDistance()).thenReturn(100f);
 
-        double distance = route.getDistance() + 10;
+        float distance = route.getDistance() + 10;
         long time = Duration.ofHours(1).toMillis();
 
         player.setFuelAmount(10);
-        player.updateRaceStats(distance, time);
+        player.updateStats(distance, time);
 
         Assertions.assertTrue(player.didDNF());
         Assertions.assertTrue(player.isOutOfFuel());
     }
 
     @Test
-    public void updateRaceStatsTestRunsOutOfFuelAndOvershootDistance() {
+    public void updateStatsTestRunsOutOfFuelAndOvershootDistance() {
         when(car.getFuelConsumption()).thenReturn(10d);
-        when(route.getDistance()).thenReturn(100d);
+        when(route.getDistance()).thenReturn(100f);
 
-        double distance = route.getDistance() + 10;
+        float distance = route.getDistance() + 10;
         long time = Duration.ofHours(1).toMillis();
 
         player.setFuelAmount(10);
-        player.updateRaceStats(distance, time);
+        player.updateStats(distance, time);
 
         Assertions.assertTrue(player.didDNF());
         Assertions.assertTrue(player.isOutOfFuel());
     }
 
     @Test
-    public void updateRaceStatsTest() {
+    public void updateStatsTest() {
         when(car.getFuelConsumption()).thenReturn(10d);
-        when(route.getDistance()).thenReturn(100d);
+        when(route.getDistance()).thenReturn(100f);
 
-        double distance = 50d;
+        float distance = 50f;
         long time = Duration.ofHours(1).toMillis();
         double expectedFuelLevel = player.getFuelAmount() - car.getFuelConsumption() * distance / 100;
 
-        player.updateRaceStats(distance, time);
+        player.updateStats(distance, time);
 
         Assertions.assertEquals(distance, player.getDistance());
-        Assertions.assertEquals(time, player.getTime());
         Assertions.assertEquals(expectedFuelLevel, player.getFuelAmount());
         Assertions.assertFalse(player.didDNF());
         Assertions.assertFalse(player.isFinished());
