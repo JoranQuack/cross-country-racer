@@ -76,28 +76,6 @@ public class Route {
 
         // Distance from start to next stop - current distance = distance to next stop
         return (numberOfStopPassed+1)*getDistanceBetweenFuelStops()-currentDistance;
-
-    }
-
-    /**
-     * @param car      the car that will be driving.
-     * @param distance the distance to be traveled.
-     * @return time used up to travel distance on route in MILLISECONDS!
-     */
-    public long simulateDriveByDistance(Car car, float distance) {
-        double velocity = computeAverageSpeed(car);
-        return (long) (distance / velocity * TimeUnit.HOURS.toMillis(1));
-    }
-
-    /**
-     * @param car  the car that will be driving.
-     * @param time the time to pass in MILLISECONDS.
-     * @return Distance traveled by the car in time.
-     */
-    public float simulateDriveByTime(Car car, long time) {
-        double velocity = computeAverageSpeed(car);
-        float timeInHours = time / (float) TimeUnit.HOURS.toMillis(1);
-        return (float) velocity * timeInHours;
     }
 
 }

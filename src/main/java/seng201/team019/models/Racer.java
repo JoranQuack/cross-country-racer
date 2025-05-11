@@ -1,5 +1,9 @@
 package seng201.team019.models;
 
+import java.time.Duration;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 public abstract class Racer {
 
     protected final String name;
@@ -8,8 +12,9 @@ public abstract class Racer {
 
     protected float distance;
 
-    protected long finishTime;
     protected boolean isFinished;
+    protected long finishTime;
+
     protected boolean didDNF;
 
     public Racer(String name, Route route, Car car) {
@@ -64,6 +69,28 @@ public abstract class Racer {
 
     public long getFinishTime() {
         return finishTime;
+    }
+    /**
+     * returns a multiplier between 0.8 and 1.5
+     */
+    private static float getRandomSpeedMultiplier(){
+        //TODO: maybe make this its own service
+        Random rand = new Random();
+        return (float) (0.8+ rand.nextFloat()*(2-0.8));
+    }
+
+
+    /**
+     * returns the distance traveled by the Racer in a given time
+     * @param time the time to pass in MILLISECONDS.
+     * @return Distance traveled by the car in time.
+     */
+    public float simulateDriveByTime(long time) {
+        //TODO: think about putting this inside update stats.
+        double velocity = getRoute().computeAverageSpeed(getCar());
+        double randomizedVelocity = velocity*getRandomSpeedMultiplier();
+        float timeInHours = time / (float) Duration.ofHours(1).toMillis();
+        return (float) randomizedVelocity * timeInHours;
     }
 
     public abstract void updateStats(float distance, long time);

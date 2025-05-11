@@ -13,8 +13,6 @@ import java.util.stream.Collectors;
 
 public class Race {
 
-    public final static long REFUEL_DURATION = Duration.ofMinutes(2).toMillis();
-
     private final GameEnvironment gameEnvironment;
 
     private final List<Route> routes;
@@ -61,7 +59,8 @@ public class Race {
             return true;
         }
         raceTime += delta;
-        return false;
+
+        return getRacers().stream().allMatch(Racer::isFinished);
     }
 
     public long getRaceTime() {
@@ -78,7 +77,7 @@ public class Race {
 
     public void updateRacers(long delta) {
         for (Racer racer : getRacers()) {
-            float distanceTraveled = racer.getRoute().simulateDriveByTime(racer.getCar(), delta);
+            float distanceTraveled = racer.simulateDriveByTime(delta);
             racer.updateStats(distanceTraveled,raceTime);
         }
     }

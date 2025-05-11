@@ -6,9 +6,13 @@ import java.util.List;
 import static java.util.Collections.max;
 
 public class Player extends Racer {
+    public final static long REFUEL_DURATION = Duration.ofMinutes(2).toMillis();
+
     private double fuelAmount;
     private boolean isRefuelingNextStop;
     private long startRefuelTime;
+
+    private String dnfReason;
 
     public Player(String name, Route route, Car car) {
        super(name,route,car);
@@ -27,6 +31,15 @@ public class Player extends Racer {
 
     public boolean isRefuelingNextStop() {
         return isRefuelingNextStop;
+    }
+
+    public void setDidDNF(boolean didDNF,String dnfReason) {
+        this.didDNF = didDNF;
+        this.dnfReason = dnfReason;
+    }
+
+    public String getDnfReason() {
+        return dnfReason;
     }
 
     /**
@@ -59,6 +72,7 @@ public class Player extends Racer {
         //player is no longer racing return.
         if (isFinished() || didDNF()) {return;} ;
 
+        // player is refueling
         if (isRefuelingNextStop() && distance-route.getDistanceToNextFuelStop(getDistance())>=0) {
             if (distance-route.getDistanceToNextFuelStop(getDistance())<0) {
                 incrementDistance(route.getDistanceToNextFuelStop(getDistance()));
@@ -70,7 +84,7 @@ public class Player extends Racer {
             }
 
             // we need to delay the restart after refuel and then dont continue racing
-            if (time<=this.startRefuelTime + Duration.ofSeconds(20).toMillis() ) {
+            if (time<=this.startRefuelTime + REFUEL_DURATION ) {
                 fillFuelAmount();
                 return;
             // player is done refueling so we need to let them move on
