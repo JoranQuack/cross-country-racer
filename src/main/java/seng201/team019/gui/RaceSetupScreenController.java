@@ -100,9 +100,6 @@ public class RaceSetupScreenController extends ScreenController {
         Car playersCar = getGameEnvironment().getGarage().getFirst(); // selected car is first car
         Player player = new Player(getGameEnvironment().getName(), selectedRace.getRoutes().get(selectedRouteIndex),
                 playersCar);
-        Car playersCar = getGameEnvironment().getAvailableCars().getFirst();
-        Player player = new Player(getGameEnvironment().getName(), selectedRace.getRoutes().get(selectedRouteIndex),
-                playersCar);
         selectedRace.setPlayer(player);
         getGameEnvironment().getNavigator().launchRaceScreen(getGameEnvironment(), selectedRace);
     }

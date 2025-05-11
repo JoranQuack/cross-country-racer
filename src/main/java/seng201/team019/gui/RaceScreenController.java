@@ -21,7 +21,7 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
-import seng201.team019.services.TimeFormaterService;
+import seng201.team019.services.TimeFormatterService;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -139,9 +139,9 @@ public class RaceScreenController extends ScreenController {
      * Renders the race by updating all the elements related.
      */
     public void renderRace() {
-        TimeFormaterService timeFormater = new TimeFormaterService();
+        TimeFormatterService timeFormatter = new TimeFormatterService();
 
-        RaceTimeLabel.setText(timeFormater.formatTime(race.getRaceTime()));
+        RaceTimeLabel.setText(timeFormatter.formatTime(race.getRaceTime()));
         RacePlayerFuelLabel.setText(String.format("%.1f", race.getPlayer().getNormalizedFuelAmount() * 100));
         RacePlayerDistanceToFuelLabel.setText(String.format("%.2fKM",
                 race.getPlayer().getRoute().getDistanceToNextFuelStop(race.getPlayer().getDistance())));

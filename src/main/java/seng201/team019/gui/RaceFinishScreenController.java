@@ -5,14 +5,14 @@ import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
 
-
 public class RaceFinishScreenController extends ScreenController {
-
-
-    private final Race race;
+    @FXML
+    private Label RaceFinishedPositionLabel;
 
     @FXML
-    private Label RaceFinishedPositionLabel,RaceFinishedProfitLabel;
+    private Label RaceFinishedProfitLabel;
+
+    private final Race race;
 
     public RaceFinishScreenController(GameEnvironment gameEnvironment, Race race) {
         super(gameEnvironment);
@@ -23,15 +23,13 @@ public class RaceFinishScreenController extends ScreenController {
         int pos = race.getPlayerFinishedPosition();
         String playerFinishedPositionString = pos == -1 ? "DNF" : String.valueOf(pos);
         RaceFinishedPositionLabel.setText(playerFinishedPositionString);
-        RaceFinishedProfitLabel.setText(String.format("$%.2f",race.getPrizeMoney()));
+        RaceFinishedProfitLabel.setText(String.format("$%.2f", race.getPrizeMoney()));
     }
-
 
     @FXML
-    public void RaceFinishContinueAction(){
+    public void RaceFinishContinueAction() {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
-
 
     @Override
     protected String getFxmlFile() {

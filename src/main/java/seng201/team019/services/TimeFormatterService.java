@@ -2,11 +2,7 @@ package seng201.team019.services;
 
 import java.time.Duration;
 
-<<<<<<<< HEAD:src/main/java/seng201/team019/services/TimeFormaterService.java
-public class TimeFormaterService {
-========
-public class DateFormatterService {
->>>>>>>> main:src/main/java/seng201/team019/services/DateFormatterService.java
+public class TimeFormatterService {
     /**
      * Returns nice string of a time in milliseconds
      *
