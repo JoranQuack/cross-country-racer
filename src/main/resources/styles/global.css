@@ -38,7 +38,7 @@ VBox {
 
 /* Label Styles */
 Label {
-  -fx-text-fill: #fff713;
+  -fx-text-fill: #FBFEFD;
     -fx-font-family: 'Montserrat';
 }
 
@@ -66,11 +66,8 @@ TextField {
   -fx-background-color: #252432;
   -fx-border-color: #3A3956;
   -fx-border-radius: 3;
-  -fx-padding: 5;
-}
-
-TextField:focused {
-  -fx-border-color: #3A3956;
+  -fx-padding: 10;
+  -fx-text-fill: #FBFEFD;
 }
 
 /* Slider Styles */
@@ -94,6 +91,40 @@ Slider .track:pressed {
 
 Slider .thumb:hover {
   -fx-background-color: #FBFEFD;
+}
+
+/* Combobox Styles */
+ComboBox {
+  -fx-background-color: #252432;
+  -fx-border-color: #3A3956;
+  -fx-border-radius: 3;
+  -fx-padding: 5;
+  -fx-text-fill: #FBFEFD;
+}
+
+ComboBox .list-cell {
+  -fx-text-fill: #FBFEFD;
+  -fx-background-color: transparent;
+}
+
+.combo-box-popup .list-view {
+  -fx-background-color: #252432;
+  -fx-border-color: #3A3956;
+}
+
+.combo-box-popup .list-cell {
+  -fx-background-color: #252432;
+  -fx-text-fill: #FBFEFD;
+  -fx-padding: 5;
+}
+
+.combo-box-popup .list-cell:hover {
+  -fx-background-color: #3A3956;
+}
+
+.combo-box-popup .list-cell:selected {
+  -fx-background-color: #3A3956;
+  -fx-text-fill: #FBFEFD;
 }
 
 /* Scroll Bar Styles */
