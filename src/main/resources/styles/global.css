@@ -58,13 +58,28 @@ Button {
 }
 
 Button:hover {
-  -fx-background-color: #3A3956;
+  -fx-opacity: 0.8;
 }
 
 /* Dashboard Button Styles */
 .DashboardButton {
-  -fx-background-color: #3A3956;
   -fx-text-fill: #FBFEFD;
+}
+
+.DashboardButton:hover {
+  -fx-opacity: 0.8;
+}
+
+.DashboardButtonRace {
+  -fx-background-color: #C93200;
+}
+
+.DashboardButtonShop {
+  -fx-background-color: #933EE3;
+}
+
+.DashboardButtonGarage {
+  -fx-background-color: #405FBE;
 }
 
 /* Text Field Styles */
@@ -92,7 +107,7 @@ Slider .track {
 }
 
 Slider .thumb:hover {
-  -fx-background-color: #FBFEFD;
+  -fx-opacity: 0.8;
 }
 
 /* Combobox Styles */
@@ -121,7 +136,7 @@ ComboBox .list-cell {
 }
 
 .combo-box-popup .list-cell:hover {
-  -fx-background-color: #3A3956;
+  -fx-opacity: 0.8;
 }
 
 .combo-box-popup .list-cell:selected {
@@ -140,7 +155,7 @@ ComboBox .list-cell {
 }
 
 .scroll-bar .thumb:hover {
-  -fx-background-color: #FBFEFD;
+  -fx-opacity: 0.8;
 }
 
 /* Tab Pane Styles */
