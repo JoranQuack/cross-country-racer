@@ -61,6 +61,12 @@ Button:hover {
   -fx-background-color: #3A3956;
 }
 
+/* Dashboard Button Styles */
+.DashboardButton {
+  -fx-background-color: #3A3956;
+  -fx-text-fill: #FBFEFD;
+}
+
 /* Text Field Styles */
 TextField {
   -fx-background-color: #252432;
@@ -83,10 +89,6 @@ Slider .thumb {
 Slider .track {
   -fx-background-color: #3A3956;
   -fx-background-radius: 5;
-}
-
-Slider .track:pressed {
-  -fx-background-color: #FBFEFD;
 }
 
 Slider .thumb:hover {
