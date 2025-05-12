@@ -1,5 +1,16 @@
 /* Global Styles */
 
+/*
+Color Palette Reference:
+Background: 252433
+Secondary: 3A3956
+Primary: FBFEFD
+Red: C93200
+Yellow: AD8500
+Blue: 405FBE
+Purple: 933EE3
+*/
+
 @font-face {
     font-family: 'Montserrat';
     src: url('fonts/Montserrat-VariableFont_wght.ttf');
@@ -31,30 +42,50 @@
 }
 
 .button:hover {
-  -fx-background-color: #3275e4;
-}
-
-.button:pressed {
-  -fx-background-color: #2265d4;
+  -fx-background-color: #3A3956;
 }
 
 /* Text Field Styles */
 .text-field {
-  -fx-background-color: white;
-  -fx-border-color: #cccccc;
+  -fx-background-color: #252432;
+  -fx-border-color: #3A3956;
   -fx-border-radius: 3;
   -fx-padding: 5;
 }
 
 .text-field:focused {
-  -fx-border-color: #4285f4;
+  -fx-border-color: #3A3956;
 }
+
+/* Slider Styles */
+.slider {
+  -fx-background-color: #252432;
+}
+
+.slider .thumb {
+  -fx-background-color: #FBFEFD;
+  -fx-background-radius: 100;
+}
+
+.slider .track {
+  -fx-background-color: #3A3956;
+  -fx-background-radius: 5;
+}
+
+.slider .track:pressed {
+  -fx-background-color: #FBFEFD;
+}
+
+.slider .thumb:hover {
+  -fx-background-color: #FBFEFD;
+}
+
 
 /* ListView and TableView Styles */
 .list-view,
 .table-view {
-  -fx-background-color: white;
-  -fx-border-color: #cccccc;
+  -fx-background-color: #252432;
+  -fx-border-color: #3A3956;
 }
 
 .list-cell,
@@ -64,22 +95,22 @@
 
 .list-cell:selected,
 .table-row-cell:selected {
-  -fx-background-color: #4285f4;
-  -fx-text-fill: white;
+  -fx-background-color: #252432;
+  -fx-text-fill: #FBFEFD;	
 }
 
 /* Scroll Bar Styles */
 .scroll-bar {
-  -fx-background-color: #f0f0f0;
+  -fx-background-color: #252432;
 }
 
 .scroll-bar .thumb {
-  -fx-background-color: #c0c0c0;
+  -fx-background-color: #3A3956;
   -fx-background-radius: 0;
 }
 
 .scroll-bar .thumb:hover {
-  -fx-background-color: #a0a0a0;
+  -fx-background-color: #FBFEFD;
 }
 
 /* Tab Pane Styles */
@@ -88,10 +119,10 @@
 }
 
 .tab {
-  -fx-background-color: #e0e0e0;
+  -fx-background-color: #252432;
   -fx-padding: 5 10 5 10;
 }
 
 .tab:selected {
-  -fx-background-color: white;
+  -fx-background-color: #3A3956;
 }
