@@ -315,48 +315,45 @@ public class RaceScreenController extends ScreenController {
     }
 
     private void triggerRandomEvent() {
-        switch (race.getRandomEvent()) {
-            case RouteWeather: {
-                triggerRouteWeatherEvent();
-                break;
-            }
-            case PlayerStrandedTraveler: {
-                triggerPlayerStrandedTravelerEvent();
-                break;
-            }
-            case PlayerBreaksDown: {
-                triggerPlayerBreaksDownEvent();
-                break;
-            }
-        }
-    }
-
-    private void triggerPlayerBreaksDownEvent() {
         gameLoop.stop();
         Platform.runLater(() -> {
-            boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
-
-            Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
-            alert.setTitle("Player Breaks Down Event");
-            alert.setHeaderText("Player Breaks Down Event");
-            alert.setContentText(canAfford
-                    ? "You can pay $1000 to fix your car and continue."
-                    : "You cannot afford to continue.");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (canAfford) {
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 1000);
-                } else {
-                    race.getPlayer().setDidDNF(true);
+            switch (race.getRandomEvent()) {
+                case RouteWeather: {
+                    Route disqualifiedRoute = triggerRouteWeatherEvent();
+                    showAlert(Alert.AlertType.INFORMATION,"Weather Event",String.format("Weather Event on the %s route.", disqualifiedRoute.getDescription()));
+                    break;
                 }
-            } else {
-                race.getPlayer().setDidDNF(true);
+                case PlayerStrandedTraveler: {
+                    triggerPlayerStrandedTravelerEvent();
+                    showAlert(Alert.AlertType.INFORMATION, "Traveler Event","You picked up a traveler and gained $1000. This delayed you 2 minutes.");
+                    break;
+                }
+                case PlayerBreaksDown: {
+                    boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
+
+                    Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
+                    alert.setTitle("Player Breaks Down Event");
+                    alert.setContentText(canAfford
+                            ? "You can pay $1000 to fix your car and continue."
+                            : "You cannot afford to continue.");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    result.ifPresent(type -> {triggerPlayerBreaksDownEvent(canAfford,type);});
+                    break;
+                }
             }
 
             gameLoop.start(); // Resume game
         });
+
+    }
+
+    private void triggerPlayerBreaksDownEvent(boolean canAfford, ButtonType result ) {
+            if (canAfford && result == ButtonType.OK) {
+                getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 1000);
+            } else {
+                race.getPlayer().setDidDNF(true);
+            }
     }
 
     private void triggerPlayerStrandedTravelerEvent() {
@@ -365,15 +362,9 @@ public class RaceScreenController extends ScreenController {
             return;
         }
         getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() + 1000);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Traveler Event");
-        alert.setHeaderText("Traveler Event");
-        alert.setContentText("You picked up a traveler and gained $1000. This delayed you 2 minutes.");
-        alert.show();
     }
 
-    private void triggerRouteWeatherEvent() {
+    private Route triggerRouteWeatherEvent() {
         Random rand = new Random();
         Route disqualifiedRoute = rand.nextInt(race.getRoutes().size()) == 0 ? race.getRoutes().get(rand.nextInt(race.getRoutes().size())) : race.getRoutes().getFirst();
         for (Racer racer : race.getRacers()) {
@@ -381,12 +372,7 @@ public class RaceScreenController extends ScreenController {
                 racer.setDidDNF(true);
             }
         }
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Weather Event");
-        alert.setHeaderText("Weather Event");
-        alert.setContentText(String.format("Weather Event on the %s route.", disqualifiedRoute.getDescription()));
-        alert.show();
+        return disqualifiedRoute;
     }
 
     /**
