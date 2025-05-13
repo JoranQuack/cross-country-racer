@@ -56,7 +56,10 @@ public class Car {
         updateRange(); // Update range after removing an upgrade
     }
 
-    public void updateRange() {
+    public void updateRange() throws ArithmeticException {
+        if (fuelConsumption == 0) {
+            throw new ArithmeticException("Fuel consumption cannot be zero.");
+        }
         range = (int) ((fuelCapacity / fuelConsumption) * 100);
     }
 
@@ -139,5 +142,10 @@ public class Car {
 
     public int getFuelCapacity() {
         return fuelCapacity;
+    }
+
+    public void setFuelCapacity(int fuelCapacity) {
+        this.fuelCapacity = fuelCapacity;
+        updateRange(); // Update range after changing fuel capacity
     }
 }
