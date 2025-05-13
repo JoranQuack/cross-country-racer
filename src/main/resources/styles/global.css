@@ -11,13 +11,13 @@ Blue: 405FBE
 Purple: 933EE3
 */
 
-/* @font-face {
+@font-face {
     font-family: 'Montserrat';
-    src: url('/fonts/Montserrat-Regular.ttf');
-} */
+    src: url('/fonts/Montserrat-Regular.ttf') format('TTF');
+}
 
 .root {
-  -fx-background-color: #252432;
+    -fx-background-color: #252432;
 }
 
 
@@ -45,110 +45,110 @@ Button {
 }
 
 Button:hover {
-  -fx-opacity: 0.8;
+    -fx-opacity: 0.8;
 }
 
 /* Dashboard Button Styles */
 .DashboardButton {
-  -fx-text-fill: #FBFEFD;
-  -fx-font-weight: bold;
-  -fx-font-size: 18px;
+    -fx-text-fill: #FBFEFD;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
 }
 
 .DashboardButtonRace {
-  -fx-background-color: #C93200;
+    -fx-background-color: #C93200;
 }
 
 .DashboardButtonShop {
-  -fx-background-color: #933EE3;
+    -fx-background-color: #933EE3;
 }
 
 .DashboardButtonGarage {
-  -fx-background-color: #405FBE;
+    -fx-background-color: #405FBE;
 }
 
 /* Text Field Styles */
 TextField {
     -fx-font-family: 'Montserrat';
-  -fx-background-color: #252432;
-  -fx-border-color: #3A3956;
-  -fx-border-radius: 10;
-  -fx-padding: 10;
-  -fx-text-fill: #FBFEFD;
+    -fx-background-color: #252432;
+    -fx-border-color: #3A3956;
+    -fx-border-radius: 10;
+    -fx-padding: 10;
+    -fx-text-fill: #FBFEFD;
 }
 
 /* Slider Styles */
 Slider {
     -fx-font-family: 'Montserrat';
-  -fx-background-color: #252432;
+    -fx-background-color: #252432;
 }
 
 Slider .thumb {
-  -fx-background-color: #FBFEFD;
-  -fx-background-radius: 100;
-  -fx-cursor: hand;
+    -fx-background-color: #FBFEFD;
+    -fx-background-radius: 100;
+    -fx-cursor: hand;
 }
 
 Slider .track {
-  -fx-background-color: #3A3956;
-  -fx-background-radius: 10;
+    -fx-background-color: #3A3956;
+    -fx-background-radius: 10;
 }
 
 Slider .thumb:hover {
-  -fx-opacity: 0.8;
+    -fx-opacity: 0.8;
 }
 
 /* Combobox Styles */
 ComboBox {
     -fx-font-family: 'Montserrat';
-  -fx-background-color: #252432;
-  -fx-border-color: #3A3956;
-  -fx-border-radius: 10;
-  -fx-padding: 5;
-  -fx-text-fill: #FBFEFD;
-  -fx-cursor: hand;
+    -fx-background-color: #252432;
+    -fx-border-color: #3A3956;
+    -fx-border-radius: 10;
+    -fx-padding: 5;
+    -fx-text-fill: #FBFEFD;
+    -fx-cursor: hand;
 }
 
 ComboBox .list-cell {
-  -fx-text-fill: #FBFEFD;
-  -fx-background-color: transparent;
+    -fx-text-fill: #FBFEFD;
+    -fx-background-color: transparent;
 }
 
 .combo-box-popup {
-  -fx-font-family: 'Montserrat';
+    -fx-font-family: 'Montserrat';
 }
 
 .combo-box-popup .list-view {
-  -fx-background-color: #252432;
-  -fx-border-color: #252432;
-  -fx-border-radius: 10;
-  -fx-cursor: hand;
+    -fx-background-color: #252432;
+    -fx-border-color: #252432;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
 }
 
 .combo-box-popup .list-cell {
-  -fx-background-color: #252432;
-  -fx-text-fill: #FBFEFD;
-  -fx-padding: 5;
+    -fx-background-color: #252432;
+    -fx-text-fill: #FBFEFD;
+    -fx-padding: 5;
 }
 
 .combo-box-popup .list-cell:hover {
-  -fx-opacity: 0.8;
+    -fx-opacity: 0.8;
 }
 
 .combo-box-popup .list-cell:selected {
-  -fx-background-color: #3A3956;
-  -fx-text-fill: #FBFEFD;
-  -fx-background-radius: 10;
+    -fx-background-color: #3A3956;
+    -fx-text-fill: #FBFEFD;
+    -fx-background-radius: 10;
 }
 
 /* Progress Bar Styles */
 ProgressBar {
-  -fx-font-family: 'Montserrat';
-  -fx-background-color: transparent;
-  -fx-accent: #3A3956;
+    -fx-font-family: 'Montserrat';
+    -fx-background-color: transparent;
+    -fx-accent: #3A3956;
 }
 
-ProgressBar > .track {
+ProgressBar>.track {
     -fx-background-color: #252432;
     -fx-background-radius: 10;
 }
@@ -161,34 +161,34 @@ ProgressBar .bar {
 
 /* Tab Pane Styles */
 TabPane {
-  -fx-tab-min-width: 80px;
-  -fx-background-color: #252432;
+    -fx-tab-min-width: 80px;
+    -fx-background-color: #252432;
 }
 
-TabPane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
-    -fx-padding:0 10 0 0;
+TabPane>.tab-header-area>.headers-region>.tab>.tab-container>.tab-label {
+    -fx-padding: 0 10 0 0;
 }
 
 .tab {
-  -fx-background-color: #252432;
-  -fx-padding: 5;
-  -fx-focus-color: transparent;
-  -fx-faint-focus-color: transparent;
-  -fx-border-color: #3A3956;
-  -fx-border-radius: 10 10 0 0;
+    -fx-background-color: #252432;
+    -fx-padding: 5;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: #3A3956;
+    -fx-border-radius: 10 10 0 0;
 }
 
 .tab:selected {
-  -fx-background-color: #3A3956;
+    -fx-background-color: #3A3956;
 }
 
 .tab:selected .focus-indicator {
-  -fx-border-radius: 10 10 0 0, 10 10 0 0;
+    -fx-border-radius: 10 10 0 0, 10 10 0 0;
     -fx-border-insets: -6 -9 -8 -8, -5 -8 -7 -7;
 }
 
-.tab-header-area .tab{
-    -fx-padding:4 10 5 10;
+.tab-header-area .tab {
+    -fx-padding: 4 10 5 10;
     -fx-background-radius: 10 10 0 0;
 }
 
@@ -222,8 +222,8 @@ ScrollPane {
     -fx-background-color: #252432;
 }
 
-.scroll-bar:vertical{
-    -fx-background-color:transparent;
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
 }
 
 .increment-button, .decrement-button {
@@ -231,7 +231,7 @@ ScrollPane {
     -fx-border-color: transparent;
 }
 
-.scroll-bar:vertical .track{
+.scroll-bar:vertical .track {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-background-radius: 0em;
