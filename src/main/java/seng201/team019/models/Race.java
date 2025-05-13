@@ -37,8 +37,6 @@ public class Race {
         this.prizeMoney = builder.prizeMoney;
         this.numOfOpponents = builder.numOfOpponents;
         this.duration = builder.duration;
-
-        setupRace();
     }
 
     public void setupRace() {
@@ -63,7 +61,7 @@ public class Race {
         boolean hasEvent = randEventGenerator.raceHasRandomEvent(RANDOM_EVENT_PERCENTAGE);
         isEventScheduledThisRace = hasEvent;
         if (hasEvent) {
-            selectedEvent = randEventGenerator.generateRandomEvent();
+            selectedEvent = randEventGenerator.generateRandomEvent(this);
             eventTriggerTime = randEventGenerator.eventTriggerTime(0, duration);
         }
     }

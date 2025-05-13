@@ -281,22 +281,20 @@ public class RaceScreenController extends ScreenController {
         double lineX = distance
                 * (raceProgressLine.endXProperty().getValue() - raceProgressLine.startXProperty().getValue());
         double lineStartY;
-        double lineEndY;
-
-        switch (markerType) {
-            case START_FINISH:
+        double lineEndY = switch (markerType) {
+            case START_FINISH -> {
                 lineStartY = raceProgressLine.getLayoutY() - 15;
-                lineEndY = raceProgressLine.getLayoutY() + 15;
-                break;
-            case FUEL_STOP:
+                yield raceProgressLine.getLayoutY() + 15;
+            }
+            case FUEL_STOP -> {
                 lineStartY = raceProgressLine.getLayoutY() - 10;
-                lineEndY = raceProgressLine.getLayoutY();
-                break;
-            default:
+                yield raceProgressLine.getLayoutY();
+            }
+            default -> {
                 lineStartY = 0;
-                lineEndY = 0;
-                break;
-        }
+                yield 0;
+            }
+        };
 
         Line markerLine = new Line(lineX, lineStartY, lineX, lineEndY);
         markerLine.setStroke(Color.BLACK); // Set color
@@ -329,6 +327,10 @@ public class RaceScreenController extends ScreenController {
                     break;
                 }
                 case PlayerBreaksDown: {
+                    if (race.getPlayer().isFinished()) {
+                        return;
+                    }
+
                     boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
 
                     Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
