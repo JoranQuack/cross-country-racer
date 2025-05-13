@@ -24,25 +24,24 @@ Purple: 933EE3
 /* Label Styles */
 Label {
     -fx-font-family: 'Montserrat';
-  -fx-text-fill: #FBFEFD;
+    -fx-text-fill: #FBFEFD;
 
 }
 
-Title, Title:hover {
+Title {
     -fx-font-family: 'Montserrat';
-  -fx-font-size: 14px;
-  -fx-font-weight: bold;
-  -fx-padding: 10 0 10 0;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 10 0;
 }
 
 /* Button Styles */
 Button {
     -fx-font-family: 'Montserrat';
-  -fx-background-color: #FBFEFD;
-  -fx-text-fill: #252432;
-  -fx-padding: 5 15 5 15;
-  -fx-cursor: hand;
-  -fx-background-radius: 10;
+    -fx-background-color: #FBFEFD;
+    -fx-text-fill: #252432;
+    -fx-padding: 5 15 5 15;
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
 }
 
 Button:hover {
@@ -52,10 +51,8 @@ Button:hover {
 /* Dashboard Button Styles */
 .DashboardButton {
   -fx-text-fill: #FBFEFD;
-}
-
-.DashboardButton:hover {
-  -fx-opacity: 0.8;
+  -fx-font-weight: bold;
+  -fx-font-size: 18px;
 }
 
 .DashboardButtonRace {
