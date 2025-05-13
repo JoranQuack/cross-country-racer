@@ -2,16 +2,15 @@ package seng201.team019.gui;
 
 import java.util.List;
 
-import com.gluonhq.charm.glisten.control.ProgressBar;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
@@ -26,7 +25,7 @@ public class GarageScreenController extends ScreenController {
     private AnchorPane mainAnchorPane;
 
     @FXML
-    private SplitPane mainSplitPane;
+    private HBox mainHBox;
 
     @FXML
     private GridPane car0Grid;
@@ -137,7 +136,7 @@ public class GarageScreenController extends ScreenController {
         List<Car> cars = super.getGameEnvironment().getGarage();
 
         if (cars.isEmpty()) {
-            mainSplitPane.setVisible(false);
+            mainHBox.setVisible(false);
 
             Label noCarsLabel = new Label("You have no cars in your garage. Get some in the shop!");
             javafx.scene.layout.StackPane centerPane = new javafx.scene.layout.StackPane(noCarsLabel);

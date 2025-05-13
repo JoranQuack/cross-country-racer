@@ -67,6 +67,14 @@ Button:hover {
     -fx-background-color: #405FBE;
 }
 
+/* Garage Car Styles */
+.GarageCar {
+    -fx-border-color: #3A3956;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+
 /* Text Field Styles */
 TextField {
     -fx-font-family: 'Montserrat';
