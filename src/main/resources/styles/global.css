@@ -75,6 +75,20 @@ Button:hover {
     -fx-padding: 10;
 }
 
+/* Race List Element Styles */
+.RaceListElement {
+    -fx-background-color: #3A3956;
+    -fx-border-color: #3A3956;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+}
+
+.RaceListElement:hover {
+    -fx-opacity: 0.8;
+}
+
 /* Text Field Styles */
 TextField {
     -fx-background-color: #252432;
@@ -220,6 +234,10 @@ VBox {
 
 /* ScrollPane Styles */
 ScrollPane {
+    -fx-background-color: #252432;
+}
+
+ScrollPane .viewport {
     -fx-background-color: #252432;
 }
 
