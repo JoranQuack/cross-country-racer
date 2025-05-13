@@ -2,6 +2,7 @@ package seng201.team019.gui;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seng201.team019.GameEnvironment;
@@ -43,6 +44,10 @@ public abstract class ScreenController {
 
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("/styles/global.css").toExternalForm());
 
         alert.showAndWait();
     }

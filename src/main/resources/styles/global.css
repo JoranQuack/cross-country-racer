@@ -11,10 +11,10 @@ Blue: 405FBE
 Purple: 933EE3
 */
 
-/* @font-face {
+@font-face {
     font-family: 'Montserrat';
-    src: url('/fonts/Montserrat-Regular.ttf');
-} */
+    src: url('/fonts/Montserrat-Regular.ttf') format('TTF');
+}
 
 .root {
     -fx-background-color: #252432;
