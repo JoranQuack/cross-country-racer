@@ -5,12 +5,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.gluonhq.charm.glisten.control.ProgressBar;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;

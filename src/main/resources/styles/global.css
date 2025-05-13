@@ -11,29 +11,15 @@ Blue: 405FBE
 Purple: 933EE3
 */
 
-@font-face {
+/* @font-face {
     font-family: 'Montserrat';
     src: url('/fonts/Montserrat-Regular.ttf');
-}
+} */
 
 .root {
   -fx-background-color: #252432;
 }
 
-/* Grid Pane Styles */
-GridPane {
-  -fx-background-color: #252432;
-}
-
-/* Anchor Pane Styles */
-AnchorPane {
-  -fx-background-color: #252432;
-}
-
-/* VBox Styles */
-VBox {
-  -fx-background-color: #252432;
-}
 
 /* Label Styles */
 Label {
@@ -160,13 +146,13 @@ ComboBox .list-cell {
 
 /* Progress Bar Styles */
 ProgressBar {
-    -fx-font-family: 'Montserrat';
-  -fx-background-color: #252432;
+  -fx-font-family: 'Montserrat';
+  -fx-background-color: transparent;
   -fx-accent: #3A3956;
 }
 
 ProgressBar > .track {
-    -fx-background-color: #3A3956;
+    -fx-background-color: #252432;
     -fx-background-radius: 10;
 }
 
@@ -179,13 +165,86 @@ ProgressBar .bar {
 /* Tab Pane Styles */
 TabPane {
   -fx-tab-min-width: 80px;
-}
-
-Tab {
   -fx-background-color: #252432;
-  -fx-padding: 5 10 5 10;
 }
 
-Tab:selected {
+TabPane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-padding:0 10 0 0;
+}
+
+.tab {
+  -fx-background-color: #252432;
+  -fx-padding: 5;
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
+  -fx-border-color: #3A3956;
+  -fx-border-radius: 10 10 0 0;
+}
+
+.tab:selected {
   -fx-background-color: #3A3956;
+}
+
+.tab:selected .focus-indicator {
+  -fx-border-radius: 10 10 0 0, 10 10 0 0;
+    -fx-border-insets: -6 -9 -8 -8, -5 -8 -7 -7;
+}
+
+.tab-header-area .tab{
+    -fx-padding:4 10 5 10;
+    -fx-background-radius: 10 10 0 0;
+}
+
+/* Shop Pane Styles */
+.shop-pane {
+    -fx-background-color: #3A3956;
+}
+
+/* Stack Pane Styles */
+StackPane {
+    -fx-background-color: #252432;
+}
+
+/* Grid Pane Styles */
+GridPane {
+    -fx-background-color: transparent;
+}
+
+/* Anchor Pane Styles */
+AnchorPane {
+    -fx-background-color: #252432;
+}
+
+/* VBox Styles */
+VBox {
+    -fx-background-color: #252432;
+}
+
+/* ScrollPane Styles */
+ScrollPane {
+    -fx-background-color: #252432;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #3A3956;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-opacity: 0.8;
 }
