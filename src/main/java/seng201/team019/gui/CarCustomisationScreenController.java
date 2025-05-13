@@ -3,10 +3,9 @@ package seng201.team019.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gluonhq.charm.glisten.control.ProgressBar;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -234,7 +233,7 @@ public class CarCustomisationScreenController extends ScreenController {
                 initializeCar();
             });
         } else {
-            partGrid.setStyle("-fx-background-color: #e7f3f5;");
+            partGrid.setStyle("-fx-background-color: #3A3956;");
             partAddButton.setVisible(false);
             partAddButton.setMouseTransparent(true);
             partRemoveButton.setOnAction(event -> {

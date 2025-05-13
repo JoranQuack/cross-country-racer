@@ -67,6 +67,14 @@ Button:hover {
     -fx-padding: 10;
 }
 
+/* Car Customisation Part Styles */
+.CarCustomisationPart {
+    -fx-border-color: #3A3956;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+
 /* Text Field Styles */
 TextField {
     -fx-background-color: #252432;
