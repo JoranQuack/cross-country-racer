@@ -11,10 +11,10 @@ Blue: 405FBE
 Purple: 933EE3
 */
 
-@font-face {
+/* @font-face {
     font-family: 'Montserrat';
     src: url('/fonts/Montserrat-Regular.ttf') format('TTF');
-}
+} */
 
 .root {
     -fx-background-color: #252432;
@@ -176,6 +176,7 @@ TabPane>.tab-header-area>.headers-region>.tab>.tab-container>.tab-label {
     -fx-faint-focus-color: transparent;
     -fx-border-color: #3A3956;
     -fx-border-radius: 10 10 0 0;
+    -fx-cursor: hand;
 }
 
 .tab:selected {

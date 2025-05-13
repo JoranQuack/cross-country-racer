@@ -806,24 +806,25 @@
             </Tab>
           </tabs>
         </TabPane>
-            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="375.0" StackPane.alignment="TOP_RIGHT">
+        <ButtonBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" StackPane.alignment="TOP_RIGHT">
+          <buttons>
+            <Button depthTest="DISABLE" mnemonicParsing="false" onAction="#onHomeButtonClicked" text="Home" />
+          </buttons>
+               <padding>
+                  <Insets right="10.0" top="15.0" />
+               </padding>
+        </ButtonBar>
+            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" mouseTransparent="true" prefHeight="30.0" prefWidth="600.0" StackPane.alignment="TOP_RIGHT">
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="158.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="218.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="balanceLabel" text="Balance: $[amount]" />
-              <ButtonBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                <buttons>
-                  <Button mnemonicParsing="false" onAction="#onHomeButtonClicked" text="Home" />
-                </buttons>
-                     <padding>
-                        <Insets right="10.0" />
-                     </padding>
-              </ButtonBar>
+                  <Label fx:id="balanceLabel" text="Balance: $[amount]" GridPane.columnIndex="1" />
                </children>
                <padding>
                   <Insets top="10.0" />
