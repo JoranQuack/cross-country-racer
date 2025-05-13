@@ -75,7 +75,7 @@ public class Race {
         }
         raceTime += delta;
 
-        return getRacers().stream().allMatch(Racer::isFinished);
+        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished);
     }
 
     public long getRaceTime() {
@@ -92,12 +92,17 @@ public class Race {
 
     public boolean shouldTriggerRandomEvent() {
         if (isEventScheduledThisRace && !eventHasOccurred) {
-            if (eventTriggerTime >= raceTime) {
+            if (eventTriggerTime <= raceTime) {
                 eventHasOccurred = true;
+                System.out.println("RandomEvent triggered! " + eventTriggerTime);
                 return true;
             }
         }
         return false;
+    }
+
+    public RandomEvent getRandomEvent() {
+        return selectedEvent;
     }
 
     public void updateRacers(long delta) {
@@ -140,6 +145,12 @@ public class Race {
 
     public void setPlayer(Player player) {
         this.player = player;
+
+        // If the RandomEvent is for the player picking up traveler
+        // then we need to set the time for the player to pick up the traveler
+        if (selectedEvent == RandomEvent.PlayerStrandedTraveler) {
+            player.setStartPickupTime(eventTriggerTime);
+        }
     }
 
     public Player getPlayer() {

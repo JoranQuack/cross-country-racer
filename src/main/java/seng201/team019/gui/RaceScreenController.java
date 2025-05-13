@@ -6,9 +6,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -21,11 +19,14 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
+import seng201.team019.models.Route;
 import seng201.team019.services.TimeFormatterService;
 
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
 
 /**
  * Controller for the raceScreen.fxml window
@@ -63,12 +64,6 @@ public class RaceScreenController extends ScreenController {
     @FXML
     private Label RacePlayerIsRefuelingLabel;
 
-    public enum MarkerType {
-        START_FINISH, FUEL_STOP
-    }
-
-    private final Race race;
-
     @FXML
     private VBox RaceLeaderboard;
 
@@ -77,6 +72,12 @@ public class RaceScreenController extends ScreenController {
 
     @FXML
     private Line raceProgressLine;
+
+    public enum MarkerType {
+        START_FINISH, FUEL_STOP
+    }
+
+    private final Race race;
 
     private final Map<Racer, Circle> racerCircles = new HashMap<>();
 
@@ -254,7 +255,7 @@ public class RaceScreenController extends ScreenController {
             Circle racerDot = new Circle(5);
             racerDot.setCenterX(raceProgressLine.getStartX());
             racerDot.setCenterY(raceProgressLine.getLayoutY()); // getLayoutY() as we offset lne 40px down in fxml
-                                                                // layout.
+            // layout.
 
             if (racer instanceof Player) {
                 racerDot.setFill(Color.BLUE);
@@ -304,13 +305,79 @@ public class RaceScreenController extends ScreenController {
         // Create the text label
         Text markerText = new Text(label);
         markerText.setX(lineX - markerText.getLayoutBounds().getWidth() / 2); // Center text horizontally over the line
-                                                                              // (x=0)
+        // (x=0)
         markerText.setY(lineStartY - markerText.getLayoutBounds().getHeight());
 
         Group markerGroup = new Group();
         markerGroup.getChildren().addAll(markerLine, markerText);
 
         return markerGroup;
+    }
+
+    private void triggerRandomEvent() {
+        switch (race.getRandomEvent()) {
+            case RouteWeather: {
+                Random rand = new Random();
+                Route disqualifiedRoute = rand.nextInt(race.getRoutes().size()) == 0 ? race.getRoutes().get(rand.nextInt(race.getRoutes().size())) : race.getRoutes().getFirst();
+                for (Racer racer : race.getRacers()) {
+                    if (racer.getRoute().equals(disqualifiedRoute) && !racer.isFinished()) {
+                        racer.setDidDNF(true);
+                    }
+                }
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Weather Event");
+                alert.setHeaderText("Weather Event");
+                alert.setContentText(String.format("Weather Event on the %s route.", disqualifiedRoute.getDescription()));
+                alert.show();
+                break;
+            }
+            case PlayerStrandedTraveler: {
+                //player is finished and cant pick anyone up
+                if (race.getPlayer().isFinished()){
+                    break;
+                }
+                getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() + 1000);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Traveler Event");
+                alert.setHeaderText("Traveler Event");
+                alert.setContentText("You picked up a traveler and gained $1000. This delayed you 2 minutes.");
+                alert.show();
+                break;
+            }
+            case PlayerBreaksDown: {
+                gameLoop.stop();
+
+
+                Platform.runLater(() -> {
+                    boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
+
+                    Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
+                    alert.setTitle("Player Breaks Down Event");
+                    alert.setHeaderText("Player Breaks Down Event");
+                    alert.setContentText(canAfford
+                            ? "You can pay $1000 to fix your car and continue."
+                            : "You cannot afford to continue.");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    if (canAfford) {
+                        if (result.isPresent() && result.get() == ButtonType.OK) {
+                            getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 1000);
+                        } else {
+                            race.getPlayer().setDidDNF(true);
+                        }
+                    } else {
+                        race.getPlayer().setDidDNF(true);
+                    }
+
+                    gameLoop.start(); // Resume game
+                });
+
+                break;
+            }
+        }
     }
 
     /**
@@ -332,9 +399,14 @@ public class RaceScreenController extends ScreenController {
             long lastTime = -1;
 
             @Override
+            public void start(){
+                lastTime =  Duration.ofNanos(System.nanoTime()).toMillis();
+                super.start();
+            }
+
+            @Override
             public void handle(long now) {
                 if (lastTime <= 0) {
-                    lastTime = Duration.ofNanos(System.nanoTime()).toMillis();
                     return;
                 }
                 long nowMilli = Duration.ofNanos(now).toMillis(); // convert to milliseconds
@@ -352,10 +424,14 @@ public class RaceScreenController extends ScreenController {
                     this.stop();
                 }
 
+                if (race.shouldTriggerRandomEvent()) {
+                    triggerRandomEvent();
+                }
                 updateRacers(delta);
                 renderRace();
             }
         };
+
     }
 
     @Override
