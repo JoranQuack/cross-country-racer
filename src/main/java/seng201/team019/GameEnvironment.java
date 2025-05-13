@@ -26,6 +26,7 @@ public class GameEnvironment {
 
     private String name; // Name of the player
     private Double bankBalance; // Player's bank balance
+    private Double maximumBankBalance; // Track what the maximum bank balance has been in the game
     private Difficulty difficulty; // Difficulty level of the game (easy or hard)
     private int racesCompleted; // Number of races completed by the player
     private int seasonLength; // Length of the season in number of races
@@ -40,7 +41,7 @@ public class GameEnvironment {
      */
     public GameEnvironment(ScreenNavigator navigator) {
 
-        this.bankBalance = 200000.0;
+        this.bankBalance = this.maximumBankBalance = 200000.0;
         this.garage = new ArrayList<Car>();
         this.ownUpgrades = new ArrayList<Upgrade>();
         this.racesCompleted = 0;
@@ -122,7 +123,7 @@ public class GameEnvironment {
      */
     public boolean buyCar(Car car) {
         if (bankBalance >= car.getPrice()) {
-            bankBalance -= car.getPrice();
+            setBankBalance(bankBalance - car.getPrice());
             availableCars.remove(car);
             garage.add(car);
             return true;
@@ -140,7 +141,7 @@ public class GameEnvironment {
      */
     public boolean sellCar(Car car) {
         if (garage.contains(car) && (garage.size() > 1)) {
-            bankBalance += car.getPrice() / 2;
+            setBankBalance(bankBalance + car.getPrice() / 2);
             garage.remove(car);
             availableCars.add(car);
             return true;
@@ -170,7 +171,7 @@ public class GameEnvironment {
      */
     public boolean buyPart(Upgrade part) {
         if (bankBalance >= part.getPrice()) {
-            bankBalance -= part.getPrice();
+            setBankBalance(bankBalance - part.getPrice());
             ownUpgrades.add(part);
             availableParts.remove(part);
             return true;
@@ -186,7 +187,7 @@ public class GameEnvironment {
      * @param part
      */
     public void sellPart(Upgrade part) {
-        bankBalance += part.getPrice() / 2;
+        setBankBalance(bankBalance + part.getPrice() / 2);
         ownUpgrades.remove(part);
         availableParts.add(part);
     }
@@ -238,6 +239,13 @@ public class GameEnvironment {
 
     public void setBankBalance(Double bankBalance) {
         this.bankBalance = bankBalance;
+        if (bankBalance > maximumBankBalance) {
+            maximumBankBalance = bankBalance;
+        }
+    }
+
+    public Double getMaximumBankBalance() {
+        return maximumBankBalance;
     }
 
     public void incrementRacesCompleted() {
@@ -274,5 +282,9 @@ public class GameEnvironment {
 
     public void setOwnUpgrades(List<Upgrade> ownUpgrades) {
         this.ownUpgrades = ownUpgrades;
+    }
+
+    public int getSeasonLength() {
+        return seasonLength;
     }
 }
