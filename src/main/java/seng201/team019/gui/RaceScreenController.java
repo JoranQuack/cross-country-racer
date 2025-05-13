@@ -333,6 +333,7 @@ public class RaceScreenController extends ScreenController {
 
                     Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
                     alert.setTitle("Player Breaks Down Event");
+                    alert.setHeaderText("Player Breaks Down Event");
                     alert.setContentText(canAfford
                             ? "You can pay $1000 to fix your car and continue."
                             : "You cannot afford to continue.");
