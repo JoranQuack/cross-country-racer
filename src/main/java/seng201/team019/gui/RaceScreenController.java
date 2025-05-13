@@ -317,67 +317,76 @@ public class RaceScreenController extends ScreenController {
     private void triggerRandomEvent() {
         switch (race.getRandomEvent()) {
             case RouteWeather: {
-                Random rand = new Random();
-                Route disqualifiedRoute = rand.nextInt(race.getRoutes().size()) == 0 ? race.getRoutes().get(rand.nextInt(race.getRoutes().size())) : race.getRoutes().getFirst();
-                for (Racer racer : race.getRacers()) {
-                    if (racer.getRoute().equals(disqualifiedRoute) && !racer.isFinished()) {
-                        racer.setDidDNF(true);
-                    }
-                }
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Weather Event");
-                alert.setHeaderText("Weather Event");
-                alert.setContentText(String.format("Weather Event on the %s route.", disqualifiedRoute.getDescription()));
-                alert.show();
+                triggerRouteWeatherEvent();
                 break;
             }
             case PlayerStrandedTraveler: {
-                //player is finished and cant pick anyone up
-                if (race.getPlayer().isFinished()){
-                    break;
-                }
-                getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() + 1000);
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Traveler Event");
-                alert.setHeaderText("Traveler Event");
-                alert.setContentText("You picked up a traveler and gained $1000. This delayed you 2 minutes.");
-                alert.show();
+                triggerPlayerStrandedTravelerEvent();
                 break;
             }
             case PlayerBreaksDown: {
-                gameLoop.stop();
-
-
-                Platform.runLater(() -> {
-                    boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
-
-                    Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
-                    alert.setTitle("Player Breaks Down Event");
-                    alert.setHeaderText("Player Breaks Down Event");
-                    alert.setContentText(canAfford
-                            ? "You can pay $1000 to fix your car and continue."
-                            : "You cannot afford to continue.");
-
-                    Optional<ButtonType> result = alert.showAndWait();
-
-                    if (canAfford) {
-                        if (result.isPresent() && result.get() == ButtonType.OK) {
-                            getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 1000);
-                        } else {
-                            race.getPlayer().setDidDNF(true);
-                        }
-                    } else {
-                        race.getPlayer().setDidDNF(true);
-                    }
-
-                    gameLoop.start(); // Resume game
-                });
-
+                triggerPlayerBreaksDownEvent();
                 break;
             }
         }
+    }
+
+    private void triggerPlayerBreaksDownEvent() {
+        gameLoop.stop();
+        Platform.runLater(() -> {
+            boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
+
+            Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
+            alert.setTitle("Player Breaks Down Event");
+            alert.setHeaderText("Player Breaks Down Event");
+            alert.setContentText(canAfford
+                    ? "You can pay $1000 to fix your car and continue."
+                    : "You cannot afford to continue.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (canAfford) {
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 1000);
+                } else {
+                    race.getPlayer().setDidDNF(true);
+                }
+            } else {
+                race.getPlayer().setDidDNF(true);
+            }
+
+            gameLoop.start(); // Resume game
+        });
+    }
+
+    private void triggerPlayerStrandedTravelerEvent() {
+        //player is finished and cant pick anyone up
+        if (race.getPlayer().isFinished()) {
+            return;
+        }
+        getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() + 1000);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Traveler Event");
+        alert.setHeaderText("Traveler Event");
+        alert.setContentText("You picked up a traveler and gained $1000. This delayed you 2 minutes.");
+        alert.show();
+    }
+
+    private void triggerRouteWeatherEvent() {
+        Random rand = new Random();
+        Route disqualifiedRoute = rand.nextInt(race.getRoutes().size()) == 0 ? race.getRoutes().get(rand.nextInt(race.getRoutes().size())) : race.getRoutes().getFirst();
+        for (Racer racer : race.getRacers()) {
+            if (racer.getRoute().equals(disqualifiedRoute) && !racer.isFinished()) {
+                racer.setDidDNF(true);
+            }
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Weather Event");
+        alert.setHeaderText("Weather Event");
+        alert.setContentText(String.format("Weather Event on the %s route.", disqualifiedRoute.getDescription()));
+        alert.show();
     }
 
     /**
@@ -399,8 +408,8 @@ public class RaceScreenController extends ScreenController {
             long lastTime = -1;
 
             @Override
-            public void start(){
-                lastTime =  Duration.ofNanos(System.nanoTime()).toMillis();
+            public void start() {
+                lastTime = Duration.ofNanos(System.nanoTime()).toMillis();
                 super.start();
             }
 
