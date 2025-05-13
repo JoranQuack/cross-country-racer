@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Race {
-    private final static float RANDOM_EVENT_PERCENTAGE = 0.3f;
+    private final static float RANDOM_EVENT_PERCENTAGE = 0.6f;
 
     private final GameEnvironment gameEnvironment;
 

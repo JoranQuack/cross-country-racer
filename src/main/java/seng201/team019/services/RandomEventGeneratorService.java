@@ -14,12 +14,11 @@ public class RandomEventGeneratorService {
         private final Random rand = new Random();
 
         public boolean raceHasRandomEvent(float percentage){
-            //todo implement this
+            // todo: implement this
             return true;
         }
 
         public RandomEvent generateRandomEvent(){
-            // TODO implement better section for this
             return RandomEvent.values()[rand.nextInt(RandomEvent.values().length)];
         }
 
