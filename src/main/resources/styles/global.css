@@ -13,12 +13,11 @@ Purple: 933EE3
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('fonts/Montserrat-VariableFont_wght.ttf');
+    src: url('/fonts/Montserrat-Regular.ttf');
 }
 
 .root {
   -fx-background-color: #252432;
-  -fx-font-size: 12px;
 }
 
 /* Grid Pane Styles */
@@ -38,18 +37,21 @@ VBox {
 
 /* Label Styles */
 Label {
-  -fx-text-fill: #FBFEFD;
     -fx-font-family: 'Montserrat';
+  -fx-text-fill: #FBFEFD;
+
 }
 
-Title {
-  -fx-font-size: 18px;
+Title, Title:hover {
+    -fx-font-family: 'Montserrat';
+  -fx-font-size: 14px;
   -fx-font-weight: bold;
   -fx-padding: 10 0 10 0;
 }
 
 /* Button Styles */
 Button {
+    -fx-font-family: 'Montserrat';
   -fx-background-color: #FBFEFD;
   -fx-text-fill: #252432;
   -fx-padding: 5 15 5 15;
@@ -84,6 +86,7 @@ Button:hover {
 
 /* Text Field Styles */
 TextField {
+    -fx-font-family: 'Montserrat';
   -fx-background-color: #252432;
   -fx-border-color: #3A3956;
   -fx-border-radius: 10;
@@ -93,6 +96,7 @@ TextField {
 
 /* Slider Styles */
 Slider {
+    -fx-font-family: 'Montserrat';
   -fx-background-color: #252432;
 }
 
@@ -113,6 +117,7 @@ Slider .thumb:hover {
 
 /* Combobox Styles */
 ComboBox {
+    -fx-font-family: 'Montserrat';
   -fx-background-color: #252432;
   -fx-border-color: #3A3956;
   -fx-border-radius: 10;
@@ -124,6 +129,10 @@ ComboBox {
 ComboBox .list-cell {
   -fx-text-fill: #FBFEFD;
   -fx-background-color: transparent;
+}
+
+.combo-box-popup {
+  -fx-font-family: 'Montserrat';
 }
 
 .combo-box-popup .list-view {
@@ -146,10 +155,12 @@ ComboBox .list-cell {
 .combo-box-popup .list-cell:selected {
   -fx-background-color: #3A3956;
   -fx-text-fill: #FBFEFD;
+  -fx-background-radius: 10;
 }
 
 /* Progress Bar Styles */
 ProgressBar {
+    -fx-font-family: 'Montserrat';
   -fx-background-color: #252432;
   -fx-accent: #3A3956;
 }
