@@ -54,7 +54,7 @@ Button {
   -fx-text-fill: #252432;
   -fx-padding: 5 15 5 15;
   -fx-cursor: hand;
-  -fx-background-radius: 3;
+  -fx-background-radius: 10;
 }
 
 Button:hover {
@@ -86,7 +86,7 @@ Button:hover {
 TextField {
   -fx-background-color: #252432;
   -fx-border-color: #3A3956;
-  -fx-border-radius: 3;
+  -fx-border-radius: 10;
   -fx-padding: 10;
   -fx-text-fill: #FBFEFD;
 }
@@ -99,11 +99,12 @@ Slider {
 Slider .thumb {
   -fx-background-color: #FBFEFD;
   -fx-background-radius: 100;
+  -fx-cursor: hand;
 }
 
 Slider .track {
   -fx-background-color: #3A3956;
-  -fx-background-radius: 5;
+  -fx-background-radius: 10;
 }
 
 Slider .thumb:hover {
@@ -114,9 +115,10 @@ Slider .thumb:hover {
 ComboBox {
   -fx-background-color: #252432;
   -fx-border-color: #3A3956;
-  -fx-border-radius: 3;
+  -fx-border-radius: 10;
   -fx-padding: 5;
   -fx-text-fill: #FBFEFD;
+  -fx-cursor: hand;
 }
 
 ComboBox .list-cell {
@@ -126,7 +128,9 @@ ComboBox .list-cell {
 
 .combo-box-popup .list-view {
   -fx-background-color: #252432;
-  -fx-border-color: #3A3956;
+  -fx-border-color: #252432;
+  -fx-border-radius: 10;
+  -fx-cursor: hand;
 }
 
 .combo-box-popup .list-cell {
@@ -144,18 +148,21 @@ ComboBox .list-cell {
   -fx-text-fill: #FBFEFD;
 }
 
-/* Scroll Bar Styles */
-.scroll-bar {
+/* Progress Bar Styles */
+ProgressBar {
   -fx-background-color: #252432;
+  -fx-accent: #3A3956;
 }
 
-.scroll-bar .thumb {
-  -fx-background-color: #3A3956;
-  -fx-background-radius: 0;
+ProgressBar > .track {
+    -fx-background-color: #3A3956;
+    -fx-background-radius: 10;
 }
 
-.scroll-bar .thumb:hover {
-  -fx-opacity: 0.8;
+ProgressBar .bar {
+    -fx-background-color: #AD8500;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
 }
 
 /* Tab Pane Styles */
