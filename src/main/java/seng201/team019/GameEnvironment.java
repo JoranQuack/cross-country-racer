@@ -140,7 +140,7 @@ public class GameEnvironment {
      *         cars list.
      */
     public boolean sellCar(Car car) {
-        if (garage.contains(car) && (garage.size() > 1)) {
+        if (garage.contains(car) && (garage.size() > 0)) {
             setBankBalance(bankBalance + car.getPrice() / 2);
             garage.remove(car);
             availableCars.add(car);
