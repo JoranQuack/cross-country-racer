@@ -18,6 +18,21 @@ import seng201.team019.models.Upgrade;
 
 public class CarCustomisationScreenController extends ScreenController {
     @FXML
+    private Button part0SellButton;
+
+    @FXML
+    private Button part1SellButton;
+
+    @FXML
+    private Button part2SellButton;
+
+    @FXML
+    private Button part3SellButton;
+
+    @FXML
+    private Button part4SellButton;
+
+    @FXML
     private VBox partsVBox;
 
     @FXML
@@ -206,12 +221,13 @@ public class CarCustomisationScreenController extends ScreenController {
                 Label partNameLabel = (Label) getClass().getDeclaredField("part" + i + "NameLabel").get(this);
                 Button partAddButton = (Button) getClass().getDeclaredField("part" + i + "AddButton").get(this);
                 Button partRemoveButton = (Button) getClass().getDeclaredField("part" + i + "RemoveButton").get(this);
+                Button partSellButton = (Button) getClass().getDeclaredField("part" + i + "SellButton").get(this);
 
                 partImage.setImage(part.getImage());
                 partNameLabel.setText(part.getName());
 
                 initializePartButtons(part, partGrid, partImage, partNameLabel, partAddButton, partRemoveButton,
-                        ownedParts);
+                        partSellButton, ownedParts);
 
             }
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
@@ -223,7 +239,8 @@ public class CarCustomisationScreenController extends ScreenController {
      * Initializes one part's buttons based on whether the part is owned or not.
      */
     private void initializePartButtons(Upgrade part, GridPane partGrid, ImageView partImage,
-            Label partNameLabel, Button partAddButton, Button partRemoveButton, List<Upgrade> ownedParts) {
+            Label partNameLabel, Button partAddButton, Button partRemoveButton, Button partSellButton,
+            List<Upgrade> ownedParts) {
         if (ownedParts.contains(part)) {
             partGrid.setStyle("-fx-background-color: null;");
             partRemoveButton.setVisible(false);
@@ -243,6 +260,15 @@ public class CarCustomisationScreenController extends ScreenController {
                 initializeCar();
             });
         }
+        partSellButton.setOnAction(event -> {
+            if (!ownedParts.contains(part)) {
+                getGameEnvironment().getSelectedCar().removeUpgrade(part);
+            }
+            getGameEnvironment().sellPart(part);
+            showAlert(AlertType.INFORMATION, "Part sold", "" + part.getName() + " sold successfully");
+            initializeParts();
+            initializeCar();
+        });
     }
 
     /**

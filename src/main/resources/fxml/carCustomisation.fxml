@@ -196,7 +196,7 @@
                         <Label text=" Upgrades" />
                       </children>
                     </HBox>
-                              <Button mnemonicParsing="false" onAction="#onSellCarButtonClicked" text="Sell Car" />
+                    <Button mnemonicParsing="false" onAction="#onSellCarButtonClicked" text="Sell Car" />
                   </children>
                   <opaqueInsets>
                     <Insets />
@@ -211,8 +211,9 @@
                       <children>
                         <GridPane fx:id="part0Grid" style="-fx-background-radius: 10;" styleClass="CarCustomisationPart">
                           <columnConstraints>
-                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
@@ -225,17 +226,20 @@
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                          <Button fx:id="part0AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
-                          <Button fx:id="part0RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
+                            <Button fx:id="part0AddButton" mnemonicParsing="false" text="Equip" GridPane.columnIndex="2" />
+                            <Button fx:id="part0RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Unequip" GridPane.columnIndex="2" />
+                            <Button fx:id="part0SellButton" alignment="CENTER" mnemonicParsing="false" text="Sell" GridPane.columnIndex="3" />
                           </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
+                          <padding>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                          </padding>
                         </GridPane>
+                        
                         <GridPane fx:id="part1Grid" style="-fx-background-radius: 10;" styleClass="CarCustomisationPart">
                           <columnConstraints>
-                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
@@ -248,17 +252,20 @@
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                          <Button fx:id="part1AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
-                          <Button fx:id="part1RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
+                            <Button fx:id="part1AddButton" mnemonicParsing="false" text="Equip" GridPane.columnIndex="2" />
+                            <Button fx:id="part1RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Unequip" GridPane.columnIndex="2" />
+                            <Button fx:id="part1SellButton" alignment="CENTER" mnemonicParsing="false" text="Sell" GridPane.columnIndex="3" />
                           </children>
                           <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </padding>
                         </GridPane>
+                        
                         <GridPane fx:id="part2Grid" style="-fx-background-radius: 10;" styleClass="CarCustomisationPart">
                           <columnConstraints>
-                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
@@ -271,17 +278,20 @@
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                          <Button fx:id="part2AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
-                          <Button fx:id="part2RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
+                            <Button fx:id="part2AddButton" mnemonicParsing="false" text="Equip" GridPane.columnIndex="2" />
+                            <Button fx:id="part2RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Unequip" GridPane.columnIndex="2" />
+                            <Button fx:id="part2SellButton" alignment="CENTER" mnemonicParsing="false" text="Sell" GridPane.columnIndex="3" />
                           </children>
                           <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </padding>
                         </GridPane>
+                        
                         <GridPane fx:id="part3Grid" style="-fx-background-radius: 10;" styleClass="CarCustomisationPart">
                           <columnConstraints>
-                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
@@ -294,17 +304,20 @@
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                          <Button fx:id="part3AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
-                          <Button fx:id="part3RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
+                            <Button fx:id="part3AddButton" mnemonicParsing="false" text="Equip" GridPane.columnIndex="2" />
+                            <Button fx:id="part3RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Unequip" GridPane.columnIndex="2" />
+                            <Button fx:id="part3SellButton" alignment="CENTER" mnemonicParsing="false" text="Sell" GridPane.columnIndex="3" />
                           </children>
                           <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </padding>
                         </GridPane>
+                        
                         <GridPane fx:id="part4Grid" style="-fx-background-radius: 10;" styleClass="CarCustomisationPart">
                           <columnConstraints>
-                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
@@ -317,17 +330,18 @@
                                 <Insets left="10.0" />
                               </GridPane.margin>
                             </Label>
-                          <Button fx:id="part4AddButton" mnemonicParsing="false" text="Add" GridPane.columnIndex="2" />
-                          <Button fx:id="part4RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Remove" GridPane.columnIndex="2" />
+                            <Button fx:id="part4AddButton" mnemonicParsing="false" text="Equip" GridPane.columnIndex="2" />
+                            <Button fx:id="part4RemoveButton" alignment="CENTER" mnemonicParsing="false" text="Unequip" GridPane.columnIndex="2" />
+                            <Button fx:id="part4SellButton" alignment="CENTER" mnemonicParsing="false" text="Sell" GridPane.columnIndex="3" />
                           </children>
                           <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </padding>
                         </GridPane>
                       </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="20.0" top="5.0" />
-                                 </padding>
+                      <padding>
+                        <Insets bottom="5.0" left="5.0" right="20.0" top="5.0" />
+                      </padding>
                     </VBox>
                   </content>
                 </ScrollPane>
