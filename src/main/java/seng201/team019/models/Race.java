@@ -2,6 +2,7 @@ package seng201.team019.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seng201.team019.GameEnvironment;
+import seng201.team019.services.RandomEventGeneratorService;
 import seng201.team019.services.RandomNameGeneratorService;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Race {
+    private final static float RANDOM_EVENT_PERCENTAGE = 0.6f;
 
     private final GameEnvironment gameEnvironment;
 
@@ -24,14 +26,17 @@ public class Race {
 
     private long raceTime;
 
+    private boolean isEventScheduledThisRace;
+    private boolean eventHasOccurred = false;
+    long eventTriggerTime = -1;
+    RandomEvent selectedEvent = null;
+
     public Race(Builder builder) {
         this.gameEnvironment = builder.gameEnvironment;
         this.routes = builder.routes;
         this.prizeMoney = builder.prizeMoney;
         this.numOfOpponents = builder.numOfOpponents;
         this.duration = builder.duration;
-
-        setupRace();
     }
 
     public void setupRace() {
@@ -49,6 +54,16 @@ public class Race {
             Opponent opponent = new Opponent(name, randRoute, randCar);
             opponentCars.add(opponent);
         }
+
+        // setup random events
+
+        RandomEventGeneratorService randEventGenerator = new RandomEventGeneratorService();
+        boolean hasEvent = randEventGenerator.raceHasRandomEvent(RANDOM_EVENT_PERCENTAGE);
+        isEventScheduledThisRace = hasEvent;
+        if (hasEvent) {
+            selectedEvent = randEventGenerator.generateRandomEvent(this);
+            eventTriggerTime = randEventGenerator.eventTriggerTime(0, duration);
+        }
     }
 
     public boolean incrementRaceTime(long delta) {
@@ -58,7 +73,7 @@ public class Race {
         }
         raceTime += delta;
 
-        return getRacers().stream().allMatch(Racer::isFinished);
+        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished);
     }
 
     public long getRaceTime() {
@@ -71,6 +86,21 @@ public class Race {
 
     public int getNumOfOpponents() {
         return numOfOpponents;
+    }
+
+    public boolean shouldTriggerRandomEvent() {
+        if (isEventScheduledThisRace && !eventHasOccurred) {
+            if (eventTriggerTime <= raceTime) {
+                eventHasOccurred = true;
+                System.out.println("RandomEvent triggered! " + eventTriggerTime);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public RandomEvent getRandomEvent() {
+        return selectedEvent;
     }
 
     public void updateRacers(long delta) {
@@ -98,23 +128,8 @@ public class Race {
 
     public List<Racer> getOrderedRacers() {
         Comparator<Racer> raceOrderComparator = Comparator.comparing(Racer::didDNF).reversed() // Dnf Last
-                .thenComparing((Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())).reversed() // order
-                                                                                                                    // by
-                                                                                                                    // those
-                                                                                                                    // with
-                                                                                                                    // the
-                                                                                                                    // most
-                                                                                                                    // distance
-                                                                                                                    // traveld
-                .thenComparing((Racer racer) -> racer.isFinished() ? racer.getFinishTime() : Long.MAX_VALUE); // if
-                                                                                                              // there
-                                                                                                              // are
-                                                                                                              // multiple
-                                                                                                              // finishers
-                                                                                                              // order
-                                                                                                              // by
-                                                                                                              // Finish
-                                                                                                              // time
+                .thenComparing((Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())).reversed() // order by those with the most distance traveled
+                .thenComparing((Racer racer) -> racer.isFinished() ? racer.getFinishTime() : Long.MAX_VALUE); // if there are multiple finishers order by Finish time
 
         return getRacers().stream().sorted(raceOrderComparator).collect(Collectors.toList());
     }
@@ -128,6 +143,12 @@ public class Race {
 
     public void setPlayer(Player player) {
         this.player = player;
+
+        // If the RandomEvent is for the player picking up traveler
+        // then we need to set the time for the player to pick up the traveler
+        if (selectedEvent == RandomEvent.PlayerStrandedTraveler) {
+            player.setStartPickupTime(eventTriggerTime);
+        }
     }
 
     public Player getPlayer() {

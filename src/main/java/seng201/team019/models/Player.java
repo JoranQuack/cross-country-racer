@@ -7,10 +7,14 @@ import static java.util.Collections.max;
 
 public class Player extends Racer {
     public final static long REFUEL_DURATION = Duration.ofMinutes(2).toMillis();
+    public final static long PICKUP_DURATION = Duration.ofMinutes(2).toMillis();
 
     private double fuelAmount;
+
     private boolean isRefuelingNextStop;
     private long startRefuelTime;
+
+    private long startPickupTime;
 
     private String dnfReason;
 
@@ -19,6 +23,7 @@ public class Player extends Racer {
         fuelAmount = car.getFuelCapacity();
         isRefuelingNextStop =false;
         startRefuelTime = -1;
+        startPickupTime = -1;
     }
 
     public double getFuelAmount() {
@@ -31,6 +36,10 @@ public class Player extends Racer {
 
     public boolean isRefuelingNextStop() {
         return isRefuelingNextStop;
+    }
+
+    public void setStartPickupTime(long startPickupTime) {
+        this.startPickupTime = startPickupTime;
     }
 
     public void setDidDNF(boolean didDNF,String dnfReason) {
@@ -92,6 +101,10 @@ public class Player extends Racer {
                 setIsRefuelingNextStop(false);
                 this.startRefuelTime = -1;
             }
+        }
+
+        if (this.startPickupTime>=time && this.startPickupTime+PICKUP_DURATION<=time) {
+            return;
         }
 
 

@@ -101,6 +101,7 @@ public class RaceSetupScreenController extends ScreenController {
         Player player = new Player(getGameEnvironment().getName(), selectedRace.getRoutes().get(selectedRouteIndex),
                 playersCar);
         selectedRace.setPlayer(player);
+        selectedRace.setupRace();
         getGameEnvironment().getNavigator().launchRaceScreen(getGameEnvironment(), selectedRace);
     }
 
