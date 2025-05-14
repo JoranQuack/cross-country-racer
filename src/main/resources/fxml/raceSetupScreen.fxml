@@ -2,101 +2,103 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team019.gui.RaceSetupScreenController">
-   <children>
-      <GridPane hgap="8.0" prefHeight="400.0" prefWidth="600.0" vgap="8.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="366.0" minHeight="10.0" prefHeight="358.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team019.gui.RaceSetupScreenController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <children>
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBackClicked" text="Back" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onStartClicked" text="Start" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBackClicked" text="Back" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onStartClicked" text="Start">
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                  </Button>
+              </buttons>
+            </ButtonBar>
+            <GridPane hgap="8.0" prefHeight="400.0" prefWidth="600.0" vgap="8.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="366.0" minHeight="10.0" prefHeight="358.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <Label text="Race Information">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="RaceSetupNumOfOpsLabel" text="[num of opps]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Prize Money:" />
+                              <Label text="Number Of Opponents:" GridPane.rowIndex="1" />
+                              <Label fx:id="RaceSetupPrizeMoneyLabel" text="[dollars]$" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <GridPane vgap="5.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="RaceSetupRouteFuelStopsLabel" text="Select a route to start" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Route Description:" />
+                              <Label text="Route Distance:" GridPane.rowIndex="1" />
+                              <Label text="Route Fuel Stops:" GridPane.rowIndex="2" />
+                              <Label fx:id="RaceSetupRouteDescriptionLabel" text="Select a route to start" GridPane.columnIndex="1" />
+                              <Label fx:id="RaceSetupRouteDistanceLabel" text="Select a route to start" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </VBox>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <content>
+                        <VBox fx:id="raceSetupRouteListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" spacing="10.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
                <padding>
-                  <Insets left="8.0" right="8.0" />
-               </padding></Button>
-            <GridPane prefHeight="345.0" prefWidth="288.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" percentWidth="50.0" prefWidth="136.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" percentWidth="50.0" prefWidth="152.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="112.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="274.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="274.0" minHeight="9.0" prefHeight="31.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="RACE SETUP" GridPane.columnSpan="2">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label text="Prize Money:" GridPane.rowIndex="1" />
-                  <Label text="Number Of Opponents:" GridPane.rowIndex="2" />
-                  <Label fx:id="RaceSetupPrizeMoneyLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="RaceSetupNumOfOpsLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="RaceSetupRouteButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Route 1" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </GridPane.margin>
-                  </Button>
-                  <Button fx:id="RaceSetupRouteButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Route 2" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </GridPane.margin>
-                  </Button>
-                  <Button fx:id="RaceSetupRouteButton3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Route 3" GridPane.rowIndex="4">
-                     <GridPane.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </GridPane.margin>
-                  </Button>
-                  <Button fx:id="RaceSetupRouteButton4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Route 4" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <GridPane.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </GridPane.margin>
-                  </Button>
-               </children>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
             </GridPane>
-            <GridPane GridPane.columnIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="291.0" minHeight="10.0" prefHeight="215.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Route Description:" />
-                  <Label text="Route Distance:" GridPane.rowIndex="1" />
-                  <Label text="Route Fuel Stops:" GridPane.rowIndex="2" />
-                  <Label fx:id="RaceSetupRouteDescriptionLabel" text="Select a route to start" GridPane.columnIndex="1" />
-                  <Label fx:id="RaceSetupRouteDistanceLabel" text="Select a route to start" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="RaceSetupRouteFuelStopsLabel" text="Select a route to start" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-               </children>
-            </GridPane>
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </GridPane>
+         </children></VBox>
    </children>
 </AnchorPane>

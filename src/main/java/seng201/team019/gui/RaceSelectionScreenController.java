@@ -37,7 +37,7 @@ public class RaceSelectionScreenController extends ScreenController {
 
     private Pane makeRaceListElement(Race race) {
         Pane hBox = new HBox();
-        hBox.setPadding(new Insets(4));
+        hBox.setPadding(new Insets(5));
         hBox.getStyleClass().add("RaceListElement");
 
         VBox vBox = new VBox(8);
