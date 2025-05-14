@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -244,12 +245,30 @@ public class CarCustomisationScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Updates the car's name in the game environment.
+     */
     @FXML
     private void onCarNameChanged() {
-        // Update the car name when the text field changes
         String newName = carName.getText();
         Car car = getGameEnvironment().getSelectedCar();
         car.setName(newName);
+    }
+
+    /**
+     * Sells the selected car and shows an alert with the result.
+     */
+    @FXML
+    private void onSellCarButtonClicked() {
+        Car car = getGameEnvironment().getSelectedCar();
+
+        if (getGameEnvironment().sellCar(car)) {
+            showAlert(AlertType.INFORMATION, "Car sold", String.format("%s sold successfully", car.getName()));
+        } else {
+            showAlert(AlertType.ERROR, "Car not sold", "Something went wrong");
+        }
+
+        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
     }
 
     /**

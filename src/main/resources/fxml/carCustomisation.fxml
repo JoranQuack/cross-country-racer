@@ -196,6 +196,7 @@
                         <Label text=" Upgrades" />
                       </children>
                     </HBox>
+                              <Button mnemonicParsing="false" onAction="#onSellCarButtonClicked" text="Sell Car" />
                   </children>
                   <opaqueInsets>
                     <Insets />
