@@ -104,13 +104,7 @@ public class RaceScreenController extends ScreenController {
     @FXML
     private Line raceProgressLine;
 
-    public enum MarkerType {
-        START_FINISH, FUEL_STOP
-    }
-
-    private final Race race;
-
-    private final Map<Racer, Circle> racerCircles = new HashMap<>();
+    private final Map<Racer, FontIcon> racerCircles = new HashMap<>();
 
     private final AnimationTimer gameLoop;
 
@@ -321,20 +315,20 @@ public class RaceScreenController extends ScreenController {
         double lineEndY;
 
         switch (markerType) {
-            case START :
-            case FINISH:
+            case START,FINISH ->{
                 lineStartY = raceProgressLine.getLayoutY() - 15;
-                yield raceProgressLine.getLayoutY() + 15;
+                lineEndY = raceProgressLine.getLayoutY() + 15;
             }
-            case FUEL_STOP -> {
+            case MarkerType.FUEL_STOP -> {
                 lineStartY = raceProgressLine.getLayoutY() - 10;
-                yield raceProgressLine.getLayoutY();
+                lineEndY = raceProgressLine.getLayoutY();
             }
             default -> {
                 lineStartY = 0;
-                yield 0;
+                lineEndY = 0;
             }
         };
+
 
     Line markerLine = new Line(lineX, lineStartY, lineX, lineEndY);markerLine.setStroke(Color.BLACK); // Set color
     markerLine.setStrokeWidth(1.5); // Set thickness
