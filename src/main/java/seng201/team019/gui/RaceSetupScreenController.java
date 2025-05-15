@@ -1,8 +1,12 @@
 package seng201.team019.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
 import seng201.team019.models.Player;
@@ -19,18 +23,6 @@ public class RaceSetupScreenController extends ScreenController {
     private Label RaceSetupNumOfOpsLabel;
 
     @FXML
-    private Button RaceSetupRouteButton1;
-
-    @FXML
-    private Button RaceSetupRouteButton2;
-
-    @FXML
-    private Button RaceSetupRouteButton3;
-
-    @FXML
-    private Button RaceSetupRouteButton4;
-
-    @FXML
     private Label RaceSetupRouteDescriptionLabel;
 
     @FXML
@@ -39,9 +31,12 @@ public class RaceSetupScreenController extends ScreenController {
     @FXML
     private Label RaceSetupRouteFuelStopsLabel;
 
+    @FXML
+    private VBox raceSetupRouteListView;
+
     private final Race selectedRace;
 
-    private int selectedRouteIndex = -1;
+    private Route selectedRoute;
 
     /**
      * Initialize the window
@@ -50,17 +45,11 @@ public class RaceSetupScreenController extends ScreenController {
         RaceSetupPrizeMoneyLabel.setText(String.valueOf(selectedRace.getPrizeMoney()));
         RaceSetupNumOfOpsLabel.setText(String.valueOf(selectedRace.getNumOfOpponents()));
 
-        List<Button> RaceRouteButtons = List.of(RaceSetupRouteButton1, RaceSetupRouteButton2, RaceSetupRouteButton3,
-                RaceSetupRouteButton4);
 
-        for (int i = 0; i < RaceRouteButtons.size(); i++) {
-            if (i >= selectedRace.getRoutes().size()) {
-                RaceRouteButtons.get(i).setDisable(true);
-                continue;
-            }
-            int buttonIndex = i; // variables used within lambdas must be final
-            RaceRouteButtons.get(i).setOnAction(event -> onRocketButtonClicked(RaceRouteButtons, buttonIndex));
+        for (Route route : selectedRace.getRoutes()) {
+            Pane racePane = makeRouteListElement(route);
 
+            raceSetupRouteListView.getChildren().addAll(racePane);
         }
     }
 
@@ -69,22 +58,39 @@ public class RaceSetupScreenController extends ScreenController {
         this.selectedRace = selectedRace;
     }
 
-    public void updateRoute(Route route) {
-        RaceSetupRouteDescriptionLabel.setText(route.getDescription());
-        RaceSetupRouteDistanceLabel.setText(String.format("%skm", route.getDistance()));
-        RaceSetupRouteFuelStopsLabel.setText(String.format("%s", route.getFuelStopCount()));
+    public Pane makeRouteListElement(Route route) {
+        Pane hBox = new HBox();
+        hBox.setPadding(new Insets(5));
+        hBox.getStyleClass().add("RaceListElement");
+
+        VBox vBox = new VBox(8);
+        vBox.setStyle("-fx-background-color: transparent;");
+        Label nameLabel = new Label(String.format("Route: %s", route.getDescription()));
+
+        nameLabel.setFont(new Font(20));
+
+        vBox.getChildren().addAll(
+                nameLabel,
+                new Label(String.format("Distance: $%.2f", route.getDistance())),
+                new Label(String.format("Fuel Stops: %s", route.getFuelStopCount()))
+        );
+
+        hBox.getChildren().addAll(
+                vBox);
+
+        hBox.setOnMouseClicked(e -> {
+            setSelectedRoute(route);
+        });
+
+        return hBox;
     }
 
-    public void onRocketButtonClicked(List<Button> RaceRouteButtons, int buttonIndex) {
-        selectedRouteIndex = buttonIndex;
-        updateRoute(selectedRace.getRoutes().get(buttonIndex));
-        for (int i = 0; i < RaceRouteButtons.size(); i++) {
-            if (i == buttonIndex) {
-                RaceRouteButtons.get(i).setStyle("-fx-border-color: blue");
-            } else {
-                RaceRouteButtons.get(i).setStyle("");
-            }
-        }
+    public void setSelectedRoute(Route selectedRoute) {
+        this.selectedRoute = selectedRoute;
+
+        RaceSetupRouteDescriptionLabel.setText(selectedRoute.getDescription());
+        RaceSetupRouteDistanceLabel.setText(String.format("%skm", selectedRoute.getDistance()));
+        RaceSetupRouteFuelStopsLabel.setText(String.format("%s", selectedRoute.getFuelStopCount()));
     }
 
     @FXML
@@ -94,12 +100,12 @@ public class RaceSetupScreenController extends ScreenController {
 
     @FXML
     private void onStartClicked() {
-        if (selectedRouteIndex == -1) {
+        if (selectedRoute == null) {
+            // TODO: add error message
             return;
         }
-        Car playersCar = getGameEnvironment().getGarage().getFirst(); // selected car is first car
-        Player player = new Player(getGameEnvironment().getName(), selectedRace.getRoutes().get(selectedRouteIndex),
-                playersCar);
+        Car playersCar = getGameEnvironment().getGarage().getFirst(); // selected car is first car // TOdo: add error handle here.
+        Player player = new Player(getGameEnvironment().getName(), selectedRoute, playersCar);
         selectedRace.setPlayer(player);
         selectedRace.setupRace();
         getGameEnvironment().getNavigator().launchRaceScreen(getGameEnvironment(), selectedRace);
