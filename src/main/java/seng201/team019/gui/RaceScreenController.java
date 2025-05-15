@@ -235,6 +235,7 @@ public class RaceScreenController extends ScreenController {
         leaderboardRow.setPadding(new Insets(4));
         leaderboardRow.setAlignment(Pos.CENTER_LEFT);
         leaderboardRow.getStyleClass().add("race-leaderboard-row");
+        leaderboardRow.setMouseTransparent(true); // make sure that you can still scroll even when it is present
 
         Label leaderboardPosLabel = new Label(racer.didDNF() ? "DNF" : String.valueOf(row));
         leaderboardPosLabel.setFont(Font.font(null, FontWeight.NORMAL, 24));
