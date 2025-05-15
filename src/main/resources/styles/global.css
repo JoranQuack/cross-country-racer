@@ -301,6 +301,6 @@ ScrollPane .viewport {
     -fx-icon-color: #FBFEFD;
 }
 
-.race-progress-bar-wrapper > .race-progress-payer-icon {
+.race-progress-bar-wrapper > .race-progress-player-icon {
     -fx-icon-color: #AD8500;
 }

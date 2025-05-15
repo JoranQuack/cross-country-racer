@@ -204,7 +204,10 @@ public class RaceScreenController extends ScreenController {
             // Get the value from the entry
             FontIcon racerCar = entry.getValue();
 
-            racerCar.setLayoutX(raceProgressLineWrapper.getPadding().getLeft()+ racer.getRoute().normalizeDistance(racer.getDistance())  * (raceProgressLine.getEndX()-raceProgressLine.getStartX()));
+            racerCar.setLayoutX(raceProgressLineWrapper.getPadding().getLeft()
+                    -racerCar.getLayoutBounds().getWidth()/2
+                    + racer.getRoute().normalizeDistance(racer.getDistance())
+                    * (raceProgressLine.getEndX()-raceProgressLine.getStartX()));
 
         }
     }
@@ -278,12 +281,12 @@ public class RaceScreenController extends ScreenController {
 
         for (Racer racer : race.getRacers()) {
             FontIcon racerCar = new FontIcon("fas-car-side");
-            racerCar.setLayoutX(raceProgressLine.getStartX());
+            racerCar.setLayoutX(raceProgressLine.getStartX()-racerCar.getLayoutBounds().getWidth()/2);
             racerCar.setLayoutY(raceProgressLine.getLayoutY()); // getLayoutY() as we offset lne 40px down in fxml
                                                                 // layout.
 
             if (racer instanceof Player) {
-                racerCar.getStyleClass().add("race-progress-payer-icon");
+                racerCar.getStyleClass().add("race-progress-player-icon");
             } else {
                 racerCar.setFill(Color.GREY);
             }
@@ -328,7 +331,7 @@ public class RaceScreenController extends ScreenController {
 
         // Create the text label
         FontIcon icon = markerType.getIcon();
-        icon.setX(lineX - icon.getLayoutBounds().getWidth() / 2); // Center text horizontally over the line
+        icon.setX(lineX - icon.getLayoutBounds().getWidth() / 2); // Center icon horizontally over the line
 
         icon.setY(lineStartY - icon.getLayoutBounds().getHeight());
 
