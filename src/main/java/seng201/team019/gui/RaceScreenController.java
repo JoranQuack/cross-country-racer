@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.Skin;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -17,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import org.kordamp.ikonli.javafx.FontIcon;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Player;
 import seng201.team019.models.Race;
@@ -35,6 +37,9 @@ import java.util.Map;
 public class RaceScreenController extends ScreenController {
     @FXML
     private Label RaceTimeLabel;
+
+    @FXML
+    private Label racePlayerProgressLabel;
 
     @FXML
     private Button RaceSpeedMultiplierOne;
@@ -64,7 +69,26 @@ public class RaceScreenController extends ScreenController {
     private Label RacePlayerIsRefuelingLabel;
 
     public enum MarkerType {
-        START_FINISH, FUEL_STOP
+        FINISH{
+            @Override
+            public FontIcon getIcon() {
+                return new FontIcon("fas-flag-checkered");
+            }
+
+        },
+        START{
+            @Override
+            public FontIcon getIcon() {
+                return new FontIcon("fas-map-marker-alt");
+            }
+        }
+        , FUEL_STOP{
+            @Override
+            public FontIcon getIcon() {
+                return new FontIcon("fas-gas-pump");
+            }
+        };
+        public abstract FontIcon getIcon();
     }
 
     private final Race race;
@@ -78,7 +102,7 @@ public class RaceScreenController extends ScreenController {
     @FXML
     private Line raceProgressLine;
 
-    private final Map<Racer, Circle> racerCircles = new HashMap<>();
+    private final Map<Racer, FontIcon> racerCircles = new HashMap<>();
 
     private final AnimationTimer gameLoop;
 
@@ -142,13 +166,14 @@ public class RaceScreenController extends ScreenController {
         TimeFormatterService timeFormatter = new TimeFormatterService();
 
         RaceTimeLabel.setText(timeFormatter.formatTime(race.getRaceTime()));
+        racePlayerProgressLabel.setText(String.format("%.0f%%",100*race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance())));
         RacePlayerFuelLabel.setText(String.format("%.1f", race.getPlayer().getNormalizedFuelAmount() * 100));
         RacePlayerDistanceToFuelLabel.setText(String.format("%.2fKM",
                 race.getPlayer().getRoute().getDistanceToNextFuelStop(race.getPlayer().getDistance())));
         RacePlayerIsRefuelingLabel.setText(race.getPlayer().isRefuelingNextStop() ? "Yes" : "No");
-        // TODO: Implement better ui for racers leaderboard
         // Update race leaderboard
         renderRaceLeaderboard();
+        //update progress line
         renderRaceProgressLine();
     }
 
@@ -156,15 +181,15 @@ public class RaceScreenController extends ScreenController {
      * goes through the racers and updates the leaderboard
      */
     private void renderRaceLeaderboard() {
-        // StringBuilder stats = new StringBuilder();
         RaceLeaderboard.getChildren().clear(); // TODO: MAke this more efficient avoid unnecessary clears
+
+        VBox.setVgrow(RaceLeaderboard, Priority.ALWAYS);
 
         // print Leaderboard positions
         int pos = 0;
         for (Racer racer : race.getOrderedRacers()) {
             Pane raceLeaderboardRow = makeRaceLeaderboardRow(++pos, racer);
-            RaceLeaderboard.getChildren().addAll(raceLeaderboardRow, new Separator());
-            VBox.setVgrow(RaceLeaderboard, Priority.ALWAYS);
+            RaceLeaderboard.getChildren().addAll(raceLeaderboardRow,new Separator());
         }
     }
 
@@ -172,15 +197,14 @@ public class RaceScreenController extends ScreenController {
      * Update the position of the dots based on the distance of the racers
      */
     private void renderRaceProgressLine() {
-        for (Map.Entry<Racer, Circle> entry : racerCircles.entrySet()) {
+        for (Map.Entry<Racer, FontIcon> entry : racerCircles.entrySet()) {
             // Get the key from the entry
             Racer racer = entry.getKey();
 
             // Get the value from the entry
-            Circle racerDot = entry.getValue();
+            FontIcon racerCar = entry.getValue();
 
-            racerDot.setCenterX(racer.getRoute().normalizeDistance(racer.getDistance())
-                    * (raceProgressLine.endXProperty().getValue()));
+            racerCar.setLayoutX(raceProgressLineWrapper.getPadding().getLeft()+ racer.getRoute().normalizeDistance(racer.getDistance())  * (raceProgressLine.getEndX()-raceProgressLine.getStartX()));
 
         }
     }
@@ -203,13 +227,14 @@ public class RaceScreenController extends ScreenController {
      * @return Hbox containing all the elements in the row
      */
     private HBox makeRaceLeaderboardRow(int row, Racer racer) {
-        HBox leaderboardRow = new HBox(4);
+        HBox leaderboardRow = new HBox(10);
         leaderboardRow.setMaxWidth(Double.MAX_VALUE);
         leaderboardRow.setPadding(new Insets(4));
         leaderboardRow.setAlignment(Pos.CENTER_LEFT);
+        leaderboardRow.getStyleClass().add("race-leaderboard-row");
 
         Label leaderboardPosLabel = new Label(racer.didDNF() ? "DNF" : String.valueOf(row));
-        leaderboardPosLabel.setFont(Font.font(null, FontWeight.BOLD, 15));
+        leaderboardPosLabel.setFont(Font.font(null, FontWeight.NORMAL, 24));
 
         VBox racerInfo = new VBox();
         HBox.setHgrow(racerInfo, Priority.ALWAYS);
@@ -235,35 +260,36 @@ public class RaceScreenController extends ScreenController {
      * initialized the progress line
      */
     private void initializeProgressLine() {
-        raceProgressLine.endXProperty().bind(raceProgressLineWrapper.widthProperty());
+        raceProgressLine.startXProperty().set(raceProgressLineWrapper.getPadding().getLeft());
+        raceProgressLine.endXProperty().set(raceProgressLineWrapper.getWidth()-raceProgressLineWrapper.getPadding().getRight());
 
         // set start and finish marker lines
 
-        raceProgressLineWrapper.getChildren().add(makeRaceProgressLineMarker(MarkerType.START_FINISH, "S", 0));
+        raceProgressLineWrapper.getChildren().add(makeRaceProgressLineMarker(MarkerType.START, 0));
 
-        raceProgressLineWrapper.getChildren().add(makeRaceProgressLineMarker(MarkerType.START_FINISH, "F", 1));
+        raceProgressLineWrapper.getChildren().add(makeRaceProgressLineMarker(MarkerType.FINISH, 1));
 
         // set gas marker lines
         for (int i = 1; i < race.getPlayer().getRoute().getFuelStopCount(); i++) {
             float distance = race.getPlayer().getRoute()
                     .normalizeDistance(i * race.getPlayer().getRoute().getDistanceBetweenFuelStops());
-            raceProgressLineWrapper.getChildren().add(makeRaceProgressLineMarker(MarkerType.FUEL_STOP, "G", distance));
+            raceProgressLineWrapper.getChildren().add(makeRaceProgressLineMarker(MarkerType.FUEL_STOP, distance));
         }
 
         for (Racer racer : race.getRacers()) {
-            Circle racerDot = new Circle(5);
-            racerDot.setCenterX(raceProgressLine.getStartX());
-            racerDot.setCenterY(raceProgressLine.getLayoutY()); // getLayoutY() as we offset lne 40px down in fxml
+            FontIcon racerCar = new FontIcon("fas-car-side");
+            racerCar.setLayoutX(raceProgressLine.getStartX());
+            racerCar.setLayoutY(raceProgressLine.getLayoutY()); // getLayoutY() as we offset lne 40px down in fxml
                                                                 // layout.
 
             if (racer instanceof Player) {
-                racerDot.setFill(Color.BLUE);
+                racerCar.getStyleClass().add("race-progress-payer-icon");
             } else {
-                racerDot.setFill(Color.GREY);
+                racerCar.setFill(Color.GREY);
             }
 
-            raceProgressLineWrapper.getChildren().add(racerDot);
-            racerCircles.put(racer, racerDot);
+            raceProgressLineWrapper.getChildren().add(racerCar);
+            racerCircles.put(racer, racerCar);
         }
     }
 
@@ -271,19 +297,18 @@ public class RaceScreenController extends ScreenController {
      * Makes a marker element for the raceProgressLine
      *
      * @param markerType type of the marker. This affects the height,
-     * @param label      label of the parker
      * @param distance   the percentage along the curve the distance marker is
      * @return A group of the Line and Text.
      */
-    private Group makeRaceProgressLineMarker(MarkerType markerType, String label, float distance) {
+    private Group makeRaceProgressLineMarker(MarkerType markerType, float distance) {
 
-        double lineX = distance
-                * (raceProgressLine.endXProperty().getValue() - raceProgressLine.startXProperty().getValue());
+        double lineX =raceProgressLineWrapper.getPadding().getLeft()+ distance * (raceProgressLine.getEndX()-raceProgressLine.getStartX());
         double lineStartY;
         double lineEndY;
 
         switch (markerType) {
-            case START_FINISH:
+            case START :
+            case FINISH:
                 lineStartY = raceProgressLine.getLayoutY() - 15;
                 lineEndY = raceProgressLine.getLayoutY() + 15;
                 break;
@@ -302,13 +327,13 @@ public class RaceScreenController extends ScreenController {
         markerLine.setStrokeWidth(1.5); // Set thickness
 
         // Create the text label
-        Text markerText = new Text(label);
-        markerText.setX(lineX - markerText.getLayoutBounds().getWidth() / 2); // Center text horizontally over the line
-                                                                              // (x=0)
-        markerText.setY(lineStartY - markerText.getLayoutBounds().getHeight());
+        FontIcon icon = markerType.getIcon();
+        icon.setX(lineX - icon.getLayoutBounds().getWidth() / 2); // Center text horizontally over the line
+
+        icon.setY(lineStartY - icon.getLayoutBounds().getHeight());
 
         Group markerGroup = new Group();
-        markerGroup.getChildren().addAll(markerLine, markerText);
+        markerGroup.getChildren().addAll(markerLine, icon);
 
         return markerGroup;
     }

@@ -264,3 +264,43 @@ ScrollPane .viewport {
 .scroll-bar:vertical .thumb:hover {
     -fx-opacity: 0.8;
 }
+
+.race-leaderboard {
+    -fx-background-color: #3A3956;
+    -fx-border-color: #3A3956;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+
+.race-leaderboard > Separator .line{
+    -fx-padding: 0;
+    -fx-border-insets: 0, 0 0 0 1;
+}
+
+.race-leaderboard-row *{
+    -fx-background-color: #3A3956;
+}
+
+.race-progress-bar-wrapper {
+    -fx-background-color: #3A3956;
+    -fx-border-color: #3A3956;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.race-progress-bar-wrapper > Line {
+    -fx-stroke: #FBFEFD;
+}
+
+.race-progress-bar-wrapper > Group > Line {
+    -fx-stroke: #FBFEFD;
+}
+
+.race-progress-bar-wrapper > Group > FontIcon{
+    -fx-icon-color: #FBFEFD;
+}
+
+.race-progress-bar-wrapper > .race-progress-payer-icon {
+    -fx-icon-color: #AD8500;
+}
