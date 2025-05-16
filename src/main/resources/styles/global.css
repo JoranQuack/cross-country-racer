@@ -212,6 +212,18 @@ TabPane>.tab-header-area>.headers-region>.tab>.tab-container>.tab-label {
     -fx-background-color: #3A3956;
 }
 
+.shop-pane .shop-item {
+    -fx-background-color: #252432;
+    -fx-border-color: #3A3956;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+
+.shop-scroll-pane>.viewport {
+    -fx-background-color: #3A3956;
+}
+
 /* Stack Pane Styles */
 StackPane {
     -fx-background-color: #252432;
@@ -273,12 +285,12 @@ ScrollPane .viewport {
     -fx-padding: 10;
 }
 
-.race-leaderboard > Separator .line{
+.race-leaderboard>Separator .line {
     -fx-padding: 0;
     -fx-border-insets: 0, 0 0 0 1;
 }
 
-.race-leaderboard-row *{
+.race-leaderboard-row * {
     -fx-background-color: #3A3956;
 }
 
@@ -289,18 +301,18 @@ ScrollPane .viewport {
     -fx-background-radius: 10;
 }
 
-.race-progress-bar-wrapper > Line {
+.race-progress-bar-wrapper>Line {
     -fx-stroke: #FBFEFD;
 }
 
-.race-progress-bar-wrapper > Group > Line {
+.race-progress-bar-wrapper>Group>Line {
     -fx-stroke: #FBFEFD;
 }
 
-.race-progress-bar-wrapper > Group > FontIcon{
+.race-progress-bar-wrapper>Group>FontIcon {
     -fx-icon-color: #FBFEFD;
 }
 
-.race-progress-bar-wrapper > .race-progress-player-icon {
+.race-progress-bar-wrapper>.race-progress-player-icon {
     -fx-icon-color: #AD8500;
 }
