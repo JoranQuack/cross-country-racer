@@ -212,25 +212,21 @@ public class GameEnvironment {
         ownUpgrades.add(part);
     }
 
+    public void incrementRacesCompleted() {
+        this.racesCompleted++;
+    }
+
+    public boolean isSeasonOver() {
+        return this.racesCompleted >= this.seasonLength;
+    }
+
     // Getters and Setters for the GameEnvironment class
-    public Car getSelectedCar() {
-        return selectedCar;
+    public List<Car> getAvailableCars() {
+        return availableCars;
     }
 
-    public void setSelectedCar(Car selectedCar) {
-        this.selectedCar = selectedCar;
-    }
-
-    public ScreenNavigator getNavigator() {
-        return navigator;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Car> getGarage() {
-        return garage;
+    public List<Upgrade> getAvailableParts() {
+        return availableParts;
     }
 
     public Double getBankBalance() {
@@ -244,36 +240,24 @@ public class GameEnvironment {
         }
     }
 
-    public Double getMaximumBankBalance() {
-        return maximumBankBalance;
-    }
-
-    public void incrementRacesCompleted() {
-        this.racesCompleted++;
-    }
-
-    public int getRacesCompleted() {
-        return this.racesCompleted;
-    }
-
-    public boolean isSeasonOver() {
-        return this.racesCompleted >= this.seasonLength;
-    }
-
     public Difficulty getDifficulty() {
         return difficulty;
     }
 
-    public List<Car> getAvailableCars() {
-        return availableCars;
+    public List<Car> getGarage() {
+        return garage;
     }
 
-    public List<Race> getRaces() {
-        return races;
+    public Double getMaximumBankBalance() {
+        return maximumBankBalance;
     }
 
-    public List<Upgrade> getAvailableParts() {
-        return availableParts;
+    public String getName() {
+        return name;
+    }
+
+    public ScreenNavigator getNavigator() {
+        return navigator;
     }
 
     public List<Upgrade> getOwnUpgrades() {
@@ -284,7 +268,23 @@ public class GameEnvironment {
         this.ownUpgrades = ownUpgrades;
     }
 
+    public List<Race> getRaces() {
+        return races;
+    }
+
+    public int getRacesCompleted() {
+        return this.racesCompleted;
+    }
+
     public int getSeasonLength() {
         return seasonLength;
+    }
+
+    public Car getSelectedCar() {
+        return selectedCar;
+    }
+
+    public void setSelectedCar(Car selectedCar) {
+        this.selectedCar = selectedCar;
     }
 }

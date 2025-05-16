@@ -130,14 +130,7 @@ public class Car {
 
     public void setFuelConsumption(double fuelConsumption) {
         this.fuelConsumption = fuelConsumption;
-    }
-
-    public Image getImage() {
-        return new Image(getClass().getResourceAsStream("/" + imagePath));
-    }
-
-    public List<Upgrade> getUpgrades() {
-        return upgrades;
+        updateRange(); // Update range after changing fuel consumption
     }
 
     public int getFuelCapacity() {
@@ -147,5 +140,13 @@ public class Car {
     public void setFuelCapacity(int fuelCapacity) {
         this.fuelCapacity = fuelCapacity;
         updateRange(); // Update range after changing fuel capacity
+    }
+
+    public Image getImage() {
+        return new Image(getClass().getResourceAsStream("/" + imagePath));
+    }
+
+    public List<Upgrade> getUpgrades() {
+        return upgrades;
     }
 }

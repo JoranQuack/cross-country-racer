@@ -11,8 +11,13 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
 
 public class RaceSelectionScreenController extends ScreenController {
+
     @FXML
     private VBox raceListView;
+
+    public RaceSelectionScreenController(GameEnvironment gameEnvironment) {
+        super(gameEnvironment);
+    }
 
     /**
      * Initialize the window
@@ -31,8 +36,19 @@ public class RaceSelectionScreenController extends ScreenController {
         }
     }
 
-    public RaceSelectionScreenController(GameEnvironment gameEnvironment) {
-        super(gameEnvironment);
+    @Override
+    protected String getFxmlFile() {
+        return "/fxml/raceSelectionScreen.fxml";
+    }
+
+    @Override
+    protected String getTitle() {
+        return "Playing Screen";
+    }
+
+    @FXML
+    private void raceSelectionBackOnAction() {
+        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 
     private Pane makeRaceListElement(Race race) {
@@ -42,7 +58,7 @@ public class RaceSelectionScreenController extends ScreenController {
 
         VBox vBox = new VBox(8);
         vBox.setStyle("-fx-background-color: transparent;");
-        Label nameLabel = new Label("Race Name");
+        Label nameLabel = new Label("Race Name"); // Consider using race.getName() here
 
         nameLabel.setFont(new Font(20));
 
@@ -62,20 +78,5 @@ public class RaceSelectionScreenController extends ScreenController {
         });
 
         return hBox;
-    }
-
-    @FXML
-    private void raceSelectionBackOnAction() {
-        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
-    }
-
-    @Override
-    protected String getFxmlFile() {
-        return "/fxml/raceSelectionScreen.fxml";
-    }
-
-    @Override
-    protected String getTitle() {
-        return "Playing Screen";
     }
 }

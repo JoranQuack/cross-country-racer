@@ -39,13 +39,13 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="SetupNameField" promptText="Enter your name" GridPane.columnIndex="1" />
+                        <TextField fx:id="setupNameField" promptText="Enter your name" GridPane.columnIndex="1" />
                         <Label text="Name">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="SetupSeasonLengthField" blockIncrement="1.0" majorTickUnit="1.0" max="15.0" min="5.0" minorTickCount="0" showTickLabels="true" snapToTicks="true" value="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Slider fx:id="setupSeasonLengthField" blockIncrement="1.0" majorTickUnit="1.0" max="15.0" min="5.0" minorTickCount="0" showTickLabels="true" snapToTicks="true" value="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Season Length" GridPane.rowIndex="1">
                            <font>
                               <Font size="14.0" />
@@ -56,8 +56,8 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="SetupDifficultyField" maxWidth="1.7976931348623157E308" promptText="Difficulty" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Button mnemonicParsing="false" onAction="#SetupStartAction" text="Start" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="setupDifficultyField" maxWidth="1.7976931348623157E308" promptText="Difficulty" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button mnemonicParsing="false" onAction="#setupStartAction" text="Start" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>

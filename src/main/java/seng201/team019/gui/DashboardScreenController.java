@@ -8,7 +8,7 @@ import seng201.team019.GameEnvironment;
 /**
  * Controller for the dashboard.fxml window.
  * Handles displaying the player's bank balance, races remaining,
- * and providing functionality to navigate to other screens:
+ * and ability to navigate to other screens:
  * race selection, garage, and shop.
  */
 public class DashboardScreenController extends ScreenController {
@@ -19,41 +19,26 @@ public class DashboardScreenController extends ScreenController {
     private ProgressBar racesRemainingProgressBar;
 
     @FXML
-    private Label DashboardBankBalLabel;
+    private Label dashboardBankBalLabel;
 
     @FXML
-    private Label DashboardRacesCompletedLabel;
+    private Label dashboardRacesCompletedLabel;
+
+    public DashboardScreenController(GameEnvironment gameEnvironment) {
+        super(gameEnvironment);
+    }
 
     /**
      * Initialize the window by setting the bank balance and races completed labels.
      */
     public void initialize() {
-        DashboardBankBalLabel.setText(String.format("$%.2f", getGameEnvironment().getBankBalance()));
-        DashboardRacesCompletedLabel.setText(String.format("%d", getGameEnvironment().getSeasonLength()));
+        dashboardBankBalLabel.setText(String.format("$%.2f", getGameEnvironment().getBankBalance()));
+        dashboardRacesCompletedLabel.setText(String.format("%d", getGameEnvironment().getSeasonLength()));
 
         bankBalanceProgressBar
                 .setProgress(getGameEnvironment().getBankBalance() / getGameEnvironment().getMaximumBankBalance());
         racesRemainingProgressBar.setProgress(
                 (double) getGameEnvironment().getRacesCompleted() / getGameEnvironment().getSeasonLength());
-    }
-
-    @FXML
-    private void DashboardRaceAction() {
-        getGameEnvironment().getNavigator().launchRaceSelectionScreen(getGameEnvironment());
-    }
-
-    @FXML
-    private void DashboardGarageAction() {
-        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
-    }
-
-    @FXML
-    private void DashboardShopAction() {
-        getGameEnvironment().getNavigator().launchShopScreen(getGameEnvironment());
-    }
-
-    public DashboardScreenController(GameEnvironment gameEnvironment) {
-        super(gameEnvironment);
     }
 
     @Override
@@ -64,5 +49,20 @@ public class DashboardScreenController extends ScreenController {
     @Override
     protected String getTitle() {
         return "Dashboard";
+    }
+
+    @FXML
+    private void dashboardRaceAction() {
+        getGameEnvironment().getNavigator().launchRaceSelectionScreen(getGameEnvironment());
+    }
+
+    @FXML
+    private void dashboardGarageAction() {
+        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
+    }
+
+    @FXML
+    private void dashboardShopAction() {
+        getGameEnvironment().getNavigator().launchShopScreen(getGameEnvironment());
     }
 }

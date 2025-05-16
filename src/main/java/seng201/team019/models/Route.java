@@ -42,6 +42,13 @@ public class Route {
     }
 
     /**
+     * @return distance between each fuel stop.
+     */
+    public float getDistanceBetweenFuelStops() {
+        return distance / (float) fuelStops;
+    }
+
+    /**
      * @param car car object that is driving
      * @return the average speed that the car drives on the WHOLE route;
      */
@@ -55,13 +62,6 @@ public class Route {
      */
     public float normalizeDistance(float distance) {
         return distance / getDistance();
-    }
-
-    /**
-     * @return distance between each fuel stop.
-     */
-    public float getDistanceBetweenFuelStops() {
-        return distance / (float) fuelStops;
     }
 
     public float getDistanceToNextFuelStop(float distance) {

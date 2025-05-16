@@ -55,10 +55,10 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="RaceSetupNumOfOpsLabel" text="[num of opps]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="raceSetupNumOfOpsLabel" text="[num of opps]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Prize Money:" />
                               <Label text="Number Of Opponents:" GridPane.rowIndex="1" />
-                              <Label fx:id="RaceSetupPrizeMoneyLabel" text="[dollars]$" GridPane.columnIndex="1" />
+                              <Label fx:id="raceSetupPrizeMoneyLabel" text="[dollars]$" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                         <GridPane vgap="5.0">
@@ -72,12 +72,12 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="RaceSetupRouteFuelStopsLabel" text="Select a route to start" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="raceSetupRouteFuelStopsLabel" text="Select a route to start" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label text="Route Description:" />
                               <Label text="Route Distance:" GridPane.rowIndex="1" />
                               <Label text="Route Fuel Stops:" GridPane.rowIndex="2" />
-                              <Label fx:id="RaceSetupRouteDescriptionLabel" text="Select a route to start" GridPane.columnIndex="1" />
-                              <Label fx:id="RaceSetupRouteDistanceLabel" text="Select a route to start" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="raceSetupRouteDescriptionLabel" text="Select a route to start" GridPane.columnIndex="1" />
+                              <Label fx:id="raceSetupRouteDistanceLabel" text="Select a route to start" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>

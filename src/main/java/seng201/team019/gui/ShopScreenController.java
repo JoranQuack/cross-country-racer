@@ -21,6 +21,9 @@ import seng201.team019.models.Upgrade;
  * Controller for the shop.fxml window
  */
 public class ShopScreenController extends ScreenController {
+
+    private static final Logger LOGGER = Logger.getLogger(ShopScreenController.class.getName());
+
     @FXML
     private Tab carsTab;
 
@@ -116,8 +119,6 @@ public class ShopScreenController extends ScreenController {
 
     @FXML
     private Label part4DescriptionLabel;
-
-    private static final Logger LOGGER = Logger.getLogger(ShopScreenController.class.getName());
 
     @FXML
     private GridPane car0Grid;
@@ -257,6 +258,10 @@ public class ShopScreenController extends ScreenController {
     @FXML
     private Label balanceLabel;
 
+    public ShopScreenController(GameEnvironment gameEnvironment) {
+        super(gameEnvironment);
+    }
+
     /**
      * Initialize the window
      */
@@ -264,6 +269,21 @@ public class ShopScreenController extends ScreenController {
         updateBalanceLabel();
         initializeCars();
         initializeParts();
+    }
+
+    @FXML
+    private void onHomeButtonClicked() {
+        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+    }
+
+    @Override
+    protected String getFxmlFile() {
+        return "/fxml/shop.fxml";
+    }
+
+    @Override
+    protected String getTitle() {
+        return "Shop";
     }
 
     /**
@@ -387,7 +407,7 @@ public class ShopScreenController extends ScreenController {
 
     /**
      * Buy a car from the shop
-     * 
+     *
      * @param car the car to buy
      */
     private void buyCar(Car car) {
@@ -404,7 +424,7 @@ public class ShopScreenController extends ScreenController {
 
     /**
      * Buy a part from the shop
-     * 
+     *
      * @param part the part to buy
      */
     private void buyPart(Upgrade part) {
@@ -417,24 +437,5 @@ public class ShopScreenController extends ScreenController {
             showAlert(AlertType.ERROR, "Purchase Failed",
                     "You don't have enough money to buy this part.");
         }
-    }
-
-    @FXML
-    private void onHomeButtonClicked() {
-        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
-    }
-
-    public ShopScreenController(GameEnvironment gameEnvironment) {
-        super(gameEnvironment);
-    }
-
-    @Override
-    protected String getFxmlFile() {
-        return "/fxml/shop.fxml";
-    }
-
-    @Override
-    protected String getTitle() {
-        return "Shop";
     }
 }

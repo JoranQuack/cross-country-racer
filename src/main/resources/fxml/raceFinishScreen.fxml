@@ -36,19 +36,19 @@
                       <RowConstraints maxHeight="273.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#RaceFinishContinueAction" text="Continue" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#raceFinishContinueAction" text="Continue" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                         <Label text="Position">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="RaceFinishedPositionLabel" GridPane.columnIndex="1" />
+                        <Label fx:id="raceFinishedPositionLabel" GridPane.columnIndex="1" />
                         <Label text="Profit" GridPane.rowIndex="1">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="RaceFinishedProfitLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="raceFinishedProfitLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
