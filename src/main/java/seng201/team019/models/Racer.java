@@ -25,6 +25,14 @@ public abstract class Racer {
         didDNF = false;
     }
 
+    private static float getRandomSpeedMultiplier() {
+        // TODO: maybe make this its own service
+        Random rand = new Random();
+        return (float) (0.8 + rand.nextFloat() * (2 - 0.8));
+    }
+
+    public abstract void updateStats(float distance, long time);
+
     public String getName() {
         return name;
     }
@@ -37,21 +45,21 @@ public abstract class Racer {
         return car;
     }
 
+    public boolean isFinished() {
+        return isFinished;
+    }
+
     public void setIsFinished(boolean isFinished, long finishTime) {
         this.isFinished = isFinished;
         this.finishTime = finishTime;
     }
 
-    public boolean isFinished() {
-        return isFinished;
+    public boolean didDNF() {
+        return didDNF;
     }
 
     public void setDidDNF(boolean didDNF) {
         this.didDNF = didDNF;
-    }
-
-    public boolean didDNF() {
-        return didDNF;
     }
 
     public float getDistance() {
@@ -71,17 +79,8 @@ public abstract class Racer {
     }
 
     /**
-     * returns a multiplier between 0.8 and 2
-     */
-    private static float getRandomSpeedMultiplier() {
-        // TODO: maybe make this its own service
-        Random rand = new Random();
-        return (float) (0.8 + rand.nextFloat() * (2 - 0.8));
-    }
-
-    /**
      * returns the distance traveled by the Racer in a given time
-     * 
+     *
      * @param time the time to pass in MILLISECONDS.
      * @return Distance traveled by the car in time.
      */
@@ -92,7 +91,5 @@ public abstract class Racer {
         float timeInHours = time / (float) Duration.ofHours(1).toMillis();
         return (float) randomizedVelocity * timeInHours;
     }
-
-    public abstract void updateStats(float distance, long time);
 
 }

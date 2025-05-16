@@ -33,20 +33,16 @@ public class Upgrade {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public Image getImage() {
         return new Image(getClass().getResourceAsStream("/" + imagePath));
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public double getSpeedBonus() {
@@ -69,7 +65,11 @@ public class Upgrade {
         return fuelConsumptionBonus;
     }
 
-    public String getDescription() {
-        return description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

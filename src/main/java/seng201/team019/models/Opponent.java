@@ -2,7 +2,7 @@ package seng201.team019.models;
 
 public class Opponent extends Racer {
     public Opponent(String name, Route route, Car car) {
-        super(name,route,car);
+        super(name, route, car);
     }
 
     /**
@@ -12,7 +12,8 @@ public class Opponent extends Racer {
      * @param time     the current time at this distance
      */
     public void updateStats(float distance, long time) {
-        if (isFinished() || didDNF()) return;
+        if (isFinished() || didDNF())
+            return;
 
         incrementDistance(distance);
 

@@ -7,10 +7,10 @@ import seng201.team019.models.Race;
 
 public class RaceFinishScreenController extends ScreenController {
     @FXML
-    private Label RaceFinishedPositionLabel;
+    private Label raceFinishedPositionLabel;
 
     @FXML
-    private Label RaceFinishedProfitLabel;
+    private Label raceFinishedProfitLabel;
 
     private final Race race;
 
@@ -23,15 +23,15 @@ public class RaceFinishScreenController extends ScreenController {
         int pos = race.getPlayerFinishedPosition();
         boolean playerDNF = pos == -1;
         if (playerDNF) {
-            RaceFinishedPositionLabel.setText("DNF (" + race.getPlayer().getDnfReason() + ")");
+            raceFinishedPositionLabel.setText("DNF (" + race.getPlayer().getDnfReason() + ")");
         }else{
-            RaceFinishedPositionLabel.setText(String.valueOf(pos));
+            raceFinishedPositionLabel.setText(String.valueOf(pos));
         }
-        RaceFinishedProfitLabel.setText(String.format("$%.2f", race.getPlayerProfit()));
+        raceFinishedProfitLabel.setText(String.format("$%.2f", race.getPlayerProfit()));
     }
 
     @FXML
-    public void RaceFinishContinueAction() {
+    public void raceFinishContinueAction() {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 

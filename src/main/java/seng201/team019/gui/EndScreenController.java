@@ -3,21 +3,19 @@ package seng201.team019.gui;
 import seng201.team019.GameEnvironment;
 
 /**
- * Controller for the main.fxml window
- *
- * @author seng201 teaching team
+ * Controller for the end.fxml window
  */
 public class EndScreenController extends ScreenController {
+
+    public EndScreenController(GameEnvironment gameEnvironment) {
+        super(gameEnvironment);
+    }
 
     /**
      * Initialize the window
      */
     public void initialize() {
         // TODO: Add any initialization code here
-    }
-
-    public EndScreenController(GameEnvironment gameEnvironment) {
-        super(gameEnvironment);
     }
 
     @Override

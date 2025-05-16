@@ -118,12 +118,51 @@ public class GarageScreenController extends ScreenController {
     private Label numUpgradesLabel;
 
     /**
+     * Creates a GarageScreenController with the given game environment.
+     *
+     * @param gameEnvironment The game environment for this controller
+     */
+    public GarageScreenController(GameEnvironment gameEnvironment) {
+        super(gameEnvironment);
+    }
+
+    /**
      * Initializes the window by hiding the car stats panel and populating
      * the car grid with vehicles from the player's garage.
      */
     public void initialize() {
         hideCarStats();
         initializeCars();
+    }
+
+    /**
+     * Sets the active car in the garage.
+     *
+     * @param car
+     */
+    public void setActiveCar(Car car) {
+        super.getGameEnvironment().setActiveCar(car);
+        initializeCars();
+        showAlert(AlertType.INFORMATION, "Car Set Active", "You have set " + car.getName() + " as your active car.");
+    }
+
+    /**
+     * Handles the home button click event.
+     * Returns to the dashboard screen.
+     */
+    @FXML
+    public void onHomeButtonClicked() {
+        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+    }
+
+    @Override
+    protected String getFxmlFile() {
+        return "/fxml/garage.fxml";
+    }
+
+    @Override
+    protected String getTitle() {
+        return "Garage";
     }
 
     /**
@@ -146,7 +185,7 @@ public class GarageScreenController extends ScreenController {
             return;
         }
 
-        // Make all car grids visible by default
+        // make all car grids visible by default
         for (int i = 0; i < 5; i++) {
             try {
                 GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
@@ -156,7 +195,7 @@ public class GarageScreenController extends ScreenController {
             }
         }
 
-        // Populate with car data or hide if no car available
+        // populate with car data or hide if no car available
         for (int i = 0; i < 5; i++) {
             try {
                 GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
@@ -202,7 +241,7 @@ public class GarageScreenController extends ScreenController {
     /**
      * Sets the selected car when the customise button is clicked.
      * Navigates to the car customisation screen.
-     * 
+     *
      * @param car The car to customise
      */
     private void customizeCar(Car car) {
@@ -211,20 +250,9 @@ public class GarageScreenController extends ScreenController {
     }
 
     /**
-     * Sets the active car in the garage.
-     * 
-     * @param car
-     */
-    public void setActiveCar(Car car) {
-        super.getGameEnvironment().setActiveCar(car);
-        initializeCars();
-        showAlert(AlertType.INFORMATION, "Car Set Active", "You have set " + car.getName() + " as your active car.");
-    }
-
-    /**
      * Displays the statistics for the given car in the stats panel.
      * Shows range, speed, handling, reliability, and number of upgrades.
-     * 
+     *
      * @param car The car whose statistics should be displayed
      */
     private void setCarStats(Car car) {
@@ -242,43 +270,5 @@ public class GarageScreenController extends ScreenController {
      */
     private void hideCarStats() {
         statsContainer.setVisible(false);
-    }
-
-    /**
-     * Handles the home button click event.
-     * Returns to the dashboard screen.
-     */
-    @FXML
-    public void onHomeButtonClicked() {
-        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
-    }
-
-    /**
-     * Creates a GarageScreenController with the given game environment.
-     * 
-     * @param gameEnvironment The game environment for this controller
-     */
-    public GarageScreenController(GameEnvironment gameEnvironment) {
-        super(gameEnvironment);
-    }
-
-    /**
-     * Gets the FXML file path for this controller.
-     * 
-     * @return The path to the garage.fxml file
-     */
-    @Override
-    protected String getFxmlFile() {
-        return "/fxml/garage.fxml";
-    }
-
-    /**
-     * Gets the window title for this screen.
-     * 
-     * @return The title string for the garage screen
-     */
-    @Override
-    protected String getTitle() {
-        return "Garage";
     }
 }

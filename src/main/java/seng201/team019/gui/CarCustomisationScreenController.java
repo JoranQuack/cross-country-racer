@@ -144,6 +144,15 @@ public class CarCustomisationScreenController extends ScreenController {
     private Button part4RemoveButton;
 
     /**
+     * Creates a CarCustomisationScreenController with the given game environment.
+     *
+     * @param gameEnvironment The game environment for this controller
+     */
+    public CarCustomisationScreenController(GameEnvironment gameEnvironment) {
+        super(gameEnvironment);
+    }
+
+    /**
      * Initializes the window by hiding the car info and populating
      * the parts grid with tuning parts from the player's garage.
      */
@@ -153,9 +162,73 @@ public class CarCustomisationScreenController extends ScreenController {
     }
 
     /**
-     * Initializes the car information display.
+     * Handles the back button click event.
+     * Returns to the dashboard screen.
+     */
+    @FXML
+    public void onBackButtonClicked() {
+        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
+    }
+
+    /**
+     * Handles the home button click event.
+     * Returns to the dashboard screen.
+     */
+    @FXML
+    public void onHomeButtonClicked() {
+        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+    }
+
+    /**
+     * Gets the FXML file path for this controller
+     *
+     * @return The path to the carCustomisation.fxml file
+     */
+    @Override
+    protected String getFxmlFile() {
+        return "/fxml/carCustomisation.fxml";
+    }
+
+    /**
+     * Gets the window title for this screen
+     *
+     * @return The title string for the carCustomisation screen
+     */
+    @Override
+    protected String getTitle() {
+        return "Car Customisation";
+    }
+
+    /**
+     * Updates the car's name in the game environment
+     */
+    @FXML
+    private void onCarNameChanged() {
+        String newName = carName.getText();
+        Car car = getGameEnvironment().getSelectedCar();
+        car.setName(newName);
+    }
+
+    /**
+     * Sells the selected car and shows an alert with the result
+     */
+    @FXML
+    private void onSellCarButtonClicked() {
+        Car car = getGameEnvironment().getSelectedCar();
+
+        if (getGameEnvironment().sellCar(car)) {
+            showAlert(AlertType.INFORMATION, "Car sold", String.format("%s sold successfully", car.getName()));
+        } else {
+            showAlert(AlertType.ERROR, "Car not sold", "Something went wrong");
+        }
+
+        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
+    }
+
+    /**
+     * Initializes the car information display
      * Sets the car image, name, model, age, range, speed, handling, reliability,
-     * and number of upgrades based on the selected car in the garage.
+     * and number of upgrades based on the selected car in the garage
      */
     private void initializeCar() {
         // Get the selected car from the garage and set its attributes to the labels
@@ -176,7 +249,7 @@ public class CarCustomisationScreenController extends ScreenController {
     /**
      * Initializes the parts grid with tuning parts from the player's garage.
      * Each part grid is populated with the corresponding part image, label, and
-     * buttons.
+     * buttons
      */
     private void initializeParts() {
         List<Upgrade> carParts = super.getGameEnvironment().getSelectedCar().getUpgrades();
@@ -236,7 +309,7 @@ public class CarCustomisationScreenController extends ScreenController {
     }
 
     /**
-     * Initializes one part's buttons based on whether the part is owned or not.
+     * Initializes one part's buttons based on whether the part is owned or not
      */
     private void initializePartButtons(Upgrade part, GridPane partGrid, ImageView partImage,
             Label partNameLabel, Button partAddButton, Button partRemoveButton, Button partSellButton,
@@ -270,78 +343,4 @@ public class CarCustomisationScreenController extends ScreenController {
             initializeCar();
         });
     }
-
-    /**
-     * Updates the car's name in the game environment.
-     */
-    @FXML
-    private void onCarNameChanged() {
-        String newName = carName.getText();
-        Car car = getGameEnvironment().getSelectedCar();
-        car.setName(newName);
-    }
-
-    /**
-     * Sells the selected car and shows an alert with the result.
-     */
-    @FXML
-    private void onSellCarButtonClicked() {
-        Car car = getGameEnvironment().getSelectedCar();
-
-        if (getGameEnvironment().sellCar(car)) {
-            showAlert(AlertType.INFORMATION, "Car sold", String.format("%s sold successfully", car.getName()));
-        } else {
-            showAlert(AlertType.ERROR, "Car not sold", "Something went wrong");
-        }
-
-        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
-    }
-
-    /**
-     * Handles the back button click event.
-     * Returns to the dashboard screen.
-     */
-    @FXML
-    public void onBackButtonClicked() {
-        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
-    }
-
-    /**
-     * Handles the home button click event.
-     * Returns to the dashboard screen.
-     */
-    @FXML
-    public void onHomeButtonClicked() {
-        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
-    }
-
-    /**
-     * Creates a CarCustomisationScreenController with the given game environment.
-     * 
-     * @param gameEnvironment The game environment for this controller
-     */
-    public CarCustomisationScreenController(GameEnvironment gameEnvironment) {
-        super(gameEnvironment);
-    }
-
-    /**
-     * Gets the FXML file path for this controller.
-     * 
-     * @return The path to the carCustomisation.fxml file
-     */
-    @Override
-    protected String getFxmlFile() {
-        return "/fxml/carCustomisation.fxml";
-    }
-
-    /**
-     * Gets the window title for this screen.
-     * 
-     * @return The title string for the carCustomisation screen
-     */
-    @Override
-    protected String getTitle() {
-        return "Car Customisation";
-    }
-
 }

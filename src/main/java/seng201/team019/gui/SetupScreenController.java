@@ -13,17 +13,14 @@ import seng201.team019.models.Difficulty;
  */
 public class SetupScreenController extends ScreenController {
 
+    @FXML
+    private TextField setupNameField;
 
     @FXML
-    private TextField SetupNameField;
+    private Slider setupSeasonLengthField;
 
     @FXML
-    private Slider SetupSeasonLengthField;
-
-
-    @FXML
-    private ComboBox<Difficulty> SetupDifficultyField;
-
+    private ComboBox<Difficulty> setupDifficultyField;
 
     public SetupScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -33,32 +30,32 @@ public class SetupScreenController extends ScreenController {
      * Initialize the window
      */
     public void initialize() {
-        SetupDifficultyField.setItems(FXCollections.observableArrayList(Difficulty.values()));
+        setupDifficultyField.setItems(FXCollections.observableArrayList(Difficulty.values()));
     }
 
     @FXML
-    public void SetupStartAction(){
-        Difficulty difficulty= SetupDifficultyField.getValue();
-        int seasonLength = (int) SetupSeasonLengthField.getValue();
-        String name = SetupNameField.getText();
+    public void setupStartAction() {
+        Difficulty difficulty = setupDifficultyField.getValue();
+        int seasonLength = (int) setupSeasonLengthField.getValue();
+        String name = setupNameField.getText();
 
-        //reset colors of Fields
-        SetupNameField.setStyle("-fx-border-color: none");
-        SetupDifficultyField.setStyle("-fx-border-color: none");
+        // reset colors of Fields
+        setupNameField.setStyle("-fx-border-color: none");
+        setupDifficultyField.setStyle("-fx-border-color: none");
 
-        //check name length
-        if (name.length()<3 || name.length()>15){
-            SetupNameField.setStyle("-fx-border-color: red");
+        // check name length
+        if (name.length() < 3 || name.length() > 15) {
+            setupNameField.setStyle("-fx-border-color: red");
             return;
         }
 
-        //check difficulty is set
-        if (difficulty == null){
-            SetupDifficultyField.setStyle("-fx-border-color: red");
+        // check difficulty is set
+        if (difficulty == null) {
+            setupDifficultyField.setStyle("-fx-border-color: red");
             return;
         }
 
-        getGameEnvironment().completeGameEnvironmentSetup(difficulty,seasonLength,name);
+        getGameEnvironment().completeGameEnvironmentSetup(difficulty, seasonLength, name);
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 

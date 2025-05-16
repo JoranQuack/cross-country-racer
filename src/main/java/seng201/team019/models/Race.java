@@ -68,17 +68,6 @@ public class Race {
         }
     }
 
-    public boolean incrementRaceTime(long delta) {
-        if (raceTime + delta >= duration) {
-            raceTime = duration;
-            return true;
-        }
-        raceTime += delta;
-
-        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished);
-    }
-
-
     public long getRaceTime() {
         return raceTime;
     }
@@ -89,6 +78,44 @@ public class Race {
 
     public int getNumOfOpponents() {
         return numOfOpponents;
+    }
+
+    public RandomEvent getRandomEvent() {
+        return selectedEvent;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+
+        // If the RandomEvent is for the player picking up traveler
+        // then we need to set the time for the player to pick up the traveler
+        if (selectedEvent == RandomEvent.PlayerStrandedTraveler) {
+            player.setStartPickupTime(eventTriggerTime);
+        }
+    }
+
+    public List<Racer> getRacers() {
+        List<Racer> racers = new ArrayList<>(opponentCars);
+        racers.add(player);
+        return racers;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public boolean incrementRaceTime(long delta) {
+        if (raceTime + delta >= duration) {
+            raceTime = duration;
+            return true;
+        }
+        raceTime += delta;
+
+        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished);
     }
 
     public boolean shouldTriggerRandomEvent() {
@@ -102,10 +129,6 @@ public class Race {
         return false;
     }
 
-    public RandomEvent getRandomEvent() {
-        return selectedEvent;
-    }
-
     public void updateRacers(long delta) {
         for (Racer racer : getRacers()) {
             float distanceTraveled = racer.simulateDriveByTime(delta);
@@ -113,7 +136,7 @@ public class Race {
         }
     }
 
-    public void SetDNFOfDurationExceedingRacers() {
+    public void setDNFOfDurationExceedingRacers() {
         for (Racer racer : getRacers()) {
             if (racer.isFinished())
                 continue;
@@ -135,9 +158,11 @@ public class Race {
     }
 
     public List<Racer> getOrderedRacers() {
-        Comparator<Racer> raceOrderComparator = Comparator.comparing(Racer::didDNF).reversed() // Dnf Last
-                .thenComparing((Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())).reversed() // order by those with the most distance traveled
-                .thenComparing((Racer racer) -> racer.isFinished() ? racer.getFinishTime() : Long.MAX_VALUE); // if there are multiple finishers order by Finish time
+        // Dnf last, order by those with the most distance traveled, if there are
+        // multiple finishers order by Finish time.
+        Comparator<Racer> raceOrderComparator = Comparator.comparing(Racer::didDNF).reversed()
+                .thenComparing((Racer racer) -> racer.getRoute().normalizeDistance(racer.getDistance())).reversed()
+                .thenComparing((Racer racer) -> racer.isFinished() ? racer.getFinishTime() : Long.MAX_VALUE);
 
         return getRacers().stream().sorted(raceOrderComparator).collect(Collectors.toList());
     }
@@ -147,30 +172,6 @@ public class Race {
             return -1;
         }
         return 1 + getOrderedRacers().indexOf(player);
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-
-        // If the RandomEvent is for the player picking up traveler
-        // then we need to set the time for the player to pick up the traveler
-        if (selectedEvent == RandomEvent.PlayerStrandedTraveler) {
-            player.setStartPickupTime(eventTriggerTime);
-        }
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public List<Racer> getRacers() {
-        List<Racer> racers = new ArrayList<>(opponentCars);
-        racers.add(player);
-        return racers;
-    }
-
-    public List<Route> getRoutes() {
-        return routes;
     }
 
     public float getPlayerProfit() {
@@ -232,7 +233,7 @@ public class Race {
             return this;
         }
 
-        public Builder Routes(List<Route> routes) {
+        public Builder routes(List<Route> routes) {
             this.routes.addAll(routes);
             return this;
         }

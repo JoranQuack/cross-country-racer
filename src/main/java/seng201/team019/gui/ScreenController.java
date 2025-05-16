@@ -9,7 +9,7 @@ import seng201.team019.GameEnvironment;
 
 /**
  * Abstract parent class for all {@link GameEnvironment} UI controller classes.
- * 
+ *
  * @author seng201 teaching team
  */
 public abstract class ScreenController {
@@ -19,7 +19,7 @@ public abstract class ScreenController {
     /**
      * Creates an instance of a ScreenController with the given
      * {@link GameEnvironment}
-     * 
+     *
      * @param gameEnvironment The game environment used by this ScreenController
      */
     protected ScreenController(final GameEnvironment gameEnvironment) {
@@ -28,7 +28,7 @@ public abstract class ScreenController {
 
     /**
      * Shows an alert dialog to the user
-     * 
+     *
      * @param type    the type of alert (ERROR, INFORMATION, etc.)
      * @param title   the title of the alert
      * @param content the content message
@@ -67,9 +67,9 @@ public abstract class ScreenController {
     protected abstract String getTitle();
 
     /**
-     * Gets the rocket manager associated with this screen controller.
-     * 
-     * @return The rocket manager for this controller
+     * Gets the game environment associated with this screen controller.
+     *
+     * @return The game environment for this controller
      */
     protected GameEnvironment getGameEnvironment() {
         return gameEnvironment;

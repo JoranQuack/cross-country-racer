@@ -108,7 +108,8 @@ public class ScreenNavigator {
     /**
      * Launches the Race Selection screen.
      *
-     * @param gameEnvironment The manager used by the RaceSelection screen controller
+     * @param gameEnvironment The manager used by the RaceSelection screen
+     *                        controller
      */
     public void launchRaceSelectionScreen(GameEnvironment gameEnvironment) {
         ScreenController controller = new RaceSelectionScreenController(gameEnvironment);

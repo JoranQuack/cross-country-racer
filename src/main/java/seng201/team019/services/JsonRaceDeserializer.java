@@ -1,6 +1,5 @@
 package seng201.team019.services;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
@@ -17,17 +16,17 @@ public class JsonRaceDeserializer {
         this.gameEnvironment = gameEnvironment;
     }
 
-    public Race readRaceFromInputStream(InputStream jsonFile) throws IOException {
-        Race.Builder raceBuilder = objectMapper.readValue(jsonFile, Race.Builder.class);
-        raceBuilder.withGameEnvironment(gameEnvironment);
-        return raceBuilder.build();
-    }
-
-    public InputStream readJsonRaceFile(String jsonFileName) throws IOException, NullPointerException{
+    public InputStream readJsonRaceFile(String jsonFileName) throws IOException, NullPointerException {
         InputStream is = getClass().getResourceAsStream(jsonFileName);
         if (is == null) {
             throw new IOException("Resource not found: " + jsonFileName);
         }
         return is;
+    }
+
+    public Race readRaceFromInputStream(InputStream jsonFile) throws IOException {
+        Race.Builder raceBuilder = objectMapper.readValue(jsonFile, Race.Builder.class);
+        raceBuilder.withGameEnvironment(gameEnvironment);
+        return raceBuilder.build();
     }
 }
