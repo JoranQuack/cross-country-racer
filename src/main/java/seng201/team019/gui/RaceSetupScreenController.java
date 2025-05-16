@@ -99,16 +99,16 @@ public class RaceSetupScreenController extends ScreenController {
     @FXML
     private void onStartClicked() {
         if (selectedRoute == null) {
-            showAlert(Alert.AlertType.INFORMATION,"Route Not Selected","You have to select a route to start.");
+            showAlert(Alert.AlertType.INFORMATION,"Route Not Selected!","You have to select a route to start.");
             return;
         }
-        if (getGameEnvironment().getSelectedCar() == null){
-            showAlert(Alert.AlertType.INFORMATION,"No car selected","You have to select a car to start.");
+        if (getGameEnvironment().getGarage().isEmpty()){
+            showAlert(Alert.AlertType.INFORMATION,"No cars in the garage!","You have to buy a car to start.");
             return;
         }
 
 
-        Player player = new Player(getGameEnvironment().getName(), selectedRoute, getGameEnvironment().getSelectedCar());
+        Player player = new Player(getGameEnvironment().getName(), selectedRoute, getGameEnvironment().getGarage().getFirst());
         selectedRace.setPlayer(player);
         selectedRace.setupRace();
         getGameEnvironment().getNavigator().launchRaceScreen(getGameEnvironment(), selectedRace);
