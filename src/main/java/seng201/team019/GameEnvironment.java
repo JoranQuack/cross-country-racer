@@ -34,6 +34,7 @@ public class GameEnvironment {
     private int seasonLength; // Length of the season in number of races
 
     private Car selectedCar; // The car currently selected by the player in the garage
+    private boolean isSettingUp; // Flag to indicate if the player is setting up the game
 
     /**
      * Constructor for the GameEnvironment class.
@@ -49,6 +50,7 @@ public class GameEnvironment {
         this.racesCompleted = 0;
         averagePlacing = 0.0;
         totalPrizeMoney = 0;
+        isSettingUp = true;
 
         initializeAvailableCars();
         initializeAvailableParts();
@@ -315,5 +317,13 @@ public class GameEnvironment {
 
     public float getTotalPrizeMoney() {
         return totalPrizeMoney;
+    }
+
+    public boolean isSettingUp() {
+        return isSettingUp;
+    }
+
+    public void setSettingUp(boolean settingUp) {
+        isSettingUp = settingUp;
     }
 }

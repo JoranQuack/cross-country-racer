@@ -21,6 +21,8 @@ import seng201.team019.models.Upgrade;
  * Controller for the shop.fxml window
  */
 public class ShopScreenController extends ScreenController {
+    @FXML
+    private Button homeButton;
 
     private static final Logger LOGGER = Logger.getLogger(ShopScreenController.class.getName());
 
@@ -269,6 +271,12 @@ public class ShopScreenController extends ScreenController {
         updateBalanceLabel();
         initializeCars();
         initializeParts();
+
+        if (getGameEnvironment().isSettingUp()) {
+            homeButton.setDisable(true);
+        } else {
+            homeButton.setDisable(false);
+        }
     }
 
     @FXML
@@ -402,7 +410,7 @@ public class ShopScreenController extends ScreenController {
      * Update the balance label
      */
     private void updateBalanceLabel() {
-        balanceLabel.setText(String.format("Balance: $%.2f", super.getGameEnvironment().getBankBalance()));
+        balanceLabel.setText(String.format("Balance: $%.0f", super.getGameEnvironment().getBankBalance()));
     }
 
     /**
@@ -414,6 +422,8 @@ public class ShopScreenController extends ScreenController {
         if (getGameEnvironment().buyCar(car)) {
             initializeCars();
             updateBalanceLabel();
+            homeButton.setDisable(false);
+            getGameEnvironment().setSettingUp(false);
             showAlert(AlertType.INFORMATION, "Purchase Successful",
                     "You have successfully purchased the " + car.getModel() + "!");
         } else {

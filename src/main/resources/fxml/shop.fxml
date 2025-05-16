@@ -808,7 +808,7 @@
         </TabPane>
         <ButtonBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" StackPane.alignment="TOP_RIGHT">
           <buttons>
-            <Button depthTest="DISABLE" mnemonicParsing="false" onAction="#onHomeButtonClicked" text="Home" />
+            <Button fx:id="homeButton" depthTest="DISABLE" mnemonicParsing="false" onAction="#onHomeButtonClicked" text="Home" />
           </buttons>
                <padding>
                   <Insets right="10.0" top="15.0" />
