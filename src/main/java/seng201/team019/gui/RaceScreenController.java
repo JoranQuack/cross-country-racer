@@ -7,28 +7,27 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.control.Skin;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import org.kordamp.ikonli.javafx.FontIcon;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
-import seng201.team019.models.Route;
+import seng201.team019.models.RandomEvent;
 import seng201.team019.services.TimeFormatterService;
 
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 /**
  * Controller for the raceScreen.fxml window
@@ -210,7 +209,7 @@ public class RaceScreenController extends ScreenController {
             racerCar.setLayoutX(raceProgressLineWrapper.getPadding().getLeft()
                     - racerCar.getLayoutBounds().getWidth() / 2
                     + racer.getRoute().normalizeDistance(racer.getDistance())
-                            * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
+                    * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
 
         }
     }
@@ -288,7 +287,7 @@ public class RaceScreenController extends ScreenController {
             FontIcon racerCar = new FontIcon("fas-car-side");
             racerCar.setLayoutX(raceProgressLine.getStartX() - racerCar.getLayoutBounds().getWidth() / 2);
             racerCar.setLayoutY(raceProgressLine.getLayoutY()); // getLayoutY() as we offset lne 40px down in fxml
-                                                                // layout.
+            // layout.
 
             if (racer instanceof Player) {
                 racerCar.getStyleClass().add("race-progress-player-icon");
@@ -310,12 +309,12 @@ public class RaceScreenController extends ScreenController {
      */
     private Group makeRaceProgressLineMarker(MarkerType markerType, float distance) {
 
-        double lineX =raceProgressLineWrapper.getPadding().getLeft()+ distance * (raceProgressLine.getEndX()-raceProgressLine.getStartX());
+        double lineX = raceProgressLineWrapper.getPadding().getLeft() + distance * (raceProgressLine.getEndX() - raceProgressLine.getStartX());
         double lineStartY;
         double lineEndY;
 
         switch (markerType) {
-            case START,FINISH ->{
+            case START, FINISH -> {
                 lineStartY = raceProgressLine.getLayoutY() - 15;
                 lineEndY = raceProgressLine.getLayoutY() + 15;
             }
@@ -327,57 +326,68 @@ public class RaceScreenController extends ScreenController {
                 lineStartY = 0;
                 lineEndY = 0;
             }
-        };
+        }
+        ;
 
 
-    Line markerLine = new Line(lineX, lineStartY, lineX, lineEndY);markerLine.setStroke(Color.BLACK); // Set color
-    markerLine.setStrokeWidth(1.5); // Set thickness
+        Line markerLine = new Line(lineX, lineStartY, lineX, lineEndY);
+        markerLine.setStroke(Color.BLACK); // Set color
+        markerLine.setStrokeWidth(1.5); // Set thickness
 
-    // Create the text label
-    FontIcon icon = markerType.getIcon();icon.setX(lineX-icon.getLayoutBounds().getWidth()/2); // Center icon
-                                                                                               // horizontally over the
-                                                                                               // line
+        // Create the text label
+        FontIcon icon = markerType.getIcon();
+        icon.setX(lineX - icon.getLayoutBounds().getWidth() / 2); // Center icon
+        // horizontally over the
+        // line
 
-    icon.setY(lineStartY-icon.getLayoutBounds().getHeight());
+        icon.setY(lineStartY - icon.getLayoutBounds().getHeight());
 
-    Group markerGroup = new Group();markerGroup.getChildren().addAll(markerLine,icon);
+        Group markerGroup = new Group();
+        markerGroup.getChildren().addAll(markerLine, icon);
 
-    return markerGroup;
+        return markerGroup;
     }
 
     private void triggerRandomEvent() {
         gameLoop.stop();
         Platform.runLater(() -> {
-            switch (race.getRandomEvent()) {
+            RandomEvent event = race.getRandomEvent();
+
+            switch (event) {
                 case RouteWeather: {
-                    Route disqualifiedRoute = triggerRouteWeatherEvent();
-                    showAlert(Alert.AlertType.INFORMATION,"Weather Event",String.format("Weather Event on the %s route.", disqualifiedRoute.getDescription()));
+                    showAlert(Alert.AlertType.INFORMATION, "Weather Event", event.getMessage());
+                    event.trigger(getGameEnvironment(), race);
                     break;
                 }
                 case PlayerStrandedTraveler: {
-                    triggerPlayerStrandedTravelerEvent();
-                    showAlert(Alert.AlertType.INFORMATION, "Traveler Event","You picked up a traveler and gained $1000. This delayed you 2 minutes.");
+                    if (race.getPlayer().isFinished()) return; // player is finished cant pick people up
+                    showAlert(Alert.AlertType.INFORMATION, "Traveler Event", event.getMessage());
+                    event.trigger(getGameEnvironment(), race);
                     break;
                 }
                 case PlayerBreaksDown: {
-                    if (race.getPlayer().isFinished()) {
-                        return;
-                    }
-
+                    if (race.getPlayer().isFinished()) return; // player is finished cant break down
                     boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
 
                     Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
-                    alert.getDialogPane().getStylesheets().add(
-                            getClass().getResource("/styles/global.css").toExternalForm());
+                    alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/global.css").toExternalForm());
+
+                    alert.setHeaderText(null);
+                    alert.setGraphic(null);
 
                     alert.setTitle("Player Breaks Down Event");
-                    alert.setHeaderText("Player Breaks Down Event");
-                    alert.setContentText(canAfford
-                            ? "You can pay $1000 to fix your car and continue."
-                            : "You cannot afford to continue.");
+                    alert.setContentText(event.getMessage() +
+                            (canAfford
+                                    ? "You can pay $1000 to fix your car and continue."
+                                    : "You cannot afford to continue."));
 
                     Optional<ButtonType> result = alert.showAndWait();
-                    result.ifPresent(type -> {triggerPlayerBreaksDownEvent(canAfford,type);});
+
+                    if (canAfford && result.isPresent() && result.get() == ButtonType.OK) {
+                        event.triggerYes(getGameEnvironment(), race);
+                    } else {
+                        event.triggerNo(getGameEnvironment(), race);
+                    }
                     break;
                 }
             }
@@ -385,33 +395,6 @@ public class RaceScreenController extends ScreenController {
             gameLoop.start(); // Resume game
         });
 
-    }
-
-    private void triggerPlayerBreaksDownEvent(boolean canAfford, ButtonType result ) {
-            if (canAfford && result == ButtonType.OK) {
-                getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 1000);
-            } else {
-                race.getPlayer().setDidDNF(true);
-            }
-    }
-
-    private void triggerPlayerStrandedTravelerEvent() {
-        //player is finished and cant pick anyone up
-        if (race.getPlayer().isFinished()) {
-            return;
-        }
-        getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() + 1000);
-    }
-
-    private Route triggerRouteWeatherEvent() {
-        Random rand = new Random();
-        Route disqualifiedRoute = rand.nextInt(race.getRoutes().size()) == 0 ? race.getRoutes().get(rand.nextInt(race.getRoutes().size())) : race.getRoutes().getFirst();
-        for (Racer racer : race.getRacers()) {
-            if (racer.getRoute().equals(disqualifiedRoute) && !racer.isFinished()) {
-                racer.setDidDNF(true);
-            }
-        }
-        return disqualifiedRoute;
     }
 
     /**
