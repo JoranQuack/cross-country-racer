@@ -274,6 +274,7 @@ public class ShopScreenController extends ScreenController {
 
         if (getGameEnvironment().isSettingUp()) {
             homeButton.setDisable(true);
+            homeButton.setText("Start Game");
         } else {
             homeButton.setDisable(false);
         }
