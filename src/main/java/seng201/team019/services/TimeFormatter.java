@@ -2,7 +2,7 @@ package seng201.team019.services;
 
 import java.time.Duration;
 
-public class TimeFormatterService {
+public class TimeFormatter {
     /**
      * Returns nice string of a time in milliseconds
      *

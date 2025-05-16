@@ -2,13 +2,12 @@ package seng201.team019.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seng201.team019.GameEnvironment;
-import seng201.team019.services.RandomEventGeneratorService;
-import seng201.team019.services.RandomNameGeneratorService;
+import seng201.team019.services.RandomEventGenerator;
+import seng201.team019.services.RandomOpponentGenerator;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Race {
@@ -42,24 +41,16 @@ public class Race {
     }
 
     public void setupRace() {
-        // generate a random List of cars
-        Random rand = new Random();
-        RandomNameGeneratorService randName = new RandomNameGeneratorService();
-        List<Car> availableCars = gameEnvironment.getAvailableCars();
+        // setup random opponents
+        RandomOpponentGenerator randOpponentGenerator = new RandomOpponentGenerator(gameEnvironment, routes);
         opponentCars = new ArrayList<>();
-        raceTime = 0;
-
         for (int i = 0; i < numOfOpponents; i++) {
-            Car randCar = availableCars.get(rand.nextInt(availableCars.size()));
-            String name = randName.generateName();
-            Route randRoute = routes.get(rand.nextInt(routes.size()));
-            Opponent opponent = new Opponent(name, randRoute, randCar);
-            opponentCars.add(opponent);
+            opponentCars.add(randOpponentGenerator.generateRandomOpponent());
         }
 
         // setup random events
 
-        RandomEventGeneratorService randEventGenerator = new RandomEventGeneratorService();
+        RandomEventGenerator randEventGenerator = new RandomEventGenerator();
         boolean hasEvent = randEventGenerator.raceHasRandomEvent(RANDOM_EVENT_PERCENTAGE);
         isEventScheduledThisRace = hasEvent;
         if (hasEvent) {

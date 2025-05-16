@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class RandomEventGeneratorService {
+public class RandomEventGenerator {
 
     private final Random rand = new Random();
 

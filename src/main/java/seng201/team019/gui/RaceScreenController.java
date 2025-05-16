@@ -15,8 +15,11 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import org.kordamp.ikonli.javafx.FontIcon;
 import seng201.team019.GameEnvironment;
-import seng201.team019.models.*;
-import seng201.team019.services.TimeFormatterService;
+import seng201.team019.models.Player;
+import seng201.team019.models.Race;
+import seng201.team019.models.Racer;
+import seng201.team019.models.Route;
+import seng201.team019.services.TimeFormatter;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -156,7 +159,7 @@ public class RaceScreenController extends ScreenController {
      * Renders the race by updating all the elements related.
      */
     public void renderRace() {
-        TimeFormatterService timeFormatter = new TimeFormatterService();
+        TimeFormatter timeFormatter = new TimeFormatter();
 
         raceTimeLabel.setText(timeFormatter.formatTime(race.getRaceTime()));
         racePlayerProgressLabel.setText(String.format("%.0f%%",
