@@ -25,9 +25,11 @@ public class GameEnvironment {
     private List<Race> races = new ArrayList<Race>(); // List of races available in the game
 
     private String name; // Name of the player
+    private Difficulty difficulty; // Difficulty level of the game (easy or hard)
     private Double bankBalance; // Player's bank balance
     private Double maximumBankBalance; // Track what the maximum bank balance has been in the game
-    private Difficulty difficulty; // Difficulty level of the game (easy or hard)
+    private float totalPrizeMoney; // Total prize money earned by the player
+    private Double averagePlacing; // Average place of the player
     private int racesCompleted; // Number of races completed by the player
     private int seasonLength; // Length of the season in number of races
 
@@ -45,6 +47,8 @@ public class GameEnvironment {
         this.garage = new ArrayList<Car>();
         this.ownUpgrades = new ArrayList<Upgrade>();
         this.racesCompleted = 0;
+        averagePlacing = 0.0;
+        totalPrizeMoney = 0;
 
         initializeAvailableCars();
         initializeAvailableParts();
@@ -220,6 +224,23 @@ public class GameEnvironment {
         return this.racesCompleted >= this.seasonLength;
     }
 
+    public void applyRaceOutcome(float profit) {
+        setBankBalance(getBankBalance() + profit);
+        incrementRacesCompleted();
+    }
+
+    public void updateAveragePlacing(Double placing) {
+        if (averagePlacing == 0) {
+            averagePlacing = placing;
+        } else {
+            averagePlacing = (averagePlacing * (racesCompleted - 1) + placing) / racesCompleted;
+        }
+    }
+
+    public void updateTotalPrizeMoney(float prizeMoney) {
+        totalPrizeMoney += prizeMoney;
+    }
+
     // Getters and Setters for the GameEnvironment class
     public List<Car> getAvailableCars() {
         return availableCars;
@@ -286,5 +307,13 @@ public class GameEnvironment {
 
     public void setSelectedCar(Car selectedCar) {
         this.selectedCar = selectedCar;
+    }
+
+    public Double getAveragePlacing() {
+        return averagePlacing;
+    }
+
+    public float getTotalPrizeMoney() {
+        return totalPrizeMoney;
     }
 }

@@ -18,6 +18,7 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
+import seng201.team019.models.RandomEvent;
 import seng201.team019.models.Route;
 import seng201.team019.services.TimeFormatter;
 
@@ -134,6 +135,8 @@ public class RaceScreenController extends ScreenController {
         // consider override the stop method of animation timer with a super and an if
         // statement to check if finished
         raceContinueButton.setOnAction(event -> {
+            getGameEnvironment().applyRaceOutcome(race.getPlayerProfit());
+            race.setCompleted(true);
             getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(), race);
         });
 
@@ -290,7 +293,6 @@ public class RaceScreenController extends ScreenController {
             FontIcon racerCar = new FontIcon("fas-car-side");
             racerCar.setLayoutX(raceProgressLine.getStartX() - racerCar.getLayoutBounds().getWidth() / 2);
             racerCar.setLayoutY(raceProgressLine.getLayoutY()); // getLayoutY() as we offset lne 40px down in fxml
-                                                                // layout.
 
             if (racer instanceof Player) {
                 racerCar.getStyleClass().add("race-progress-player-icon");
@@ -353,40 +355,46 @@ public class RaceScreenController extends ScreenController {
     private void triggerRandomEvent() {
         gameLoop.stop();
         Platform.runLater(() -> {
-            switch (race.getRandomEvent()) {
+            RandomEvent event = race.getRandomEvent();
+
+            switch (event) {
                 case RouteWeather: {
-                    Route disqualifiedRoute = triggerRouteWeatherEvent();
-                    showAlert(Alert.AlertType.INFORMATION, "Weather Event",
-                            String.format("Weather Event on the %s route.", disqualifiedRoute.getDescription()));
+                    event.trigger(getGameEnvironment(), race);
+                    showAlert(Alert.AlertType.INFORMATION, "Weather Event", event.getMessage());
                     break;
                 }
                 case PlayerStrandedTraveler: {
-                    triggerPlayerStrandedTravelerEvent();
-                    showAlert(Alert.AlertType.INFORMATION, "Traveler Event",
-                            "You picked up a traveler and gained $1000. This delayed you 2 minutes.");
+                    if (race.getPlayer().isFinished())
+                        return; // player is finished cant pick people up
+                    showAlert(Alert.AlertType.INFORMATION, "Traveler Event", event.getMessage());
+                    event.trigger(getGameEnvironment(), race);
                     break;
                 }
                 case PlayerBreaksDown: {
-                    if (race.getPlayer().isFinished()) {
-                        return;
-                    }
-
+                    if (race.getPlayer().isFinished())
+                        return; // player is finished cant break down
                     boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
 
                     Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
-                    alert.getDialogPane().getStylesheets().add(
-                            getClass().getResource("/styles/global.css").toExternalForm());
+                    alert.getDialogPane().getStylesheets()
+                            .add(getClass().getResource("/styles/global.css").toExternalForm());
+
+                    alert.setHeaderText(null);
+                    alert.setGraphic(null);
 
                     alert.setTitle("Player Breaks Down Event");
-                    alert.setHeaderText("Player Breaks Down Event");
-                    alert.setContentText(canAfford
-                            ? "You can pay $1000 to fix your car and continue."
-                            : "You cannot afford to continue.");
+                    alert.setContentText(event.getMessage() +
+                            (canAfford
+                                    ? "You can pay $1000 to fix your car and continue."
+                                    : "You cannot afford to continue."));
 
                     Optional<ButtonType> result = alert.showAndWait();
-                    result.ifPresent(type -> {
-                        triggerPlayerBreaksDownEvent(canAfford, type);
-                    });
+
+                    if (canAfford && result.isPresent() && result.get() == ButtonType.OK) {
+                        event.triggerYes(getGameEnvironment(), race);
+                    } else {
+                        event.triggerNo(getGameEnvironment(), race);
+                    }
                     break;
                 }
             }
@@ -396,7 +404,7 @@ public class RaceScreenController extends ScreenController {
 
     }
 
-    private void triggerPlayerBreaksDownEvent(boolean canAfford, ButtonType result) {
+    public void triggerPlayerBreaksDownEvent(boolean canAfford, ButtonType result) {
         if (canAfford && result == ButtonType.OK) {
             getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 1000);
         } else {
@@ -404,7 +412,7 @@ public class RaceScreenController extends ScreenController {
         }
     }
 
-    private void triggerPlayerStrandedTravelerEvent() {
+    public void triggerPlayerStrandedTravelerEvent() {
         // player is finished and cant pick anyone up
         if (race.getPlayer().isFinished()) {
             return;
@@ -412,7 +420,7 @@ public class RaceScreenController extends ScreenController {
         getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() + 1000);
     }
 
-    private Route triggerRouteWeatherEvent() {
+    public Route triggerRouteWeatherEvent() {
         Random rand = new Random();
         Route disqualifiedRoute = rand.nextInt(race.getRoutes().size()) == 0
                 ? race.getRoutes().get(rand.nextInt(race.getRoutes().size()))

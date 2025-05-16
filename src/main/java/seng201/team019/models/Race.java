@@ -25,13 +25,15 @@ public class Race {
 
     private long raceTime;
 
+    private boolean isCompleted;
+
     private boolean isEventScheduledThisRace;
     private boolean eventHasOccurred = false;
     private long eventTriggerTime = -1;
     RandomEvent selectedEvent = null;
 
     public Race(Builder builder) {
-        this.gameEnvironment = builder.gameEnvironment;
+        this.gameEnvironment = builder.gameEnvironment; // TODO: Remove game environment
         this.routes = builder.routes;
         this.prizeMoney = builder.prizeMoney;
         this.numOfOpponents = builder.numOfOpponents;
@@ -130,7 +132,12 @@ public class Race {
             if (racer.isFinished())
                 continue;
             racer.setIsFinished(true, duration);
-            racer.setDidDNF(true);
+            if (racer instanceof Player){
+                // cast to Player to get access to overloaded setDidDnfMethod
+                ((Player)racer).setDidDNF(true,"Player ran out of time");
+            } else {
+                racer.setDidDNF(true);
+            }
         }
     }
 
@@ -157,6 +164,24 @@ public class Race {
         }
         return 1 + getOrderedRacers().indexOf(player);
     }
+
+    public float getPlayerProfit() {
+        if (getPlayer().didDNF()) {
+            return 0;
+        }
+
+        int opponentsThatFinished = (int) getRacers().stream().filter(racer -> !racer.didDNF()).count();
+        return (float) (opponentsThatFinished + 1 - getPlayerFinishedPosition()) / (float) opponentsThatFinished * getPrizeMoney();
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
 
     public static Builder builder() {
         return new Builder();

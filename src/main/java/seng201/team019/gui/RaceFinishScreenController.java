@@ -21,9 +21,15 @@ public class RaceFinishScreenController extends ScreenController {
 
     public void initialize() {
         int pos = race.getPlayerFinishedPosition();
-        String playerFinishedPositionString = pos == -1 ? "DNF" : String.valueOf(pos);
-        raceFinishedPositionLabel.setText(playerFinishedPositionString);
-        raceFinishedProfitLabel.setText(String.format("$%.2f", race.getPrizeMoney()));
+        boolean playerDNF = pos == -1;
+        if (playerDNF) {
+            raceFinishedPositionLabel.setText("DNF (" + race.getPlayer().getDnfReason() + ")");
+            pos = race.getNumOfOpponents() + 1;
+        } else {
+            raceFinishedPositionLabel.setText(String.valueOf(pos));
+        }
+        raceFinishedProfitLabel.setText(String.format("$%.2f", race.getPlayerProfit()));
+        getGameEnvironment().updateTotalPrizeMoney(race.getPlayerProfit());
     }
 
     @FXML

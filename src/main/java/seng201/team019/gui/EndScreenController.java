@@ -1,11 +1,28 @@
 package seng201.team019.gui;
 
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
 
 /**
  * Controller for the end.fxml window
  */
 public class EndScreenController extends ScreenController {
+    @FXML
+    private Label playerNameLabel;
+
+    @FXML
+    private Label seasonLengthLabel;
+
+    @FXML
+    private Label racesCompletedLabel;
+
+    @FXML
+    private Label averagePlacingLabel;
+
+    @FXML
+    private Label totalPrizeMoneyLabel;
 
     public EndScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -15,7 +32,25 @@ public class EndScreenController extends ScreenController {
      * Initialize the window
      */
     public void initialize() {
-        // TODO: Add any initialization code here
+        Double averagePlacing = getGameEnvironment().getAveragePlacing();
+        if (averagePlacing == 0.0) {
+            averagePlacingLabel.setText("DNF");
+        } else {
+            averagePlacingLabel.setText(String.format("%.2f", averagePlacing));
+        }
+        int racesCompleted = getGameEnvironment().getRacesCompleted();
+        if (racesCompleted == 1) {
+            racesCompletedLabel.setText("1 race");
+        } else {
+            racesCompletedLabel.setText(String.format("%s races", racesCompleted));
+        }
+        playerNameLabel.setText(getGameEnvironment().getName());
+        seasonLengthLabel.setText(String.valueOf(getGameEnvironment().getSeasonLength()));
+        totalPrizeMoneyLabel.setText(String.format("%.2f", (int) getGameEnvironment().getTotalPrizeMoney()));
+    }
+
+    public void onQuitButtonClicked() {
+        Platform.exit();
     }
 
     @Override
