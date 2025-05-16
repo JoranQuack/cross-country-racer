@@ -26,6 +26,8 @@ public class Race {
 
     private long raceTime;
 
+    private boolean isCompleted;
+
     private boolean isEventScheduledThisRace;
     private boolean eventHasOccurred = false;
     private long eventTriggerTime = -1;
@@ -75,6 +77,7 @@ public class Race {
 
         return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished);
     }
+
 
     public long getRaceTime() {
         return raceTime;
@@ -178,6 +181,15 @@ public class Race {
         int opponentsThatFinished = (int) getRacers().stream().filter(racer -> !racer.didDNF()).count();
         return (float) (opponentsThatFinished + 1 - getPlayerFinishedPosition()) / (float) opponentsThatFinished * getPrizeMoney();
     }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
 
     public static Builder builder() {
         return new Builder();

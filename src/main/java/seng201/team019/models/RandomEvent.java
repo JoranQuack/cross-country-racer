@@ -43,7 +43,7 @@ public enum RandomEvent {
     }, PlayerBreaksDown {
         @Override
         public String getMessage() {
-            return "Your car brakes down.\n";
+            return "Your car breaks down.\n";
         }
 
         public void triggerYes(GameEnvironment gameEnvironment, Race race) {

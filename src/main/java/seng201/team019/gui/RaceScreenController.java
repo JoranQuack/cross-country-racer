@@ -136,7 +136,7 @@ public class RaceScreenController extends ScreenController {
         // statement to check if finished
         RaceContinueButton.setOnAction(event -> {
             getGameEnvironment().applyRaceOutcome(race.getPlayerProfit());
-
+            race.setCompleted(true);
             getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(), race);
         });
 
@@ -358,8 +358,8 @@ public class RaceScreenController extends ScreenController {
 
             switch (event) {
                 case RouteWeather: {
-                    showAlert(Alert.AlertType.INFORMATION, "Weather Event", event.getMessage());
                     event.trigger(getGameEnvironment(), race);
+                    showAlert(Alert.AlertType.INFORMATION, "Weather Event", event.getMessage());
                     break;
                 }
                 case PlayerStrandedTraveler: {

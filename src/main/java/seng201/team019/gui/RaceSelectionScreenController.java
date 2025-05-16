@@ -42,7 +42,7 @@ public class RaceSelectionScreenController extends ScreenController {
 
         VBox vBox = new VBox(8);
         vBox.setStyle("-fx-background-color: transparent;");
-        Label nameLabel = new Label("Race Name");
+        Label nameLabel = new Label("Race Name"+ (race.isCompleted() ? " (Completed)" : ""));
 
         nameLabel.setFont(new Font(20));
 
@@ -58,11 +58,16 @@ public class RaceSelectionScreenController extends ScreenController {
                 vBox);
 
         hBox.setOnMouseClicked(e -> {
-            getGameEnvironment().getNavigator().launchRaceSetupScreen(getGameEnvironment(), race);
+            if (race.isCompleted()) {
+                getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(), race);
+            } else {
+                getGameEnvironment().getNavigator().launchRaceSetupScreen(getGameEnvironment(), race);
+            }
         });
 
         return hBox;
     }
+
 
     @FXML
     private void raceSelectionBackOnAction() {
