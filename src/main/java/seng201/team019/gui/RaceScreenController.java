@@ -18,6 +18,7 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
+import seng201.team019.models.RandomEvent;
 import seng201.team019.models.Route;
 import seng201.team019.services.TimeFormatter;
 
