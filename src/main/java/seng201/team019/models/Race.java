@@ -2,8 +2,8 @@ package seng201.team019.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seng201.team019.GameEnvironment;
-import seng201.team019.services.RandomEventGeneratorService;
-import seng201.team019.services.RandomOpponentGenerator;
+import seng201.team019.services.RandomEventGenerator;
+import seng201.team019.services.RandomNameGenerator;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -47,7 +47,8 @@ public class Race {
         }
 
         // setup random events
-        RandomEventGeneratorService randEventGenerator = new RandomEventGeneratorService();
+
+        RandomEventGenerator randEventGenerator = new RandomEventGenerator();
         boolean hasEvent = randEventGenerator.raceHasRandomEvent(RANDOM_EVENT_PERCENTAGE);
         isEventScheduledThisRace = hasEvent;
         if (hasEvent) {
