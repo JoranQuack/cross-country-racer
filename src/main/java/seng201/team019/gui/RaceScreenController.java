@@ -221,7 +221,7 @@ public class RaceScreenController extends ScreenController {
             racerCar.setLayoutX(raceProgressLineWrapper.getPadding().getLeft()
                     - racerCar.getLayoutBounds().getWidth() / 2
                     + racer.getRoute().normalizeDistance(racer.getDistance())
-                    * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
+                            * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
 
         }
     }
@@ -310,7 +310,8 @@ public class RaceScreenController extends ScreenController {
      */
     private Group makeRaceProgressLineMarker(MarkerType markerType, float distance) {
 
-        double lineX = raceProgressLineWrapper.getPadding().getLeft() + distance * (raceProgressLine.getEndX() - raceProgressLine.getStartX());
+        double lineX = raceProgressLineWrapper.getPadding().getLeft()
+                + distance * (raceProgressLine.getEndX() - raceProgressLine.getStartX());
         double lineStartY;
         double lineEndY;
 
@@ -359,17 +360,20 @@ public class RaceScreenController extends ScreenController {
                     break;
                 }
                 case PlayerStrandedTraveler: {
-                    if (race.getPlayer().isFinished()) return; // player is finished cant pick people up
+                    if (race.getPlayer().isFinished())
+                        return; // player is finished cant pick people up
                     showAlert(Alert.AlertType.INFORMATION, "Traveler Event", event.getMessage());
                     event.trigger(getGameEnvironment(), race);
                     break;
                 }
                 case PlayerBreaksDown: {
-                    if (race.getPlayer().isFinished()) return; // player is finished cant break down
+                    if (race.getPlayer().isFinished())
+                        return; // player is finished cant break down
                     boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
 
                     Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
-                    alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/global.css").toExternalForm());
+                    alert.getDialogPane().getStylesheets()
+                            .add(getClass().getResource("/styles/global.css").toExternalForm());
 
                     alert.setHeaderText(null);
                     alert.setGraphic(null);
@@ -396,7 +400,7 @@ public class RaceScreenController extends ScreenController {
 
     }
 
-    private void triggerPlayerBreaksDownEvent(boolean canAfford, ButtonType result) {
+    public void triggerPlayerBreaksDownEvent(boolean canAfford, ButtonType result) {
         if (canAfford && result == ButtonType.OK) {
             getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 1000);
         } else {
@@ -404,7 +408,7 @@ public class RaceScreenController extends ScreenController {
         }
     }
 
-    private void triggerPlayerStrandedTravelerEvent() {
+    public void triggerPlayerStrandedTravelerEvent() {
         // player is finished and cant pick anyone up
         if (race.getPlayer().isFinished()) {
             return;
@@ -412,7 +416,7 @@ public class RaceScreenController extends ScreenController {
         getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() + 1000);
     }
 
-    private Route triggerRouteWeatherEvent() {
+    public Route triggerRouteWeatherEvent() {
         Random rand = new Random();
         Route disqualifiedRoute = rand.nextInt(race.getRoutes().size()) == 0
                 ? race.getRoutes().get(rand.nextInt(race.getRoutes().size()))
