@@ -3,7 +3,7 @@ package seng201.team019.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seng201.team019.GameEnvironment;
 import seng201.team019.services.RandomEventGenerator;
-import seng201.team019.services.RandomNameGenerator;
+import seng201.team019.services.RandomOpponentGenerator;
 
 import java.util.ArrayList;
 import java.util.Comparator;
