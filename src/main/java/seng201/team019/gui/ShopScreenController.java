@@ -21,10 +21,11 @@ import seng201.team019.models.Upgrade;
  * Controller for the shop.fxml window
  */
 public class ShopScreenController extends ScreenController {
+    private static final Logger LOGGER = Logger.getLogger(ShopScreenController.class.getName());
+    private static final int MAX_ITEMS = 3;
+
     @FXML
     private Button homeButton;
-
-    private static final Logger LOGGER = Logger.getLogger(ShopScreenController.class.getName());
 
     @FXML
     private Tab carsTab;
@@ -85,42 +86,6 @@ public class ShopScreenController extends ScreenController {
 
     @FXML
     private Label part2DescriptionLabel;
-
-    @FXML
-    private GridPane part3Grid;
-
-    @FXML
-    private ImageView part3Image;
-
-    @FXML
-    private Label part3NameLabel;
-
-    @FXML
-    private Button part3BuyButton;
-
-    @FXML
-    private Label part3PriceLabel;
-
-    @FXML
-    private Label part3DescriptionLabel;
-
-    @FXML
-    private GridPane part4Grid;
-
-    @FXML
-    private ImageView part4Image;
-
-    @FXML
-    private Label part4NameLabel;
-
-    @FXML
-    private Button part4BuyButton;
-
-    @FXML
-    private Label part4PriceLabel;
-
-    @FXML
-    private Label part4DescriptionLabel;
 
     @FXML
     private GridPane car0Grid;
@@ -204,60 +169,6 @@ public class ShopScreenController extends ScreenController {
     private ProgressBar car2ReliabilityProgressBar;
 
     @FXML
-    private GridPane car3Grid;
-
-    @FXML
-    private ImageView car3Image;
-
-    @FXML
-    private Label car3NameLabel;
-
-    @FXML
-    private Label car3RangeLabel;
-
-    @FXML
-    private Label car3SpeedLabel;
-
-    @FXML
-    private ProgressBar car3HandlingProgressBar;
-
-    @FXML
-    private Button car3BuyButton;
-
-    @FXML
-    private Label car3PriceLabel;
-
-    @FXML
-    private ProgressBar car3ReliabilityProgressBar;
-
-    @FXML
-    private GridPane car4Grid;
-
-    @FXML
-    private ImageView car4Image;
-
-    @FXML
-    private Label car4NameLabel;
-
-    @FXML
-    private Label car4RangeLabel;
-
-    @FXML
-    private Label car4SpeedLabel;
-
-    @FXML
-    private ProgressBar car4HandlingProgressBar;
-
-    @FXML
-    private Button car4BuyButton;
-
-    @FXML
-    private Label car4PriceLabel;
-
-    @FXML
-    private ProgressBar car4ReliabilityProgressBar;
-
-    @FXML
     private Label balanceLabel;
 
     public ShopScreenController(GameEnvironment gameEnvironment) {
@@ -311,13 +222,13 @@ public class ShopScreenController extends ScreenController {
 
         try {
             // Make all car grids visible by default
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < MAX_ITEMS; i++) {
                 GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
                 carGrid.setVisible(true);
             }
 
             // Populate with car data or hide if no car available
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < MAX_ITEMS; i++) {
                 GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
 
                 if (i >= cars.size()) {
@@ -358,7 +269,7 @@ public class ShopScreenController extends ScreenController {
      * Initialize the parts in the shop
      */
     private void initializeParts() {
-        List<Upgrade> parts = super.getGameEnvironment().getAvailableParts();
+        List<Upgrade> parts = super.getGameEnvironment().getAvailableUpgrades();
 
         if (parts.isEmpty()) {
             Label noPartsLabel = new Label("You've bought all the parts!");
@@ -370,13 +281,13 @@ public class ShopScreenController extends ScreenController {
 
         try {
             // Make all part grids visible by default
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < MAX_ITEMS; i++) {
                 GridPane partGrid = (GridPane) getClass().getDeclaredField("part" + i + "Grid").get(this);
                 partGrid.setVisible(true);
             }
 
             // Populate with part data or hide if no part available
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < MAX_ITEMS; i++) {
                 GridPane partGrid = (GridPane) getClass().getDeclaredField("part" + i + "Grid").get(this);
 
                 if (i >= parts.size()) {

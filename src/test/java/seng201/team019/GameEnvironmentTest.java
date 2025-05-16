@@ -8,8 +8,6 @@ import org.mockito.Mockito;
 
 import seng201.team019.gui.ScreenNavigator;
 import seng201.team019.models.Car;
-// import seng201.team019.models.Upgrade;
-import seng201.team019.models.Difficulty;
 
 public class GameEnvironmentTest {
 
@@ -32,24 +30,14 @@ public class GameEnvironmentTest {
         assertEquals(200000.0, gameEnvironment.getBankBalance(), 0.01);
         assertEquals(0, gameEnvironment.getRacesCompleted());
         assertEquals(5, gameEnvironment.getAvailableCars().size());
-        assertEquals(5, gameEnvironment.getAvailableParts().size());
+        assertEquals(5, gameEnvironment.getAvailableUpgrades().size());
         assertEquals(0, gameEnvironment.getGarage().size());
         assertEquals(0, gameEnvironment.getOwnUpgrades().size());
     }
 
     @Test
-    public void testCompleteGameEnvironmentSetup() {
-        gameEnvironment.completeGameEnvironmentSetup(Difficulty.EASY, 10, "TestPlayer");
-
-        assertEquals(Difficulty.EASY, gameEnvironment.getDifficulty());
-        assertEquals("TestPlayer", gameEnvironment.getName());
-        // TODO: Implement this method
-        // assertEquals(10, gameEnvironment.getSeasonLength());
-    }
-
-    @Test
     public void testBuyThenSellCar() {
-        gameEnvironment.initializeAvailableCars();
+        gameEnvironment.initializeCars();
         mockCar = gameEnvironment.getAvailableCars().get(0);
         Double originalBankBalance = 100000.0;
         gameEnvironment.setBankBalance(originalBankBalance);

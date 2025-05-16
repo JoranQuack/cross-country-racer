@@ -34,6 +34,7 @@ public class RaceFinishScreenController extends ScreenController {
 
     @FXML
     public void raceFinishContinueAction() {
+        getGameEnvironment().refreshShop();
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 

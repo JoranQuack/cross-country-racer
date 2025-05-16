@@ -10,7 +10,9 @@ import seng201.team019.services.JsonRaceDeserializer;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class GameEnvironment {
 
@@ -18,9 +20,11 @@ public class GameEnvironment {
 
     private List<Car> garage = new ArrayList<Car>(); // List of cars owned by the player
     private List<Car> availableCars = new ArrayList<Car>(); // List of cars available for purchase
+    private List<Car> allCars = new ArrayList<Car>(); // List of all cars in the game
 
     private List<Upgrade> ownUpgrades = new ArrayList<Upgrade>(); // List of upgrades owned by the player
-    private List<Upgrade> availableParts = new ArrayList<Upgrade>(); // List of upgrades available for purchase
+    private List<Upgrade> availableUpgrades = new ArrayList<Upgrade>(); // List of upgrades available for purchase
+    private List<Upgrade> allUpgrades = new ArrayList<Upgrade>(); // List of all upgrades in the game
 
     private List<Race> races = new ArrayList<Race>(); // List of races available in the game
 
@@ -43,8 +47,7 @@ public class GameEnvironment {
      * some game data.
      */
     public GameEnvironment(ScreenNavigator navigator) {
-
-        this.bankBalance = this.maximumBankBalance = 200000.0;
+        this.bankBalance = this.maximumBankBalance = 20000.0;
         this.garage = new ArrayList<Car>();
         this.ownUpgrades = new ArrayList<Upgrade>();
         this.racesCompleted = 0;
@@ -52,8 +55,8 @@ public class GameEnvironment {
         totalPrizeMoney = 0;
         isSettingUp = true;
 
-        initializeAvailableCars();
-        initializeAvailableParts();
+        initializeCars();
+        initializeUpgrades();
         initializeRaces();
 
         this.navigator = navigator;
@@ -85,17 +88,19 @@ public class GameEnvironment {
     /**
      * Initializes the available cars and parts by reading from CSV files.
      */
-    public void initializeAvailableCars() {
+    public void initializeCars() {
         CSVReader reader = new CSVReader();
-        availableCars = reader.readCSV("/data/cars.csv", CSVReader.carParser);
+        allCars = reader.readCSV("/data/cars.csv", CSVReader.carParser);
+        availableCars = new ArrayList<Car>(allCars.subList(0, 3));
     }
 
     /**
      * Initializes the available parts by reading from a CSV file.
      */
-    public void initializeAvailableParts() {
+    public void initializeUpgrades() {
         CSVReader reader = new CSVReader();
-        availableParts = reader.readCSV("/data/upgrades.csv", CSVReader.upgradeParser);
+        allUpgrades = reader.readCSV("/data/upgrades.csv", CSVReader.upgradeParser);
+        availableUpgrades = new ArrayList<Upgrade>(allUpgrades.subList(0, 3));
     }
 
     /**
@@ -118,6 +123,35 @@ public class GameEnvironment {
             } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * Refresh the available cars and upgrades lists to randomise their order.
+     */
+    public void refreshShop() {
+        // Clear the available cars and upgrades lists
+        availableCars.clear();
+        availableUpgrades.clear();
+
+        // Gets a list of unused cars and randomises their order
+        List<Car> unusedCars = new ArrayList<Car>();
+        unusedCars.addAll(allCars);
+        unusedCars.removeAll(garage);
+        Collections.shuffle(unusedCars, new Random());
+
+        // Gets a list of unused upgrades and randomises their order
+        List<Upgrade> unusedUpgrades = new ArrayList<Upgrade>();
+        unusedUpgrades.addAll(allUpgrades);
+        unusedUpgrades.removeAll(ownUpgrades);
+        Collections.shuffle(unusedUpgrades, new Random());
+
+        // Add a maximum of 3 cars and upgrades to the available lists
+        for (int i = 0; i < Math.min(3, unusedCars.size()); i++) {
+            availableCars.add(unusedCars.get(i));
+        }
+        for (int i = 0; i < Math.min(3, unusedUpgrades.size()); i++) {
+            availableUpgrades.add(unusedUpgrades.get(i));
         }
     }
 
@@ -179,7 +213,7 @@ public class GameEnvironment {
         if (bankBalance >= part.getPrice()) {
             setBankBalance(bankBalance - part.getPrice());
             ownUpgrades.add(part);
-            availableParts.remove(part);
+            availableUpgrades.remove(part);
             return true;
         } else {
             return false;
@@ -195,7 +229,7 @@ public class GameEnvironment {
     public void sellPart(Upgrade part) {
         setBankBalance(bankBalance + part.getPrice() / 2);
         ownUpgrades.remove(part);
-        availableParts.add(part);
+        availableUpgrades.add(part);
     }
 
     /**
@@ -248,8 +282,8 @@ public class GameEnvironment {
         return availableCars;
     }
 
-    public List<Upgrade> getAvailableParts() {
-        return availableParts;
+    public List<Upgrade> getAvailableUpgrades() {
+        return availableUpgrades;
     }
 
     public Double getBankBalance() {
