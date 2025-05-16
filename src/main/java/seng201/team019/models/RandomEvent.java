@@ -18,9 +18,16 @@ public enum RandomEvent {
             Random rand = new Random();
             Route disqualifiedRoute = rand.nextInt(race.getRoutes().size()) == 0 ? race.getRoutes().get(rand.nextInt(race.getRoutes().size())) : race.getRoutes().getFirst();
             for (Racer racer : race.getRacers()) {
-                if (racer.getRoute().equals(disqualifiedRoute) && !racer.isFinished()) {
+                if (!racer.getRoute().equals(disqualifiedRoute) || racer.isFinished()) {
+                    continue;
+                }
+                if (racer instanceof Player) {
+                    // cast to Player to get access to overloaded setDidDnfMethod
+                    ((Player) racer).setDidDNF(true, "Player could not continue due to weather event");
+                } else {
                     racer.setDidDNF(true);
                 }
+
             }
             this.disqualifiedRoute = disqualifiedRoute;
         }
@@ -44,7 +51,7 @@ public enum RandomEvent {
         }
 
         public void triggerNo(GameEnvironment gameEnvironment, Race race) {
-            race.getPlayer().setDidDNF(true);
+            race.getPlayer().setDidDNF(true,"Player Broke down");
         }
     };
 

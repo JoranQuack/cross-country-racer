@@ -115,7 +115,12 @@ public class Race {
             if (racer.isFinished())
                 continue;
             racer.setIsFinished(true, duration);
-            racer.setDidDNF(true);
+            if (racer instanceof Player){
+                // cast to Player to get access to overloaded setDidDnfMethod
+                ((Player)racer).setDidDNF(true,"Player ran out of time");
+            } else {
+                racer.setDidDNF(true);
+            }
         }
     }
 
