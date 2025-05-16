@@ -12,7 +12,7 @@ import seng201.team019.models.Route;
 public class RandomOpponentGenerator {
 
     private final Random rand = new Random();
-    private RandomNameGeneratorService randName;
+    private RandomNameGenerator randName;
     private List<Car> availableCars;
     private List<Route> availableRoutes;
 
@@ -20,7 +20,7 @@ public class RandomOpponentGenerator {
         availableCars = new ArrayList<Car>();
         availableCars.addAll(gameEnvironment.getAvailableCars());
         availableCars.addAll(gameEnvironment.getGarage());
-        randName = new RandomNameGeneratorService();
+        randName = new RandomNameGenerator();
         availableRoutes = routes;
     }
 
