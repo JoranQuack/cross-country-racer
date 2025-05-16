@@ -29,7 +29,7 @@ public class DashboardScreenController extends ScreenController {
      */
     public void initialize() {
         DashboardBankBalLabel.setText(String.format("$%.2f", getGameEnvironment().getBankBalance()));
-        DashboardRacesCompletedLabel.setText(String.format("%d", getGameEnvironment().getSeasonLength()));
+        DashboardRacesCompletedLabel.setText(String.format("%d", getGameEnvironment().getSeasonLength()-getGameEnvironment().getRacesCompleted()));
 
         bankBalanceProgressBar
                 .setProgress(getGameEnvironment().getBankBalance() / getGameEnvironment().getMaximumBankBalance());
