@@ -56,7 +56,7 @@ public class SetupScreenController extends ScreenController {
         }
 
         getGameEnvironment().completeGameEnvironmentSetup(difficulty, seasonLength, name);
-        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+        getGameEnvironment().getNavigator().launchShopScreen(getGameEnvironment());
     }
 
     @Override
