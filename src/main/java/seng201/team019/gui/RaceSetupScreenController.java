@@ -9,12 +9,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import seng201.team019.GameEnvironment;
-import seng201.team019.models.Car;
 import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Route;
-
-import java.util.List;
 
 public class RaceSetupScreenController extends ScreenController {
     @FXML
