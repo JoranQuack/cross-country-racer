@@ -71,7 +71,7 @@ public abstract class Racer {
     }
 
     /**
-     * returns a multiplier between 0.8 and 1.5
+     * returns a multiplier between 0.8 and 2
      */
     private static float getRandomSpeedMultiplier() {
         // TODO: maybe make this its own service

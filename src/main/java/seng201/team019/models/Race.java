@@ -28,7 +28,7 @@ public class Race {
 
     private boolean isEventScheduledThisRace;
     private boolean eventHasOccurred = false;
-    long eventTriggerTime = -1;
+    private long eventTriggerTime = -1;
     RandomEvent selectedEvent = null;
 
     public Race(Builder builder) {

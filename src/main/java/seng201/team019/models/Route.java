@@ -13,7 +13,6 @@ public class Route {
     private final double straightness;
     private final double gradeVariation;
 
-    // TODO: This assumes they are evenly spaced. May not be in future.
     private final int fuelStops;
 
     @JsonCreator
@@ -65,14 +64,14 @@ public class Route {
         return distance / (float) fuelStops;
     }
 
-    public float getDistanceToNextFuelStop(float currentDistance) {
-        if (currentDistance > distance) {
+    public float getDistanceToNextFuelStop(float distance) {
+        if (distance > this.distance) {
             return -1;
         }
-        int numberOfStopPassed = (int) Math.floor(currentDistance / getDistanceBetweenFuelStops());
+        int numberOfStopPassed = (int) Math.floor(distance / getDistanceBetweenFuelStops());
 
         // Distance from start to next stop - current distance = distance to next stop
-        return (numberOfStopPassed + 1) * getDistanceBetweenFuelStops() - currentDistance;
+        return (numberOfStopPassed + 1) * getDistanceBetweenFuelStops() - distance;
     }
 
 }

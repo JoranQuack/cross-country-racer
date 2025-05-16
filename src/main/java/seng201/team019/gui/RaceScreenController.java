@@ -367,6 +367,9 @@ public class RaceScreenController extends ScreenController {
                     boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
 
                     Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
+                    alert.getDialogPane().getStylesheets().add(
+                            getClass().getResource("/styles/global.css").toExternalForm());
+
                     alert.setTitle("Player Breaks Down Event");
                     alert.setHeaderText("Player Breaks Down Event");
                     alert.setContentText(canAfford
