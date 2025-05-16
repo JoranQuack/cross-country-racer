@@ -1,6 +1,7 @@
 package seng201.team019.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
@@ -14,6 +15,9 @@ import seng201.team019.GameEnvironment;
  * race selection, garage, and shop.
  */
 public class DashboardScreenController extends ScreenController {
+    @FXML
+    private Button raceButton;
+
     @FXML
     private VBox endGameVBox;
 
@@ -64,6 +68,10 @@ public class DashboardScreenController extends ScreenController {
             endGameLabel.setText("You have insufficient funds to continue playing.");
             endGameVBox.setVisible(true);
             endGameVBox.setMouseTransparent(false);
+        }
+
+        if (getGameEnvironment().getGarage().size() == 0) {
+            raceButton.setDisable(true);
         }
 
         dashboardBankBalLabel.setText(String.format("$%.2f", bankBalance));
