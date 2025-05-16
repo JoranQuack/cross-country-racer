@@ -2,6 +2,7 @@ package seng201.team019.gui;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -101,11 +102,16 @@ public class RaceSetupScreenController extends ScreenController {
     @FXML
     private void onStartClicked() {
         if (selectedRoute == null) {
-            // TODO: add error message
+            showAlert(Alert.AlertType.INFORMATION,"Route Not Selected","You have to select a route to start.");
             return;
         }
-        Car playersCar = getGameEnvironment().getGarage().getFirst(); // selected car is first car // TOdo: add error handle here.
-        Player player = new Player(getGameEnvironment().getName(), selectedRoute, playersCar);
+        if (getGameEnvironment().getSelectedCar() == null){
+            showAlert(Alert.AlertType.INFORMATION,"No car selected","You have to select a car to start.");
+            return;
+        }
+
+
+        Player player = new Player(getGameEnvironment().getName(), selectedRoute, getGameEnvironment().getSelectedCar());
         selectedRace.setPlayer(player);
         selectedRace.setupRace();
         getGameEnvironment().getNavigator().launchRaceScreen(getGameEnvironment(), selectedRace);
