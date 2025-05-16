@@ -212,6 +212,11 @@ public class GameEnvironment {
         ownUpgrades.add(part);
     }
 
+    public void applyRaceOutcome(float profit){
+        setBankBalance(getBankBalance()+profit);
+        incrementRacesCompleted();
+    }
+
     // Getters and Setters for the GameEnvironment class
     public Car getSelectedCar() {
         return selectedCar;

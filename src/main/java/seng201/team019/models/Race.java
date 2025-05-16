@@ -32,7 +32,7 @@ public class Race {
     RandomEvent selectedEvent = null;
 
     public Race(Builder builder) {
-        this.gameEnvironment = builder.gameEnvironment;
+        this.gameEnvironment = builder.gameEnvironment; // TODO: Remove game environment
         this.routes = builder.routes;
         this.prizeMoney = builder.prizeMoney;
         this.numOfOpponents = builder.numOfOpponents;
@@ -163,6 +163,15 @@ public class Race {
 
     public List<Route> getRoutes() {
         return routes;
+    }
+
+    public float getPlayerProfit() {
+        if (getPlayer().didDNF()) {
+            return 0;
+        }
+
+        int opponentsThatFinished = (int) getRacers().stream().filter(racer -> !racer.didDNF()).count();
+        return (float) (opponentsThatFinished + 1 - getPlayerFinishedPosition()) / (float) opponentsThatFinished * getPrizeMoney();
     }
 
     public static Builder builder() {

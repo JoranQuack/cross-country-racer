@@ -68,6 +68,15 @@ public class RaceScreenController extends ScreenController {
     @FXML
     private Label RacePlayerIsRefuelingLabel;
 
+    @FXML
+    private VBox RaceLeaderboard;
+
+    @FXML
+    private Pane raceProgressLineWrapper;
+
+    @FXML
+    private Line raceProgressLine;
+
     public enum MarkerType {
         FINISH {
             @Override
@@ -93,15 +102,6 @@ public class RaceScreenController extends ScreenController {
     }
 
     private final Race race;
-
-    @FXML
-    private VBox RaceLeaderboard;
-
-    @FXML
-    private Pane raceProgressLineWrapper;
-
-    @FXML
-    private Line raceProgressLine;
 
     private final Map<Racer, FontIcon> racerCircles = new HashMap<>();
 
@@ -135,6 +135,8 @@ public class RaceScreenController extends ScreenController {
         // consider override the stop method of animation timer with a super and an if
         // statement to check if finished
         RaceContinueButton.setOnAction(event -> {
+            getGameEnvironment().applyRaceOutcome(race.getPlayerProfit());
+
             getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(), race);
         });
 
@@ -153,6 +155,7 @@ public class RaceScreenController extends ScreenController {
         });
 
     }
+
 
     public RaceScreenController(GameEnvironment gameEnvironment, Race selectedRace) {
         super(gameEnvironment);
