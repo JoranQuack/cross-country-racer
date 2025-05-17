@@ -113,7 +113,10 @@ public class GameEnvironment {
         // problems when running as jar because of paths
         String[] raceFileNames = {
                 "/data/races/race1.json",
-                "/data/races/race2.json"
+                "/data/races/race2.json",
+                "/data/races/race3.json",
+                "/data/races/race4.json",
+                "/data/races/race5.json",
         };
 
         for (String raceFileName : raceFileNames) {

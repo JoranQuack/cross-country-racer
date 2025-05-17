@@ -373,7 +373,7 @@ public class RaceScreenController extends ScreenController {
                 case PlayerBreaksDown: {
                     if (race.getPlayer().isFinished())
                         return; // player is finished cant break down
-                    boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
+                    boolean canAfford = getGameEnvironment().getBankBalance() >= 1000;
 
                     Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
                     alert.getDialogPane().getStylesheets()
