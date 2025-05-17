@@ -26,7 +26,6 @@ public class JsonRaceDeserializer {
 
     public Race readRaceFromInputStream(InputStream jsonFile) throws IOException {
         Race.Builder raceBuilder = objectMapper.readValue(jsonFile, Race.Builder.class);
-        raceBuilder.withGameEnvironment(gameEnvironment);
         return raceBuilder.build();
     }
 }

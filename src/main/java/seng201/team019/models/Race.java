@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class Race {
     private final static float RANDOM_EVENT_PERCENTAGE = 0.6f;
 
-    private final GameEnvironment gameEnvironment;
 
     private final List<Route> routes;
     private final float prizeMoney;
@@ -33,14 +32,13 @@ public class Race {
     RandomEvent selectedEvent = null;
 
     public Race(Builder builder) {
-        this.gameEnvironment = builder.gameEnvironment; // TODO: Remove game environment
         this.routes = builder.routes;
         this.prizeMoney = builder.prizeMoney;
         this.numOfOpponents = builder.numOfOpponents;
         this.duration = builder.duration;
     }
 
-    public void setupRace() {
+    public void setupRace(GameEnvironment gameEnvironment) {
         // setup random opponents
         RandomOpponentGenerator randOpponentGenerator = new RandomOpponentGenerator(gameEnvironment, routes);
         opponentCars = new ArrayList<>();
@@ -129,7 +127,7 @@ public class Race {
 
     public void setDNFOfDurationExceedingRacers() {
         for (Racer racer : getRacers()) {
-            if (racer.isFinished())
+            if (racer.isFinished() || racer.didDNF())
                 continue;
             racer.setIsFinished(true, duration);
             if (racer instanceof Player){
@@ -188,8 +186,6 @@ public class Race {
     }
 
     public static class Builder {
-        private GameEnvironment gameEnvironment;
-
         @JsonProperty("routes")
         private List<Route> routes = new ArrayList<>();
         @JsonProperty("prizeMoney")
@@ -198,11 +194,6 @@ public class Race {
         private long duration;
         @JsonProperty("numOfOpponents")
         private int numOfOpponents;
-
-        public Builder withGameEnvironment(GameEnvironment gameEnvironment) {
-            this.gameEnvironment = gameEnvironment;
-            return this;
-        }
 
         public Builder prizeMoney(float prizeMoney) {
             this.prizeMoney = prizeMoney;
@@ -230,9 +221,6 @@ public class Race {
         }
 
         public Race build() {
-            if (gameEnvironment == null) {
-                throw new IllegalStateException("GameEnvironment has not been set yet.");
-            }
             if (routes.isEmpty()) {
                 throw new IllegalStateException("Race has no routes.");
             }
