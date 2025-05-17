@@ -2,6 +2,7 @@ package seng201.team019.gui;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -10,10 +11,15 @@ import javafx.scene.text.Font;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
 
+import java.util.List;
+
 public class RaceSelectionScreenController extends ScreenController {
 
     @FXML
     private VBox raceListView;
+
+    @FXML
+    private CheckBox raceSelectionHideCompleted;
 
     public RaceSelectionScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -24,16 +30,33 @@ public class RaceSelectionScreenController extends ScreenController {
      */
     public void initialize() {
 
-        for (Race race : getGameEnvironment().getRaces()) {
+        renderRaceList(getGameEnvironment().getRaces(),raceSelectionHideCompleted.isSelected());
 
-            if (race == null) {
+        raceSelectionHideCompleted.setOnAction(event -> {
+            boolean isChecked = raceSelectionHideCompleted.isSelected();
+
+            // Your re-rendering logic here
+            renderRaceList(getGameEnvironment().getRaces(),isChecked); // for example
+        });
+    }
+
+    private void renderRaceList(List<Race> races, boolean hideCompleted) {
+
+        raceListView.getChildren().clear(); //clear children
+
+        for (Race race : races ) {
+
+            if (race == null)
                 continue;
-            }
+
+            if (hideCompleted && race.isCompleted())
+                continue;
 
             Pane racePane = makeRaceListElement(race);
 
             raceListView.getChildren().addAll(racePane);
         }
+
     }
 
     @Override
