@@ -58,7 +58,7 @@ public class RaceSelectionScreenController extends ScreenController {
 
         VBox vBox = new VBox(8);
         vBox.setStyle("-fx-background-color: transparent;");
-        Label nameLabel = new Label("Race Name"+ (race.isCompleted() ? " (Completed)" : ""));
+        Label nameLabel = new Label(race.getName() + (race.isCompleted() ? " (Completed)" : ""));
 
         nameLabel.setFont(new Font(20));
 

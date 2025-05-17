@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class Race {
     private final static float RANDOM_EVENT_PERCENTAGE = 0.6f;
 
-
+    private final String name;
     private final List<Route> routes;
     private final float prizeMoney;
     private final long duration;
@@ -32,6 +32,7 @@ public class Race {
     RandomEvent selectedEvent = null;
 
     public Race(Builder builder) {
+        this.name = builder.name;
         this.routes = builder.routes;
         this.prizeMoney = builder.prizeMoney;
         this.numOfOpponents = builder.numOfOpponents;
@@ -71,6 +72,10 @@ public class Race {
 
     public RandomEvent getRandomEvent() {
         return selectedEvent;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Player getPlayer() {
@@ -140,10 +145,7 @@ public class Race {
     }
 
     public boolean isRaceFinished() {
-        if (getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished)) {
-            return true;
-        }
-        return false;
+        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished);
     }
 
     public List<Racer> getOrderedRacers() {
@@ -186,6 +188,8 @@ public class Race {
     }
 
     public static class Builder {
+        @JsonProperty("name")
+        private String name;
         @JsonProperty("routes")
         private List<Route> routes = new ArrayList<>();
         @JsonProperty("prizeMoney")
@@ -194,6 +198,11 @@ public class Race {
         private long duration;
         @JsonProperty("numOfOpponents")
         private int numOfOpponents;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
 
         public Builder prizeMoney(float prizeMoney) {
             this.prizeMoney = prizeMoney;
@@ -221,6 +230,9 @@ public class Race {
         }
 
         public Race build() {
+            if (name == null) {
+                name = "Race!"; // give default name
+            }
             if (routes.isEmpty()) {
                 throw new IllegalStateException("Race has no routes.");
             }
