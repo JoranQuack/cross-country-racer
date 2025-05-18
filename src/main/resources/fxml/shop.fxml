@@ -42,7 +42,7 @@
                             <ColumnConstraints />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="90.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                             <RowConstraints vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -54,7 +54,7 @@
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </GridPane.margin>
                           <children>
-                            <ImageView fx:id="car0Image" fitHeight="80.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                            <ImageView fx:id="car0Image" fitHeight="150.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                             <Label fx:id="car0NameLabel" text="car0 name" GridPane.rowIndex="1" />
                             <GridPane GridPane.rowIndex="2">
                               <columnConstraints>
@@ -148,7 +148,7 @@
                             <ColumnConstraints />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="90.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                             <RowConstraints vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -160,7 +160,7 @@
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </GridPane.margin>
                           <children>
-                            <ImageView fx:id="car1Image" fitHeight="80.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                            <ImageView fx:id="car1Image" fitHeight="150.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                             <Label fx:id="car1NameLabel" text="car1 name" GridPane.rowIndex="1" />
                             <GridPane GridPane.rowIndex="2">
                               <columnConstraints>
@@ -254,7 +254,7 @@
                             <ColumnConstraints />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="90.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                             <RowConstraints vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -266,7 +266,7 @@
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </GridPane.margin>
                           <children>
-                            <ImageView fx:id="car2Image" fitHeight="80.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                            <ImageView fx:id="car2Image" fitHeight="150.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                             <Label fx:id="car2NameLabel" text="car2 name" GridPane.rowIndex="1" />
                             <GridPane GridPane.rowIndex="2">
                               <columnConstraints>
