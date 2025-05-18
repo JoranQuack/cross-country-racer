@@ -1,8 +1,8 @@
 {
   "name": "Rome to Milan",
-  "prizeMoney": 10000.0,
+  "prizeMoney": 15000.0,
   "duration": 14400000,
-  "numOfOpponents": 3,
+  "numOfOpponents": 5,
   "routes": [
     {
       "description": "Coastal Highway",

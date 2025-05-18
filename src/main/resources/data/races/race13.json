@@ -1,8 +1,8 @@
 {
   "name": "Sydney to Canberra",
-  "prizeMoney": 10000.0,
+  "prizeMoney": 15000.0,
   "duration": 14400000,
-  "numOfOpponents": 5,
+  "numOfOpponents": 3,
   "routes": [
     {
       "description": "Highway",

@@ -1,6 +1,6 @@
 {
   "name": "Mexico City to Puebla",
-  "prizeMoney": 20000.0,
+  "prizeMoney": 10000.0,
   "duration": 10800000,
   "numOfOpponents": 3,
   "routes": [
@@ -15,7 +15,7 @@
       "description": "mountain Climb",
       "distance": 100,
       "straightness": 0.9,
-      "gradeVariation": 0.9,
+      "gradeVariation": 0.6,
       "fuelStops":2
     }
   ]
