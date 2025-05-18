@@ -26,6 +26,11 @@ public class GameEnvironment {
             "/data/races/race8.json",
             "/data/races/race9.json",
             "/data/races/race10.json",
+            "/data/races/race11.json",
+            "/data/races/race12.json",
+            "/data/races/race13.json",
+            "/data/races/race14.json",
+            "/data/races/race15.json",
     };
 
     private static final String UPGRADE_FILE_NAME = "/data/upgrades.csv";
