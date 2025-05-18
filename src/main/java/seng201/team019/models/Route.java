@@ -45,7 +45,7 @@ public class Route {
      * @return distance between each fuel stop.
      */
     public float getDistanceBetweenFuelStops() {
-        return distance / (float) fuelStops;
+        return distance / ((float) fuelStops+1);
     }
 
     /**
@@ -69,6 +69,10 @@ public class Route {
             return -1;
         }
         int numberOfStopPassed = (int) Math.floor(distance / getDistanceBetweenFuelStops());
+
+        if (numberOfStopPassed >= this.fuelStops) {
+            return -1;
+        }
 
         // Distance from start to next stop - current distance = distance to next stop
         return (numberOfStopPassed + 1) * getDistanceBetweenFuelStops() - distance;
