@@ -1,0 +1,15 @@
+{
+  "name": "Sydney to Canberra",
+  "prizeMoney": 10000.0,
+  "duration": 14400000,
+  "numOfOpponents": 5,
+  "routes": [
+    {
+      "description": "Highway",
+      "distance": 285,
+      "straightness": 0.7,
+      "gradeVariation": 0.3,
+      "fuelStops":15
+    }
+  ]
+}

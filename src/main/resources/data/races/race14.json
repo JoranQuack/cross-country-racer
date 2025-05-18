@@ -1,0 +1,22 @@
+{
+  "name": "Seoul to Busan",
+  "prizeMoney": 10000.0,
+  "duration": 14400000,
+  "numOfOpponents": 5,
+  "routes": [
+    {
+      "description": "Highway (via Daejeon)",
+      "distance": 325,
+      "straightness": 0.8,
+      "gradeVariation": 0.2,
+      "fuelStops":13
+    },
+    {
+      "description": "Highway (via Daegu)",
+      "distance": 320,
+      "straightness": 0.8,
+      "gradeVariation": 0.2,
+      "fuelStops":10
+    }
+  ]
+}

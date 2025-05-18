@@ -1,0 +1,29 @@
+{
+  "name": "Nairobi to Nakuru",
+  "prizeMoney": 10000.0,
+  "duration": 10800000,
+  "numOfOpponents": 5,
+  "routes": [
+    {
+      "description": "Lakeside Highway",
+      "distance": 165,
+      "straightness": 0.8,
+      "gradeVariation": 0.2,
+      "fuelStops":11
+    },
+    {
+      "description": "Back Roads",
+      "distance": 150,
+      "straightness": 0.7,
+      "gradeVariation": 0.1,
+      "fuelStops":10
+    },
+    {
+      "description": "Off Road",
+      "distance": 140,
+      "straightness": 0.8,
+      "gradeVariation": 0.3,
+      "fuelStops":10
+    }
+  ]
+}
