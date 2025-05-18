@@ -1,0 +1,29 @@
+{
+  "name": "Tampa to Miami",
+  "prizeMoney": 5000.0,
+  "duration": 10800000,
+  "numOfOpponents": 5,
+  "routes": [
+    {
+      "description": "Western Highway (via Fort Myers)",
+      "distance": 450,
+      "straightness": 0.7,
+      "gradeVariation": 0.1,
+      "fuelStops":15
+    },
+    {
+      "description": "Off road",
+      "distance": 390,
+      "straightness": 1,
+      "gradeVariation": 0.4,
+      "fuelStops":10
+    },
+    {
+      "description": "Eastern Highway",
+      "distance": 450,
+      "straightness": 0.8,
+      "gradeVariation": 0,
+      "fuelStops":15
+    }
+  ]
+}

@@ -6,14 +6,14 @@
   "routes": [
     {
       "description": "Desert path",
-      "distance": "200",
+      "distance": 200,
       "straightness": 0.9,
       "gradeVariation": 0.6,
       "fuelStops":3
     },
     {
       "description": "Highway",
-      "distance": "250",
+      "distance": 250,
       "straightness": 0.8,
       "gradeVariation": 0.2,
       "fuelStops":8
