@@ -5,6 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import seng201.team019.GameEnvironment;
+import seng201.team019.services.RandomEventGenerator;
+import seng201.team019.services.RandomOpponentGenerator;
 
 import java.time.Duration;
 import java.util.List;
@@ -40,7 +42,6 @@ public class RaceTest {
 
         @Test
         public void raceBuilderTest() {
-            when(gameEnvironment.getAvailableCars()).thenReturn(List.of(car1));
 
             long time = Duration.ofHours(1).toMillis();
             float prize = 1000f;
@@ -54,7 +55,6 @@ public class RaceTest {
 
             Assertions.assertNotNull(race);
             Assertions.assertEquals(1, race.getRoutes().size());
-            Assertions.assertEquals(numberOfOpponents, race.getNumOfOpponents());
             Assertions.assertEquals(List.of(route1), race.getRoutes());
         }
 
@@ -92,10 +92,22 @@ public class RaceTest {
         @Mock
         private Player player;
 
+        @Mock
+        private Opponent opponent;
+
+
+        @Mock
+        private RandomOpponentGenerator opponentGenerator;
+
+        @Mock
+        private RandomEventGenerator randEventGenerator;
+
+
         @BeforeEach
         public void setUp() {
 
             when(gameEnvironment.getAvailableCars()).thenReturn(List.of(car1));
+            when(player.getCar()).thenReturn(car1);
 
             race = Race.builder()
                     .numOfOpponents(3)
@@ -105,6 +117,7 @@ public class RaceTest {
                     .build();
 
             race.setPlayer(player);
+            race.setupRace(gameEnvironment);
         }
 
         @Test

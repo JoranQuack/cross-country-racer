@@ -111,7 +111,7 @@ public class PlayerTest {
 
         float distance = 50f;
         long time = Duration.ofHours(1).toMillis();
-        double expectedFuelLevel = player.getFuelAmount() - car.getFuelConsumption() * distance / 100;
+        double expectedFuelLevel = player.getFuelAmount() - car.getFuelConsumption() * distance / 100 * Player.FUEL_DRAIN_MULTIPLIER;
 
         player.updateStats(distance, time);
 
