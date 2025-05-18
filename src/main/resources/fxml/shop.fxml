@@ -367,7 +367,7 @@
                 <content>
                     <ScrollPane hbarPolicy="NEVER" minViewportHeight="200.0" minViewportWidth="200.0" prefHeight="400.0" prefViewportHeight="200.0" prefViewportWidth="200.0" prefWidth="526.0" styleClass="shop-scroll-pane">
                       <content>
-                        <GridPane maxWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" styleClass="shop-pane">
+                        <GridPane maxWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" styleClass="shop-pane">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -383,7 +383,7 @@
                                 <ColumnConstraints />
                               </columnConstraints>
                               <rowConstraints>
-                                <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="90.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                                 <RowConstraints vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                 <RowConstraints vgrow="SOMETIMES" />
@@ -392,7 +392,7 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                               </GridPane.margin>
                               <children>
-                                <ImageView fx:id="part0Image" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                                <ImageView fx:id="part0Image" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                                 <Label fx:id="part0NameLabel" text="part0 name" GridPane.rowIndex="1" />
                                 <GridPane GridPane.rowIndex="3">
                                   <columnConstraints>
@@ -425,7 +425,7 @@
                                 <ColumnConstraints />
                               </columnConstraints>
                               <rowConstraints>
-                                <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="90.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                                 <RowConstraints vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                 <RowConstraints vgrow="SOMETIMES" />
@@ -434,7 +434,7 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                               </GridPane.margin>
                               <children>
-                                <ImageView fx:id="part1Image" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                                <ImageView fx:id="part1Image" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                                 <Label fx:id="part1NameLabel" text="part1 name" GridPane.rowIndex="1" />
                                 <GridPane GridPane.rowIndex="3">
                                   <columnConstraints>
@@ -467,7 +467,7 @@
                                 <ColumnConstraints />
                               </columnConstraints>
                               <rowConstraints>
-                                <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="90.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                                 <RowConstraints vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                 <RowConstraints vgrow="SOMETIMES" />
@@ -476,7 +476,7 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                               </GridPane.margin>
                               <children>
-                                <ImageView fx:id="part2Image" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                                <ImageView fx:id="part2Image" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                                 <Label fx:id="part2NameLabel" text="part2 name" GridPane.rowIndex="1" />
                                 <GridPane GridPane.rowIndex="3">
                                   <columnConstraints>
