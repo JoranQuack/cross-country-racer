@@ -102,6 +102,10 @@ public class Race {
         return routes;
     }
 
+    public long getDuration() {
+        return duration;
+    }
+
     public boolean incrementRaceTime(long delta) {
         if (raceTime + delta >= duration) {
             raceTime = duration;

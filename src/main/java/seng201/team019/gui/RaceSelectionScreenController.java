@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
+import seng201.team019.services.TimeFormatter;
 
 import java.util.List;
 
@@ -79,6 +80,8 @@ public class RaceSelectionScreenController extends ScreenController {
         hBox.setPadding(new Insets(5));
         hBox.getStyleClass().add("RaceListElement");
 
+        TimeFormatter timeFormatter = new TimeFormatter();
+
         VBox vBox = new VBox(8);
         vBox.setStyle("-fx-background-color: transparent;");
         Label nameLabel = new Label(race.getName() + (race.isCompleted() ? " (Completed)" : ""));
@@ -87,6 +90,7 @@ public class RaceSelectionScreenController extends ScreenController {
 
         vBox.getChildren().addAll(
                 nameLabel,
+                new Label(String.format("Duration: %s", timeFormatter.formatTimeShort(race.getDuration()))),
                 new Label(String.format("Opponents: %s", race.getNumOfOpponents())),
                 new Label(String.format("prize money: $%.2f", race.getPrizeMoney())),
                 new Label(String.format("Number of routes: %s", race.getRoutes().size()))

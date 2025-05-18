@@ -15,7 +15,7 @@
       "description": "Off road",
       "distance": 600,
       "straightness": 0.4,
-      "gradeVariation": 0.6,
+      "gradeVariation": 0.4,
       "fuelStops":6
     }
   ]
