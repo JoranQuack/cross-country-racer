@@ -16,11 +16,11 @@ public class Route {
     private final int fuelStops;
 
     @JsonCreator
-    public Route(@JsonProperty("description") String description,
-            @JsonProperty("distance") float distance,
-            @JsonProperty("straightness") double straightness,
-            @JsonProperty("gradeVariation") double gradeVariation,
-            @JsonProperty("fuelStops") int fuelStops) {
+    public Route(@JsonProperty(value = "description", required = true) String description,
+                 @JsonProperty(value = "distance", required = true) float distance,
+                 @JsonProperty(value = "straightness", required = true) double straightness,
+                 @JsonProperty(value = "gradeVariation", required = true) double gradeVariation,
+                 @JsonProperty(value = "fuelStops", required = true) int fuelStops) {
         // TODO: add validation for params
         this.description = description;
         this.distance = distance;
@@ -45,7 +45,7 @@ public class Route {
      * @return distance between each fuel stop.
      */
     public float getDistanceBetweenFuelStops() {
-        return distance / ((float) fuelStops+1);
+        return distance / ((float) fuelStops + 1);
     }
 
     /**

@@ -139,9 +139,9 @@ public class Race {
             if (racer.isFinished() || racer.didDNF())
                 continue;
             racer.setIsFinished(true, duration);
-            if (racer instanceof Player){
+            if (racer instanceof Player) {
                 // cast to Player to get access to overloaded setDidDnfMethod
-                ((Player)racer).setDidDNF(true,"Player ran out of time");
+                ((Player) racer).setDidDNF(true, "Player ran out of time");
             } else {
                 racer.setDidDNF(true);
             }
@@ -192,15 +192,15 @@ public class Race {
     }
 
     public static class Builder {
-        @JsonProperty("name")
+        @JsonProperty(value="name",required = true)
         private String name;
         @JsonProperty("routes")
         private List<Route> routes = new ArrayList<>();
-        @JsonProperty("prizeMoney")
+        @JsonProperty(value="prizeMoney",required = true)
         private float prizeMoney;
-        @JsonProperty("duration")
+        @JsonProperty(value="duration",required = true)
         private long duration;
-        @JsonProperty("numOfOpponents")
+        @JsonProperty(value="numOfOpponents",required = true)
         private int numOfOpponents;
 
         public Builder name(String name) {

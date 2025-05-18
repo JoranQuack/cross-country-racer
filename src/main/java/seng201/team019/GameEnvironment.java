@@ -127,7 +127,7 @@ public class GameEnvironment {
      * Initializes races by reading from JSON files.
      */
     public void initializeRaces() {
-        JsonRaceDeserializer jsonRaceDeserializer = new JsonRaceDeserializer(this);
+        JsonRaceDeserializer jsonRaceDeserializer = new JsonRaceDeserializer();
 
         // TODO: Look into making this not hard coded looked into it but ran into
         // problems when running as jar because of paths

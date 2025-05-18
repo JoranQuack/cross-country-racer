@@ -46,7 +46,6 @@ public class RaceTest {
             float prize = 1000f;
             int numberOfOpponents = 3;
 
-            raceBuilder.withGameEnvironment(gameEnvironment);
             raceBuilder.duration(time);
             raceBuilder.prizeMoney(prize);
             raceBuilder.addRoute(route1);
@@ -66,13 +65,11 @@ public class RaceTest {
 
         @Test
         public void raceBuilderWithNoRoutes() {
-            raceBuilder.withGameEnvironment(gameEnvironment);
             Assertions.assertThrows(IllegalStateException.class, () -> raceBuilder.build());
         }
 
         @Test
         public void raceBuilderWithNullPrizeMoney() {
-            raceBuilder.withGameEnvironment(gameEnvironment);
             raceBuilder.addRoute(route1);
 
             Assertions.assertThrows(IllegalStateException.class, () -> raceBuilder.build());
@@ -80,7 +77,6 @@ public class RaceTest {
 
         @Test
         public void raceBuilderWithNullDuration() {
-            raceBuilder.withGameEnvironment(gameEnvironment);
             raceBuilder.addRoute(route1);
             raceBuilder.prizeMoney(1000f);
 
@@ -102,7 +98,6 @@ public class RaceTest {
             when(gameEnvironment.getAvailableCars()).thenReturn(List.of(car1));
 
             race = Race.builder()
-                    .withGameEnvironment(gameEnvironment)
                     .numOfOpponents(3)
                     .prizeMoney(1000f)
                     .duration(Duration.ofHours(4).toMillis())

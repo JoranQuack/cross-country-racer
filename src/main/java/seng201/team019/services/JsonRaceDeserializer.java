@@ -9,11 +9,9 @@ import java.io.InputStream;
 
 public class JsonRaceDeserializer {
     ObjectMapper objectMapper;
-    GameEnvironment gameEnvironment;
 
-    public JsonRaceDeserializer(GameEnvironment gameEnvironment) {
+    public JsonRaceDeserializer() {
         objectMapper = new ObjectMapper();
-        this.gameEnvironment = gameEnvironment;
     }
 
     public InputStream readJsonRaceFile(String jsonFileName) throws IOException, NullPointerException {

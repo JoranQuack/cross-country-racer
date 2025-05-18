@@ -1,6 +1,7 @@
 package seng201.team019.services;
 
 
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,7 @@ public class JsonRaceDeserializerTest {
     @BeforeEach
     public void setUp() {
 
-        jsonRaceDeserializer = new JsonRaceDeserializer(gameEnvironment);
+        jsonRaceDeserializer = new JsonRaceDeserializer();
     }
 
     @Test
@@ -57,7 +58,6 @@ public class JsonRaceDeserializerTest {
 
     @Test
     public void readRaceFromInputStreamTest() throws IOException {
-        when(gameEnvironment.getAvailableCars()).thenReturn(List.of(car1));
         String testfile = "/data/races/complete_race_data.json";
         try (InputStream is = jsonRaceDeserializer.readJsonRaceFile(testfile)) {
             Race race = jsonRaceDeserializer.readRaceFromInputStream(is);
@@ -87,21 +87,7 @@ public class JsonRaceDeserializerTest {
     @Test
     @DisplayName("Test Json file with incomplete Race data")
     public void readJsonRaceFileIncompleteFileTest1() throws IOException {
-        String testfile = "/data/races/missing_route_fields_race_data.json"; //this Doesnt exist
-
-        try (InputStream is = jsonRaceDeserializer.readJsonRaceFile(testfile);) {
-            Assertions.assertThrows(IllegalArgumentException.class, () -> {
-                jsonRaceDeserializer.readRaceFromInputStream(is);
-            });
-        } catch (IOException e) {
-            throw new IOException(e);
-        }
-    }
-
-    @Test
-    @DisplayName("Test Json file with incomplete Route data")
-    public void readJsonRaceFileIncompleteFileTest2() throws IOException {
-        String testfile = "/data/races/missing_fields_race_data.json"; //this Doesnt exist
+        String testfile = "/data/races/missing_fields_race_data.json"; // this is missing race data
 
         try (InputStream is = jsonRaceDeserializer.readJsonRaceFile(testfile);) {
             Assertions.assertThrows(IllegalStateException.class, () -> {
@@ -113,9 +99,23 @@ public class JsonRaceDeserializerTest {
     }
 
     @Test
+    @DisplayName("Test Json file with incomplete Route data")
+    public void readJsonRaceFileIncompleteFileTest2() throws IOException {
+        String testfile = "/data/races/missing_route_fields_race_data.json"; // this is missing route data
+
+        try (InputStream is = jsonRaceDeserializer.readJsonRaceFile(testfile);) {
+            Assertions.assertThrows(MismatchedInputException.class, () -> {
+                jsonRaceDeserializer.readRaceFromInputStream(is);
+            });
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+    }
+
+    @Test
     @DisplayName("Test Json file with Additional Race data")
     public void readJsonRaceFileAdditionalRaceFieldsTest1() throws IOException {
-        String testfile = "/data/races/additional_fields_race_data.json"; //this Doesnt exist
+        String testfile = "/data/races/additional_fields_race_data.json"; // this has additional fields
 
         try (InputStream is = jsonRaceDeserializer.readJsonRaceFile(testfile);) {
             Assertions.assertThrows(UnrecognizedPropertyException.class, () -> {
@@ -129,10 +129,10 @@ public class JsonRaceDeserializerTest {
     @Test
     @DisplayName("Test Json file with Additional Route data")
     public void readJsonRaceFileAdditionalRaceFieldsTest2() throws IOException {
-        String testfile = "/data/races/additional_route_fields_race_data.json"; //this Doesnt exist
+        String testfile = "/data/races/additional_route_fields_race_data.json";
 
         try (InputStream is = jsonRaceDeserializer.readJsonRaceFile(testfile);) {
-            Assertions.assertThrows(UnrecognizedPropertyException.class, () -> {
+            Assertions.assertThrows(MismatchedInputException.class, () -> {
                 jsonRaceDeserializer.readRaceFromInputStream(is);
             });
         } catch (IOException e) {
