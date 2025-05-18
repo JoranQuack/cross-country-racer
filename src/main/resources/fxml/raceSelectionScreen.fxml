@@ -2,12 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team019.gui.RaceSelectionScreenController">
    <children>
@@ -30,6 +32,11 @@
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin></Button>
+            <CheckBox fx:id="raceSelectionHideCompleted" mnemonicParsing="false" selected="true" text="Hide completed">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </CheckBox>
          </children>
          <opaqueInsets>
             <Insets />

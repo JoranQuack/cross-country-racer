@@ -277,6 +277,21 @@ ScrollPane .viewport {
     -fx-opacity: 0.8;
 }
 
+CheckBox {
+    -fx-text-fill: #FBFEFD;
+}
+
+CheckBox .box {
+    -fx-border-color: #FBFEFD;
+    -fx-background-color: #252432;
+    -fx-border-radius: 5;
+}
+
+CheckBox:selected .mark {
+    -fx-background-color: #FBFEFD;
+}
+
+
 .race-leaderboard {
     -fx-background-color: #3A3956;
     -fx-border-color: #3A3956;
