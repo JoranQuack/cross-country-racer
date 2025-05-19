@@ -42,7 +42,7 @@ public class Race {
 
     public void setupRace(GameEnvironment gameEnvironment) {
         // setup random opponents
-        RandomOpponentGenerator randOpponentGenerator = new RandomOpponentGenerator(gameEnvironment,this, routes,OPPONENT_DNF_PERCENTAGE);
+        RandomOpponentGenerator randOpponentGenerator = new RandomOpponentGenerator(gameEnvironment,this, routes, OPPONENT_DNF_PERCENTAGE);
         opponentCars = new ArrayList<>();
         for (int i = 0; i < numOfOpponents; i++) {
             opponentCars.add(randOpponentGenerator.generateRandomOpponent());

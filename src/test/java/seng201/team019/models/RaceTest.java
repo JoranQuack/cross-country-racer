@@ -12,6 +12,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -19,9 +20,6 @@ public class RaceTest {
 
     @Mock
     private Route route1;
-
-    @Mock
-    private Car car1;
 
     @Mock
     private GameEnvironment gameEnvironment;
@@ -56,11 +54,6 @@ public class RaceTest {
         }
 
         @Test
-        public void raceBuilderWithNullGameEnvironment() {
-            Assertions.assertThrows(IllegalStateException.class, () -> raceBuilder.build());
-        }
-
-        @Test
         public void raceBuilderWithNoRoutes() {
             Assertions.assertThrows(IllegalStateException.class, () -> raceBuilder.build());
         }
@@ -90,19 +83,15 @@ public class RaceTest {
         private Player player;
 
         @Mock
-        private Opponent opponent;
+        private Car car1;
 
-        @Mock
-        private RandomOpponentGenerator opponentGenerator;
-
-        @Mock
-        private RandomEventGenerator randEventGenerator;
 
         @BeforeEach
         public void setUp() {
 
             when(gameEnvironment.getAvailableCars()).thenReturn(List.of(car1));
-            when(player.getCar()).thenReturn(car1);
+            // This is lenient because not used in all tests but used in setup
+            lenient().when(player.getCar()).thenReturn(car1);
 
             race = Race.builder()
                     .numOfOpponents(3)

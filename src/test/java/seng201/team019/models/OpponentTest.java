@@ -62,6 +62,19 @@ public class OpponentTest {
     }
 
     @Test
+    public void updateStatsTestDNF() {
+        when(route.getDistance()).thenReturn(100f);
+        opponent.setIsGoingToDNF(Duration.ofMinutes(30).toMillis(),true);
+
+        float distance = route.getDistance() + 10;
+        long time = Duration.ofHours(1).toMillis();
+
+        opponent.updateStats(distance, time);
+
+        Assertions.assertTrue(opponent.didDNF());
+    }
+
+    @Test
     public void updateStatsTest() {
         when(route.getDistance()).thenReturn(100f);
 
