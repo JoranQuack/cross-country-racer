@@ -30,6 +30,7 @@ public class RaceFinishScreenController extends ScreenController {
         }
         raceFinishedProfitLabel.setText(String.format("$%.2f", race.getPlayerProfit()));
         getGameEnvironment().updateTotalPrizeMoney(race.getPlayerProfit());
+        getGameEnvironment().updateAveragePlacing(pos);
     }
 
     @FXML

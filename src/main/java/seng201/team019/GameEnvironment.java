@@ -293,10 +293,10 @@ public class GameEnvironment {
         incrementRacesCompleted();
     }
 
-    public void updateAveragePlacing(Double placing) {
+    public void updateAveragePlacing(int placing) {
         if (averagePlacing == 0) {
-            averagePlacing = placing;
-        } else {
+            averagePlacing = (double) placing;
+        } else if (placing > 0) {
             averagePlacing = (averagePlacing * (racesCompleted - 1) + placing) / racesCompleted;
         }
     }
@@ -308,7 +308,6 @@ public class GameEnvironment {
     public void setAvailableCars(List<Car> availableCars) {
         this.availableCars = availableCars;
     }
-
 
     // Getters and Setters for the GameEnvironment class
     public List<Car> getAvailableCars() {
