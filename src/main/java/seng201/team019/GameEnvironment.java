@@ -143,6 +143,20 @@ public class GameEnvironment {
     }
 
     /**
+     * Gets all upgrades that are applied to cars in the game.
+     */
+    public List<Upgrade> getAllPlayerUpgrades() {
+        List<Upgrade> allUpgrades = new ArrayList<Upgrade>();
+        for (Car car : garage) {
+            allUpgrades.addAll(car.getUpgrades());
+        }
+        for (Car car : availableCars) {
+            allUpgrades.addAll(car.getUpgrades());
+        }
+        return allUpgrades;
+    }
+
+    /**
      * Refresh the available cars and upgrades lists to randomise their order.
      */
     public void refreshShop() {
@@ -160,6 +174,7 @@ public class GameEnvironment {
         List<Upgrade> unusedUpgrades = new ArrayList<Upgrade>();
         unusedUpgrades.addAll(allUpgrades);
         unusedUpgrades.removeAll(ownUpgrades);
+        unusedUpgrades.removeAll(getAllPlayerUpgrades());
         Collections.shuffle(unusedUpgrades, new Random());
 
         // Add a maximum of 3 cars and upgrades to the available lists
