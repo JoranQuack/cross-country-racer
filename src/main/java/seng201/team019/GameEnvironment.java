@@ -129,9 +129,6 @@ public class GameEnvironment {
     public void initializeRaces() {
         JsonRaceDeserializer jsonRaceDeserializer = new JsonRaceDeserializer();
 
-        // TODO: Look into making this not hard coded looked into it but ran into
-        // problems when running as jar because of paths
-
         for (String raceFileName : RACE_FILE_NAMES) {
             try {
                 InputStream is = jsonRaceDeserializer.readJsonRaceFile(raceFileName);

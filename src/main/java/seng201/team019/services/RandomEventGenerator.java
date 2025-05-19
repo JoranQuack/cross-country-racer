@@ -12,8 +12,7 @@ public class RandomEventGenerator {
     private final Random rand = new Random();
 
     public boolean raceHasRandomEvent(float percentage) {
-        // TODO: implement this
-        return true;
+        return rand.nextDouble() <= percentage;
     }
 
     public RandomEvent generateRandomEvent(Race race) {

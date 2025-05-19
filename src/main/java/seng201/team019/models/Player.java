@@ -28,8 +28,6 @@ public class Player extends Racer {
         return fuelAmount;
     }
 
-    // TODO: Max fuel level check. with error throw? also may need fuel Relative
-    // level.
     public void setFuelAmount(double fuelAmount) {
         this.fuelAmount = max(List.of(fuelAmount, 0d));
     }

@@ -26,7 +26,6 @@ public class Route {
             @JsonProperty(value = "straightness", required = true) double straightness,
             @JsonProperty(value = "gradeVariation", required = true) double gradeVariation,
             @JsonProperty(value = "fuelStops", required = true) int fuelStops) {
-        // TODO: add validation for params
         this.description = description;
         this.distance = distance;
         this.straightness = straightness;

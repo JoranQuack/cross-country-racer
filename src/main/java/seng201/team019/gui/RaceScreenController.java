@@ -128,9 +128,6 @@ public class RaceScreenController extends ScreenController {
             race.getPlayer().setIsRefuelingNextStop(true);
         });
 
-        // TODO: Add functionality for this to button to be activated if race is over
-        // consider override the stop method of animation timer with a super and an if
-        // statement to check if finished
         raceContinueButton.setOnAction(event -> {
             getGameEnvironment().applyRaceOutcome(race.getPlayerProfit());
             race.setCompleted(true);
