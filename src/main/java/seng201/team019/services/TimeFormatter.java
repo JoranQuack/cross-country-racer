@@ -14,4 +14,15 @@ public class TimeFormatter {
         return String.format("%02d:%02d:%02d.%03d", duration.toHoursPart(), duration.toMinutesPart(),
                 duration.toSecondsPart(), duration.toMillisPart());
     }
+
+    /**
+     * Returns nice string of a time in milliseconds
+     *
+     * @param time is the time in milliseconds
+     * @return formatted string with hrs:min
+     */
+    public String formatTimeShort(long time) {
+        Duration duration = Duration.ofMillis(time);
+        return String.format("%d:%02d", duration.toHoursPart(), duration.toMinutesPart());
+    }
 }

@@ -1,0 +1,22 @@
+{
+  "name": "Dubai to Abu Dhabi",
+  "prizeMoney": 10000.0,
+  "duration": 7200000 ,
+  "numOfOpponents": 5,
+  "routes": [
+    {
+      "description": "Desert",
+      "distance": 100,
+      "straightness": 1,
+      "gradeVariation": 0.3,
+      "fuelStops":1
+    },
+    {
+      "description": "Highway",
+      "distance": 130,
+      "straightness": 0.8,
+      "gradeVariation": 0.1,
+      "fuelStops":13
+    }
+  ]
+}

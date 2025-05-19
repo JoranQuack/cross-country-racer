@@ -1,20 +1,20 @@
 {
-  "prizeMoney": 50000.0,
+  "name": "Alexandria to Cairo",
+  "prizeMoney": 15000.0,
   "duration": 10800000,
-  "numOfOpponents": 3,
+  "numOfOpponents": 5,
   "routes": [
     {
-      "description": "Route 1",
-      "distance": "800",
-      "straightness": 0.7,
-      "gradeVariation": 0,
-      "fuelStops":10
+      "description": "Desert path",
+      "distance": 200,
+      "straightness": 0.9,
+      "gradeVariation": 0.6,
+      "fuelStops":3
     },
     {
-      "description": "Route 2",
-      "distance": "200",
-      "straightness": 0.4,
-      "gradeVariation": 0.5,
+      "distance": 250,
+      "straightness": 0.8,
+      "gradeVariation": 0.2,
       "fuelStops":8
     }
   ]

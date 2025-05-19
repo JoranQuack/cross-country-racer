@@ -1,4 +1,6 @@
+
 {
+  "name": "Test",
   "prizeMoney": 100,
   "numOfOpponents": 3,
   "routes": [

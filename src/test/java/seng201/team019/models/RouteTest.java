@@ -9,7 +9,7 @@ public class RouteTest {
 
     @BeforeEach
     public void setUp() {
-        route = new Route("Route", 100, 0.5, 0.5, 10);
+        route = new Route("Route", 100, 0.5, 0.5, 9);
     }
 
     @Test

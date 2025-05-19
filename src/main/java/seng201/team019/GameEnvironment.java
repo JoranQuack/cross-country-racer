@@ -16,6 +16,26 @@ import java.util.Random;
 
 public class GameEnvironment {
 
+    public static final String[] RACE_FILE_NAMES = {
+            "/data/races/race1.json",
+            "/data/races/race2.json",
+            "/data/races/race3.json",
+            "/data/races/race4.json",
+            "/data/races/race6.json",
+            "/data/races/race7.json",
+            "/data/races/race8.json",
+            "/data/races/race9.json",
+            "/data/races/race10.json",
+            "/data/races/race11.json",
+            "/data/races/race12.json",
+            "/data/races/race13.json",
+            "/data/races/race14.json",
+            "/data/races/race15.json",
+    };
+
+    private static final String UPGRADE_FILE_NAME = "/data/upgrades.csv";
+    private static final String CARS_FILE_NAME = "/data/cars.csv";
+
     private final ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
 
     private List<Car> garage = new ArrayList<Car>(); // List of cars owned by the player
@@ -90,7 +110,7 @@ public class GameEnvironment {
      */
     public void initializeCars() {
         CSVReader reader = new CSVReader();
-        allCars = reader.readCSV("/data/cars.csv", CSVReader.carParser);
+        allCars = reader.readCSV(CARS_FILE_NAME, CSVReader.carParser);
         availableCars = new ArrayList<Car>(allCars.subList(0, 3));
     }
 
@@ -99,7 +119,7 @@ public class GameEnvironment {
      */
     public void initializeUpgrades() {
         CSVReader reader = new CSVReader();
-        allUpgrades = reader.readCSV("/data/upgrades.csv", CSVReader.upgradeParser);
+        allUpgrades = reader.readCSV(UPGRADE_FILE_NAME, CSVReader.upgradeParser);
         availableUpgrades = new ArrayList<Upgrade>(allUpgrades.subList(0, 3));
     }
 
@@ -107,16 +127,12 @@ public class GameEnvironment {
      * Initializes races by reading from JSON files.
      */
     public void initializeRaces() {
-        JsonRaceDeserializer jsonRaceDeserializer = new JsonRaceDeserializer(this);
+        JsonRaceDeserializer jsonRaceDeserializer = new JsonRaceDeserializer();
 
         // TODO: Look into making this not hard coded looked into it but ran into
         // problems when running as jar because of paths
-        String[] raceFileNames = {
-                "/data/races/race1.json",
-                "/data/races/race2.json"
-        };
 
-        for (String raceFileName : raceFileNames) {
+        for (String raceFileName : RACE_FILE_NAMES) {
             try {
                 InputStream is = jsonRaceDeserializer.readJsonRaceFile(raceFileName);
                 races.add(jsonRaceDeserializer.readRaceFromInputStream(is));

@@ -1,0 +1,22 @@
+{
+  "name": "Los Angeles to San Francisco",
+  "prizeMoney": 30000.0,
+  "duration": 25200000,
+  "numOfOpponents": 5,
+  "routes": [
+    {
+      "description": "Inland Highway",
+      "distance": 600,
+      "straightness": 0.8,
+      "gradeVariation": 0.6,
+      "fuelStops":15
+    },
+    {
+      "description": "Coastal Highway",
+      "distance": 600,
+      "straightness": 0.6,
+      "gradeVariation": 0.8,
+      "fuelStops":20
+    }
+  ]
+}

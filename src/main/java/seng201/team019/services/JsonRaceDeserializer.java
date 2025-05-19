@@ -1,7 +1,6 @@
 package seng201.team019.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
 
 import java.io.IOException;
@@ -9,11 +8,9 @@ import java.io.InputStream;
 
 public class JsonRaceDeserializer {
     ObjectMapper objectMapper;
-    GameEnvironment gameEnvironment;
 
-    public JsonRaceDeserializer(GameEnvironment gameEnvironment) {
+    public JsonRaceDeserializer() {
         objectMapper = new ObjectMapper();
-        this.gameEnvironment = gameEnvironment;
     }
 
     public InputStream readJsonRaceFile(String jsonFileName) throws IOException, NullPointerException {

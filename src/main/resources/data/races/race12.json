@@ -1,0 +1,22 @@
+{
+  "name": "Tokyo to Nagoya",
+  "prizeMoney": 20000.0,
+  "duration": 14400000 ,
+  "numOfOpponents": 3,
+  "routes": [
+    {
+      "description": "Mountain Pass",
+      "distance": 300,
+      "straightness": 0.9,
+      "gradeVariation": 0.4,
+      "fuelStops":8
+    },
+    {
+      "description": "Highway (via Shizuoka)",
+      "distance": 350,
+      "straightness": 0.8,
+      "gradeVariation": 0.2,
+      "fuelStops":10
+    }
+  ]
+}

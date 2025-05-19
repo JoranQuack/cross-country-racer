@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class Race {
     private final static float RANDOM_EVENT_PERCENTAGE = 0.6f;
 
-
+    private final String name;
     private final List<Route> routes;
     private final float prizeMoney;
     private final long duration;
@@ -32,6 +32,7 @@ public class Race {
     RandomEvent selectedEvent = null;
 
     public Race(Builder builder) {
+        this.name = builder.name;
         this.routes = builder.routes;
         this.prizeMoney = builder.prizeMoney;
         this.numOfOpponents = builder.numOfOpponents;
@@ -73,6 +74,10 @@ public class Race {
         return selectedEvent;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -95,6 +100,10 @@ public class Race {
 
     public List<Route> getRoutes() {
         return routes;
+    }
+
+    public long getDuration() {
+        return duration;
     }
 
     public boolean incrementRaceTime(long delta) {
@@ -130,9 +139,9 @@ public class Race {
             if (racer.isFinished() || racer.didDNF())
                 continue;
             racer.setIsFinished(true, duration);
-            if (racer instanceof Player){
+            if (racer instanceof Player) {
                 // cast to Player to get access to overloaded setDidDnfMethod
-                ((Player)racer).setDidDNF(true,"Player ran out of time");
+                ((Player) racer).setDidDNF(true, "Player ran out of time");
             } else {
                 racer.setDidDNF(true);
             }
@@ -140,10 +149,7 @@ public class Race {
     }
 
     public boolean isRaceFinished() {
-        if (getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished)) {
-            return true;
-        }
-        return false;
+        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished);
     }
 
     public List<Racer> getOrderedRacers() {
@@ -169,7 +175,8 @@ public class Race {
         }
 
         int opponentsThatFinished = (int) getRacers().stream().filter(racer -> !racer.didDNF()).count();
-        return (float) (opponentsThatFinished + 1 - getPlayerFinishedPosition()) / (float) opponentsThatFinished * getPrizeMoney();
+        return (float) (opponentsThatFinished + 1 - getPlayerFinishedPosition()) / (float) opponentsThatFinished
+                * getPrizeMoney();
     }
 
     public boolean isCompleted() {
@@ -180,20 +187,26 @@ public class Race {
         this.isCompleted = isCompleted;
     }
 
-
     public static Builder builder() {
         return new Builder();
     }
 
     public static class Builder {
+        @JsonProperty(value = "name", required = true)
+        private String name;
         @JsonProperty("routes")
         private List<Route> routes = new ArrayList<>();
-        @JsonProperty("prizeMoney")
+        @JsonProperty(value = "prizeMoney", required = true)
         private float prizeMoney;
-        @JsonProperty("duration")
+        @JsonProperty(value = "duration", required = true)
         private long duration;
-        @JsonProperty("numOfOpponents")
+        @JsonProperty(value = "numOfOpponents", required = true)
         private int numOfOpponents;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
 
         public Builder prizeMoney(float prizeMoney) {
             this.prizeMoney = prizeMoney;
@@ -221,6 +234,9 @@ public class Race {
         }
 
         public Race build() {
+            if (name == null) {
+                name = "Race!"; // give default name
+            }
             if (routes.isEmpty()) {
                 throw new IllegalStateException("Race has no routes.");
             }

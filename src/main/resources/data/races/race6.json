@@ -1,0 +1,22 @@
+{
+  "name": "New York City to  Washington D.C.",
+  "prizeMoney": 20000.0,
+  "duration": 14400000,
+  "numOfOpponents": 3,
+  "routes": [
+    {
+      "description": "Highway",
+      "distance": 330,
+      "straightness": 0.5,
+      "gradeVariation": 0.6,
+      "fuelStops":15
+    },
+    {
+      "description": "Back roads",
+      "distance": 185,
+      "straightness": 0.8,
+      "gradeVariation": 0.5,
+      "fuelStops":5
+    }
+  ]
+}

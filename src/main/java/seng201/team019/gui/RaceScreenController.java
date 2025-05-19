@@ -7,7 +7,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -19,14 +22,12 @@ import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Racer;
 import seng201.team019.models.RandomEvent;
-import seng201.team019.models.Route;
 import seng201.team019.services.TimeFormatter;
 
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 /**
  * Controller for the raceScreen.fxml window
@@ -67,10 +68,10 @@ public class RaceScreenController extends ScreenController {
     private Button raceSpeedMultiplierOne;
 
     @FXML
-    private Button raceSpeedMultiplierTen;
+    private Button raceSpeedMultiplierHundred;
 
     @FXML
-    private Button raceSpeedMultiplierHundred;
+    private Button raceSpeedMultiplierFiveHundred;
 
     @FXML
     private Button raceStartButton;
@@ -145,11 +146,11 @@ public class RaceScreenController extends ScreenController {
             gameSpeedMultiplier = 1;
             toggleGameSpeedMultiplierButtons();
         });
-        raceSpeedMultiplierTen.setOnAction((event) -> {
+        raceSpeedMultiplierHundred.setOnAction((event) -> {
             gameSpeedMultiplier = 100;
             toggleGameSpeedMultiplierButtons();
         });
-        raceSpeedMultiplierHundred.setOnAction((event) -> {
+        raceSpeedMultiplierFiveHundred.setOnAction((event) -> {
             gameSpeedMultiplier = 500;
             toggleGameSpeedMultiplierButtons();
         });
@@ -166,8 +167,13 @@ public class RaceScreenController extends ScreenController {
         racePlayerProgressLabel.setText(String.format("%.0f%%",
                 100 * race.getPlayer().getRoute().normalizeDistance(race.getPlayer().getDistance())));
         racePlayerFuelLabel.setText(String.format("%.1f", race.getPlayer().getNormalizedFuelAmount() * 100));
-        racePlayerDistanceToFuelLabel.setText(String.format("%.2fKM",
-                race.getPlayer().getRoute().getDistanceToNextFuelStop(race.getPlayer().getDistance())));
+
+        double distanceToFuel = race.getPlayer().getRoute().getDistanceToNextFuelStop(race.getPlayer().getDistance());
+        if (distanceToFuel == -1) {
+            racePlayerDistanceToFuelLabel.setText("N/A");
+        } else {
+            racePlayerDistanceToFuelLabel.setText(String.format("%.2fKM", distanceToFuel));
+        }
         racePlayerIsRefuelingLabel.setText(race.getPlayer().isRefuelingNextStop() ? "Yes" : "No");
         // Update race leaderboard
         renderRaceLeaderboard();
@@ -181,8 +187,8 @@ public class RaceScreenController extends ScreenController {
      */
     public void toggleGameSpeedMultiplierButtons() {
         raceSpeedMultiplierOne.setDisable(gameSpeedMultiplier == 1);
-        raceSpeedMultiplierTen.setDisable(gameSpeedMultiplier == 100);
-        raceSpeedMultiplierHundred.setDisable(gameSpeedMultiplier == 500);
+        raceSpeedMultiplierHundred.setDisable(gameSpeedMultiplier == 100);
+        raceSpeedMultiplierFiveHundred.setDisable(gameSpeedMultiplier == 500);
     }
 
     @Override
@@ -283,7 +289,7 @@ public class RaceScreenController extends ScreenController {
         raceProgressLineWrapper.getChildren().add(makeRaceProgressLineMarker(MarkerType.FINISH, 1));
 
         // set gas marker lines
-        for (int i = 1; i < race.getPlayer().getRoute().getFuelStopCount(); i++) {
+        for (int i = 1; i <= race.getPlayer().getRoute().getFuelStopCount(); i++) {
             float distance = race.getPlayer().getRoute()
                     .normalizeDistance(i * race.getPlayer().getRoute().getDistanceBetweenFuelStops());
             raceProgressLineWrapper.getChildren().add(makeRaceProgressLineMarker(MarkerType.FUEL_STOP, distance));
@@ -341,8 +347,8 @@ public class RaceScreenController extends ScreenController {
         // Create the text label
         FontIcon icon = markerType.getIcon();
         icon.setX(lineX - icon.getLayoutBounds().getWidth() / 2); // Center icon
-                                                                  // horizontally over the
-                                                                  // line
+        // horizontally over the
+        // line
 
         icon.setY(lineStartY - icon.getLayoutBounds().getHeight());
 
@@ -373,7 +379,7 @@ public class RaceScreenController extends ScreenController {
                 case PlayerBreaksDown: {
                     if (race.getPlayer().isFinished())
                         return; // player is finished cant break down
-                    boolean canAfford = getGameEnvironment().getBankBalance() > 1000;
+                    boolean canAfford = getGameEnvironment().getBankBalance() >= 1000;
 
                     Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
                     alert.getDialogPane().getStylesheets()
@@ -402,35 +408,6 @@ public class RaceScreenController extends ScreenController {
             gameLoop.start(); // Resume game
         });
 
-    }
-
-    public void triggerPlayerBreaksDownEvent(boolean canAfford, ButtonType result) {
-        if (canAfford && result == ButtonType.OK) {
-            getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 1000);
-        } else {
-            race.getPlayer().setDidDNF(true);
-        }
-    }
-
-    public void triggerPlayerStrandedTravelerEvent() {
-        // player is finished and cant pick anyone up
-        if (race.getPlayer().isFinished()) {
-            return;
-        }
-        getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() + 1000);
-    }
-
-    public Route triggerRouteWeatherEvent() {
-        Random rand = new Random();
-        Route disqualifiedRoute = rand.nextInt(race.getRoutes().size()) == 0
-                ? race.getRoutes().get(rand.nextInt(race.getRoutes().size()))
-                : race.getRoutes().getFirst();
-        for (Racer racer : race.getRacers()) {
-            if (racer.getRoute().equals(disqualifiedRoute) && !racer.isFinished()) {
-                racer.setDidDNF(true);
-            }
-        }
-        return disqualifiedRoute;
     }
 
     /**

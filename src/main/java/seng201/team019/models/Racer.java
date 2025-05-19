@@ -25,10 +25,15 @@ public abstract class Racer {
         didDNF = false;
     }
 
+    /**
+     * gets a random speed multiplier between 0.8 and 2.5
+     * 
+     * @return float between 0.8 and 2.5
+     */
     private static float getRandomSpeedMultiplier() {
-        // TODO: maybe make this its own service
+
         Random rand = new Random();
-        return (float) (0.8 + rand.nextFloat() * (2 - 0.8));
+        return (float) (0.8 + rand.nextFloat() * (2.5 - 0.8));
     }
 
     public abstract void updateStats(float distance, long time);
@@ -85,7 +90,6 @@ public abstract class Racer {
      * @return Distance traveled by the car in time.
      */
     public float simulateDriveByTime(long time) {
-        // TODO: think about putting this inside update stats.
         double velocity = getRoute().computeAverageSpeed(getCar());
         double randomizedVelocity = velocity * getRandomSpeedMultiplier();
         float timeInHours = time / (float) Duration.ofHours(1).toMillis();

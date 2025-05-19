@@ -1,0 +1,22 @@
+{
+  "name": "Rome to Milan",
+  "prizeMoney": 15000.0,
+  "duration": 14400000,
+  "numOfOpponents": 5,
+  "routes": [
+    {
+      "description": "Coastal Highway",
+      "distance": 580,
+      "straightness": 0.8,
+      "gradeVariation": 0.3,
+      "fuelStops":20
+    },
+    {
+      "description": "Inland highway (via Florence)",
+      "distance": 500,
+      "straightness": 0.9,
+      "gradeVariation": 0.5,
+      "fuelStops":10
+    }
+  ]
+}

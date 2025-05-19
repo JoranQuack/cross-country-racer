@@ -1,4 +1,5 @@
 {
+  "name": "Test",
   "prizeMoney": 100,
   "duration": 60000,
   "numOfOpponents": 3,

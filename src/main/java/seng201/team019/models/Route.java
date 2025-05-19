@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Route {
+    private final static float GRADE_VARIATION_MULTIPLIER = 0.75f;
+    private final static float AVERAGE_SPEED_MULTIPLIER = 1.5f;
+    private final static float HANDLING_MULTIPLIER = 0.5f;
+    private final static float HANDLING_OFFSET = 0.5f;
+
     private final String description;
 
     // Distances in Kilometers always float type
@@ -16,11 +21,11 @@ public class Route {
     private final int fuelStops;
 
     @JsonCreator
-    public Route(@JsonProperty("description") String description,
-            @JsonProperty("distance") float distance,
-            @JsonProperty("straightness") double straightness,
-            @JsonProperty("gradeVariation") double gradeVariation,
-            @JsonProperty("fuelStops") int fuelStops) {
+    public Route(@JsonProperty(value = "description", required = true) String description,
+            @JsonProperty(value = "distance", required = true) float distance,
+            @JsonProperty(value = "straightness", required = true) double straightness,
+            @JsonProperty(value = "gradeVariation", required = true) double gradeVariation,
+            @JsonProperty(value = "fuelStops", required = true) int fuelStops) {
         // TODO: add validation for params
         this.description = description;
         this.distance = distance;
@@ -45,15 +50,20 @@ public class Route {
      * @return distance between each fuel stop.
      */
     public float getDistanceBetweenFuelStops() {
-        return distance / (float) fuelStops;
+        return distance / ((float) fuelStops + 1);
     }
 
     /**
+     * Computes the average speed of the car on the route
+     * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness *
+     * e^(-grade * c4)
+     *
      * @param car car object that is driving
-     * @return the average speed that the car drives on the WHOLE route;
+     * @return the average speed that the car drives.
      */
     public double computeAverageSpeed(Car car) {
-        return car.getSpeed() * this.straightness * (1 - this.gradeVariation);
+        return AVERAGE_SPEED_MULTIPLIER * car.getSpeed() * (HANDLING_MULTIPLIER * car.getHandling() + HANDLING_OFFSET)
+                * this.straightness * Math.exp(-gradeVariation * GRADE_VARIATION_MULTIPLIER);
     }
 
     /**
@@ -69,6 +79,10 @@ public class Route {
             return -1;
         }
         int numberOfStopPassed = (int) Math.floor(distance / getDistanceBetweenFuelStops());
+
+        if (numberOfStopPassed >= this.fuelStops) {
+            return -1;
+        }
 
         // Distance from start to next stop - current distance = distance to next stop
         return (numberOfStopPassed + 1) * getDistanceBetweenFuelStops() - distance;

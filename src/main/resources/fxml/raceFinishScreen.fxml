@@ -42,7 +42,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="raceFinishedPositionLabel" GridPane.columnIndex="1" />
+                        <Label fx:id="raceFinishedPositionLabel" wrapText="true" GridPane.columnIndex="1" />
                         <Label text="Profit" GridPane.rowIndex="1">
                            <font>
                               <Font size="14.0" />

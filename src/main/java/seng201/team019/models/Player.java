@@ -8,6 +8,7 @@ import static java.util.Collections.max;
 public class Player extends Racer {
     public final static long REFUEL_DURATION = Duration.ofMinutes(2).toMillis();
     public final static long PICKUP_DURATION = Duration.ofMinutes(2).toMillis();
+    public final static float FUEL_DRAIN_MULTIPLIER = 2.0f;
 
     private double fuelAmount;
     private boolean isRefuelingNextStop;
@@ -111,7 +112,7 @@ public class Player extends Racer {
         // Player is not refueling and is not Finished or DNF.
         incrementDistance(distance);
 
-        this.setFuelAmount(getFuelAmount() - getCar().getFuelConsumption() * distance / 100);
+        this.setFuelAmount(getFuelAmount() - (getCar().getFuelConsumption() * distance / 100 * FUEL_DRAIN_MULTIPLIER));
 
         // The player ran out of fuel
         if (isOutOfFuel()) {

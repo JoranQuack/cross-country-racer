@@ -98,13 +98,13 @@ public class RaceSetupScreenController extends ScreenController {
 
         VBox vBox = new VBox(8);
         vBox.setStyle("-fx-background-color: transparent;");
-        Label nameLabel = new Label(String.format("Route: %s", route.getDescription()));
+        Label nameLabel = new Label(String.format("%s", route.getDescription()));
 
         nameLabel.setFont(new Font(20));
 
         vBox.getChildren().addAll(
                 nameLabel,
-                new Label(String.format("Distance: $%.2f", route.getDistance())),
+                new Label(String.format("Distance: %.2f km", route.getDistance())),
                 new Label(String.format("Fuel Stops: %s", route.getFuelStopCount())));
 
         hBox.getChildren().addAll(

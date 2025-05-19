@@ -1,0 +1,22 @@
+{
+  "name": "Paris to Marseille",
+  "prizeMoney": 25000.0,
+  "duration": 25200000 ,
+  "numOfOpponents": 3,
+  "routes": [
+    {
+      "description": "Highway (A6 via Lyon)",
+      "distance": 770,
+      "straightness": 0.7,
+      "gradeVariation": 0.2,
+      "fuelStops":7
+    },
+    {
+      "description": "Off road",
+      "distance": 600,
+      "straightness": 0.4,
+      "gradeVariation": 0.4,
+      "fuelStops":6
+    }
+  ]
+}
