@@ -196,7 +196,12 @@
                         <Label text=" Upgrades" />
                       </children>
                     </HBox>
-                    <Button mnemonicParsing="false" onAction="#onSellCarButtonClicked" text="Sell Car" />
+                              <HBox alignment="CENTER" spacing="5.0">
+                                 <children>
+                          <Button mnemonicParsing="false" onAction="#onSellCarButtonClicked" text="Sell Car" />
+                                    <Button fx:id="carRepairButton" mnemonicParsing="false" onAction="#onRepairButtonClicked" text="Repair" />
+                                 </children>
+                              </HBox>
                   </children>
                   <opaqueInsets>
                     <Insets />

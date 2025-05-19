@@ -18,6 +18,9 @@ import seng201.team019.models.Upgrade;
 
 public class CarCustomisationScreenController extends ScreenController {
     @FXML
+    private Button carRepairButton;
+
+    @FXML
     private Button part0SellButton;
 
     @FXML
@@ -179,6 +182,12 @@ public class CarCustomisationScreenController extends ScreenController {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 
+    @FXML
+    public void onRepairButtonClicked() {
+        Car car = getGameEnvironment().getSelectedCar();
+        car.setBroken(false);
+    }
+
     /**
      * Gets the FXML file path for this controller
      *
@@ -244,6 +253,11 @@ public class CarCustomisationScreenController extends ScreenController {
         numUpgradesLabel.setText(String.valueOf(car.getUpgrades().size()));
         fuelConsumptionLabel.setText(String.format("%.2f", car.getFuelConsumption()));
         fuelCapacityLabel.setText(String.valueOf((int) car.getFuelCapacity()));
+        if (car.isBroken()) {
+            carRepairButton.setDisable(false);
+        } else {
+            carRepairButton.setDisable(true);
+        }
     }
 
     /**
