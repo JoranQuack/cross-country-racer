@@ -218,11 +218,11 @@ public class CarCustomisationScreenController extends ScreenController {
 
         if (getGameEnvironment().sellCar(car)) {
             showAlert(AlertType.INFORMATION, "Car sold", String.format("%s sold successfully", car.getName()));
+            getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
         } else {
-            showAlert(AlertType.ERROR, "Car not sold", "Something went wrong");
+            showAlert(AlertType.ERROR, "Car not sold", "This is your only car, you cannot sell it.");
+            getGameEnvironment().getNavigator().launchCarCustomisationScreen(getGameEnvironment());
         }
-
-        getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
     }
 
     /**

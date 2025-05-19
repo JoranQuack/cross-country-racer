@@ -186,8 +186,7 @@ public class ShopScreenController extends ScreenController {
         if (getGameEnvironment().isSettingUp()) {
             homeButton.setDisable(true);
             homeButton.setText("Start Game");
-        } else {
-            homeButton.setDisable(false);
+            partsTab.setDisable(true);
         }
     }
 
@@ -335,6 +334,7 @@ public class ShopScreenController extends ScreenController {
             initializeCars();
             updateBalanceLabel();
             homeButton.setDisable(false);
+            partsTab.setDisable(false);
             getGameEnvironment().setSettingUp(false);
             showAlert(AlertType.INFORMATION, "Purchase Successful",
                     "You have successfully purchased the " + car.getModel() + "!");
