@@ -55,6 +55,7 @@ public enum RandomEvent {
 
         public void triggerNo(GameEnvironment gameEnvironment, Race race) {
             race.getPlayer().setDidDNF(true, "Player Broke down");
+            gameEnvironment.getGarage().getFirst().setBroken(true);
         }
     };
 

@@ -151,27 +151,27 @@ public class RaceScreenController extends ScreenController {
             toggleGameSpeedMultiplierButtons();
         });
 
+        ChangeListener<Number> widthListener = new ChangeListener<>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
+                if (newVal.doubleValue()>0){
+                    initializeProgressLine();
+                    raceProgressLineWrapper.widthProperty().removeListener(this);
+                }
+            }
+        };
+
         // initialize gui after the Layout is finished
         Platform.runLater(() -> {
-
             if (raceProgressLineWrapper.getWidth()> 0){
                 initializeProgressLine();
             }
             else{
-                ChangeListener<Number> widthListener = new ChangeListener<>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
-                        if (newVal.doubleValue()>0){
-                            initializeProgressLine();
-                            raceProgressLineWrapper.widthProperty().removeListener(this);
-                        }
-                    }
-                };
+                // if we don't yet have the width we wait for it to change and then initialize the progress line.
                 raceProgressLineWrapper.widthProperty().addListener(widthListener);
             }
 
             renderRace();
-
         });
     }
 

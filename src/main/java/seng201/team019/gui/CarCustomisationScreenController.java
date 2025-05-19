@@ -186,6 +186,7 @@ public class CarCustomisationScreenController extends ScreenController {
     public void onRepairButtonClicked() {
         Car car = getGameEnvironment().getSelectedCar();
         car.setBroken(false);
+        carRepairButton.setDisable(true);
     }
 
     /**
