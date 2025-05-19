@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class Race {
     private final static float RANDOM_EVENT_PERCENTAGE = 0.6f;
+    private final static float OPPONENT_DNF_PERCENTAGE = 0.2f;
 
     private final String name;
     private final List<Route> routes;
@@ -41,14 +42,13 @@ public class Race {
 
     public void setupRace(GameEnvironment gameEnvironment) {
         // setup random opponents
-        RandomOpponentGenerator randOpponentGenerator = new RandomOpponentGenerator(gameEnvironment, routes);
+        RandomOpponentGenerator randOpponentGenerator = new RandomOpponentGenerator(gameEnvironment,this, routes,OPPONENT_DNF_PERCENTAGE);
         opponentCars = new ArrayList<>();
         for (int i = 0; i < numOfOpponents; i++) {
             opponentCars.add(randOpponentGenerator.generateRandomOpponent());
         }
 
         // setup random events
-
         RandomEventGenerator randEventGenerator = new RandomEventGenerator();
         boolean hasEvent = randEventGenerator.raceHasRandomEvent(RANDOM_EVENT_PERCENTAGE);
         isEventScheduledThisRace = hasEvent;

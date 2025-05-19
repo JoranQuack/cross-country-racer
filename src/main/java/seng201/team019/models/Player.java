@@ -8,7 +8,7 @@ import static java.util.Collections.max;
 public class Player extends Racer {
     public final static long REFUEL_DURATION = Duration.ofMinutes(2).toMillis();
     public final static long PICKUP_DURATION = Duration.ofMinutes(2).toMillis();
-    public final static float FUEL_DRAIN_MULTIPLIER = 1.5f;
+    public final static float FUEL_DRAIN_MULTIPLIER = 1f;
 
     private double fuelAmount;
     private boolean isRefuelingNextStop;

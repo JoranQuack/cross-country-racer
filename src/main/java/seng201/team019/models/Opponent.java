@@ -1,9 +1,21 @@
 package seng201.team019.models;
 
 public class Opponent extends Racer {
+    private boolean isGoingToDNF;
+    private long dnfTime;
+
+
     public Opponent(String name, Route route, Car car) {
         super(name, route, car);
+        isGoingToDNF = false;
+        dnfTime = -1;
     }
+
+    public void setIsGoingToDNF(long dnfTime, boolean isGoingToDNF) {
+        this.isGoingToDNF =isGoingToDNF;
+        this.dnfTime = dnfTime;
+    }
+
 
     /**
      * Updates the distance and time
@@ -14,6 +26,13 @@ public class Opponent extends Racer {
     public void updateStats(float distance, long time) {
         if (isFinished() || didDNF())
             return;
+
+        if (this.isGoingToDNF) {
+            if (time>=this.dnfTime){
+                setDidDNF(true);
+                return;
+            }
+        }
 
         incrementDistance(distance);
 

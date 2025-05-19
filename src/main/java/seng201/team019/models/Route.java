@@ -56,7 +56,7 @@ public class Route {
      * Computes the average speed of the car on the route
      * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness *
      * e^(-grade * c4)
-     *
+     * c1, c2, c3, c4 are all constants
      * @param car car object that is driving
      * @return the average speed that the car drives.
      */
@@ -64,6 +64,19 @@ public class Route {
         return AVERAGE_SPEED_MULTIPLIER * car.getSpeed() * (HANDLING_MULTIPLIER * car.getHandling() + HANDLING_OFFSET)
                 * this.straightness * Math.exp(-gradeVariation * GRADE_VARIATION_MULTIPLIER);
     }
+
+    /**
+     * Computes the difficulty of the car based on the route
+     * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness *
+     * e^(-grade * c4)
+     * c1, c2, c3, c4 are all constants
+     * @param car car object that is driving
+     * @return the average speed that the car drives.
+     */
+    public double computeDifficulty(Car car) {
+        return 1 - (HANDLING_MULTIPLIER * car.getHandling() + HANDLING_OFFSET) * this.straightness * Math.exp(-gradeVariation * GRADE_VARIATION_MULTIPLIER);
+    }
+
 
     /**
      * @param distance distance of segment on route

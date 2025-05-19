@@ -295,7 +295,6 @@ public class RaceScreenController extends ScreenController {
     private void initializeProgressLine() {
         raceProgressLine.startXProperty().set(raceProgressLineWrapper.getPadding().getLeft());
         raceProgressLine.endXProperty().bind(raceProgressLineWrapper.widthProperty().subtract(raceProgressLineWrapper.getPadding().getRight()));
-        System.out.println(raceProgressLineWrapper.getWidth() - raceProgressLineWrapper.getPadding().getRight());
 
         // set start and finish marker lines
 

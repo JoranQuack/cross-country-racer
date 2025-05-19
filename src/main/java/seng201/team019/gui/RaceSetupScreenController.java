@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -106,12 +107,19 @@ public class RaceSetupScreenController extends ScreenController {
         vBox.setStyle("-fx-background-color: transparent;");
         Label nameLabel = new Label(String.format("%s", route.getDescription()));
 
-        nameLabel.setFont(new Font(20));
+        nameLabel.setFont(new Font(15));
+
+        ProgressBar progressBar = new ProgressBar();
+        progressBar.setProgress(route.computeDifficulty(getGameEnvironment().getGarage().getFirst()));
+        HBox difficulty = new HBox(5, new Label("Difficulty"), progressBar);
 
         vBox.getChildren().addAll(
                 nameLabel,
                 new Label(String.format("Distance: %.2f km", route.getDistance())),
-                new Label(String.format("Fuel Stops: %s", route.getFuelStopCount())));
+                new Label(String.format("Fuel Stops: %s", route.getFuelStopCount())),
+                difficulty
+        );
+
 
         hBox.getChildren().addAll(
                 vBox);
