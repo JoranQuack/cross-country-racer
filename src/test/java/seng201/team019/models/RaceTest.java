@@ -5,8 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import seng201.team019.GameEnvironment;
-import seng201.team019.services.RandomEventGenerator;
-import seng201.team019.services.RandomOpponentGenerator;
 
 import java.time.Duration;
 import java.util.List;
@@ -84,7 +82,6 @@ public class RaceTest {
 
         @Mock
         private Car car1;
-
 
         @BeforeEach
         public void setUp() {

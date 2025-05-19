@@ -2,10 +2,6 @@ package seng201.team019.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 import seng201.team019.models.Car;
 import seng201.team019.models.Upgrade;
@@ -44,15 +40,6 @@ public class CSVReaderTest {
 
     @Test
     public void testReadCSVWithMockResourceStream() {
-        CSVReader mockReader = Mockito.spy(new CSVReader());
-
-        String csvContent = "name,age,price,speed,handling,reliability,fuelConsumption,fuelCapacity\n" +
-                "Car1,3,8000.0,100.0,0.6,0.7,8.0,55\n" +
-                "Car2,6,12000.0,130.0,0.8,0.9,6.5,65";
-
-        InputStream mockInputStream = new ByteArrayInputStream(csvContent.getBytes());
-
-
         String[] testValues = { "Car1", "3", "8000.0", "100.0", "0.6", "0.7", "8.0", "55" };
         Car parsedCar = CSVReader.carParser.apply(testValues);
 
