@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team019.gui.GarageScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team019.gui.GarageScreenController">
   <padding>
     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
   </padding>
@@ -240,7 +240,7 @@
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                              <Label text="Handling" />
+                              <Label prefHeight="18.0" prefWidth="89.0" text="Handling" />
                               <ProgressBar fx:id="handlingProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
                             </children>
                           </GridPane>
@@ -253,7 +253,7 @@
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                              <Label text="Reliability" />
+                              <Label prefWidth="95.0" text="Reliability" />
                               <ProgressBar fx:id="reliabilityProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
                             </children>
                           </GridPane>
