@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Route {
+    private final static float GRADE_VARIATION_MULTIPLIER = 0.75f;
+    private final static float AVERAGE_SPEED_MULTIPLIER = 1.5f;
+    private final static float HANDLING_MULTIPLIER = 0.5f;
+    private final static float HANDLING_OFFSET = 0.5f;
+
     private final String description;
 
     // Distances in Kilometers always float type
@@ -49,11 +54,14 @@ public class Route {
     }
 
     /**
+     * Computes the average speed of the car on the route
+     * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness * e^(-grade * c4)
+     *
      * @param car car object that is driving
-     * @return the average speed that the car drives on the WHOLE route;
+     * @return the average speed that the car drives.
      */
     public double computeAverageSpeed(Car car) {
-        return car.getSpeed() * this.straightness * (1 - this.gradeVariation);
+        return AVERAGE_SPEED_MULTIPLIER * car.getSpeed() * (HANDLING_MULTIPLIER * car.getHandling() + HANDLING_OFFSET) * this.straightness * Math.exp(-gradeVariation * GRADE_VARIATION_MULTIPLIER);
     }
 
     /**
