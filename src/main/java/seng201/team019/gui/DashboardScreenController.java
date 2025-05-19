@@ -70,7 +70,7 @@ public class DashboardScreenController extends ScreenController {
             endGameVBox.setMouseTransparent(false);
         }
 
-        if (getGameEnvironment().getGarage().size() == 0) {
+        if (getGameEnvironment().getGarage().size() == 0 || getGameEnvironment().getGarage().get(0).isBroken()) {
             raceButton.setDisable(true);
         }
 

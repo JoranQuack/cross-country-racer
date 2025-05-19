@@ -30,6 +30,7 @@ public class Car {
         this.reliability = reliability;
         this.fuelCapacity = fuelCapacity;
         this.fuelConsumption = fuelConsumption;
+        this.isBroken = false;
 
         model = name; // Initialize model with the same value as name
         imagePath = "images/" + name + ".png"; // Initialize image path based on name

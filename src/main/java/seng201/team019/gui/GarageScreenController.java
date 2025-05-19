@@ -212,8 +212,14 @@ public class GarageScreenController extends ScreenController {
                 Button carCustomiseButton = (Button) getClass().getDeclaredField("car" + i + "CustomiseButton")
                         .get(this);
 
+                String carName = car.getName();
+                if (car.isBroken()) {
+                    carName += " (broken)";
+                    carGrid.setStyle("-fx-background-color: #C93200;");
+                }
+
                 carImage.setImage(car.getImage());
-                carNameLabel.setText(car.getName());
+                carNameLabel.setText(carName);
 
                 carGrid.setOnMouseEntered(event -> {
                     setCarStats(car);
