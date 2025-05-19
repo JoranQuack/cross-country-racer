@@ -47,7 +47,6 @@ public class GameEnvironment {
      * some game data.
      */
     public GameEnvironment(ScreenNavigator navigator) {
-        this.bankBalance = this.maximumBankBalance = 20000.0;
         this.garage = new ArrayList<Car>();
         this.ownUpgrades = new ArrayList<Upgrade>();
         this.racesCompleted = 0;
@@ -76,6 +75,7 @@ public class GameEnvironment {
         this.difficulty = difficulty;
         this.seasonLength = seasonLength;
         this.name = name;
+        this.bankBalance = this.maximumBankBalance = difficulty.getStartBalance();
     }
 
     /**

@@ -1,5 +1,15 @@
 package seng201.team019.models;
 
 public enum Difficulty {
-    Easy, Hard;
+    Easy(20000.0), Hard(15000.0);
+
+    private final Double startBalance;
+
+    Difficulty(Double startBalance) {
+        this.startBalance = startBalance;
+    }
+
+    public Double getStartBalance() {
+        return startBalance;
+    }
 }
