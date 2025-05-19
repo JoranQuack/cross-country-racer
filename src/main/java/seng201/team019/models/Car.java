@@ -18,6 +18,7 @@ public class Car {
     private String imagePath; // Path to the car image (always a PNG file with same name as the car)
     private List<Upgrade> upgrades = new ArrayList<Upgrade>(); // Array of upgrades applied on the car
     private int fuelCapacity; // gives the fuel capacity in L
+    private boolean isBroken; // Indicates if the car is broken
 
     public Car(String name, int age, double price, double speed, double handling, double reliability,
             double fuelConsumption, int fuelCapacity) {
@@ -148,5 +149,13 @@ public class Car {
 
     public List<Upgrade> getUpgrades() {
         return upgrades;
+    }
+
+    public boolean isBroken() {
+        return isBroken;
+    }
+
+    public void setBroken(boolean isBroken) {
+        this.isBroken = isBroken;
     }
 }
