@@ -371,14 +371,14 @@ public class RaceScreenController extends ScreenController {
                 }
                 case PlayerStrandedTraveler: {
                     if (race.getPlayer().isFinished())
-                        return; // player is finished cant pick people up
+                        break; // player is finished cant pick people up
                     showAlert(Alert.AlertType.INFORMATION, "Traveler Event", event.getMessage());
                     event.trigger(getGameEnvironment(), race);
                     break;
                 }
                 case PlayerBreaksDown: {
                     if (race.getPlayer().isFinished())
-                        return; // player is finished cant break down
+                        break; // player is finished cant break down
                     boolean canAfford = getGameEnvironment().getBankBalance() >= 1000;
 
                     Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);

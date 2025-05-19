@@ -116,7 +116,7 @@ public class Player extends Racer {
 
         // The player ran out of fuel
         if (isOutOfFuel()) {
-            setDidDNF(true);
+            setDidDNF(true,"Player ran out of fuel");
             setIsFinished(true, time);
         }
         // Player is finished the race
