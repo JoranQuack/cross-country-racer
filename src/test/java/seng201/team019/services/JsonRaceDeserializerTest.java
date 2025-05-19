@@ -7,11 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.exceptions.misusing.UnfinishedStubbingException;
 import org.mockito.junit.jupiter.MockitoExtension;
-import seng201.team019.GameEnvironment;
-import seng201.team019.models.Car;
 import seng201.team019.models.Race;
 
 import java.io.IOException;
@@ -23,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class JsonRaceDeserializerTest {
 
     JsonRaceDeserializer jsonRaceDeserializer;
-
 
     @BeforeEach
     public void setUp() {

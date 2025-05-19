@@ -3,7 +3,6 @@ package seng201.team019;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-import javafx.beans.binding.When;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import seng201.team019.gui.ScreenNavigator;
 import seng201.team019.models.Car;
 import seng201.team019.models.Difficulty;
-import seng201.team019.models.Upgrade;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class GameEnvironmentTest {
     public void testGameEnvironmentInitialization() {
         assertNotNull(gameEnvironment);
 
-        gameEnvironment.completeGameEnvironmentSetup(Difficulty.Easy,10,"name");
+        gameEnvironment.completeGameEnvironmentSetup(Difficulty.Easy, 10, "name");
 
         assertEquals(20000.0, gameEnvironment.getBankBalance());
         assertEquals(0, gameEnvironment.getRacesCompleted());
@@ -57,7 +54,7 @@ public class GameEnvironmentTest {
     @Test
     public void testBuyThenSellCar() {
 
-        gameEnvironment.completeGameEnvironmentSetup(Difficulty.Easy,10,"name");
+        gameEnvironment.completeGameEnvironmentSetup(Difficulty.Easy, 10, "name");
 
         when(mockCar2.getPrice()).thenReturn(0d);
         assertTrue(gameEnvironment.buyCar(mockCar2));// have to have at least one car in garage
@@ -69,7 +66,7 @@ public class GameEnvironmentTest {
 
         assertTrue(gameEnvironment.buyCar(mockCar1));
         assertEquals(2, gameEnvironment.getGarage().size());
-        assertEquals(originalAvailableCars-1, gameEnvironment.getAvailableCars().size());
+        assertEquals(originalAvailableCars - 1, gameEnvironment.getAvailableCars().size());
         assertEquals(originalBankBalance - mockCar1.getPrice(), gameEnvironment.getBankBalance(), 0.01);
 
         assertTrue(gameEnvironment.sellCar(mockCar1));
