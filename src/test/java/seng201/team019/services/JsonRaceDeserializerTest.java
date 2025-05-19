@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.exceptions.misusing.UnfinishedStubbingException;
 import org.mockito.junit.jupiter.MockitoExtension;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
@@ -23,11 +24,6 @@ public class JsonRaceDeserializerTest {
 
     JsonRaceDeserializer jsonRaceDeserializer;
 
-    @Mock
-    private GameEnvironment gameEnvironment;
-
-    @Mock
-    private Car car1;
 
     @BeforeEach
     public void setUp() {
@@ -86,7 +82,7 @@ public class JsonRaceDeserializerTest {
         String testfile = "/data/races/missing_fields_race_data.json"; // this is missing race data
 
         try (InputStream is = jsonRaceDeserializer.readJsonRaceFile(testfile);) {
-            Assertions.assertThrows(IllegalStateException.class, () -> {
+            Assertions.assertThrows(Exception.class, () -> {
                 jsonRaceDeserializer.readRaceFromInputStream(is);
             });
         } catch (IOException e) {

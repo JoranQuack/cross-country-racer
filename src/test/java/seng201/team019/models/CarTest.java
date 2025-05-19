@@ -1,6 +1,8 @@
 package seng201.team019.models;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -79,15 +81,12 @@ public class CarTest {
 
     @Test
     public void testEdgeCaseZeroFuelConsumption() {
-        car.setFuelConsumption(0.0);
-        try {
-            car.updateRange();
-            fail("Expected ArithmeticException was not thrown");
-        } catch (ArithmeticException e) {
-            // Pass the test because correct exception thrown
-        } catch (Exception e) {
-            fail("Unexpected exception: " + e.getClass().getName());
-        }
+
+
+        Assertions.assertThrows(ArithmeticException.class, () -> {
+            car.setFuelConsumption(0.0);
+        });
+
     }
 
     @Test

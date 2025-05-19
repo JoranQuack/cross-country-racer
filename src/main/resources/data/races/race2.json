@@ -12,6 +12,7 @@
       "fuelStops":3
     },
     {
+      "description": "Highway",
       "distance": 250,
       "straightness": 0.8,
       "gradeVariation": 0.2,

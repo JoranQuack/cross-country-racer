@@ -308,6 +308,11 @@ public class GameEnvironment {
         totalPrizeMoney += prizeMoney;
     }
 
+    public void setAvailableCars(List<Car> availableCars) {
+        this.availableCars = availableCars;
+    }
+
+
     // Getters and Setters for the GameEnvironment class
     public List<Car> getAvailableCars() {
         return availableCars;
