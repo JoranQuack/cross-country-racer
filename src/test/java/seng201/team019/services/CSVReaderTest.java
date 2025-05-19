@@ -52,7 +52,6 @@ public class CSVReaderTest {
 
         InputStream mockInputStream = new ByteArrayInputStream(csvContent.getBytes());
 
-        Mockito.doReturn(mockInputStream).when(mockReader).getClass();
 
         String[] testValues = { "Car1", "3", "8000.0", "100.0", "0.6", "0.7", "8.0", "55" };
         Car parsedCar = CSVReader.carParser.apply(testValues);
