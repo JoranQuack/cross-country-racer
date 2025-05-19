@@ -169,14 +169,7 @@ public class RaceScreenController extends ScreenController {
                 };
                 raceProgressLineWrapper.widthProperty().addListener(widthListener);
             }
-            // We need to wait for
-            raceProgressLineWrapper.widthProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue.doubleValue()>0){
-                    initializeProgressLine();
-                }
-            });
 
-            System.out.println(raceProgressLineWrapper.getWidth());
             renderRace();
 
         });
