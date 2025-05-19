@@ -2,6 +2,8 @@ package seng201.team019.gui;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -115,12 +117,6 @@ public class RaceScreenController extends ScreenController {
      * Initialize the window
      */
     public void initialize() {
-        // initialize gui after the Layout is finished
-        Platform.runLater(() -> {
-            renderRace();
-            initializeProgressLine();
-        });
-
         // add action to buttons
         raceStartButton.setOnAction(event -> {
             raceStartButton.setDisable(true);
@@ -155,6 +151,35 @@ public class RaceScreenController extends ScreenController {
             toggleGameSpeedMultiplierButtons();
         });
 
+        // initialize gui after the Layout is finished
+        Platform.runLater(() -> {
+
+            if (raceProgressLineWrapper.getWidth()> 0){
+                initializeProgressLine();
+            }
+            else{
+                ChangeListener<Number> widthListener = new ChangeListener<>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
+                        if (newVal.doubleValue()>0){
+                            initializeProgressLine();
+                            raceProgressLineWrapper.widthProperty().removeListener(this);
+                        }
+                    }
+                };
+                raceProgressLineWrapper.widthProperty().addListener(widthListener);
+            }
+            // We need to wait for
+            raceProgressLineWrapper.widthProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.doubleValue()>0){
+                    initializeProgressLine();
+                }
+            });
+
+            System.out.println(raceProgressLineWrapper.getWidth());
+            renderRace();
+
+        });
     }
 
     /**
@@ -279,8 +304,8 @@ public class RaceScreenController extends ScreenController {
      */
     private void initializeProgressLine() {
         raceProgressLine.startXProperty().set(raceProgressLineWrapper.getPadding().getLeft());
-        raceProgressLine.endXProperty()
-                .set(raceProgressLineWrapper.getWidth() - raceProgressLineWrapper.getPadding().getRight());
+        raceProgressLine.endXProperty().bind(raceProgressLineWrapper.widthProperty().subtract(raceProgressLineWrapper.getPadding().getRight()));
+        System.out.println(raceProgressLineWrapper.getWidth() - raceProgressLineWrapper.getPadding().getRight());
 
         // set start and finish marker lines
 
