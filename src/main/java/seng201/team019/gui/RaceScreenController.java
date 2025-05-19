@@ -151,7 +151,7 @@ public class RaceScreenController extends ScreenController {
         ChangeListener<Number> widthListener = new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
-                if (newVal.doubleValue()>0){
+                if (newVal.doubleValue() > 0) {
                     initializeProgressLine();
                     raceProgressLineWrapper.widthProperty().removeListener(this);
                 }
@@ -160,11 +160,11 @@ public class RaceScreenController extends ScreenController {
 
         // initialize gui after the Layout is finished
         Platform.runLater(() -> {
-            if (raceProgressLineWrapper.getWidth()> 0){
+            if (raceProgressLineWrapper.getWidth() > 0) {
                 initializeProgressLine();
-            }
-            else{
-                // if we don't yet have the width we wait for it to change and then initialize the progress line.
+            } else {
+                // if we don't yet have the width we wait for it to change and then initialize
+                // the progress line.
                 raceProgressLineWrapper.widthProperty().addListener(widthListener);
             }
 
@@ -273,7 +273,7 @@ public class RaceScreenController extends ScreenController {
         HBox.setHgrow(racerInfo, Priority.ALWAYS);
 
         Label racerNameLabel = new Label(racer.getName() + (racer instanceof Player ? " (You)" : ""));
-        Label racerCarLabel = new Label(racer.getCar().getName());
+        Label racerCarLabel = new Label(racer.getCar().getModel());
         racerNameLabel.setFont(Font.font(null, FontWeight.SEMI_BOLD, 15));
         racerCarLabel.setFont(Font.font(null, FontPosture.ITALIC, 12));
 
@@ -294,7 +294,8 @@ public class RaceScreenController extends ScreenController {
      */
     private void initializeProgressLine() {
         raceProgressLine.startXProperty().set(raceProgressLineWrapper.getPadding().getLeft());
-        raceProgressLine.endXProperty().bind(raceProgressLineWrapper.widthProperty().subtract(raceProgressLineWrapper.getPadding().getRight()));
+        raceProgressLine.endXProperty().bind(
+                raceProgressLineWrapper.widthProperty().subtract(raceProgressLineWrapper.getPadding().getRight()));
 
         // set start and finish marker lines
 
