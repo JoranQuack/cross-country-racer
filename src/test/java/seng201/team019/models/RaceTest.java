@@ -12,9 +12,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
-
 import static org.mockito.Mockito.when;
-
 
 @ExtendWith(MockitoExtension.class)
 public class RaceTest {
@@ -27,7 +25,6 @@ public class RaceTest {
 
     @Mock
     private GameEnvironment gameEnvironment;
-
 
     @Nested
     @DisplayName("Race Builder tests")
@@ -95,13 +92,11 @@ public class RaceTest {
         @Mock
         private Opponent opponent;
 
-
         @Mock
         private RandomOpponentGenerator opponentGenerator;
 
         @Mock
         private RandomEventGenerator randEventGenerator;
-
 
         @BeforeEach
         public void setUp() {
@@ -140,7 +135,7 @@ public class RaceTest {
 
             Assertions.assertEquals(racers.stream().allMatch(Racer::isFinished), race.isRaceFinished());
 
-            racers.forEach(r -> r.setIsFinished(true,0));
+            racers.forEach(r -> r.setIsFinished(true, 0));
 
             Assertions.assertEquals(racers.stream().allMatch(Racer::isFinished), race.isRaceFinished());
         }

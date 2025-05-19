@@ -22,10 +22,10 @@ public class Route {
 
     @JsonCreator
     public Route(@JsonProperty(value = "description", required = true) String description,
-                 @JsonProperty(value = "distance", required = true) float distance,
-                 @JsonProperty(value = "straightness", required = true) double straightness,
-                 @JsonProperty(value = "gradeVariation", required = true) double gradeVariation,
-                 @JsonProperty(value = "fuelStops", required = true) int fuelStops) {
+            @JsonProperty(value = "distance", required = true) float distance,
+            @JsonProperty(value = "straightness", required = true) double straightness,
+            @JsonProperty(value = "gradeVariation", required = true) double gradeVariation,
+            @JsonProperty(value = "fuelStops", required = true) int fuelStops) {
         // TODO: add validation for params
         this.description = description;
         this.distance = distance;
@@ -55,13 +55,15 @@ public class Route {
 
     /**
      * Computes the average speed of the car on the route
-     * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness * e^(-grade * c4)
+     * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness *
+     * e^(-grade * c4)
      *
      * @param car car object that is driving
      * @return the average speed that the car drives.
      */
     public double computeAverageSpeed(Car car) {
-        return AVERAGE_SPEED_MULTIPLIER * car.getSpeed() * (HANDLING_MULTIPLIER * car.getHandling() + HANDLING_OFFSET) * this.straightness * Math.exp(-gradeVariation * GRADE_VARIATION_MULTIPLIER);
+        return AVERAGE_SPEED_MULTIPLIER * car.getSpeed() * (HANDLING_MULTIPLIER * car.getHandling() + HANDLING_OFFSET)
+                * this.straightness * Math.exp(-gradeVariation * GRADE_VARIATION_MULTIPLIER);
     }
 
     /**

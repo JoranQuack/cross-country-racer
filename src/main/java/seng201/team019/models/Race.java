@@ -175,7 +175,8 @@ public class Race {
         }
 
         int opponentsThatFinished = (int) getRacers().stream().filter(racer -> !racer.didDNF()).count();
-        return (float) (opponentsThatFinished + 1 - getPlayerFinishedPosition()) / (float) opponentsThatFinished * getPrizeMoney();
+        return (float) (opponentsThatFinished + 1 - getPlayerFinishedPosition()) / (float) opponentsThatFinished
+                * getPrizeMoney();
     }
 
     public boolean isCompleted() {
@@ -186,21 +187,20 @@ public class Race {
         this.isCompleted = isCompleted;
     }
 
-
     public static Builder builder() {
         return new Builder();
     }
 
     public static class Builder {
-        @JsonProperty(value="name",required = true)
+        @JsonProperty(value = "name", required = true)
         private String name;
         @JsonProperty("routes")
         private List<Route> routes = new ArrayList<>();
-        @JsonProperty(value="prizeMoney",required = true)
+        @JsonProperty(value = "prizeMoney", required = true)
         private float prizeMoney;
-        @JsonProperty(value="duration",required = true)
+        @JsonProperty(value = "duration", required = true)
         private long duration;
-        @JsonProperty(value="numOfOpponents",required = true)
+        @JsonProperty(value = "numOfOpponents", required = true)
         private int numOfOpponents;
 
         public Builder name(String name) {

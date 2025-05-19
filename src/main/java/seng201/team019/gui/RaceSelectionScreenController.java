@@ -31,21 +31,21 @@ public class RaceSelectionScreenController extends ScreenController {
      */
     public void initialize() {
 
-        renderRaceList(getGameEnvironment().getRaces(),raceSelectionHideCompleted.isSelected());
+        renderRaceList(getGameEnvironment().getRaces(), raceSelectionHideCompleted.isSelected());
 
         raceSelectionHideCompleted.setOnAction(event -> {
             boolean isChecked = raceSelectionHideCompleted.isSelected();
 
             // Your re-rendering logic here
-            renderRaceList(getGameEnvironment().getRaces(),isChecked); // for example
+            renderRaceList(getGameEnvironment().getRaces(), isChecked); // for example
         });
     }
 
     private void renderRaceList(List<Race> races, boolean hideCompleted) {
 
-        raceListView.getChildren().clear(); //clear children
+        raceListView.getChildren().clear(); // clear children
 
-        for (Race race : races ) {
+        for (Race race : races) {
 
             if (race == null)
                 continue;

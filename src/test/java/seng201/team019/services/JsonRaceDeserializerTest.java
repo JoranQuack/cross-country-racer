@@ -1,6 +1,5 @@
 package seng201.team019.services;
 
-
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.junit.jupiter.api.Assertions;
@@ -16,10 +15,8 @@ import seng201.team019.models.Race;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class JsonRaceDeserializerTest {
@@ -69,7 +66,6 @@ public class JsonRaceDeserializerTest {
             throw new IOException(e);
         }
     }
-
 
     @Test
     public void readJsonRaceFileEmptyFileTest() throws IOException {

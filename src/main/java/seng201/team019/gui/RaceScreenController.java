@@ -231,7 +231,7 @@ public class RaceScreenController extends ScreenController {
             racerCar.setLayoutX(raceProgressLineWrapper.getPadding().getLeft()
                     - racerCar.getLayoutBounds().getWidth() / 2
                     + racer.getRoute().normalizeDistance(racer.getDistance())
-                    * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
+                            * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
 
         }
     }

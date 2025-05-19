@@ -100,7 +100,6 @@ public class RaceSetupScreenController extends ScreenController {
         vBox.setStyle("-fx-background-color: transparent;");
         Label nameLabel = new Label(String.format("%s", route.getDescription()));
 
-
         nameLabel.setFont(new Font(20));
 
         vBox.getChildren().addAll(
