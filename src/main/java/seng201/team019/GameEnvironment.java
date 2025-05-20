@@ -307,10 +307,16 @@ public class GameEnvironment {
         ownUpgrades.add(part);
     }
 
+    /**
+     * Increments the number of races completed by the player.
+     */
     public void incrementRacesCompleted() {
         this.racesCompleted++;
     }
 
+    /**
+     * Checks if the season is over
+     */
     public boolean isSeasonOver() {
         return this.racesCompleted >= this.seasonLength;
     }
@@ -322,6 +328,10 @@ public class GameEnvironment {
         return (bankBalance < 500 && garage.size() == 1 && garage.get(0).isBroken()) || (isSeasonOver());
     }
 
+    /**
+     * Applies the outcome of the completed race to the player's bank balance and
+     * updates the race status.
+     */
     public void applyRaceOutcome(Race race) {
         setBankBalance(getBankBalance() + race.getPlayerProfit());
         incrementRacesCompleted();
@@ -329,6 +339,10 @@ public class GameEnvironment {
         refreshShop();
     }
 
+    /**
+     * Updates the average placing of the player based on the placing in the
+     * previous race.
+     */
     public void updateAveragePlacing(int placing) {
         if (averagePlacing == 0) {
             averagePlacing = (double) placing;
@@ -337,12 +351,35 @@ public class GameEnvironment {
         }
     }
 
+    /**
+     * Updates the total prize money earned by the player.
+     *
+     * @param prizeMoney
+     */
     public void updateTotalPrizeMoney(float prizeMoney) {
         totalPrizeMoney += prizeMoney;
     }
 
+    /**
+     * Updates the list of available cars.
+     *
+     * @param availableCars
+     */
     public void setAvailableCars(List<Car> availableCars) {
         this.availableCars = availableCars;
+    }
+
+    /**
+     * Sets the bank balance of the player and updates the maximum bank balance if
+     * the new balance is higher.
+     * 
+     * @param bankBalance
+     */
+    public void setBankBalance(Double bankBalance) {
+        this.bankBalance = bankBalance;
+        if (bankBalance > maximumBankBalance) {
+            maximumBankBalance = bankBalance;
+        }
     }
 
     // Getters and Setters for the GameEnvironment class
@@ -356,13 +393,6 @@ public class GameEnvironment {
 
     public Double getBankBalance() {
         return bankBalance;
-    }
-
-    public void setBankBalance(Double bankBalance) {
-        this.bankBalance = bankBalance;
-        if (bankBalance > maximumBankBalance) {
-            maximumBankBalance = bankBalance;
-        }
     }
 
     public Difficulty getDifficulty() {
