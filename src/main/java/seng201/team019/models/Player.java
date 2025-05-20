@@ -5,6 +5,10 @@ import java.util.List;
 
 import static java.util.Collections.max;
 
+/**
+ * Class representing a player in the game.
+ * The player is a racer who can refuel and has a fuel amount.
+ */
 public class Player extends Racer {
     public final static long REFUEL_DURATION = Duration.ofMinutes(2).toMillis();
     public final static long PICKUP_DURATION = Duration.ofMinutes(2).toMillis();
@@ -114,7 +118,7 @@ public class Player extends Racer {
 
         // The player ran out of fuel
         if (isOutOfFuel()) {
-            setDidDNF(true,"Player ran out of fuel");
+            setDidDNF(true, "Player ran out of fuel");
             setIsFinished(true, time);
         }
         // Player is finished the race

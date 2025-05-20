@@ -2,6 +2,10 @@ package seng201.team019.models;
 
 import javafx.scene.image.Image;
 
+/**
+ * Represents a car part upgrade in the game.
+ * Each upgrade has a name, price, image path, and various performance bonuses.
+ */
 public class Upgrade {
     private String name;
     private double price; // Price of the part in NZD
@@ -18,7 +22,7 @@ public class Upgrade {
             double reliabilityBonus, int fuelCapacityBonus, double fuelConsumptionBonus, String description) {
         this.name = name;
         this.price = price;
-        this.imagePath = "images/" + name + ".png"; // Initialize image path based on name
+        this.imagePath = "images/" + name + ".png"; // Initialise image path based on name
         this.description = description;
 
         this.speedBonus = speedBonus;

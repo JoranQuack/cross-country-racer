@@ -6,6 +6,10 @@ import seng201.team019.models.Race;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * JsonRaceDeserializer is a utility class for reading JSON files from the
+ * resources folder and building them into race objects using the race builders.
+ */
 public class JsonRaceDeserializer {
     ObjectMapper objectMapper;
 

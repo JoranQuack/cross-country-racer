@@ -14,6 +14,9 @@ import seng201.team019.services.TimeFormatter;
 
 import java.util.List;
 
+/**
+ * Controller for the raceSelectionScreen.fxml window
+ */
 public class RaceSelectionScreenController extends ScreenController {
 
     @FXML

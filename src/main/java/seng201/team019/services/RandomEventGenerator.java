@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * RandomEventGenerator is a utility class for generating random events during
+ * a race.
+ */
 public class RandomEventGenerator {
 
     private final Random rand = new Random();

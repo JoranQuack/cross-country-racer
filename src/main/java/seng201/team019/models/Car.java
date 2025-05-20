@@ -5,6 +5,9 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 
+/**
+ * Class representing a car in the game.
+ */
 public class Car {
     private String name; // Name of the car
     private String model;
@@ -32,12 +35,19 @@ public class Car {
         this.fuelConsumption = fuelConsumption;
         this.isBroken = false;
 
-        model = name; // Initialize model with the same value as name
-        imagePath = "images/" + name + ".png"; // Initialize image path based on name
+        model = name; // Initialise model with the same value as name (name can be changed later)
+        imagePath = "images/" + name + ".png"; // Initialise image path based on name. This means that the image files
+                                               // need to be named appropriately to what is in the CSV file.
         upgrades = new ArrayList<Upgrade>();
         updateRange();
     }
 
+    /**
+     * Adds an upgrade to the car. This will update the car's attributes based on
+     * the upgrade's bonuses.
+     *
+     * @param upgrade
+     */
     public void addUpgrade(Upgrade upgrade) {
         upgrades.add(upgrade);
         speed += upgrade.getSpeedBonus();
@@ -48,6 +58,12 @@ public class Car {
         updateRange(); // Update range after adding an upgrade
     }
 
+    /**
+     * Removes an upgrade from the car. This will update the car's attributes
+     * based on the upgrade's bonuses.
+     *
+     * @param upgrade
+     */
     public void removeUpgrade(Upgrade upgrade) {
         upgrades.remove(upgrade);
         speed -= upgrade.getSpeedBonus();
@@ -58,6 +74,12 @@ public class Car {
         updateRange(); // Update range after removing an upgrade
     }
 
+    /**
+     * Updates the range of the car based on the fuel capacity and fuel
+     * consumption.
+     *
+     * @throws ArithmeticException if fuel consumption is zero
+     */
     public void updateRange() throws ArithmeticException {
         if (fuelConsumption == 0) {
             throw new ArithmeticException("Fuel consumption cannot be zero.");

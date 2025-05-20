@@ -11,17 +11,12 @@ public class StartScreenController extends ScreenController {
     @FXML
     private Button playButton;
 
-    /**
-     * Constructor for the StartScreenController
-     *
-     * @param gameEnvironment The game environment instance
-     */
     public StartScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
     public void initialize() {
-        // No initialization needed for this screen
+        // No initialisation needed for this screen
     }
 
     /**

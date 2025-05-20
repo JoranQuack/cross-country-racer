@@ -190,7 +190,8 @@ public class RaceScreenController extends ScreenController {
         }
         racePlayerIsRefuelingLabel.setText(race.getPlayer().isRefuelingNextStop() ? "Yes" : "No");
         // disable button if player is refueling next stop, or is finished or dnf
-        raceRefuelButton.setDisable(race.getPlayer().isRefuelingNextStop() || race.getPlayer().isFinished() || race.getPlayer().didDNF());
+        raceRefuelButton.setDisable(
+                race.getPlayer().isRefuelingNextStop() || race.getPlayer().isFinished() || race.getPlayer().didDNF());
 
         // Update race leaderboard
         renderRaceLeaderboard();
@@ -248,7 +249,7 @@ public class RaceScreenController extends ScreenController {
             racerCar.setLayoutX(raceProgressLineWrapper.getPadding().getLeft()
                     - racerCar.getLayoutBounds().getWidth() / 2
                     + racer.getRoute().normalizeDistance(racer.getDistance())
-                    * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
+                            * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
 
         }
     }

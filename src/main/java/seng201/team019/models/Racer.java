@@ -3,6 +3,11 @@ package seng201.team019.models;
 import java.time.Duration;
 import java.util.Random;
 
+/**
+ * Abstract class representing a racer in the game.
+ * This class contains common properties and methods for both players and
+ * opponents.
+ */
 public abstract class Racer {
 
     protected final String name;
@@ -27,7 +32,7 @@ public abstract class Racer {
 
     /**
      * gets a random speed multiplier between 0.8 and 2.5
-     * 
+     *
      * @return float between 0.8 and 2.5
      */
     private static float getRandomSpeedMultiplier() {

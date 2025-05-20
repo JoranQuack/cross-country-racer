@@ -55,6 +55,7 @@ public class DashboardScreenController extends ScreenController {
         endGameVBox.setVisible(false);
         endGameVBox.setMouseTransparent(true);
 
+        // Guide the user to the end screen if the game over conditions are met
         if (getGameEnvironment().isGameOver()) {
             mainGrid.setDisable(true);
             endGameVBox.setVisible(true);
@@ -79,9 +80,6 @@ public class DashboardScreenController extends ScreenController {
         racesRemainingProgressBar.setProgress((double) racesComplete / seasonLength);
     }
 
-    /**
-     * Action handler for the end game button.
-     */
     @FXML
     private void onEndGameButtonClicked() {
         getGameEnvironment().getNavigator().launchEndScreen(getGameEnvironment());

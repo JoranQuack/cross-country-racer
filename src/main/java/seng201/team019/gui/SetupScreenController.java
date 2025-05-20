@@ -28,7 +28,8 @@ public class SetupScreenController extends ScreenController {
     }
 
     /**
-     * Initialize the window
+     * Initialize the window and set up the difficulty field
+     * with the available difficulty options.
      */
     public void initialize() {
         setupDifficultyField.setItems(FXCollections.observableArrayList(Difficulty.values()));
@@ -40,14 +41,14 @@ public class SetupScreenController extends ScreenController {
         int seasonLength = (int) setupSeasonLengthField.getValue();
         String name = setupNameField.getText();
 
-        // reset colors of Fields
+        // reset colors of fields
         setupNameField.setStyle("-fx-border-color: none");
         setupDifficultyField.setStyle("-fx-border-color: none");
 
         StringValidator validator = new StringValidator();
 
         // check name length
-        if (!validator.isValid(name,3,15)) {
+        if (!validator.isValid(name, 3, 15)) {
             setupNameField.setStyle("-fx-border-color: red");
             return;
         }

@@ -15,6 +15,9 @@ import seng201.team019.models.Player;
 import seng201.team019.models.Race;
 import seng201.team019.models.Route;
 
+/**
+ * Controller for the raceSetupScreen.fxml window
+ */
 public class RaceSetupScreenController extends ScreenController {
     @FXML
     private Label raceSetupPrizeMoneyLabel;
@@ -82,11 +85,11 @@ public class RaceSetupScreenController extends ScreenController {
     @FXML
     private void onStartClicked() {
         if (selectedRoute == null) {
-            showAlert(Alert.AlertType.INFORMATION,"Select a route", "Please select a route");
+            showAlert(Alert.AlertType.INFORMATION, "Select a route", "Please select a route");
             return;
         }
-        if (getGameEnvironment().getGarage().isEmpty()){
-            showAlert(Alert.AlertType.INFORMATION,"No car", "You have no cars.");
+        if (getGameEnvironment().getGarage().isEmpty()) {
+            showAlert(Alert.AlertType.INFORMATION, "No car", "You have no cars.");
             return;
         }
 
@@ -117,9 +120,7 @@ public class RaceSetupScreenController extends ScreenController {
                 nameLabel,
                 new Label(String.format("Distance: %.2f km", route.getDistance())),
                 new Label(String.format("Fuel Stops: %s", route.getFuelStopCount())),
-                difficulty
-        );
-
+                difficulty);
 
         hBox.getChildren().addAll(
                 vBox);

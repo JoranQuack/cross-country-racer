@@ -4,6 +4,9 @@ import seng201.team019.GameEnvironment;
 
 import java.util.Random;
 
+/**
+ * Enum representing different random events that can occur during a race.
+ */
 public enum RandomEvent {
     RouteWeather {
         private Route disqualifiedRoute;

@@ -5,6 +5,9 @@ import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
 
+/**
+ * Controller for the raceFinishScreen.fxml window
+ */
 public class RaceFinishScreenController extends ScreenController {
     @FXML
     private Label raceFinishedPositionLabel;
@@ -19,6 +22,9 @@ public class RaceFinishScreenController extends ScreenController {
         this.race = race;
     }
 
+    /**
+     * Initialize the window and update stats in the game environment
+     */
     public void initialize() {
         int pos = race.getPlayerFinishedPosition();
         boolean playerDNF = pos == -1;

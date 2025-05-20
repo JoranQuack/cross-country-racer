@@ -14,6 +14,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * GameEnvironment is the core class of the app that manages the game state,
+ * including the player's garage, cars, upgrades, races, and bank balance.
+ */
 public class GameEnvironment {
 
     public static final String[] RACE_FILE_NAMES = {

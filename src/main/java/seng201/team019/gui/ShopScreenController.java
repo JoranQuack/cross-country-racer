@@ -185,7 +185,8 @@ public class ShopScreenController extends ScreenController {
     }
 
     /**
-     * Initialize the window
+     * Initialize the window by setting the bank balance and initialising cars and
+     * parts. The home button is also set to "Start Game" if in setup mode.
      */
     public void initialize() {
         updateBalanceLabel();
@@ -354,7 +355,7 @@ public class ShopScreenController extends ScreenController {
                     "You have successfully purchased the " + car.getModel() + "!");
         } else {
             showAlert(AlertType.ERROR, "Purchase Failed",
-                    "You don't have enough money to buy this car, or you have the maximum number of cars.");
+                    "You don't have enough money, or your garage is full.");
         }
     }
 

@@ -1,9 +1,11 @@
 package seng201.team019.models;
 
+/**
+ * Enum representing an opponent racer.
+ */
 public class Opponent extends Racer {
     private boolean isGoingToDNF;
     private long dnfTime;
-
 
     public Opponent(String name, Route route, Car car) {
         super(name, route, car);
@@ -12,14 +14,13 @@ public class Opponent extends Racer {
     }
 
     public void setIsGoingToDNF(long dnfTime, boolean isGoingToDNF) {
-        this.isGoingToDNF =isGoingToDNF;
+        this.isGoingToDNF = isGoingToDNF;
         this.dnfTime = dnfTime;
     }
 
     public boolean isGoingToDNF() {
         return isGoingToDNF;
     }
-
 
     /**
      * Updates the distance and time
@@ -32,7 +33,7 @@ public class Opponent extends Racer {
             return;
 
         if (this.isGoingToDNF) {
-            if (time>=this.dnfTime){
+            if (time >= this.dnfTime) {
                 setDidDNF(true);
                 return;
             }

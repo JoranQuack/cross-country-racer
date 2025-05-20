@@ -29,7 +29,8 @@ public class EndScreenController extends ScreenController {
     }
 
     /**
-     * Initialize the window
+     * Initialize the window, displaying the player's name, season length,
+     * races completed, average placing, and total prize money.
      */
     public void initialize() {
         Double averagePlacing = getGameEnvironment().getAveragePlacing();

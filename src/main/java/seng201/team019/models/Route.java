@@ -3,6 +3,10 @@ package seng201.team019.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Class representing a route in the game.
+ * This class contains properties and methods related to the route.
+ */
 public class Route {
     private final static float GRADE_VARIATION_MULTIPLIER = 0.75f;
     private final static float AVERAGE_SPEED_MULTIPLIER = 1.5f;
@@ -57,6 +61,7 @@ public class Route {
      * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness *
      * e^(-grade * c4)
      * c1, c2, c3, c4 are all constants
+     * 
      * @param car car object that is driving
      * @return the average speed that the car drives.
      */
@@ -70,13 +75,14 @@ public class Route {
      * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness *
      * e^(-grade * c4)
      * c1, c2, c3, c4 are all constants
+     * 
      * @param car car object that is driving
      * @return the average speed that the car drives.
      */
     public double computeDifficulty(Car car) {
-        return 1 - (HANDLING_MULTIPLIER * car.getHandling() + HANDLING_OFFSET) * this.straightness * Math.exp(-gradeVariation * GRADE_VARIATION_MULTIPLIER);
+        return 1 - (HANDLING_MULTIPLIER * car.getHandling() + HANDLING_OFFSET) * this.straightness
+                * Math.exp(-gradeVariation * GRADE_VARIATION_MULTIPLIER);
     }
-
 
     /**
      * @param distance distance of segment on route

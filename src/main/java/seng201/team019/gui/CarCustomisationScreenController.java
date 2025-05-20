@@ -16,6 +16,11 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
 import seng201.team019.models.Upgrade;
 
+/**
+ * Controller for the carCustomisation.fxml window.
+ * Handles displaying the car's information and allowing the player to
+ * customise their car by equipping or selling parts.
+ */
 public class CarCustomisationScreenController extends ScreenController {
     @FXML
     private Button carSellButton;
@@ -149,37 +154,24 @@ public class CarCustomisationScreenController extends ScreenController {
     @FXML
     private Button part4RemoveButton;
 
-    /**
-     * Creates a CarCustomisationScreenController with the given game environment.
-     *
-     * @param gameEnvironment The game environment for this controller
-     */
     public CarCustomisationScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
     /**
      * Initializes the window by hiding the car info and populating
-     * the parts grid with tuning parts from the player's garage.
+     * the parts grid with upgrades that they have bought or equipped
      */
     public void initialize() {
         initializeCar();
         initializeParts();
     }
 
-    /**
-     * Handles the back button click event.
-     * Returns to the dashboard screen.
-     */
     @FXML
     public void onBackButtonClicked() {
         getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
     }
 
-    /**
-     * Handles the home button click event.
-     * Returns to the dashboard screen.
-     */
     @FXML
     public void onHomeButtonClicked() {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
@@ -192,21 +184,11 @@ public class CarCustomisationScreenController extends ScreenController {
         carRepairButton.setDisable(true);
     }
 
-    /**
-     * Gets the FXML file path for this controller
-     *
-     * @return The path to the carCustomisation.fxml file
-     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/carCustomisation.fxml";
     }
 
-    /**
-     * Gets the window title for this screen
-     *
-     * @return The title string for the carCustomisation screen
-     */
     @Override
     protected String getTitle() {
         return "Car Customisation";
