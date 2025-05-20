@@ -16,6 +16,10 @@ public class Opponent extends Racer {
         this.dnfTime = dnfTime;
     }
 
+    public boolean isGoingToDNF() {
+        return isGoingToDNF;
+    }
+
 
     /**
      * Updates the distance and time
