@@ -25,6 +25,15 @@ public class ShopScreenController extends ScreenController {
     private static final int MAX_ITEMS = 3;
 
     @FXML
+    private Label car0UpgradesLabel;
+
+    @FXML
+    private Label car1UpgradesLabel;
+
+    @FXML
+    private Label car2UpgradesLabel;
+
+    @FXML
     private Label car0EcoLabel;
 
     @FXML
@@ -249,6 +258,7 @@ public class ShopScreenController extends ScreenController {
                         .getDeclaredField("car" + i + "HandlingProgressBar").get(this);
                 ProgressBar carReliabilityProgressBar = (ProgressBar) getClass()
                         .getDeclaredField("car" + i + "ReliabilityProgressBar").get(this);
+                Label carUpgradesLabel = (Label) getClass().getDeclaredField("car" + i + "UpgradesLabel").get(this);
                 Label carPriceLabel = (Label) getClass().getDeclaredField("car" + i + "PriceLabel").get(this);
                 Button carBuyButton = (Button) getClass().getDeclaredField("car" + i + "BuyButton").get(this);
 
@@ -258,6 +268,7 @@ public class ShopScreenController extends ScreenController {
                 carSpeedLabel.setText(String.valueOf(String.format("%.0f", car.getSpeed())));
                 carHandlingProgressBar.setProgress(car.getHandling());
                 carReliabilityProgressBar.setProgress(car.getReliability());
+                carUpgradesLabel.setText(String.valueOf(car.getUpgrades().size()));
                 carPriceLabel.setText(String.format("%.0f", car.getPrice()));
 
                 final Car currentCar = car;
