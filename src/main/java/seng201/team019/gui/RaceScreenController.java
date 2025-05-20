@@ -223,7 +223,7 @@ public class RaceScreenController extends ScreenController {
      * goes through the racers and updates the leaderboard
      */
     private void renderRaceLeaderboard() {
-        raceLeaderboard.getChildren().clear(); // TODO: Make this more efficient avoid unnecessary clears
+        raceLeaderboard.getChildren().clear();
 
         VBox.setVgrow(raceLeaderboard, Priority.ALWAYS);
 
@@ -462,8 +462,9 @@ public class RaceScreenController extends ScreenController {
 
                 lastTime = nowMilliseconds;
 
-                // TODO: instead split out incrementRaceTime then is finished ?
-                if (race.incrementRaceTime(delta)) {
+                race.incrementRaceTime(delta);
+
+                if (race.isRaceFinished()) {
                     race.setDNFOfDurationExceedingRacers();
 
                     raceRefuelButton.setDisable(true);

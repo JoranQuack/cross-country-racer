@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
@@ -18,6 +19,9 @@ public class RaceTest {
 
     @Mock
     private Route route1;
+
+    @Mock
+    private Route route2;
 
     @Mock
     private GameEnvironment gameEnvironment;
@@ -40,6 +44,7 @@ public class RaceTest {
             float prize = 1000f;
             int numberOfOpponents = 3;
 
+            raceBuilder.name("Test Race");
             raceBuilder.duration(time);
             raceBuilder.prizeMoney(prize);
             raceBuilder.addRoute(route1);
@@ -48,6 +53,7 @@ public class RaceTest {
 
             Assertions.assertNotNull(race);
             Assertions.assertEquals(1, race.getRoutes().size());
+            Assertions.assertEquals("Test Race", race.getName());
             Assertions.assertEquals(List.of(route1), race.getRoutes());
         }
 
@@ -93,7 +99,7 @@ public class RaceTest {
             race = Race.builder()
                     .numOfOpponents(3)
                     .prizeMoney(1000f)
-                    .duration(Duration.ofHours(4).toMillis())
+                    .duration(Duration.ofHours(1).toMillis())
                     .addRoute(route1)
                     .build();
 
@@ -125,5 +131,68 @@ public class RaceTest {
 
             Assertions.assertEquals(racers.stream().allMatch(Racer::isFinished), race.isRaceFinished());
         }
+
+        @Test
+        public void incrementRaceTimeOverDurationTest() {
+            long delta = Duration.ofMinutes(1).toMillis();
+            long duration = race.getDuration();
+
+            race.incrementRaceTime(duration + delta);
+
+            Assertions.assertEquals(duration, race.getRaceTime());
+        }
+
+        @Test
+        public void incrementRaceTimeUnderDurationTest() {
+            long delta = Duration.ofMinutes(1).toMillis();
+            long duration = race.getDuration();
+
+            race.incrementRaceTime(duration - delta);
+
+            Assertions.assertEquals(duration - delta, race.getRaceTime());
+        }
+
+        @Test
+        public void setDNFOfDurationExceedingRacersTest() {
+            Assertions.assertTrue(race.getRacers().stream().noneMatch(Racer::isFinished));
+
+            List<Racer> racers = race.getRacers();
+
+            race.getRacers().getFirst().setIsFinished(true, 0); // make the first racer finished.
+
+            race.setDNFOfDurationExceedingRacers();
+
+            // check that finished racer did not DNF
+            Assertions.assertFalse(race.getRacers().getFirst().didDNF());
+
+            // check that non-finished racers not DNF
+            Assertions.assertTrue(race.getRacers().stream().skip(1).noneMatch(racer -> !racer.isFinished() && racer.didDNF()));
+        }
+
+        @Test
+        public void getPlayerFinishedPositionPlayerDNFTest() {
+            when(player.didDNF()).thenReturn(true);
+
+            Assertions.assertEquals(-1, race.getPlayerFinishedPosition());
+
+        }
+
+        @Test
+        public void getPlayerFinishedPositionFirstPlaceRaceTest() {
+            when(player.didDNF()).thenReturn(false);
+            when(player.getRoute()).thenReturn(route2);
+
+            when(route1.normalizeDistance(anyFloat())).thenReturn(0f); // opponents route
+            when(route2.normalizeDistance(anyFloat())).thenReturn(1f); // players route
+
+            Assertions.assertEquals(1, race.getPlayerFinishedPosition());
+        }
+
+        @Test
+        public void getPlayerProfitPlayerDNFTest() {
+            when(player.didDNF()).thenReturn(true);
+            Assertions.assertEquals(0, race.getPlayerProfit());
+        }
+
     }
 }

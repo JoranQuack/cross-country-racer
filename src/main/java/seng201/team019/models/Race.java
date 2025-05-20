@@ -91,7 +91,6 @@ public class Race {
 
     public void setPlayer(Player player) {
         this.player = player;
-
         // If the RandomEvent is for the player picking up traveler
         // then we need to set the time for the player to pick up the traveler
         if (selectedEvent == RandomEvent.PlayerStrandedTraveler) {
@@ -99,6 +98,10 @@ public class Race {
         }
     }
 
+    /**
+     * gets all the racers, including the player, involved in the race.
+     * @return list of all racers in race.
+     */
     public List<Racer> getRacers() {
         List<Racer> racers = new ArrayList<>(opponentCars);
         racers.add(player);
@@ -113,21 +116,18 @@ public class Race {
         return duration;
     }
 
-    public boolean incrementRaceTime(long delta) {
+    public void incrementRaceTime(long delta) {
         if (raceTime + delta >= duration) {
             raceTime = duration;
-            return true;
+        } else {
+            raceTime += delta;
         }
-        raceTime += delta;
-
-        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished);
     }
 
     public boolean shouldTriggerRandomEvent() {
         if (isEventScheduledThisRace && !eventHasOccurred) {
             if (eventTriggerTime <= raceTime) {
                 eventHasOccurred = true;
-                System.out.println("RandomEvent triggered! " + eventTriggerTime);
                 return true;
             }
         }
@@ -156,7 +156,7 @@ public class Race {
     }
 
     public boolean isRaceFinished() {
-        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished);
+        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished) || raceTime >= duration;
     }
 
     public List<Racer> getOrderedRacers() {

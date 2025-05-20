@@ -18,7 +18,7 @@ public class Route {
     // Distances in Kilometers always float type
     private final float distance;
 
-    // these range between 1 and 0
+    // these in range (0,1]
     private final double straightness;
     private final double gradeVariation;
 
