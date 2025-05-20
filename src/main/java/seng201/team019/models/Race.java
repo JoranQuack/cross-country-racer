@@ -284,9 +284,13 @@ public class Race {
      * Player gets $0 if they DNF.
      * <p>
      * e.g. For a race with 3 opponents where all racers finish:
+     * <p>
      * player gets 4/4 * prizeMoney if they come 1st.
+     * <p>
      * player gets 3/4 * prizeMoney if they come 2nd.
+     * <p>
      * player gets 2/4 * prizeMoney if they come 3rd.
+     * <p>
      * player gets 1/4 * prizeMoney if they come 4th.
      *
      * @return the money earned as a float
