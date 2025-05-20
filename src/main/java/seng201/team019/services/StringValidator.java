@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 /**
  * StringValidator is a utility class for validating strings.
  * It checks if a string is only made up of non-special characters.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class StringValidator {
     private static final Pattern VALID_STRING_REGEX = Pattern.compile("[a-zA-Z0-9]+$");
