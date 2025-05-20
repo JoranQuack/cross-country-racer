@@ -18,6 +18,9 @@ import seng201.team019.models.Upgrade;
 
 public class CarCustomisationScreenController extends ScreenController {
     @FXML
+    private Button carSellButton;
+
+    @FXML
     private Button carRepairButton;
 
     @FXML
@@ -258,6 +261,11 @@ public class CarCustomisationScreenController extends ScreenController {
             carRepairButton.setDisable(false);
         } else {
             carRepairButton.setDisable(true);
+        }
+        if (getGameEnvironment().getGarage().size() == 1) {
+            carSellButton.setDisable(true);
+        } else {
+            carSellButton.setDisable(false);
         }
     }
 
