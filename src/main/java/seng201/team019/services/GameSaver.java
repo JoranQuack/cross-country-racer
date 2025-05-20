@@ -9,8 +9,17 @@ import java.io.Serializable;
 
 import seng201.team019.GameEnvironment;
 
+/**
+ * Class that handles saving and loading the game state.
+ * It uses Java serialization to save the game environment to a file.
+ */
 public class GameSaver implements Serializable {
 
+    /**
+     * Saves the current game environment to a file.
+     *
+     * @param gameEnvironment The game environment to save.
+     */
     public void saveGame(GameEnvironment gameEnvironment) {
         try (FileOutputStream fileOut = new FileOutputStream("saves/save.ser");
                 ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
@@ -20,6 +29,11 @@ public class GameSaver implements Serializable {
         }
     }
 
+    /**
+     * Loads the game environment from a file.
+     *
+     * @return The loaded game environment, or null if the file does not exist.
+     */
     public GameEnvironment loadGame() {
         GameEnvironment gameEnvironment = null;
         try (FileInputStream fileIn = new FileInputStream("saves/save.ser");
@@ -34,6 +48,11 @@ public class GameSaver implements Serializable {
         return gameEnvironment;
     }
 
+    /**
+     * Checks if the save file exists.
+     *
+     * @return true if the save file exists, false otherwise.
+     */
     public boolean isSaveFileExists() {
         try (FileInputStream fileIn = new FileInputStream("saves/save.ser")) {
             return true;
@@ -42,6 +61,10 @@ public class GameSaver implements Serializable {
         }
     }
 
+    /**
+     * Deletes the save file.
+     * This method is used to reset the game state.
+     */
     public void deleteSaveFile() {
         try (FileOutputStream fileOut = new FileOutputStream("saves/save.ser")) {
             fileOut.close();
