@@ -1,6 +1,7 @@
 package seng201.team019.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import seng201.team019.GameEnvironment;
 import seng201.team019.services.GameSaver;
@@ -24,6 +25,7 @@ public class StartScreenController extends ScreenController {
 
     /**
      * Method to call when start button is clicked
+     * Launches the setup screen
      */
     @FXML
     public void onPlayClicked() {
@@ -32,6 +34,8 @@ public class StartScreenController extends ScreenController {
 
     /**
      * Method to call when continue button is clicked
+     * Attempts to load the game environment from the save file
+     * If successful, launches the dashboard screen
      */
     @FXML
     public void onContinueClicked() {
@@ -45,7 +49,8 @@ public class StartScreenController extends ScreenController {
             loadedGameEnvironment.setNavigator(currentNavigator);
             currentNavigator.launchDashboardScreen(loadedGameEnvironment);
         } else {
-            System.err.println("Failed to load game. The save file might be corrupted or missing.");
+            showAlert(AlertType.ERROR, "Failed to load game.", "The save file might be corrupted or missing.");
+            continueButton.setDisable(true);
         }
     }
 
