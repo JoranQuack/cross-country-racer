@@ -180,7 +180,7 @@ public class Player extends Racer {
                 this.startRefuelTime = time;
             }
 
-            // we need to delay the restart after refuel and then dont continue racing
+            // we need to delay the restart after refuel and then don't continue racing
             if (time <= this.startRefuelTime + REFUEL_DURATION) {
                 fillFuelAmount();
                 return;

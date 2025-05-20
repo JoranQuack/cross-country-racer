@@ -1,6 +1,7 @@
 package seng201.team019.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javafx.scene.image.Image;
 
@@ -16,7 +17,7 @@ public class Upgrade implements Serializable {
     private double price;
 
     /**
-     * The path of the Image related to the part, stored in the resources.images
+     * The path of the Image related to the part, stored in the resources/images
      * package. (always a PNG file with same name as the part)
      */
     private final String imagePath;
@@ -42,14 +43,14 @@ public class Upgrade implements Serializable {
     /**
      * Constructor for the Upgrade class.
      *
-     * @param name
-     * @param price
-     * @param speedBonus
-     * @param handlingBonus
-     * @param reliabilityBonus
-     * @param fuelCapacityBonus
-     * @param fuelConsumptionBonus
-     * @param description
+     * @param name name of the upgrade
+     * @param price price of the upgrade
+     * @param speedBonus speed bonus of the upgrade
+     * @param handlingBonus handling bonus of the upgrade
+     * @param reliabilityBonus reliability bonus of the upgrade
+     * @param fuelCapacityBonus fuelCapacity bonus of the upgrade
+     * @param fuelConsumptionBonus fuel consumption bonus of the upgrade
+     * @param description description of the upgrade
      */
     public Upgrade(String name, double price, double speedBonus, double handlingBonus, double reliabilityBonus,
             int fuelCapacityBonus, double fuelConsumptionBonus, String description) {
@@ -89,7 +90,7 @@ public class Upgrade implements Serializable {
      * @return the image
      */
     public Image getImage() {
-        return new Image(getClass().getResourceAsStream("/" + imagePath));
+        return new Image(Objects.requireNonNull(getClass().getResourceAsStream("/" + imagePath)));
     }
 
     /**

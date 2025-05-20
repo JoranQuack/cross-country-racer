@@ -3,6 +3,7 @@ package seng201.team019.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.scene.image.Image;
 
@@ -18,7 +19,7 @@ public class Car implements Serializable {
     /** Name of the car */
     private String name;
     /** Model of the car */
-    private String model;
+    private final String model;
     /** Age in years */
     private int age;
     /** Price of the car in NZD */
@@ -34,9 +35,9 @@ public class Car implements Serializable {
     /** Fuel consumption in L/100km */
     private double fuelConsumption;
     /** Path to the car image (always a PNG file with same name as the car) */
-    private String imagePath;
+    private final String imagePath;
     /** Array of upgrades applied on the car */
-    private List<Upgrade> upgrades = new ArrayList<Upgrade>();
+    private List<Upgrade> upgrades;
     /** Fuel capacity in L */
     private int fuelCapacity;
     /** Indicates if the car is broken */
@@ -68,7 +69,7 @@ public class Car implements Serializable {
 
         model = name;
         imagePath = "images/" + name + ".png";
-        upgrades = new ArrayList<Upgrade>();
+        upgrades = new ArrayList<>();
         updateRange();
     }
 
@@ -295,7 +296,7 @@ public class Car implements Serializable {
      * @return the image
      */
     public Image getImage() {
-        return new Image(getClass().getResourceAsStream("/" + imagePath));
+        return new Image(Objects.requireNonNull(getClass().getResourceAsStream("/" + imagePath)));
     }
 
     /**
