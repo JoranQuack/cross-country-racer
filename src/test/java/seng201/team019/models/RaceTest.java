@@ -156,8 +156,6 @@ public class RaceTest {
         public void setDNFOfDurationExceedingRacersTest() {
             Assertions.assertTrue(race.getRacers().stream().noneMatch(Racer::isFinished));
 
-            List<Racer> racers = race.getRacers();
-
             race.getRacers().getFirst().setIsFinished(true, 0); // make the first racer finished.
 
             race.setDNFOfDurationExceedingRacers();
@@ -166,7 +164,8 @@ public class RaceTest {
             Assertions.assertFalse(race.getRacers().getFirst().didDNF());
 
             // check that non-finished racers not DNF
-            Assertions.assertTrue(race.getRacers().stream().skip(1).noneMatch(racer -> !racer.isFinished() && racer.didDNF()));
+            Assertions.assertTrue(
+                    race.getRacers().stream().skip(1).noneMatch(racer -> !racer.isFinished() && racer.didDNF()));
         }
 
         @Test
