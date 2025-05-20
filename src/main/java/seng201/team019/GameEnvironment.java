@@ -295,9 +295,11 @@ public class GameEnvironment {
         return (bankBalance < 500 && garage.size() == 1 && garage.get(0).isBroken()) || (isSeasonOver());
     }
 
-    public void applyRaceOutcome(float profit) {
-        setBankBalance(getBankBalance() + profit);
+    public void applyRaceOutcome(Race race) {
+        setBankBalance(getBankBalance() + race.getPlayerProfit());
         incrementRacesCompleted();
+        race.setCompleted(true);
+        refreshShop();
     }
 
     public void updateAveragePlacing(int placing) {
