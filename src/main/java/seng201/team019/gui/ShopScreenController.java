@@ -25,6 +25,15 @@ public class ShopScreenController extends ScreenController {
     private static final int MAX_ITEMS = 3;
 
     @FXML
+    private Label car0EcoLabel;
+
+    @FXML
+    private Label car1EcoLabel;
+
+    @FXML
+    private Label car2EcoLabel;
+
+    @FXML
     private Button homeButton;
 
     @FXML
@@ -97,9 +106,6 @@ public class ShopScreenController extends ScreenController {
     private Label car0NameLabel;
 
     @FXML
-    private Label car0RangeLabel;
-
-    @FXML
     private Label car0SpeedLabel;
 
     @FXML
@@ -124,9 +130,6 @@ public class ShopScreenController extends ScreenController {
     private Label car1NameLabel;
 
     @FXML
-    private Label car1RangeLabel;
-
-    @FXML
     private Label car1SpeedLabel;
 
     @FXML
@@ -149,9 +152,6 @@ public class ShopScreenController extends ScreenController {
 
     @FXML
     private Label car2NameLabel;
-
-    @FXML
-    private Label car2RangeLabel;
 
     @FXML
     private Label car2SpeedLabel;
@@ -243,7 +243,7 @@ public class ShopScreenController extends ScreenController {
 
                 ImageView carImage = (ImageView) getClass().getDeclaredField("car" + i + "Image").get(this);
                 Label carNameLabel = (Label) getClass().getDeclaredField("car" + i + "NameLabel").get(this);
-                Label carRangeLabel = (Label) getClass().getDeclaredField("car" + i + "RangeLabel").get(this);
+                Label carEcoLabel = (Label) getClass().getDeclaredField("car" + i + "EcoLabel").get(this);
                 Label carSpeedLabel = (Label) getClass().getDeclaredField("car" + i + "SpeedLabel").get(this);
                 ProgressBar carHandlingProgressBar = (ProgressBar) getClass()
                         .getDeclaredField("car" + i + "HandlingProgressBar").get(this);
@@ -254,7 +254,7 @@ public class ShopScreenController extends ScreenController {
 
                 carImage.setImage(car.getImage());
                 carNameLabel.setText(String.format("%s %s", car.getModel(), (Year.now().getValue() - car.getAge())));
-                carRangeLabel.setText(String.valueOf(car.getRange()));
+                carEcoLabel.setText(String.valueOf(car.getFuelConsumption()));
                 carSpeedLabel.setText(String.valueOf(String.format("%.0f", car.getSpeed())));
                 carHandlingProgressBar.setProgress(car.getHandling());
                 carReliabilityProgressBar.setProgress(car.getReliability());

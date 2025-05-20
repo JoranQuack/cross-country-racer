@@ -65,11 +65,11 @@
                                 <RowConstraints vgrow="SOMETIMES" />
                               </rowConstraints>
                               <children>
-                                <Label text="Range" />
+                                <Label text="Eco" />
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
-                                    <Label fx:id="car0RangeLabel" text="[range]" />
-                                    <Label text="km" />
+                                    <Label fx:id="car0EcoLabel" text="[fuelCon]" />
+                                    <Label text=" L/100km" />
                                   </children>
                                 </HBox>
                               </children>
@@ -87,7 +87,7 @@
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
                                     <Label fx:id="car0SpeedLabel" text="[speed]" />
-                                    <Label text="km/h" />
+                                    <Label text=" km/h" />
                                   </children>
                                 </HBox>
                               </children>
@@ -171,11 +171,11 @@
                                 <RowConstraints vgrow="SOMETIMES" />
                               </rowConstraints>
                               <children>
-                                <Label text="Range" />
+                                <Label text="Eco" />
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
-                                    <Label fx:id="car1RangeLabel" text="[range]" />
-                                    <Label text="km" />
+                                    <Label fx:id="car1EcoLabel" text="[fuelCon]" />
+                                    <Label text=" L/100km" />
                                   </children>
                                 </HBox>
                               </children>
@@ -193,7 +193,7 @@
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
                                     <Label fx:id="car1SpeedLabel" text="[speed]" />
-                                    <Label text="km/h" />
+                                    <Label text=" km/h" />
                                   </children>
                                 </HBox>
                               </children>
@@ -277,11 +277,11 @@
                                 <RowConstraints vgrow="SOMETIMES" />
                               </rowConstraints>
                               <children>
-                                <Label text="Range" />
+                                <Label text="Eco" />
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
-                                    <Label fx:id="car2RangeLabel" text="[range]" />
-                                    <Label text="km" />
+                                    <Label fx:id="car2EcoLabel" text="[fuelCon]" />
+                                    <Label text=" L/100km" />
                                   </children>
                                 </HBox>
                               </children>
@@ -299,7 +299,7 @@
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
                                     <Label fx:id="car2SpeedLabel" text="[speed]" />
-                                    <Label text="km/h" />
+                                    <Label text=" km/h" />
                                   </children>
                                 </HBox>
                               </children>
