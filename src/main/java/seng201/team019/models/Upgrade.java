@@ -1,14 +1,16 @@
 package seng201.team019.models;
 
+import java.io.Serializable;
+
 import javafx.scene.image.Image;
 
 /**
  * Represents a car part upgrade in the game.
  * Each upgrade has a name, price, image path, and various performance bonuses.
  */
-public class Upgrade {
+public class Upgrade implements Serializable {
     /**
-     * The name of the upgrade.
+     * The percentage change of a random event occurring in a race.
      */
     private String name;
 

@@ -1,5 +1,6 @@
 package seng201.team019.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import javafx.scene.image.Image;
  * @author Ethan Elliot
  * @author Joran Le Quellec
  */
-public class Car {
+public class Car implements Serializable {
     /** Name of the car */
     private String name;
     /** Model of the car */

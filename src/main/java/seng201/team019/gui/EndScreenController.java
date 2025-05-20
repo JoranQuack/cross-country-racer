@@ -57,6 +57,8 @@ public class EndScreenController extends ScreenController {
         playerNameLabel.setText(getGameEnvironment().getName());
         seasonLengthLabel.setText(String.valueOf(getGameEnvironment().getSeasonLength()));
         totalPrizeMoneyLabel.setText(String.format("%.0f", getGameEnvironment().getTotalPrizeMoney()));
+
+        getGameEnvironment().getGameSaver().deleteSaveFile();
     }
 
     @FXML

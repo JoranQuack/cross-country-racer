@@ -10,7 +10,7 @@
 logs/
 *.log
 
-# Build artefacts
+# Build artifacts
 build/
 
 # Gradle
@@ -18,3 +18,5 @@ build/
 
 .vscode/
 bin/
+
+*.ser

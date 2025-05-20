@@ -55,6 +55,8 @@ public class DashboardScreenController extends ScreenController {
      * Initialize the window by setting the bank balance and races completed labels.
      */
     public void initialize() {
+        getGameEnvironment().getGameSaver().saveGame(getGameEnvironment());
+
         int racesComplete = getGameEnvironment().getRacesCompleted();
         int seasonLength = getGameEnvironment().getSeasonLength();
         double bankBalance = getGameEnvironment().getBankBalance();

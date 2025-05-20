@@ -1,5 +1,6 @@
 package seng201.team019.models;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ import java.util.Random;
  * This class contains common properties and methods for both players and
  * opponents.
  */
-public abstract class Racer {
+public abstract class Racer implements Serializable {
 
     /**
      * The name of the Racer.

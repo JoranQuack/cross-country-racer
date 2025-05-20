@@ -25,7 +25,13 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="playButton" onAction="#onPlayClicked" prefHeight="26.0" prefWidth="59.0" text="Play" />
+                  <Button onAction="#onPlayClicked" text="New Game" />
+                  <VBox alignment="TOP_CENTER" prefHeight="67.0" prefWidth="260.0" spacing="10.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Label text="or" />
+                        <Button fx:id="continueButton" disable="true" mnemonicParsing="false" onAction="#onContinueClicked" text="Continue" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

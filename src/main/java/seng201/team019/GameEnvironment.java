@@ -6,6 +6,7 @@ import seng201.team019.models.Upgrade;
 import seng201.team019.models.Difficulty;
 import seng201.team019.models.Race;
 import seng201.team019.services.CSVReader;
+import seng201.team019.services.GameSaver;
 import seng201.team019.services.JsonRaceDeserializer;
 
 import java.io.*;
@@ -21,7 +22,7 @@ import java.util.Random;
  * @author Ethan Elliot
  * @author Joran Le Quellec
  */
-public class GameEnvironment {
+public class GameEnvironment implements Serializable {
 
     /** An array of the race file names to deserialize */
     public static final String[] RACE_FILE_NAMES = {
@@ -49,7 +50,8 @@ public class GameEnvironment {
     public static final int MAX_GARAGE_SIZE = 5;
 
     /** ScreenNavigator instance for navigating between screens */
-    private final ScreenNavigator navigator;
+    private transient ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
+    private final GameSaver gameSaver = new GameSaver("saves/"); // GameSaver instance for saving and loading game
 
     /** List of cars owned by the player */
     private List<Car> garage = new ArrayList<Car>();
@@ -388,6 +390,17 @@ public class GameEnvironment {
     }
 
     /**
+     * Sets the ScreenNavigator for this GameEnvironment.
+     * This is primarily used after deserialization to restore the transient
+     * navigator.
+     *
+     * @param navigator The ScreenNavigator instance.
+     */
+    public void setNavigator(ScreenNavigator navigator) {
+        this.navigator = navigator;
+    }
+
+    /**
      * Sets the bank balance of the player and updates the maximum bank balance if
      * the new balance is higher.
      *
@@ -475,5 +488,9 @@ public class GameEnvironment {
 
     public void setSettingUp(boolean settingUp) {
         isSettingUp = settingUp;
+    }
+
+    public GameSaver getGameSaver() {
+        return this.gameSaver;
     }
 }

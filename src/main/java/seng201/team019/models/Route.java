@@ -1,5 +1,7 @@
 package seng201.team019.models;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Class representing a route in the game.
  * This class contains properties and methods related to the route.
  */
-public class Route {
+public class Route implements Serializable {
     /**
-     * Constant multiplier representing a multiplier for grade variation.
-     * Used in {@code computeAverageSpeed()} and {@code computeDifficulty()}
+     * The percentage change of a random event occurring in a race.
      */
     private final static float GRADE_VARIATION_MULTIPLIER = 0.75f;
 
@@ -96,7 +97,7 @@ public class Route {
      * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness *
      * e^(-grade * c4)
      * c1, c2, c3, c4 are all constants
-     * 
+     *
      * @param car car object that is driving
      * @return the average speed that the car drives.
      */
@@ -110,7 +111,7 @@ public class Route {
      * The equation used is: c1 * car_speed * (c2 * handling+ c3) * straightness *
      * e^(-grade * c4),
      * c1, c2, c3, c4 are all constants
-     * 
+     *
      * @param car car object that is driving
      * @return the average speed that the car drives.
      */
