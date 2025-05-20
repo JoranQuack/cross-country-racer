@@ -18,7 +18,8 @@ public class Upgrade {
     private double price;
 
     /**
-     * The path of the Image related to the part, stored in the resources.images package.
+     * The path of the Image related to the part, stored in the resources.images
+     * package.
      * (always a PNG file with same name as the part)
      */
     private final String imagePath;
@@ -54,8 +55,20 @@ public class Upgrade {
      */
     private final double fuelConsumptionBonus;
 
+    /**
+     * Constructor for the Upgrade class.
+     *
+     * @param name
+     * @param price
+     * @param speedBonus
+     * @param handlingBonus
+     * @param reliabilityBonus
+     * @param fuelCapacityBonus
+     * @param fuelConsumptionBonus
+     * @param description
+     */
     public Upgrade(String name, double price, double speedBonus, double handlingBonus,
-                   double reliabilityBonus, int fuelCapacityBonus, double fuelConsumptionBonus, String description) {
+            double reliabilityBonus, int fuelCapacityBonus, double fuelConsumptionBonus, String description) {
         this.name = name;
         this.price = price;
         this.imagePath = "images/" + name + ".png"; // Initialise image path based on name
