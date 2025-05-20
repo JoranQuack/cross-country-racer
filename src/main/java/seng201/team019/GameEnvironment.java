@@ -191,7 +191,7 @@ public class GameEnvironment {
      * @return true if the car was successfully bought and added to the garage,
      */
     public boolean buyCar(Car car) {
-        if (bankBalance >= car.getPrice() || garage.size() == MAX_GARAGE_SIZE) {
+        if (bankBalance >= car.getPrice() && garage.size() < MAX_GARAGE_SIZE) {
             setBankBalance(bankBalance - car.getPrice());
             availableCars.remove(car);
             garage.add(car);
