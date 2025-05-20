@@ -1,5 +1,6 @@
 package seng201.team019.services;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -77,10 +78,9 @@ public class GameSaver implements Serializable {
      * This method is used to reset the game state.
      */
     public void deleteSaveFile() {
-        try (FileOutputStream fileOut = new FileOutputStream("saves/save.ser")) {
-            fileOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        File saveFile = new java.io.File(pathname + SAVE_FILE_NAME);
+        if (saveFile.exists()) {
+            saveFile.delete();
         }
     }
 }
