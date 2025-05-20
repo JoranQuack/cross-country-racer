@@ -40,6 +40,7 @@ public class RaceTest {
             float prize = 1000f;
             int numberOfOpponents = 3;
 
+            raceBuilder.name("Test Race");
             raceBuilder.duration(time);
             raceBuilder.prizeMoney(prize);
             raceBuilder.addRoute(route1);
@@ -47,6 +48,7 @@ public class RaceTest {
             Race race = raceBuilder.build();
 
             Assertions.assertNotNull(race);
+            Assertions.assertEquals("Test Race",race.getName());
             Assertions.assertEquals(1, race.getRoutes().size());
             Assertions.assertEquals(List.of(route1), race.getRoutes());
         }
