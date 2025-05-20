@@ -7,6 +7,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import seng201.team019.GameEnvironment;
+import seng201.team019.services.FileProcessException;
 
 /**
  * Controller for the dashboard.fxml window.
@@ -55,7 +56,11 @@ public class DashboardScreenController extends ScreenController {
      * Initialize the window by setting the bank balance and races completed labels.
      */
     public void initialize() {
+        try {
         getGameEnvironment().getGameSaver().saveGame(getGameEnvironment());
+        } catch (FileProcessException e){
+            System.err.println(e.getMessage());
+        }
 
         int racesComplete = getGameEnvironment().getRacesCompleted();
         int seasonLength = getGameEnvironment().getSeasonLength();

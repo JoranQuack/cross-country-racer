@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import seng201.team019.GameEnvironment;
+import seng201.team019.services.FileProcessException;
 import seng201.team019.services.GameSaver;
 
 /**
@@ -52,8 +53,13 @@ public class StartScreenController extends ScreenController {
         GameEnvironment currentGameEnvironment = getGameEnvironment();
         ScreenNavigator currentNavigator = currentGameEnvironment.getNavigator();
         GameSaver gameSaver = currentGameEnvironment.getGameSaver();
+        GameEnvironment loadedGameEnvironment;
 
-        GameEnvironment loadedGameEnvironment = gameSaver.loadGame();
+        try {
+            loadedGameEnvironment = gameSaver.loadGame();
+        } catch (FileProcessException e){
+            loadedGameEnvironment = null;
+        }
 
         if (loadedGameEnvironment != null) {
             loadedGameEnvironment.setNavigator(currentNavigator);

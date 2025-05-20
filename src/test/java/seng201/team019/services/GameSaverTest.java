@@ -1,95 +1,140 @@
 package seng201.team019.services;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import seng201.team019.GameEnvironment;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 public class GameSaverTest {
 
     private GameSaver gameSaver;
-    private static final Path SAVE_FILE_PATH = Paths.get("src/test/resources/saves/", "save.ser");
-    private static final Path SAVES_DIRECTORY_PATH = SAVE_FILE_PATH.getParent();
+    private Path saveFilePath;
+    private Path savesDirectoryPath;
 
     @Mock
     private GameEnvironment mockGameEnvironment;
 
     @BeforeEach
-    void setUp() throws IOException {
-        MockitoAnnotations.openMocks(this);
-        gameSaver = new GameSaver("src/test/resources/saves/");
+    public void setUp() throws IOException {
 
-        if (SAVES_DIRECTORY_PATH != null && !Files.exists(SAVES_DIRECTORY_PATH)) {
-            Files.createDirectories(SAVES_DIRECTORY_PATH);
+        URL resourceUrl = getClass().getClassLoader().getResource("saves/");
+
+        try {
+            savesDirectoryPath = Paths.get(resourceUrl.toURI());
+        } catch (URISyntaxException e) {
+            Assertions.fail("URISyntaxException cannot find saves directory");
         }
-        Files.deleteIfExists(SAVE_FILE_PATH);
+
+        saveFilePath = savesDirectoryPath.resolve("save.ser");
+
+
+        gameSaver = new GameSaver(savesDirectoryPath.toString()+'/');
+
+        if (savesDirectoryPath != null && !Files.exists(saveFilePath)) {
+            Files.createDirectories(savesDirectoryPath);
+        }
+
+        Files.deleteIfExists(saveFilePath);
     }
 
     @AfterEach
-    void tearDown() throws IOException {
-        Files.deleteIfExists(SAVE_FILE_PATH);
+    public void tearDown() throws IOException {
+        Files.deleteIfExists(saveFilePath);
     }
 
     @Test
-    void testSaveGame() throws IOException {
-        gameSaver.saveGame(mockGameEnvironment);
-        assertTrue(Files.exists(SAVE_FILE_PATH));
-        assertTrue(Files.size(SAVE_FILE_PATH) > 0);
+    public void saveGameTest() throws IOException {
+        try {
+            gameSaver.saveGame(mockGameEnvironment);
+        } catch (FileProcessException e){
+            System.err.println(e.getMessage());
+            Assertions.fail("FileProcessException cannot load save file");
+        }
 
-        Files.deleteIfExists(SAVE_FILE_PATH);
+        assertTrue(Files.exists(saveFilePath));
+        assertTrue(Files.size(saveFilePath) > 0);
+    }
+
+    @Test
+    public void saveGameNullTest() throws IOException {
         gameSaver.saveGame(null);
-        assertTrue(Files.exists(SAVE_FILE_PATH));
-        assertTrue(Files.size(SAVE_FILE_PATH) > 0);
+        assertTrue(Files.exists(saveFilePath));
+        assertTrue(Files.size(saveFilePath) > 0);
     }
 
     @Test
-    void testLoadGame() throws IOException {
-        gameSaver.saveGame(mockGameEnvironment);
+    public void loadGameTest() throws IOException {
+        try {
+            gameSaver.saveGame(mockGameEnvironment);
+        } catch (FileProcessException e){
+            System.err.println(e.getMessage());
+            Assertions.fail("FileProcessException cannot load save file");
+        }
+
         GameEnvironment loadedEnvironment = gameSaver.loadGame();
         assertNotNull(loadedEnvironment);
-        assertTrue(loadedEnvironment instanceof GameEnvironment);
-
-        Files.deleteIfExists(SAVE_FILE_PATH);
-        loadedEnvironment = gameSaver.loadGame();
-        assertNull(loadedEnvironment);
-
-        Files.createFile(SAVE_FILE_PATH);
-        assertEquals(0, Files.size(SAVE_FILE_PATH));
-        loadedEnvironment = gameSaver.loadGame();
-        assertNull(loadedEnvironment);
     }
 
     @Test
-    void testIsSaveFileExists() throws IOException {
+    void saveNoFileTest() throws IOException {
+        Assertions.assertThrows(FileProcessException.class,()->{gameSaver.loadGame();});
+    }
+
+    @Test
+    public void loadGameEmptyFileTest() throws IOException  {
+        Files.createFile(saveFilePath);
+        assertEquals(0, Files.size(saveFilePath));
+        Assertions.assertThrows(FileProcessException.class,()->{gameSaver.loadGame();});
+    }
+
+    @Test
+    public void isSaveFileExistsTest() throws IOException {
         assertFalse(gameSaver.isSaveFileExists());
 
-        Files.createFile(SAVE_FILE_PATH);
+        Files.createFile(saveFilePath);
         assertTrue(gameSaver.isSaveFileExists());
     }
 
     @Test
-    void testDeleteSaveFile() throws IOException {
-        gameSaver.saveGame(mockGameEnvironment);
-        assertTrue(Files.exists(SAVE_FILE_PATH) && Files.size(SAVE_FILE_PATH) > 0);
+    public  void deleteSaveFileTest() throws IOException {
+        // Make save file
+        try {
+            gameSaver.saveGame(mockGameEnvironment);
+        } catch (FileProcessException e){
+            System.err.println(e.getMessage());
+            Assertions.fail("FileProcessException cannot load save file");
+        }
 
+        assertTrue(Files.exists(saveFilePath) && Files.size(saveFilePath) > 0);
+
+        //test delete file
         gameSaver.deleteSaveFile();
 
-        assertFalse(Files.exists(SAVE_FILE_PATH));
-        assertNull(gameSaver.loadGame());
+        assertFalse(Files.exists(saveFilePath));
+        assertFalse(gameSaver.isSaveFileExists());
 
-        Files.deleteIfExists(SAVE_FILE_PATH);
-        assertFalse(Files.exists(SAVE_FILE_PATH));
 
+        Files.deleteIfExists(saveFilePath);
+        assertFalse(Files.exists(saveFilePath));
+
+        // Shouldn't throw error.
         gameSaver.deleteSaveFile();
 
-        assertFalse(Files.exists(SAVE_FILE_PATH));
-        assertNull(gameSaver.loadGame());
+        assertFalse(Files.exists(saveFilePath));
+        // file doesn't exist and will throw error.
+        Assertions.assertThrows(FileProcessException.class,()->{gameSaver.loadGame();});
     }
 }
