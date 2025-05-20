@@ -10,14 +10,44 @@ import static java.util.Collections.max;
  * The player is a racer who can refuel and has a fuel amount.
  */
 public class Player extends Racer {
+    /**
+     * The time taken to refuel during a race.
+     */
     public final static long REFUEL_DURATION = Duration.ofMinutes(2).toMillis();
+
+    /**
+     * The time taken to pick up a traveler during a race.
+     */
     public final static long PICKUP_DURATION = Duration.ofMinutes(2).toMillis();
+
+    /**
+     * The fuel drain multiplier constant to balance the rate of fuel consumption
+     */
     public final static float FUEL_DRAIN_MULTIPLIER = 1f;
 
+    /**
+     * The amount of fuel a player has in a full tank.
+     */
     private double fuelAmount;
+
+    /**
+     * Indicates whether the player has chosen to refuel at the next opportunity.
+     */
     private boolean isRefuelingNextStop;
+
+    /**
+     * The time the player started refueling in milliseconds.
+     */
     private long startRefuelTime;
+
+    /**
+     * The time the player picked up a traveller in milliseconds.
+     */
     private long startPickupTime;
+
+    /**
+     * The reason the player DNF.
+     */
     private String dnfReason;
 
     public Player(String name, Route route, Car car) {
@@ -73,7 +103,8 @@ public class Player extends Racer {
     }
 
     /**
-     * Updates the distance and time
+     * Updates the distance, time and fuel level of the player. If the player is refueling or picking up
+     * traveler then we need to not update distance. If the player runs out of fuel then we DNF the player.
      *
      * @param distance the distance to be increased
      * @param time     the time of the race at the current moment.
@@ -83,7 +114,6 @@ public class Player extends Racer {
         if (isFinished() || didDNF()) {
             return;
         }
-        ;
 
         // player is refueling
         if (isRefuelingNextStop() && distance - route.getDistanceToNextFuelStop(getDistance()) >= 0) {
@@ -114,7 +144,7 @@ public class Player extends Racer {
         // Player is not refueling and is not Finished or DNF.
         incrementDistance(distance);
 
-        this.setFuelAmount(getFuelAmount() - (getCar().getFuelConsumption() * distance / 100 * FUEL_DRAIN_MULTIPLIER));
+        setFuelAmount(getFuelAmount() - (getCar().getFuelConsumption() * distance / 100 * FUEL_DRAIN_MULTIPLIER));
 
         // The player ran out of fuel
         if (isOutOfFuel()) {

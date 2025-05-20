@@ -71,9 +71,9 @@ public class Route {
     }
 
     /**
-     * Computes the difficulty of the car based on the route
-     * The equation is: c1 * car_speed * (c2 * handling+ c3) * straightness *
-     * e^(-grade * c4)
+     * Computes the difficulty of the car based on the route.
+     * The equation used is: c1 * car_speed * (c2 * handling+ c3) * straightness *
+     * e^(-grade * c4),
      * c1, c2, c3, c4 are all constants
      * 
      * @param car car object that is driving

@@ -7,19 +7,55 @@ import javafx.scene.image.Image;
  * Each upgrade has a name, price, image path, and various performance bonuses.
  */
 public class Upgrade {
+    /**
+     * The name of the upgrade.
+     */
     private String name;
-    private double price; // Price of the part in NZD
-    private String imagePath; // Path to the part image (always a PNG file with same name as the part)
-    private String description;
 
-    private double speedBonus;
-    private double handlingBonus;
-    private double reliabilityBonus;
-    private int fuelCapacityBonus;
-    private double fuelConsumptionBonus; // Negative is better
+    /**
+     * The price of the upgrade.
+     */
+    private double price;
+
+    /**
+     * The path of the Image related to the part, stored in the resources.images package.
+     * (always a PNG file with same name as the part)
+     */
+    private final String imagePath;
+
+    /**
+     * The description of the Upgrade.
+     */
+    private final String description;
+
+    /**
+     * The speed bonus given by the Upgrade.
+     */
+    private final double speedBonus;
+
+    /**
+     * The handling bonus given by the Upgrade.
+     */
+    private final double handlingBonus;
+
+    /**
+     * The reliability bonus given by the Upgrade.
+     */
+    private final double reliabilityBonus;
+
+    /**
+     * The fuel capacity bonus given by the Upgrade.
+     */
+    private final int fuelCapacityBonus;
+
+    /**
+     * The fuel fuelConsumption bonus given by the Upgrade.
+     * Negative is better.
+     */
+    private final double fuelConsumptionBonus;
 
     public Upgrade(String name, double price, double speedBonus, double handlingBonus,
-            double reliabilityBonus, int fuelCapacityBonus, double fuelConsumptionBonus, String description) {
+                   double reliabilityBonus, int fuelCapacityBonus, double fuelConsumptionBonus, String description) {
         this.name = name;
         this.price = price;
         this.imagePath = "images/" + name + ".png"; // Initialise image path based on name
