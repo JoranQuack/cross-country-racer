@@ -16,7 +16,7 @@ public class GameSaver {
     }
 
     public void saveGame(GameEnvironment gameEnvironment) {
-        try (FileOutputStream fileOut = new FileOutputStream("save.ser");
+        try (FileOutputStream fileOut = new FileOutputStream("saves/save.ser");
                 ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(gameEnvironment);
         } catch (IOException i) {
@@ -26,7 +26,7 @@ public class GameSaver {
 
     public GameEnvironment loadGame() {
         GameEnvironment gameEnvironment = null;
-        try (FileInputStream fileIn = new FileInputStream("save.ser");
+        try (FileInputStream fileIn = new FileInputStream("saves/save.ser");
                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
             gameEnvironment = (GameEnvironment) in.readObject();
         } catch (IOException i) {
@@ -39,7 +39,7 @@ public class GameSaver {
     }
 
     public boolean isSaveFileExists() {
-        try (FileInputStream fileIn = new FileInputStream("save.ser")) {
+        try (FileInputStream fileIn = new FileInputStream("saves/save.ser")) {
             return true;
         } catch (IOException e) {
             return false;
