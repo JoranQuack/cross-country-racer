@@ -1,7 +1,7 @@
 package seng201.team019.models;
 
 public enum Difficulty {
-    Easy(20000.0), Hard(16000.0);
+    Easy(25000.0), Hard(19000.0);
 
     private final Double startBalance;
 
