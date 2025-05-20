@@ -13,8 +13,6 @@ import seng201.team019.models.Upgrade;
 /**
  * CSVReader is a utility class for reading CSV files from the resources folder
  * and parsing them into objects.
- *
- * @param <T> The type of objects to be created from the CSV data.
  */
 public class CSVReader {
 
