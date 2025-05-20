@@ -192,6 +192,10 @@ public class ShopScreenController extends ScreenController {
 
     @FXML
     private void onHomeButtonClicked() {
+        if (getGameEnvironment().isSettingUp()) {
+            getGameEnvironment().setSettingUp(false);
+            getGameEnvironment().refreshShop();
+        }
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 
@@ -335,12 +339,11 @@ public class ShopScreenController extends ScreenController {
             updateBalanceLabel();
             homeButton.setDisable(false);
             partsTab.setDisable(false);
-            getGameEnvironment().setSettingUp(false);
             showAlert(AlertType.INFORMATION, "Purchase Successful",
                     "You have successfully purchased the " + car.getModel() + "!");
         } else {
             showAlert(AlertType.ERROR, "Purchase Failed",
-                    "You don't have enough money to buy this car.");
+                    "You don't have enough money to buy this car, or you have the maximum number of cars.");
         }
     }
 
