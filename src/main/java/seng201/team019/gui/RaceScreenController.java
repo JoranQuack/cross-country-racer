@@ -129,8 +129,7 @@ public class RaceScreenController extends ScreenController {
         });
 
         raceContinueButton.setOnAction(event -> {
-            getGameEnvironment().applyRaceOutcome(race.getPlayerProfit());
-            race.setCompleted(true);
+            getGameEnvironment().applyRaceOutcome(race);
             getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(), race);
         });
 
