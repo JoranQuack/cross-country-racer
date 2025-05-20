@@ -30,7 +30,7 @@ public class Race {
     private final String name;
 
     /**
-     * A list of  {@link Route}'s the race has
+     * A list of {@link Route}'s the race has
      */
     private final List<Route> routes;
 
@@ -82,7 +82,8 @@ public class Race {
 
     /**
      * The time that a random event will occur during a race.
-     * Only relevant when {@code isEventScheduledThisRace} and {@code eventHasOccurred} is {@code true}
+     * Only relevant when {@code isEventScheduledThisRace} and
+     * {@code eventHasOccurred} is {@code true}
      *
      */
     private long eventTriggerTime = -1;
@@ -94,7 +95,6 @@ public class Race {
      */
     RandomEvent selectedEvent = null;
 
-
     public Race(Builder builder) {
         this.name = builder.name;
         this.routes = builder.routes;
@@ -105,6 +105,8 @@ public class Race {
 
     /**
      * Sets the random opponents and random events for this race.
+     *
+     * @param gameEnvironment the {@link GameEnvironment} instance
      */
     public void setupRace(GameEnvironment gameEnvironment) {
         // setup random opponents
@@ -125,33 +127,10 @@ public class Race {
         }
     }
 
-    public long getRaceTime() {
-        return raceTime;
-    }
-
-    public float getPrizeMoney() {
-        return prizeMoney;
-    }
-
-    public int getNumOfOpponents() {
-        return numOfOpponents;
-    }
-
-    public RandomEvent getRandomEvent() {
-        return selectedEvent;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
     /**
      * Sets the player instance that is going to be playing in the race.
-     * If the random event is to pick up standard traveler we need to set the pickup time on the player object.
+     * If the random event is to pick up standard traveler we need to set the pickup
+     * time on the player object.
      *
      * @param player the {@link Player} instance that should be set
      */
@@ -198,7 +177,8 @@ public class Race {
 
     /**
      * Indicates whether a random event should trigger
-     * Based on if its trigger time has passed and/or the event has already occurred.
+     * Based on if its trigger time has passed and/or the event has already
+     * occurred.
      *
      * @return true if the event should trigger, false otherwise
      */
@@ -213,7 +193,8 @@ public class Race {
     }
 
     /**
-     * Loops through the racers racing and increased their distance traveled in the time delta
+     * Loops through the racers racing and increased their distance traveled in the
+     * time delta
      *
      * @param delta the time increment in milliseconds.
      */
@@ -247,7 +228,8 @@ public class Race {
      * @return true if race is finished, false if race is not finished.
      */
     public boolean isRaceFinished() {
-        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished) || raceTime >= duration;
+        return getRacers().stream().filter((racer -> !racer.didDNF())).allMatch(Racer::isFinished)
+                || raceTime >= duration;
     }
 
     /**
@@ -267,7 +249,8 @@ public class Race {
     }
 
     /**
-     * Gets the finishing position of the player, if the player DNF the -1 is returned.
+     * Gets the finishing position of the player, if the player DNF the -1 is
+     * returned.
      *
      * @return player finishing position as an integer.
      */
@@ -280,7 +263,8 @@ public class Race {
 
     /**
      * Calculated the player profit from a race.
-     * player gets a fractional percentage of prizeMoney based on finishing position.
+     * player gets a fractional percentage of prizeMoney based on finishing
+     * position.
      * Player gets $0 if they DNF.
      * <p>
      * e.g. For a race with 3 opponents where all racers finish:
@@ -365,12 +349,12 @@ public class Race {
             return this;
         }
 
-
         /**
          * Constructs a new {@link Race} instance with the fields set.
          *
          * @return a new race instance
-         * @throws IllegalStateException if required fields (routes, prizeMoney, duration) are not set
+         * @throws IllegalStateException if required fields (routes, prizeMoney,
+         *                               duration) are not set
          */
         public Race build() {
             if (name == null) {
@@ -388,6 +372,30 @@ public class Race {
             }
             return new Race(this);
         }
+    }
+
+    public long getRaceTime() {
+        return raceTime;
+    }
+
+    public float getPrizeMoney() {
+        return prizeMoney;
+    }
+
+    public int getNumOfOpponents() {
+        return numOfOpponents;
+    }
+
+    public RandomEvent getRandomEvent() {
+        return selectedEvent;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
 }
