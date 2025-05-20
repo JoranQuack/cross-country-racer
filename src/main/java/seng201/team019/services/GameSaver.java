@@ -14,10 +14,13 @@ import seng201.team019.GameEnvironment;
  * It uses Java serialization to save the game environment to a file.
  */
 public class GameSaver implements Serializable {
+    private static final String SAVE_FILE_NAME = "saves/";
+    private String pathname;
 
-    public GameSaver() {
+    public GameSaver(String pathname) {
+        this.pathname = pathname;
         // Check if the saves directory exists, if not create it
-        java.io.File savesDir = new java.io.File("saves/");
+        java.io.File savesDir = new java.io.File(pathname);
         if (!savesDir.exists()) {
             savesDir.mkdirs();
         }
@@ -29,7 +32,7 @@ public class GameSaver implements Serializable {
      * @param gameEnvironment The game environment to save.
      */
     public void saveGame(GameEnvironment gameEnvironment) {
-        try (FileOutputStream fileOut = new FileOutputStream("saves/save.ser");
+        try (FileOutputStream fileOut = new FileOutputStream(pathname + SAVE_FILE_NAME);
                 ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(gameEnvironment);
         } catch (IOException i) {
@@ -44,7 +47,7 @@ public class GameSaver implements Serializable {
      */
     public GameEnvironment loadGame() {
         GameEnvironment gameEnvironment = null;
-        try (FileInputStream fileIn = new FileInputStream("saves/save.ser");
+        try (FileInputStream fileIn = new FileInputStream(pathname + SAVE_FILE_NAME);
                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
             gameEnvironment = (GameEnvironment) in.readObject();
         } catch (IOException i) {
@@ -62,7 +65,7 @@ public class GameSaver implements Serializable {
      * @return true if the save file exists, false otherwise.
      */
     public boolean isSaveFileExists() {
-        try (FileInputStream fileIn = new FileInputStream("saves/save.ser")) {
+        try (FileInputStream fileIn = new FileInputStream(pathname + SAVE_FILE_NAME)) {
             return true;
         } catch (IOException e) {
             return false;

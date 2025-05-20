@@ -43,7 +43,7 @@ public class GameEnvironment implements Serializable {
     public static final int MAX_GARAGE_SIZE = 5;
 
     private transient ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
-    private final GameSaver gameSaver = new GameSaver(); // GameSaver instance for saving and loading game
+    private final GameSaver gameSaver = new GameSaver("saves/"); // GameSaver instance for saving and loading game
 
     private List<Car> garage = new ArrayList<Car>(); // List of cars owned by the player
     private List<Car> availableCars = new ArrayList<Car>(); // List of cars available for purchase
