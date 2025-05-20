@@ -35,6 +35,7 @@ public class GameEnvironment {
 
     private static final String UPGRADE_FILE_NAME = "/data/upgrades.csv";
     private static final String CARS_FILE_NAME = "/data/cars.csv";
+    public static final int MAX_GARAGE_SIZE = 5;
 
     private final ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
 
@@ -190,7 +191,7 @@ public class GameEnvironment {
      * @return true if the car was successfully bought and added to the garage,
      */
     public boolean buyCar(Car car) {
-        if (bankBalance >= car.getPrice()) {
+        if (bankBalance >= car.getPrice() || garage.size() == MAX_GARAGE_SIZE) {
             setBankBalance(bankBalance - car.getPrice());
             availableCars.remove(car);
             garage.add(car);
