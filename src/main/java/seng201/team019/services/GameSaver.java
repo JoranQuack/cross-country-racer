@@ -5,11 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import seng201.team019.GameEnvironment;
 
-public class GameSaver implements Serializable {
+public class GameSaver {
     GameEnvironment gameEnvironment;
 
     public GameSaver(GameEnvironment gameEnvironment) {

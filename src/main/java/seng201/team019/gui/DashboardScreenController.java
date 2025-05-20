@@ -7,6 +7,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import seng201.team019.GameEnvironment;
+import seng201.team019.services.GameSaver;
 
 /**
  * Controller for the dashboard.fxml window.
@@ -15,6 +16,8 @@ import seng201.team019.GameEnvironment;
  * race selection, garage, and shop.
  */
 public class DashboardScreenController extends ScreenController {
+    private GameSaver gameSaver;
+
     @FXML
     private Button raceButton;
 
@@ -41,12 +44,15 @@ public class DashboardScreenController extends ScreenController {
 
     public DashboardScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
+        this.gameSaver = new GameSaver(gameEnvironment);
     }
 
     /**
      * Initialize the window by setting the bank balance and races completed labels.
      */
     public void initialize() {
+        gameSaver.saveGame(getGameEnvironment());
+
         int racesComplete = getGameEnvironment().getRacesCompleted();
         int seasonLength = getGameEnvironment().getSeasonLength();
         double bankBalance = getGameEnvironment().getBankBalance();

@@ -18,7 +18,7 @@ import java.util.Random;
  * GameEnvironment is the core class of the app that manages the game state,
  * including the player's garage, cars, upgrades, races, and bank balance.
  */
-public class GameEnvironment {
+public class GameEnvironment implements Serializable {
 
     public static final String[] RACE_FILE_NAMES = {
             "/data/races/race1.json",
@@ -41,7 +41,7 @@ public class GameEnvironment {
     private static final String CARS_FILE_NAME = "/data/cars.csv";
     public static final int MAX_GARAGE_SIZE = 5;
 
-    private final ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
+    private transient final ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
 
     private List<Car> garage = new ArrayList<Car>(); // List of cars owned by the player
     private List<Car> availableCars = new ArrayList<Car>(); // List of cars available for purchase

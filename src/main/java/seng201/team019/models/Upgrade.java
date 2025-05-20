@@ -1,12 +1,14 @@
 package seng201.team019.models;
 
+import java.io.Serializable;
+
 import javafx.scene.image.Image;
 
 /**
  * Represents a car part upgrade in the game.
  * Each upgrade has a name, price, image path, and various performance bonuses.
  */
-public class Upgrade {
+public class Upgrade implements Serializable {
     private String name;
     private double price; // Price of the part in NZD
     private String imagePath; // Path to the part image (always a PNG file with same name as the part)

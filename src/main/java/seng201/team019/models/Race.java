@@ -5,6 +5,7 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.services.RandomEventGenerator;
 import seng201.team019.services.RandomOpponentGenerator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * Class representing a race.
  */
-public class Race {
+public class Race implements Serializable {
     private final static float RANDOM_EVENT_PERCENTAGE = 0.6f;
     private final static float OPPONENT_DNF_PERCENTAGE = 0.2f;
 

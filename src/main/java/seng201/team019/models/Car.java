@@ -1,5 +1,6 @@
 package seng201.team019.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import javafx.scene.image.Image;
 /**
  * Class representing a car in the game.
  */
-public class Car {
+public class Car implements Serializable {
     private String name; // Name of the car
     private String model;
     private int age; // Age in years
