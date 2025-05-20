@@ -49,28 +49,23 @@ public class DashboardScreenController extends ScreenController {
     public void initialize() {
         int racesComplete = getGameEnvironment().getRacesCompleted();
         int seasonLength = getGameEnvironment().getSeasonLength();
-        int racesRemaining = seasonLength - racesComplete;
-
         double bankBalance = getGameEnvironment().getBankBalance();
         double maximumBankBalance = getGameEnvironment().getMaximumBankBalance();
-        int carCount = getGameEnvironment().getGarage().size();
 
         endGameVBox.setVisible(false);
         endGameVBox.setMouseTransparent(true);
 
-        if (racesRemaining == 0) {
+        if (getGameEnvironment().isGameOver()) {
             mainGrid.setDisable(true);
-            endGameLabel.setText("You have completed all the races!");
             endGameVBox.setVisible(true);
             endGameVBox.setMouseTransparent(false);
-        } else if (bankBalance < 500 && carCount == 1 && getGameEnvironment().getGarage().get(0).isBroken()) {
-            mainGrid.setDisable(true);
             endGameLabel.setText("You have insufficient funds to continue playing.");
-            endGameVBox.setVisible(true);
-            endGameVBox.setMouseTransparent(false);
+            if (getGameEnvironment().isSeasonOver()) {
+                endGameLabel.setText("You have completed all the races!");
+            }
         }
 
-        if (getGameEnvironment().getGarage().size() == 0 || getGameEnvironment().getGarage().get(0).isBroken()) {
+        if (getGameEnvironment().getGarage().get(0).isBroken()) {
             raceButton.setDisable(true);
         }
 

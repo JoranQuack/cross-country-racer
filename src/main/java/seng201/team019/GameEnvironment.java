@@ -288,6 +288,13 @@ public class GameEnvironment {
         return this.racesCompleted >= this.seasonLength;
     }
 
+    /**
+     * Checks if the game is over
+     */
+    public boolean isGameOver() {
+        return (bankBalance < 500 && garage.size() == 1 && garage.get(0).isBroken()) || (isSeasonOver());
+    }
+
     public void applyRaceOutcome(float profit) {
         setBankBalance(getBankBalance() + profit);
         incrementRacesCompleted();
