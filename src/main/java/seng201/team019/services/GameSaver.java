@@ -15,7 +15,7 @@ import seng201.team019.GameEnvironment;
  * It uses Java serialization to save the game environment to a file.
  */
 public class GameSaver implements Serializable {
-    private static final String SAVE_FILE_NAME = "saves/";
+    private static final String SAVE_FILE_NAME = "saves.ser";
     private String pathname;
 
     public GameSaver(String pathname) {
