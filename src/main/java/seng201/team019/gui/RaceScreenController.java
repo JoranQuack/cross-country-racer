@@ -137,7 +137,7 @@ public class RaceScreenController extends ScreenController {
      * progress line and the leaderboard.
      */
     public void initialize() {
-        // add action to buttons
+        // add action to start, refuel and continue buttons
         raceStartButton.setOnAction(event -> {
             raceStartButton.setDisable(true);
             raceRefuelButton.setDisable(false);
@@ -167,6 +167,9 @@ public class RaceScreenController extends ScreenController {
             toggleGameSpeedMultiplierButtons();
         });
 
+
+        // change listener for width of raceProgressLineWrapper as width of this is required for initializeProgressLine()
+        // Had bug where width of raceProgressLineWrapper was -10 of load possibly due to the order of JavaFX render pass being inconsistent.
         ChangeListener<Number> widthListener = new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
@@ -401,6 +404,9 @@ public class RaceScreenController extends ScreenController {
      */
     private void triggerRandomEvent() {
         gameLoop.stop();
+
+        // use Platform.runLater() here as we need to wait for the game loop to finish its final render before we can show alerts
+        // require action and require the JavaFX application thread.
         Platform.runLater(() -> {
             RandomEvent event = race.getRandomEvent();
 

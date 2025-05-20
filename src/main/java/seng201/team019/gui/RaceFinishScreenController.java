@@ -34,7 +34,7 @@ public class RaceFinishScreenController extends ScreenController {
     }
 
     /**
-     * Initialize the window and update stats in the game environment
+     * Initialize the window and set values of finish position label and profit label.
      */
     public void initialize() {
         int pos = race.getPlayerFinishedPosition();
@@ -46,8 +46,6 @@ public class RaceFinishScreenController extends ScreenController {
             raceFinishedPositionLabel.setText(String.valueOf(pos));
         }
         raceFinishedProfitLabel.setText(String.format("$%.2f", race.getPlayerProfit()));
-        getGameEnvironment().updateTotalPrizeMoney(race.getPlayerProfit());
-        getGameEnvironment().updateAveragePlacing(pos);
     }
 
     @FXML

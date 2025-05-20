@@ -351,6 +351,8 @@ public class GameEnvironment {
         incrementRacesCompleted();
         race.setCompleted(true);
         refreshShop();
+        updateTotalPrizeMoney(race.getPlayerProfit());
+        updateAveragePlacing(race.getPlayerFinishedPosition());
     }
 
     /**
