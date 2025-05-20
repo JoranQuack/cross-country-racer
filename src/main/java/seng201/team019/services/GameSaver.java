@@ -45,4 +45,12 @@ public class GameSaver {
             return false;
         }
     }
+
+    public void deleteSaveFile() {
+        try (FileOutputStream fileOut = new FileOutputStream("saves/save.ser")) {
+            fileOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

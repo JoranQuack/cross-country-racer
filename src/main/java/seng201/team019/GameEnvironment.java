@@ -6,6 +6,7 @@ import seng201.team019.models.Upgrade;
 import seng201.team019.models.Difficulty;
 import seng201.team019.models.Race;
 import seng201.team019.services.CSVReader;
+import seng201.team019.services.GameSaver;
 import seng201.team019.services.JsonRaceDeserializer;
 
 import java.io.*;
@@ -42,6 +43,7 @@ public class GameEnvironment implements Serializable {
     public static final int MAX_GARAGE_SIZE = 5;
 
     private transient final ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
+    private transient final GameSaver gameSaver = new GameSaver(this); // GameSaver instance for saving and loading game
 
     private List<Car> garage = new ArrayList<Car>(); // List of cars owned by the player
     private List<Car> availableCars = new ArrayList<Car>(); // List of cars available for purchase
@@ -405,5 +407,9 @@ public class GameEnvironment implements Serializable {
 
     public void setSettingUp(boolean settingUp) {
         isSettingUp = settingUp;
+    }
+
+    public GameSaver getGameSaver() {
+        return this.gameSaver;
     }
 }
