@@ -184,8 +184,8 @@ public class CarCustomisationScreenController extends ScreenController {
 
     @FXML
     public void onRepairButtonClicked() {
-        Car car = getGameEnvironment().getSelectedCar();
-        car.setBroken(false);
+        getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 500);
+        getGameEnvironment().getSelectedCar().setBroken(false);
         carRepairButton.setDisable(true);
     }
 

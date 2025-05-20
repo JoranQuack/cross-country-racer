@@ -59,9 +59,10 @@ public class DashboardScreenController extends ScreenController {
             mainGrid.setDisable(true);
             endGameVBox.setVisible(true);
             endGameVBox.setMouseTransparent(false);
-            endGameLabel.setText("You have insufficient funds to continue playing.");
             if (getGameEnvironment().isSeasonOver()) {
                 endGameLabel.setText("You have completed all the races!");
+            } else {
+                endGameLabel.setText("You have insufficient funds to continue playing.");
             }
         }
 
