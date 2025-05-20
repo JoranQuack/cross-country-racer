@@ -278,7 +278,7 @@ public class CarCustomisationScreenController extends ScreenController {
         String newName = carName.getText();
         StringValidator validator = new StringValidator();
 
-        if (!validator.isValid(newName, 3, 15)) {
+        if (validator.isInvalid(newName, 3, 15)) {
             carName.setStyle("-fx-border-color: red");
             return;
         } else {
@@ -322,16 +322,8 @@ public class CarCustomisationScreenController extends ScreenController {
         numUpgradesLabel.setText(String.valueOf(car.getUpgrades().size()));
         fuelConsumptionLabel.setText(String.format("%.2f", car.getFuelConsumption()));
         fuelCapacityLabel.setText(String.valueOf((int) car.getFuelCapacity()));
-        if (car.isBroken()) {
-            carRepairButton.setDisable(false);
-        } else {
-            carRepairButton.setDisable(true);
-        }
-        if (getGameEnvironment().getGarage().size() == 1) {
-            carSellButton.setDisable(true);
-        } else {
-            carSellButton.setDisable(false);
-        }
+        carRepairButton.setDisable(!car.isBroken());
+        carSellButton.setDisable(getGameEnvironment().getGarage().size() == 1);
     }
 
     /**
@@ -392,7 +384,7 @@ public class CarCustomisationScreenController extends ScreenController {
 
             }
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 
@@ -435,7 +427,7 @@ public class CarCustomisationScreenController extends ScreenController {
                 getGameEnvironment().getSelectedCar().removeUpgrade(part);
             }
             getGameEnvironment().sellPart(part);
-            showAlert(AlertType.INFORMATION, "Part sold", "" + part.getName() + " sold successfully");
+            showAlert(AlertType.INFORMATION, "Part sold", part.getName() + " sold successfully");
             initializeParts();
             initializeCar();
         });

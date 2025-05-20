@@ -174,7 +174,7 @@ public class GarageScreenController extends ScreenController {
     /**
      * Sets the active car in the garage.
      *
-     * @param car
+     * @param car the car being set as active
      */
     public void setActiveCar(Car car) {
         super.getGameEnvironment().setActiveCar(car);
@@ -223,7 +223,7 @@ public class GarageScreenController extends ScreenController {
                 GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
                 carGrid.setVisible(true);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
 
@@ -271,13 +271,13 @@ public class GarageScreenController extends ScreenController {
                     });
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
     }
 
     /**
-     * Sets the selected car when the customise button is clicked. Navigates to the
+     * Sets the selected car when the customised button is clicked. Navigates to the
      * car customisation screen.
      *
      * @param car The car to customise

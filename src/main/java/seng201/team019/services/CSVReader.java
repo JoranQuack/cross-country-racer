@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 import seng201.team019.models.Car;
@@ -44,7 +45,7 @@ public class CSVReader {
         List<T> items = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(getClass().getResourceAsStream(resourcePath)))) {
+                new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream(resourcePath))))) {
             String line;
             br.readLine(); // Skip header
 
@@ -54,7 +55,7 @@ public class CSVReader {
                 items.add(item);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error reading CSV file: " + e.getMessage());
         }
 
         return items;

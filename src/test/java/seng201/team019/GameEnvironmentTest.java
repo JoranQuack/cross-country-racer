@@ -74,7 +74,4 @@ public class GameEnvironmentTest {
         assertEquals(originalAvailableCars, gameEnvironment.getAvailableCars().size());
         assertEquals(originalBankBalance - mockCar1.getPrice() / 2, gameEnvironment.getBankBalance(), 0.01);
     }
-
-
-
 }

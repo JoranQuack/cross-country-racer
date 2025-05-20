@@ -64,7 +64,7 @@ public class SetupScreenController extends ScreenController {
         StringValidator validator = new StringValidator();
 
         // check name length
-        if (!validator.isValid(name, 3, 15)) {
+        if (validator.isInvalid(name, 3, 15)) {
             setupNameField.setStyle("-fx-border-color: red");
             return;
         }

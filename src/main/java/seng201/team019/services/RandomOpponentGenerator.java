@@ -58,7 +58,7 @@ public class RandomOpponentGenerator {
     /**
      * Generates a random opponent for the race
      *
-     * @return Opponent object with random name, car, and route
+     * @return Opponent object with a random name, car, and route
      */
     public Opponent generateRandomOpponent() {
         Car randCar = availableCars.get(rand.nextInt(availableCars.size()));

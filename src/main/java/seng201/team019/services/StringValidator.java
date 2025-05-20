@@ -18,8 +18,8 @@ public class StringValidator {
      * @param string input
      * @return true if string is valid
      */
-    public boolean isValid(String string, int minLength, int maxLength) {
-        return string.length() >= minLength && string.length() <= maxLength
-                && VALID_STRING_REGEX.matcher(string.replaceAll("\\s+", "")).matches();
+    public boolean isInvalid(String string, int minLength, int maxLength) {
+        return string.length() < minLength || string.length() > maxLength
+                || !VALID_STRING_REGEX.matcher(string.replaceAll("\\s+", "")).matches();
     }
 }

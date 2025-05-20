@@ -22,7 +22,7 @@ public class RandomEventGenerator {
     /**
      * Checks if a random event should occur based on the given percentage.
      *
-     * @param percentage
+     * @param percentage the percentage chance
      * @return true if the random event should occur, false otherwise
      */
     public boolean raceHasRandomEvent(float percentage) {

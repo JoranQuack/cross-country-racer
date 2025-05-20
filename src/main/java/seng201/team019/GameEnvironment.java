@@ -108,9 +108,9 @@ public class GameEnvironment implements Serializable {
      * Completes the game environment setup by setting the difficulty, season
      * length, and name.
      *
-     * @param difficulty
-     * @param seasonLength
-     * @param name
+     * @param difficulty The difficulty set by the player
+     * @param seasonLength The length selected
+     * @param name The name the player entered
      */
     public void completeGameEnvironmentSetup(Difficulty difficulty, int seasonLength, String name) {
         this.difficulty = difficulty;
@@ -155,7 +155,7 @@ public class GameEnvironment implements Serializable {
                 InputStream is = jsonRaceDeserializer.readJsonRaceFile(raceFileName);
                 races.add(jsonRaceDeserializer.readRaceFromInputStream(is));
             } catch (IOException | NullPointerException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -185,14 +185,12 @@ public class GameEnvironment implements Serializable {
         availableUpgrades.clear();
 
         // Gets a list of unused cars and randomises their order
-        List<Car> unusedCars = new ArrayList<Car>();
-        unusedCars.addAll(allCars);
+        List<Car> unusedCars = new ArrayList<Car>(allCars);
         unusedCars.removeAll(garage);
         Collections.shuffle(unusedCars, new Random());
 
         // Gets a list of unused upgrades and randomises their order
-        List<Upgrade> unusedUpgrades = new ArrayList<Upgrade>();
-        unusedUpgrades.addAll(allUpgrades);
+        List<Upgrade> unusedUpgrades = new ArrayList<Upgrade>(allUpgrades);
         unusedUpgrades.removeAll(ownUpgrades);
         unusedUpgrades.removeAll(getAllPlayerUpgrades());
         Collections.shuffle(unusedUpgrades, new Random());
@@ -209,7 +207,7 @@ public class GameEnvironment implements Serializable {
     /**
      * Buys a car from the available cars list and adds it to the garage.
      *
-     * @param car
+     * @param car the car being bought
      * @return true if the car was successfully bought and added to the garage,
      */
     public boolean buyCar(Car car) {
@@ -226,7 +224,7 @@ public class GameEnvironment implements Serializable {
     /**
      * Sells a car from the garage and adds it back to the available cars list.
      *
-     * @param car
+     * @param car the car being sold
      * @return true if the car was successfully sold and added back to the available
      *         cars list.
      */
@@ -244,12 +242,12 @@ public class GameEnvironment implements Serializable {
     /**
      * Sets the active car in the garage (the first car in the list).
      *
-     * @param car
+     * @param car the car being set as active
      */
     public void setActiveCar(Car car) {
         if (garage.contains(car)) {
             garage.remove(car);
-            garage.add(0, car);
+            garage.addFirst(car);
         }
     }
 
@@ -257,7 +255,7 @@ public class GameEnvironment implements Serializable {
      * Buys a part from the available parts list and adds it to the own upgrades
      * list.
      *
-     * @param part
+     * @param part the part being bought
      * @return true if the part was successfully bought and added to the own
      *         upgrades list.
      */
@@ -276,7 +274,7 @@ public class GameEnvironment implements Serializable {
      * Sells a part from the own upgrades list and adds it back to the available
      * parts list.
      *
-     * @param part
+     * @param part the part being sold
      */
     public void sellPart(Upgrade part) {
         setBankBalance(bankBalance + part.getPrice() / 2);
@@ -287,7 +285,7 @@ public class GameEnvironment implements Serializable {
     /**
      * Equips a part to the selected car and removes it from the own upgrades
      *
-     * @param part
+     * @param part the part being equipped to the selected car
      */
     public void equipPart(Upgrade part) {
         getSelectedCar().addUpgrade(part);
@@ -297,7 +295,7 @@ public class GameEnvironment implements Serializable {
     /**
      * Unequips a part from the selected car and adds it back to the own upgrades
      *
-     * @param part
+     * @param part the part being unequipped from the selected car
      */
     public void unequipPart(Upgrade part) {
         getSelectedCar().removeUpgrade(part);
@@ -326,14 +324,14 @@ public class GameEnvironment implements Serializable {
      * @return true if the game is over, false otherwise
      */
     public boolean isGameOver() {
-        return (bankBalance < 500 && garage.size() == 1 && garage.get(0).isBroken()) || (isSeasonOver());
+        return (bankBalance < 500 && garage.size() == 1 && garage.getFirst().isBroken()) || (isSeasonOver());
     }
 
     /**
      * Applies the outcome of the completed race to the player's bank balance and
      * updates the race status.
      *
-     * @param race
+     * @param race the race that just finished
      */
     public void applyRaceOutcome(Race race) {
         setBankBalance(getBankBalance() + race.getPlayerProfit());
@@ -361,7 +359,7 @@ public class GameEnvironment implements Serializable {
     /**
      * Updates the total prize money earned by the player.
      *
-     * @param prizeMoney
+     * @param prizeMoney the prizemoney won from the player
      */
     public void updateTotalPrizeMoney(float prizeMoney) {
         totalPrizeMoney += prizeMoney;
@@ -370,7 +368,7 @@ public class GameEnvironment implements Serializable {
     /**
      * Updates the list of available cars.
      *
-     * @param availableCars
+     * @param availableCars the available cars
      */
     public void setAvailableCars(List<Car> availableCars) {
         this.availableCars = availableCars;
@@ -390,7 +388,7 @@ public class GameEnvironment implements Serializable {
      * Sets the bank balance of the player and updates the maximum bank balance if
      * the new balance is higher.
      *
-     * @param bankBalance
+     * @param bankBalance the bank new balance
      */
     public void setBankBalance(Double bankBalance) {
         this.bankBalance = bankBalance;

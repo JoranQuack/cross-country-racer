@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seng201.team019.GameEnvironment;
 
+import java.util.Objects;
+
 /**
  * Abstract parent class for all {@link GameEnvironment} UI controller classes.
  *
@@ -48,11 +50,11 @@ public abstract class ScreenController {
         alert.setGraphic(null);
 
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png"))));
 
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(
-                getClass().getResource("/styles/global.css").toExternalForm());
+                Objects.requireNonNull(getClass().getResource("/styles/global.css")).toExternalForm());
 
         alert.showAndWait();
     }

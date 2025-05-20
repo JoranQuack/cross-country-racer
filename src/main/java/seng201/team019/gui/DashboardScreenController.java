@@ -90,7 +90,7 @@ public class DashboardScreenController extends ScreenController {
             }
         }
 
-        if (getGameEnvironment().getGarage().get(0).isBroken()) {
+        if (getGameEnvironment().getGarage().getFirst().isBroken()) {
             raceButton.setDisable(true);
         }
 

@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 /**
  * Class that starts the JavaFX application thread.
  *
@@ -22,7 +24,7 @@ public class FXAppEntry extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png")));
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("Car Game");
         primaryStage.show();

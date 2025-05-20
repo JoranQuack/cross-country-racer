@@ -11,7 +11,7 @@ import java.time.Duration;
  */
 public class TimeFormatter {
     /**
-     * Returns nice string of a time in milliseconds
+     * Returns a nice string of a time in milliseconds
      *
      * @param time is the time in milliseconds
      * @return formatted string with hrs:min:sec.milliseconds
@@ -23,7 +23,7 @@ public class TimeFormatter {
     }
 
     /**
-     * Returns nice string of a time in milliseconds
+     * Returns a nice string of a time in milliseconds
      *
      * @param time is the time in milliseconds
      * @return formatted string with hrs:min
