@@ -42,8 +42,8 @@ public class GameEnvironment implements Serializable {
     private static final String CARS_FILE_NAME = "/data/cars.csv";
     public static final int MAX_GARAGE_SIZE = 5;
 
-    private transient final ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
-    private transient final GameSaver gameSaver = new GameSaver(); // GameSaver instance for saving and loading game
+    private transient ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
+    private final GameSaver gameSaver = new GameSaver(); // GameSaver instance for saving and loading game
 
     private List<Car> garage = new ArrayList<Car>(); // List of cars owned by the player
     private List<Car> availableCars = new ArrayList<Car>(); // List of cars available for purchase
@@ -323,6 +323,17 @@ public class GameEnvironment implements Serializable {
 
     public void setAvailableCars(List<Car> availableCars) {
         this.availableCars = availableCars;
+    }
+
+    /**
+     * Sets the ScreenNavigator for this GameEnvironment.
+     * This is primarily used after deserialization to restore the transient
+     * navigator.
+     *
+     * @param navigator The ScreenNavigator instance.
+     */
+    public void setNavigator(ScreenNavigator navigator) {
+        this.navigator = navigator;
     }
 
     // Getters and Setters for the GameEnvironment class
