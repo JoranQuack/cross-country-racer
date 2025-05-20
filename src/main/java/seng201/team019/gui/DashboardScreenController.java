@@ -63,7 +63,7 @@ public class DashboardScreenController extends ScreenController {
             endGameLabel.setText("You have completed all the races!");
             endGameVBox.setVisible(true);
             endGameVBox.setMouseTransparent(false);
-        } else if (bankBalance <= 15000 && carCount == 0) {
+        } else if (bankBalance < 500 && carCount == 1 && getGameEnvironment().getGarage().get(0).isBroken()) {
             mainGrid.setDisable(true);
             endGameLabel.setText("You have insufficient funds to continue playing.");
             endGameVBox.setVisible(true);
