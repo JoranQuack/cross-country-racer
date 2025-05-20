@@ -41,7 +41,7 @@ public class GameEnvironmentTest {
 
         gameEnvironment.completeGameEnvironmentSetup(Difficulty.Easy, 10, "name");
 
-        assertEquals(20000.0, gameEnvironment.getBankBalance());
+        assertEquals(Difficulty.Easy.getStartBalance(), gameEnvironment.getBankBalance());
         assertEquals(0, gameEnvironment.getRacesCompleted());
         assertEquals(2, gameEnvironment.getAvailableCars().size());
         assertEquals(3, gameEnvironment.getAvailableUpgrades().size());
