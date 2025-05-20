@@ -32,12 +32,13 @@ public class GameSaver implements Serializable {
      *
      * @param gameEnvironment The game environment to save.
      */
-    public void saveGame(GameEnvironment gameEnvironment) {
+    public void saveGame(GameEnvironment gameEnvironment) throws FileProcessException {
         try (FileOutputStream fileOut = new FileOutputStream(pathname + SAVE_FILE_NAME);
-                ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(gameEnvironment);
         } catch (IOException i) {
-            i.printStackTrace();
+            throw new FileProcessException("An unknown error occurred when saving to file.");
         }
     }
 
@@ -46,16 +47,17 @@ public class GameSaver implements Serializable {
      *
      * @return The loaded game environment, or null if the file does not exist.
      */
-    public GameEnvironment loadGame() {
+    public GameEnvironment loadGame() throws FileProcessException {
         GameEnvironment gameEnvironment = null;
         try (FileInputStream fileIn = new FileInputStream(pathname + SAVE_FILE_NAME);
-                ObjectInputStream in = new ObjectInputStream(fileIn)) {
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
             gameEnvironment = (GameEnvironment) in.readObject();
         } catch (IOException i) {
-            i.printStackTrace();
+            throw new FileProcessException("Save File not found or File may be corrupted.");
         } catch (ClassNotFoundException c) {
-            System.err.println("save not found");
-            c.printStackTrace();
+            throw new FileProcessException("Class not found. File may be corrupted.");
+        } catch (Exception e) {
+            throw new FileProcessException("An unknown error occurred when loading save file.");
         }
         return gameEnvironment;
     }
