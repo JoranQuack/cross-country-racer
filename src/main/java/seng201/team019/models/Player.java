@@ -6,8 +6,8 @@ import java.util.List;
 import static java.util.Collections.max;
 
 /**
- * Class representing a player in the game.
- * The player is a racer who can refuel and has a fuel amount.
+ * Class representing a player in the game. The player is a racer who can refuel
+ * and has a fuel amount.
  */
 public class Player extends Racer {
     /**
@@ -25,9 +25,7 @@ public class Player extends Racer {
      */
     public final static float FUEL_DRAIN_MULTIPLIER = 1f;
 
-    /**
-     * The amount of fuel a player has in a full tank.
-     */
+    /** The amount of fuel a player has in a full tank. */
     private double fuelAmount;
 
     /**
@@ -36,23 +34,29 @@ public class Player extends Racer {
     private boolean isRefuelingNextStop;
 
     /**
-     * The time the player started refueling in milliseconds.
-     * Only relevant when {@code isRefuelingNextStop} is {@code true} and distance >= stop distance.
+     * The time the player started refueling in milliseconds. Only relevant when
+     * {@code isRefuelingNextStop} is {@code true} and distance >= stop distance.
      */
     private long startRefuelTime;
 
     /**
-     * The time the player picked up a traveller in milliseconds.
-     * Only relevant when the {@link RandomEvent} is {@code PlayerStrandedTraveler}.
+     * The time the player picked up a traveler in milliseconds. Only relevant when
+     * the {@link RandomEvent} is {@code PlayerStrandedTraveler}.
      */
     private long startPickupTime;
 
     /**
-     * The reason the player DNF.
-     * Only relevant when {@code didDNF} is {@code true}
+     * The reason the player DNF. Only relevant when {@code didDNF} is {@code true}
      */
     private String dnfReason;
 
+    /**
+     * Constructs a Player.
+     *
+     * @param name  the name of the player
+     * @param route the route the player will race
+     * @param car   the car the player will use
+     */
     public Player(String name, Route route, Car car) {
         super(name, route, car);
         fuelAmount = car.getFuelCapacity();
@@ -61,30 +65,66 @@ public class Player extends Racer {
         startPickupTime = -1;
     }
 
+    /**
+     * Gets the amount of fuel the player has.
+     *
+     * @return the fuel amount
+     */
     public double getFuelAmount() {
         return fuelAmount;
     }
 
+    /**
+     * Sets the amount of fuel the player has.
+     *
+     * @param fuelAmount the fuel amount to set
+     */
     public void setFuelAmount(double fuelAmount) {
         this.fuelAmount = max(List.of(fuelAmount, 0d));
     }
 
+    /**
+     * Returns whether the player is refueling at the next stop.
+     *
+     * @return true if refueling next stop, false otherwise
+     */
     public boolean isRefuelingNextStop() {
         return isRefuelingNextStop;
     }
 
+    /**
+     * Sets whether the player is refueling at the next stop.
+     *
+     * @param refuelingNextStop true if refueling next stop, false otherwise
+     */
     public void setIsRefuelingNextStop(boolean refuelingNextStop) {
         this.isRefuelingNextStop = refuelingNextStop;
     }
 
+    /**
+     * Sets the time the player started picking up a traveler.
+     *
+     * @param startPickupTime the start pickup time in milliseconds
+     */
     public void setStartPickupTime(long startPickupTime) {
         this.startPickupTime = startPickupTime;
     }
 
+    /**
+     * Gets the reason the player DNF.
+     *
+     * @return the DNF reason
+     */
     public String getDnfReason() {
         return dnfReason;
     }
 
+    /**
+     * Sets the DNF state and reason for the player.
+     *
+     * @param didDNF    true if player did DNF, false otherwise
+     * @param dnfReason the reason for DNF
+     */
     public void setDidDNF(boolean didDNF, String dnfReason) {
         this.didDNF = didDNF;
         this.dnfReason = dnfReason;
@@ -92,22 +132,33 @@ public class Player extends Racer {
 
     /**
      * Returns the normalized fuel amount
+     *
+     * @return the normalized fuel amount
      */
     public double getNormalizedFuelAmount() {
         return fuelAmount / getCar().getFuelCapacity();
     }
 
+    /**
+     * Fills the player's fuel amount to full capacity.
+     */
     public void fillFuelAmount() {
         this.fuelAmount = car.getFuelCapacity();
     }
 
+    /**
+     * Returns whether the player is out of fuel.
+     *
+     * @return true if out of fuel, false otherwise
+     */
     public boolean isOutOfFuel() {
         return fuelAmount == 0f;
     }
 
     /**
-     * Updates the distance, time and fuel level of the player. If the player is refueling or picking up
-     * traveler then we need to not update distance. If the player runs out of fuel then we DNF the player.
+     * Updates the distance, time and fuel level of the player. If the player is
+     * refueling or picking up traveler then we need to not update distance. If the
+     * player runs out of fuel then we DNF the player.
      *
      * @param distance the distance to be increased
      * @param time     the time of the race at the current moment.

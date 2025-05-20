@@ -4,27 +4,32 @@ package seng201.team019.models;
  * Class represents the Opponent. extends abstract class {@link Racer}
  */
 public class Opponent extends Racer {
-    /**
-     * Indicates whether the opponent will dnf in the race.
-     */
+    /** Indicates whether the opponent will dnf in the race. */
     private boolean isGoingToDNF;
 
     /**
-     * Time in milliseconds the opponent will dnf.
-     * Only relevant when {@code isGoingToDNF} is {@code true}
+     * Time in milliseconds the opponent will dnf. Only relevant when
+     * {@code isGoingToDNF} is {@code true}
      */
     private long dnfTime;
 
+    /**
+     * Constructs an Opponent.
+     *
+     * @param name  the name of the opponent
+     * @param route the route the opponent will race
+     * @param car   the car the opponent will use
+     */
     public Opponent(String name, Route route, Car car) {
         super(name, route, car);
         isGoingToDNF = false;
         dnfTime = -1;
     }
 
-
     /**
      * Sets the status of the isGoingToDNF and related time.
-     * @param dnfTime the time the DNF will occur in milliseconds
+     *
+     * @param dnfTime      the time the DNF will occur in milliseconds
      * @param isGoingToDNF true if the opponent will DNF, false otherwise
      */
     public void setIsGoingToDNF(long dnfTime, boolean isGoingToDNF) {
@@ -32,6 +37,11 @@ public class Opponent extends Racer {
         this.dnfTime = dnfTime;
     }
 
+    /**
+     * Returns whether the opponent is going to DNF.
+     *
+     * @return true if the opponent will DNF, false otherwise
+     */
     public boolean isGoingToDNF() {
         return isGoingToDNF;
     }

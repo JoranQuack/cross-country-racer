@@ -25,74 +25,51 @@ public class Race implements Serializable {
      */
     private static final float OPPONENT_DNF_PERCENTAGE = 0.2f;
 
-    /**
-     * The name of a race.
-     */
+    /** The name of a race. */
     private final String name;
 
-    /**
-     * A list of {@link Route}'s the race has
-     */
+    /** A list of {@link Route}'s the race has */
     private final List<Route> routes;
 
-    /**
-     * The prize money earned from a race.
-     */
+    /** The prize money earned from a race. */
     private final float prizeMoney;
 
-    /**
-     * The duration of a race in milliseconds.
-     */
+    /** The duration of a race in milliseconds. */
     private final long duration;
 
-    /**
-     * The number of opponents in a race
-     */
+    /** The number of opponents in a race */
     private final int numOfOpponents;
 
-    /**
-     * A list of the {@link Opponent}'s in a race
-     */
+    /** A list of the {@link Opponent}'s in a race */
     private List<Opponent> opponentCars;
 
-    /**
-     * The {@link Player} in a race.
-     */
+    /** The {@link Player} in a race. */
     private Player player;
 
-    /**
-     * The current time of a race in milliseconds. Is in range 0 to duration.
-     */
+    /** The current time of a race in milliseconds. Is in range 0 to duration. */
     private long raceTime;
 
-    /**
-     * Indicates if the player has completed the race.
-     */
+    /** Indicates if the player has completed the race. */
     private boolean isCompleted;
 
-    /**
-     * Indicates whether a random event will occur during the race.
-     */
+    /** Indicates whether a random event will occur during the race. */
     private boolean isEventScheduledThisRace;
 
     /**
-     * Indicates whether a random event has occurred during the race.
-     * Only relevant when {@code isEventScheduledThisRace} is {@code true}
+     * Indicates whether a random event has occurred during the race. Only relevant
+     * when {@code isEventScheduledThisRace} is {@code true}
      */
     private boolean eventHasOccurred = false;
 
     /**
-     * The time that a random event will occur during a race.
-     * Only relevant when {@code isEventScheduledThisRace} and
-     * {@code eventHasOccurred} is {@code true}
-     *
+     * The time that a random event will occur during a race. Only relevant when
+     * {@code isEventScheduledThisRace} and {@code eventHasOccurred} is {@code true}
      */
     private long eventTriggerTime = -1;
 
     /**
-     * The {@link RandomEvent} that will occur during a race.
-     * Only relevant when {@code isEventScheduledThisRace} is {@code true}
-     *
+     * The {@link RandomEvent} that will occur during a race. Only relevant when
+     * {@code isEventScheduledThisRace} is {@code true}
      */
     RandomEvent selectedEvent = null;
 
@@ -129,9 +106,9 @@ public class Race implements Serializable {
     }
 
     /**
-     * Sets the player instance that is going to be playing in the race.
-     * If the random event is to pick up standard traveler we need to set the pickup
-     * time on the player object.
+     * Sets the player instance that is going to be playing in the race. If the
+     * random event is to pick up standard traveler we need to set the pickup time
+     * on the player object.
      *
      * @param player the {@link Player} instance that should be set
      */
@@ -177,9 +154,8 @@ public class Race implements Serializable {
     }
 
     /**
-     * Indicates whether a random event should trigger
-     * Based on if its trigger time has passed and/or the event has already
-     * occurred.
+     * Indicates whether a random event should trigger Based on if its trigger time
+     * has passed and/or the event has already occurred.
      *
      * @return true if the event should trigger, false otherwise
      */
@@ -234,10 +210,9 @@ public class Race implements Serializable {
     }
 
     /**
-     * Returns the racers in order.
-     * Racers that have DNF are last,
-     * then sort by distance percentage with the highest completion first,
-     * then sort by finish time with the lowest time.
+     * Returns the racers in order. Racers that have DNF are last, then sort by
+     * distance percentage with the highest completion first, then sort by finish
+     * time with the lowest time.
      *
      * @return ordered list of {@link Racer}'s
      */
@@ -263,12 +238,10 @@ public class Race implements Serializable {
     }
 
     /**
-     * Calculated the player profit from a race.
-     * player gets a fractional percentage of prizeMoney based on finishing
-     * position.
-     * Player gets $0 if they DNF.
+     * Calculated the player profit from a race. player gets a fractional percentage
+     * of prizeMoney based on finishing position. Player gets $0 if they DNF.
      * <p>
-     * e.g. For a race with 3 opponents where all racers finish:
+     * For a race with 3 opponents where all racers finish:
      * <p>
      * player gets 4/4 * prizeMoney if they come 1st.
      * <p>
@@ -375,26 +348,56 @@ public class Race implements Serializable {
         }
     }
 
+    /**
+     * Gets the current race time in milliseconds.
+     *
+     * @return the current race time
+     */
     public long getRaceTime() {
         return raceTime;
     }
 
+    /**
+     * Gets the prize money for the race.
+     *
+     * @return the prize money
+     */
     public float getPrizeMoney() {
         return prizeMoney;
     }
 
+    /**
+     * Gets the number of opponents in the race.
+     *
+     * @return the number of opponents
+     */
     public int getNumOfOpponents() {
         return numOfOpponents;
     }
 
+    /**
+     * Gets the random event selected for this race.
+     *
+     * @return the random event
+     */
     public RandomEvent getRandomEvent() {
         return selectedEvent;
     }
 
+    /**
+     * Gets the name of the race.
+     *
+     * @return the race name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the player participating in the race.
+     *
+     * @return the player
+     */
     public Player getPlayer() {
         return player;
     }

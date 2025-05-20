@@ -5,9 +5,8 @@ import java.time.Duration;
 import java.util.Random;
 
 /**
- * Abstract class representing a racer in the game.
- * This class contains common properties and methods for both players and
- * opponents.
+ * Abstract class representing a racer in the game. This class contains common
+ * properties and methods for both players and opponents.
  */
 public abstract class Racer implements Serializable {
 
@@ -26,27 +25,28 @@ public abstract class Racer implements Serializable {
      */
     protected final Car car;
 
-    /**
-     * The current distance of the player in km.
-     */
+    /** The current distance of the player in km. */
     protected float distance;
 
-    /**
-     * Indicates whether the player is finished
-     */
+    /** Indicates whether the player is finished */
     protected boolean isFinished;
 
     /**
-     * The finish time of the player in milliseconds
-     * Only relevant when {@code isFinished} is {@code true}
+     * The finish time of the player in milliseconds Only relevant when
+     * {@code isFinished} is {@code true}
      */
     protected long finishTime;
 
-    /**
-     * Indicates whether the player DNF
-     */
+    /** Indicates whether the player DNF */
     protected boolean didDNF;
 
+    /**
+     * Constructs a Racer.
+     *
+     * @param name  the name of the racer
+     * @param route the route the racer is on
+     * @param car   the car the racer is driving
+     */
     public Racer(String name, Route route, Car car) {
         this.name = name;
         this.route = route;
@@ -67,20 +67,46 @@ public abstract class Racer implements Serializable {
         return (float) (0.8 + rand.nextFloat() * (2.5 - 0.8));
     }
 
+    /**
+     * Updates the racer's stats based on distance and time.
+     *
+     * @param distance the distance to update
+     * @param time     the current time
+     */
     public abstract void updateStats(float distance, long time);
 
+    /**
+     * Gets the name of the racer.
+     *
+     * @return the racer's name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the route of the racer.
+     *
+     * @return the route
+     */
     public Route getRoute() {
         return route;
     }
 
+    /**
+     * Gets the car of the racer.
+     *
+     * @return the car
+     */
     public Car getCar() {
         return car;
     }
 
+    /**
+     * Returns whether the racer is finished.
+     *
+     * @return true if finished, false otherwise
+     */
     public boolean isFinished() {
         return isFinished;
     }
@@ -96,26 +122,56 @@ public abstract class Racer implements Serializable {
         this.finishTime = finishTime;
     }
 
+    /**
+     * Returns whether the racer did DNF.
+     *
+     * @return true if DNF, false otherwise
+     */
     public boolean didDNF() {
         return didDNF;
     }
 
+    /**
+     * Sets the DNF status of the racer.
+     *
+     * @param didDNF true if DNF, false otherwise
+     */
     public void setDidDNF(boolean didDNF) {
         this.didDNF = didDNF;
     }
 
+    /**
+     * Gets the distance traveled by the racer.
+     *
+     * @return the distance
+     */
     public float getDistance() {
         return distance;
     }
 
+    /**
+     * Sets the distance traveled by the racer.
+     *
+     * @param distance the distance to set
+     */
     public void setDistance(float distance) {
         this.distance = distance;
     }
 
+    /**
+     * Increments the distance traveled by the racer.
+     *
+     * @param distance the distance to increment
+     */
     public void incrementDistance(float distance) {
         this.distance += distance;
     }
 
+    /**
+     * Gets the finish time of the racer.
+     *
+     * @return the finish time
+     */
     public long getFinishTime() {
         return finishTime;
     }
