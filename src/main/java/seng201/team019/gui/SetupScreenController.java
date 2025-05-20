@@ -7,6 +7,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Difficulty;
+import seng201.team019.services.StringValidator;
 
 /**
  * Controller for the setup.fxml window
@@ -43,8 +44,10 @@ public class SetupScreenController extends ScreenController {
         setupNameField.setStyle("-fx-border-color: none");
         setupDifficultyField.setStyle("-fx-border-color: none");
 
+        StringValidator validator = new StringValidator();
+
         // check name length
-        if (name.length() < 3 || name.length() > 15) {
+        if (!validator.isValid(name,3,15)) {
             setupNameField.setStyle("-fx-border-color: red");
             return;
         }
