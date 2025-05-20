@@ -17,6 +17,9 @@ import java.util.Random;
 /**
  * GameEnvironment is the core class of the app that manages the game state,
  * including the player's garage, cars, upgrades, races, and bank balance.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class GameEnvironment {
 
@@ -372,7 +375,7 @@ public class GameEnvironment {
     /**
      * Sets the bank balance of the player and updates the maximum bank balance if
      * the new balance is higher.
-     * 
+     *
      * @param bankBalance
      */
     public void setBankBalance(Double bankBalance) {

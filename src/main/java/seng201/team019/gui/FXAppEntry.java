@@ -9,6 +9,7 @@ import javafx.stage.Stage;
  * Class that starts the JavaFX application thread.
  *
  * @author seng201 teaching team
+ * @author Joran Le Quellec
  */
 public class FXAppEntry extends Application {
     /**
