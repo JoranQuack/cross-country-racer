@@ -15,6 +15,14 @@ import seng201.team019.GameEnvironment;
  */
 public class GameSaver implements Serializable {
 
+    GameSaver() {
+        // Check if the saves directory exists, if not create it
+        java.io.File savesDir = new java.io.File("saves");
+        if (!savesDir.exists()) {
+            savesDir.mkdirs();
+        }
+    }
+
     /**
      * Saves the current game environment to a file.
      *
