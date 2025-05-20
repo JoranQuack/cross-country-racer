@@ -3,7 +3,6 @@ package seng201.team019.gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import seng201.team019.GameEnvironment;
 import seng201.team019.services.GameSaver;
 
@@ -14,8 +13,6 @@ public class StartScreenController extends ScreenController {
     @FXML
     private Button continueButton;
 
-    @FXML
-    private VBox continueButtonWrapper;
 
     public StartScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -24,10 +21,6 @@ public class StartScreenController extends ScreenController {
     public void initialize() {
         if (getGameEnvironment().getGameSaver().isSaveFileExists()) {
             continueButton.setDisable(false);
-        }
-        else {
-            continueButtonWrapper.setVisible(false);
-            continueButtonWrapper.setManaged(false);
         }
     }
 
