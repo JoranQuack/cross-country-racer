@@ -9,11 +9,6 @@ import java.io.ObjectOutputStream;
 import seng201.team019.GameEnvironment;
 
 public class GameSaver {
-    GameEnvironment gameEnvironment;
-
-    public GameSaver(GameEnvironment gameEnvironment) {
-        this.gameEnvironment = gameEnvironment;
-    }
 
     public void saveGame(GameEnvironment gameEnvironment) {
         try (FileOutputStream fileOut = new FileOutputStream("saves/save.ser");
