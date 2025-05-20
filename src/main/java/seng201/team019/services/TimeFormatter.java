@@ -5,6 +5,9 @@ import java.time.Duration;
 /**
  * TimeFormatter is a utility class for formatting time in milliseconds into a
  * human-readable string format.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class TimeFormatter {
     /**

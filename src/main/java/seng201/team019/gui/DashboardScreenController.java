@@ -13,6 +13,9 @@ import seng201.team019.GameEnvironment;
  * Handles displaying the player's bank balance, races remaining,
  * and providing functionality to navigate to other screens:
  * race selection, garage, and shop.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class DashboardScreenController extends ScreenController {
     @FXML
@@ -39,6 +42,11 @@ public class DashboardScreenController extends ScreenController {
     @FXML
     private Label dashboardRacesRemainingLabel;
 
+    /**
+     * Constructor for the DashboardScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public DashboardScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }

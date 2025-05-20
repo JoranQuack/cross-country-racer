@@ -15,11 +15,15 @@ import javafx.scene.layout.VBox;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
 import seng201.team019.models.Upgrade;
+import seng201.team019.services.StringValidator;
 
 /**
  * Controller for the carCustomisation.fxml window.
  * Handles displaying the car's information and allowing the player to
  * customise their car by equipping or selling parts.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class CarCustomisationScreenController extends ScreenController {
     @FXML
@@ -154,6 +158,11 @@ public class CarCustomisationScreenController extends ScreenController {
     @FXML
     private Button part4RemoveButton;
 
+    /**
+     * Constructor for the CarCustomisationScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public CarCustomisationScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
@@ -200,8 +209,15 @@ public class CarCustomisationScreenController extends ScreenController {
     @FXML
     private void onCarNameChanged() {
         String newName = carName.getText();
-        Car car = getGameEnvironment().getSelectedCar();
-        car.setName(newName);
+        StringValidator validator = new StringValidator();
+
+        if (!validator.isValid(newName, 3, 15)) {
+            carName.setStyle("-fx-border-color: red");
+            return;
+        } else {
+            carName.setStyle("-fx-border-color: none");
+            getGameEnvironment().getSelectedCar().setName(newName);
+        }
     }
 
     /**
@@ -315,6 +331,15 @@ public class CarCustomisationScreenController extends ScreenController {
 
     /**
      * Initializes one part's buttons based on whether the part is owned or not
+     *
+     * @param part             The part to initialize
+     * @param partGrid         The grid pane for the part
+     * @param partImage        The image view for the part
+     * @param partNameLabel    The label for the part name
+     * @param partAddButton    The button to add the part
+     * @param partRemoveButton The button to remove the part
+     * @param partSellButton   The button to sell the part
+     * @param ownedParts       The list of owned parts
      */
     private void initializePartButtons(Upgrade part, GridPane partGrid, ImageView partImage,
             Label partNameLabel, Button partAddButton, Button partRemoveButton, Button partSellButton,

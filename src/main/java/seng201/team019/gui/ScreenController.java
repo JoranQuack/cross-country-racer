@@ -11,9 +11,14 @@ import seng201.team019.GameEnvironment;
  * Abstract parent class for all {@link GameEnvironment} UI controller classes.
  *
  * @author seng201 teaching team
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public abstract class ScreenController {
 
+    /**
+     * The {@link GameEnvironment} instance used by this controller.
+     */
     private final GameEnvironment gameEnvironment;
 
     /**

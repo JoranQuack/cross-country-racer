@@ -6,7 +6,11 @@ import javafx.scene.control.Label;
 import seng201.team019.GameEnvironment;
 
 /**
- * Controller for the end.fxml window
+ * Controller for the end.fxml window. Handles displaying the player's name,
+ * season length, races completed, average placing, and total prize money.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class EndScreenController extends ScreenController {
     @FXML
@@ -24,6 +28,11 @@ public class EndScreenController extends ScreenController {
     @FXML
     private Label totalPrizeMoneyLabel;
 
+    /**
+     * Constructor for the EndScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public EndScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
@@ -52,6 +61,7 @@ public class EndScreenController extends ScreenController {
         getGameEnvironment().getGameSaver().deleteSaveFile();
     }
 
+    @FXML
     public void onQuitButtonClicked() {
         Platform.exit();
     }

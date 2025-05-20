@@ -7,13 +7,22 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.services.GameSaver;
 
 /**
- * Controller for the start.fxml window
+ * Controller for the start.fxml window that handles the start screen of the
+ * game.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class StartScreenController extends ScreenController {
     @FXML
     private Button continueButton;
 
 
+    /**
+     * Constructor for the StartScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public StartScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }

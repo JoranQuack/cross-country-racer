@@ -18,9 +18,13 @@ import java.util.Random;
 /**
  * GameEnvironment is the core class of the app that manages the game state,
  * including the player's garage, cars, upgrades, races, and bank balance.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class GameEnvironment implements Serializable {
 
+    /** An array of the race file names to deserialize */
     public static final String[] RACE_FILE_NAMES = {
             "/data/races/race1.json",
             "/data/races/race2.json",
@@ -38,40 +42,63 @@ public class GameEnvironment implements Serializable {
             "/data/races/race15.json",
     };
 
+    /** The file name of the upgrades CSV file */
     private static final String UPGRADE_FILE_NAME = "/data/upgrades.csv";
+    /** The file name of the cars CSV file */
     private static final String CARS_FILE_NAME = "/data/cars.csv";
+    /** The maximum number of cars that can be stored in the garage */
     public static final int MAX_GARAGE_SIZE = 5;
 
+    /** ScreenNavigator instance for navigating between screens */
     private transient ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
     private final GameSaver gameSaver = new GameSaver("saves/"); // GameSaver instance for saving and loading game
 
-    private List<Car> garage = new ArrayList<Car>(); // List of cars owned by the player
-    private List<Car> availableCars = new ArrayList<Car>(); // List of cars available for purchase
-    private List<Car> allCars = new ArrayList<Car>(); // List of all cars in the game
+    /** List of cars owned by the player */
+    private List<Car> garage = new ArrayList<Car>();
+    /** List of cars available for purchase */
+    private List<Car> availableCars = new ArrayList<Car>();
+    /** List of all cars in the game */
+    private List<Car> allCars = new ArrayList<Car>();
 
-    private List<Upgrade> ownUpgrades = new ArrayList<Upgrade>(); // List of upgrades owned by the player
-    private List<Upgrade> availableUpgrades = new ArrayList<Upgrade>(); // List of upgrades available for purchase
-    private List<Upgrade> allUpgrades = new ArrayList<Upgrade>(); // List of all upgrades in the game
+    /** List of upgrades owned by the player */
+    private List<Upgrade> ownUpgrades = new ArrayList<Upgrade>();
+    /** List of upgrades available for purchase */
+    private List<Upgrade> availableUpgrades = new ArrayList<Upgrade>();
+    /** List of all upgrades in the game */
+    private List<Upgrade> allUpgrades = new ArrayList<Upgrade>();
 
-    private List<Race> races = new ArrayList<Race>(); // List of races available in the game
+    /** List of races available in the game */
+    private List<Race> races = new ArrayList<Race>();
 
-    private String name; // Name of the player
-    private Difficulty difficulty; // Difficulty level of the game (easy or hard)
-    private Double bankBalance; // Player's bank balance
-    private Double maximumBankBalance; // Track what the maximum bank balance has been in the game
-    private float totalPrizeMoney; // Total prize money earned by the player
-    private Double averagePlacing; // Average place of the player
-    private int racesCompleted; // Number of races completed by the player
-    private int seasonLength; // Length of the season in number of races
+    /** Name of the player */
+    private String name;
+    /** Difficulty level of the game (easy or hard) */
+    private Difficulty difficulty;
+    /** Player's bank balance */
+    private Double bankBalance;
+    /** Track what the maximum bank balance has been in the game */
+    private Double maximumBankBalance;
+    /** Total prize money earned by the player */
+    private float totalPrizeMoney;
+    /** Average place of the player */
+    private Double averagePlacing;
+    /** Number of races completed by the player */
+    private int racesCompleted;
+    /** Length of the season in number of races */
+    private int seasonLength;
 
-    private Car selectedCar; // The car currently selected by the player in the garage
-    private boolean isSettingUp; // Flag to indicate if the player is setting up the game
+    /** The car currently selected by the player in the garage */
+    private Car selectedCar;
+    /** Flag to indicate if the player is setting up the game */
+    private boolean isSettingUp;
 
     /**
      * Constructor for the GameEnvironment class.
      * Initializes the game environment with a ScreenNavigator instance.
      * Sets the initial bank balance, available cars and parts, and initializes
      * some game data.
+     *
+     * @param navigator The ScreenNavigator instance for navigating between screens
      */
     public GameEnvironment(ScreenNavigator navigator) {
         this.garage = new ArrayList<Car>();
@@ -148,6 +175,8 @@ public class GameEnvironment implements Serializable {
 
     /**
      * Gets all upgrades that are applied to cars in the game.
+     *
+     * @return a list of all upgrades applied to cars in the game
      */
     public List<Upgrade> getAllPlayerUpgrades() {
         List<Upgrade> allUpgrades = new ArrayList<Upgrade>();
@@ -242,7 +271,8 @@ public class GameEnvironment implements Serializable {
      * list.
      *
      * @param part
-     * @return
+     * @return true if the part was successfully bought and added to the own
+     *         upgrades list.
      */
     public boolean buyPart(Upgrade part) {
         if (bankBalance >= part.getPrice()) {
@@ -287,28 +317,52 @@ public class GameEnvironment implements Serializable {
         ownUpgrades.add(part);
     }
 
+    /**
+     * Increments the number of races completed by the player.
+     */
     public void incrementRacesCompleted() {
         this.racesCompleted++;
     }
 
+    /**
+     * Checks if the season is over
+     *
+     * @return true if the season is over, false otherwise
+     */
     public boolean isSeasonOver() {
         return this.racesCompleted >= this.seasonLength;
     }
 
     /**
      * Checks if the game is over
+     *
+     * @return true if the game is over, false otherwise
      */
     public boolean isGameOver() {
         return (bankBalance < 500 && garage.size() == 1 && garage.get(0).isBroken()) || (isSeasonOver());
     }
 
+    /**
+     * Applies the outcome of the completed race to the player's bank balance and
+     * updates the race status.
+     *
+     * @param race
+     */
     public void applyRaceOutcome(Race race) {
         setBankBalance(getBankBalance() + race.getPlayerProfit());
         incrementRacesCompleted();
         race.setCompleted(true);
         refreshShop();
+        updateTotalPrizeMoney(race.getPlayerProfit());
+        updateAveragePlacing(race.getPlayerFinishedPosition());
     }
 
+    /**
+     * Updates the average placing of the player based on the placing in the
+     * previous race.
+     *
+     * @param placing the placing in the previous
+     */
     public void updateAveragePlacing(int placing) {
         if (averagePlacing == 0) {
             averagePlacing = (double) placing;
@@ -317,10 +371,20 @@ public class GameEnvironment implements Serializable {
         }
     }
 
+    /**
+     * Updates the total prize money earned by the player.
+     *
+     * @param prizeMoney
+     */
     public void updateTotalPrizeMoney(float prizeMoney) {
         totalPrizeMoney += prizeMoney;
     }
 
+    /**
+     * Updates the list of available cars.
+     *
+     * @param availableCars
+     */
     public void setAvailableCars(List<Car> availableCars) {
         this.availableCars = availableCars;
     }
@@ -336,6 +400,19 @@ public class GameEnvironment implements Serializable {
         this.navigator = navigator;
     }
 
+    /**
+     * Sets the bank balance of the player and updates the maximum bank balance if
+     * the new balance is higher.
+     *
+     * @param bankBalance
+     */
+    public void setBankBalance(Double bankBalance) {
+        this.bankBalance = bankBalance;
+        if (bankBalance > maximumBankBalance) {
+            maximumBankBalance = bankBalance;
+        }
+    }
+
     // Getters and Setters for the GameEnvironment class
     public List<Car> getAvailableCars() {
         return availableCars;
@@ -347,13 +424,6 @@ public class GameEnvironment implements Serializable {
 
     public Double getBankBalance() {
         return bankBalance;
-    }
-
-    public void setBankBalance(Double bankBalance) {
-        this.bankBalance = bankBalance;
-        if (bankBalance > maximumBankBalance) {
-            maximumBankBalance = bankBalance;
-        }
     }
 
     public Difficulty getDifficulty() {

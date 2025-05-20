@@ -15,7 +15,11 @@ import seng201.team019.services.TimeFormatter;
 import java.util.List;
 
 /**
- * Controller for the raceSelectionScreen.fxml window
+ * Controller for the raceSelectionScreen.fxml window that displays the list of
+ * races available to the player.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class RaceSelectionScreenController extends ScreenController {
 
@@ -25,12 +29,18 @@ public class RaceSelectionScreenController extends ScreenController {
     @FXML
     private CheckBox raceSelectionHideCompleted;
 
+    /**
+     * Constructor for the RaceSelectionScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public RaceSelectionScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
     /**
-     * Initialize the window
+     * Initialize the window by setting the race list and adding an action
+     * listener to the checkbox.
      */
     public void initialize() {
 
@@ -38,12 +48,16 @@ public class RaceSelectionScreenController extends ScreenController {
 
         raceSelectionHideCompleted.setOnAction(event -> {
             boolean isChecked = raceSelectionHideCompleted.isSelected();
-
-            // Your re-rendering logic here
-            renderRaceList(getGameEnvironment().getRaces(), isChecked); // for example
+            renderRaceList(getGameEnvironment().getRaces(), isChecked);
         });
     }
 
+    /**
+     * Renders the race list in the raceListView.
+     *
+     * @param races         The races to be displayed.
+     * @param hideCompleted Whether to hide completed races.
+     */
     private void renderRaceList(List<Race> races, boolean hideCompleted) {
 
         raceListView.getChildren().clear(); // clear children
@@ -63,21 +77,12 @@ public class RaceSelectionScreenController extends ScreenController {
 
     }
 
-    @Override
-    protected String getFxmlFile() {
-        return "/fxml/raceSelectionScreen.fxml";
-    }
-
-    @Override
-    protected String getTitle() {
-        return "Playing Screen";
-    }
-
-    @FXML
-    private void raceSelectionBackOnAction() {
-        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
-    }
-
+    /**
+     * Creates a race list element to be displayed in the raceListView.
+     *
+     * @param race The race to be made into a list element.
+     * @return A Pane containing the list element.
+     */
     private Pane makeRaceListElement(Race race) {
         Pane hBox = new HBox();
         hBox.setPadding(new Insets(5));
@@ -113,4 +118,20 @@ public class RaceSelectionScreenController extends ScreenController {
 
         return hBox;
     }
+
+    @Override
+    protected String getFxmlFile() {
+        return "/fxml/raceSelectionScreen.fxml";
+    }
+
+    @Override
+    protected String getTitle() {
+        return "Playing Screen";
+    }
+
+    @FXML
+    private void raceSelectionBackOnAction() {
+        getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
+    }
+
 }

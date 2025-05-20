@@ -19,6 +19,9 @@ import seng201.team019.models.Car;
  * Controller for the garage.fxml window.
  * Handles displaying the player's car collection, showing car statistics,
  * and providing functionality to set active cars and customise vehicles.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class GarageScreenController extends ScreenController {
     @FXML
@@ -117,6 +120,12 @@ public class GarageScreenController extends ScreenController {
     @FXML
     private Label numUpgradesLabel;
 
+    /**
+     * Constructor for the GarageScreenController.
+     * Initializes the controller with the provided game environment.
+     *
+     * @param gameEnvironment The game environment to be used by this controller
+     */
     public GarageScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }

@@ -16,7 +16,12 @@ import seng201.team019.models.Race;
 import seng201.team019.models.Route;
 
 /**
- * Controller for the raceSetupScreen.fxml window
+ * Controller for the raceSetupScreen.fxml window that displays possible routes
+ * that the player can take within the race, showing their stats and allowing
+ * the player to select one.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class RaceSetupScreenController extends ScreenController {
     @FXML
@@ -37,16 +42,25 @@ public class RaceSetupScreenController extends ScreenController {
     @FXML
     private VBox raceSetupRouteListView;
 
+    /** Race that has been selected to be played */
     private final Race selectedRace;
+    /** Route that is currently selected to be played */
     private Route selectedRoute;
 
+    /**
+     * Constructor for the RaceSetupScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     * @param selectedRace    The race that the player has selected.
+     */
     public RaceSetupScreenController(GameEnvironment gameEnvironment, Race selectedRace) {
         super(gameEnvironment);
         this.selectedRace = selectedRace;
     }
 
     /**
-     * Initialize the window
+     * Initialize the window by setting the prize money and number of opponents
+     * labels, and populating the route list view with available routes.
      */
     public void initialize() {
         raceSetupPrizeMoneyLabel.setText(String.valueOf(selectedRace.getPrizeMoney()));
@@ -59,6 +73,12 @@ public class RaceSetupScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Sets the selected route and updates the route description, distance, and
+     * fuel stops labels.
+     *
+     * @param selectedRoute The route that has been selected.
+     */
     public void setSelectedRoute(Route selectedRoute) {
         this.selectedRoute = selectedRoute;
 
@@ -101,6 +121,12 @@ public class RaceSetupScreenController extends ScreenController {
         getGameEnvironment().getNavigator().launchRaceScreen(getGameEnvironment(), selectedRace);
     }
 
+    /**
+     * Creates a route list element to be displayed in the raceSetupRouteListView.
+     *
+     * @param route The route to be displayed.
+     * @return A Pane containing the route information.
+     */
     public Pane makeRouteListElement(Route route) {
         Pane hBox = new HBox();
         hBox.setPadding(new Insets(5));

@@ -18,10 +18,16 @@ import seng201.team019.models.Car;
 import seng201.team019.models.Upgrade;
 
 /**
- * Controller for the shop.fxml window
+ * Controller for the shop.fxml window that displays the cars and parts
+ * available for purchase in the shop.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class ShopScreenController extends ScreenController {
+    /** Logger for the ShopScreenController errors and logs */
     private static final Logger LOGGER = Logger.getLogger(ShopScreenController.class.getName());
+    /** Maximum number of items to display in the shop */
     private static final int MAX_ITEMS = 3;
 
     @FXML
@@ -180,6 +186,11 @@ public class ShopScreenController extends ScreenController {
     @FXML
     private Label balanceLabel;
 
+    /**
+     * Constructor for the ShopScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public ShopScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }

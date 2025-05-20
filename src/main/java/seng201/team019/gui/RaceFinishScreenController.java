@@ -6,7 +6,11 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Race;
 
 /**
- * Controller for the raceFinishScreen.fxml window
+ * Controller for the raceFinishScreen.fxml window that displays the
+ * player's finishing position and profit.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class RaceFinishScreenController extends ScreenController {
     @FXML
@@ -15,15 +19,22 @@ public class RaceFinishScreenController extends ScreenController {
     @FXML
     private Label raceFinishedProfitLabel;
 
+    /** The race that has just finished */
     private final Race race;
 
+    /**
+     * Constructor for the RaceFinishScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     * @param race            The race that has just finished.
+     */
     public RaceFinishScreenController(GameEnvironment gameEnvironment, Race race) {
         super(gameEnvironment);
         this.race = race;
     }
 
     /**
-     * Initialize the window and update stats in the game environment
+     * Initialize the window and set values of finish position label and profit label.
      */
     public void initialize() {
         int pos = race.getPlayerFinishedPosition();
@@ -35,8 +46,6 @@ public class RaceFinishScreenController extends ScreenController {
             raceFinishedPositionLabel.setText(String.valueOf(pos));
         }
         raceFinishedProfitLabel.setText(String.format("$%.2f", race.getPlayerProfit()));
-        getGameEnvironment().updateTotalPrizeMoney(race.getPlayerProfit());
-        getGameEnvironment().updateAveragePlacing(pos);
     }
 
     @FXML

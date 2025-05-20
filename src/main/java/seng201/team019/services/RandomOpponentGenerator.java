@@ -15,17 +15,34 @@ import seng201.team019.models.Route;
  * for the player to race against. It randomly selects a car, name, and route
  * for the opponent, and can also assign a DNF (Did Not Finish) status based
  * on a specified probability.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class RandomOpponentGenerator {
 
+    /** Random class from java.util for use */
     private final Random rand = new Random();
+    /** Random name from the RandomNameGenerator service */
     private final RandomNameGenerator randName;
+    /** List of available cars for the opponent */
     private final List<Car> availableCars;
+    /** List of available routes for the opponent */
     private final List<Route> availableRoutes;
+    /** Percentage chance of the opponent DNFing */
     private final double opponentDNFPercentage;
+    /** RandomEventGenerator for generating random events */
     private final RandomEventGenerator randomEventGenerator;
+    /** Current race the opponent is being generated for */
     private final Race race;
 
+    /**
+     * Constructor for the RandomOpponentGenerator.
+     *
+     * @param gameEnvironment The game environment instance.
+     * @param race            Current race the opponent is being generated for.
+     * @param routes          List of available routes for the opponent.
+     */
     public RandomOpponentGenerator(GameEnvironment gameEnvironment, Race race, List<Route> routes,
             double opponentDNFPercentage) {
         this.availableCars = new ArrayList<Car>();
@@ -38,6 +55,9 @@ public class RandomOpponentGenerator {
         this.opponentDNFPercentage = opponentDNFPercentage;
     }
 
+    /**
+     * Generates a random opponent for the race
+     */
     public Opponent generateRandomOpponent() {
         Car randCar = availableCars.get(rand.nextInt(availableCars.size()));
         String name = randName.generateName();

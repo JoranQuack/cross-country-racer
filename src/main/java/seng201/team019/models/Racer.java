@@ -11,15 +11,40 @@ import java.util.Random;
  */
 public abstract class Racer implements Serializable {
 
+    /**
+     * The name of the Racer.
+     */
     protected final String name;
+
+    /**
+     * The {@link Route} the racer is on
+     */
     protected final Route route;
+
+    /**
+     * The {@link Car} the racer is driving
+     */
     protected final Car car;
 
+    /**
+     * The current distance of the player in km.
+     */
     protected float distance;
 
+    /**
+     * Indicates whether the player is finished
+     */
     protected boolean isFinished;
+
+    /**
+     * The finish time of the player in milliseconds
+     * Only relevant when {@code isFinished} is {@code true}
+     */
     protected long finishTime;
 
+    /**
+     * Indicates whether the player DNF
+     */
     protected boolean didDNF;
 
     public Racer(String name, Route route, Car car) {
@@ -32,7 +57,7 @@ public abstract class Racer implements Serializable {
     }
 
     /**
-     * gets a random speed multiplier between 0.8 and 2.5
+     * Gets a random speed multiplier between 0.8 and 2.5 that multiplies the speed.
      *
      * @return float between 0.8 and 2.5
      */
@@ -60,6 +85,12 @@ public abstract class Racer implements Serializable {
         return isFinished;
     }
 
+    /**
+     * Sets the finished status of the racer
+     *
+     * @param isFinished true if the racer has finished, false otherwise
+     * @param finishTime the time the racer finished in milliseconds
+     */
     public void setIsFinished(boolean isFinished, long finishTime) {
         this.isFinished = isFinished;
         this.finishTime = finishTime;
@@ -90,10 +121,10 @@ public abstract class Racer implements Serializable {
     }
 
     /**
-     * returns the distance traveled by the Racer in a given time
+     * Returns the distance traveled by the Racer in a given time.
      *
-     * @param time the time to pass in MILLISECONDS.
-     * @return Distance traveled by the car in time.
+     * @param time the time to pass in milliseconds.
+     * @return Distance traveled by the racers car in time.
      */
     public float simulateDriveByTime(long time) {
         double velocity = getRoute().computeAverageSpeed(getCar());
