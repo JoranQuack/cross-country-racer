@@ -59,6 +59,7 @@ public class EndScreenController extends ScreenController {
         totalPrizeMoneyLabel.setText(String.format("%.0f", getGameEnvironment().getTotalPrizeMoney()));
     }
 
+    @FXML
     public void onQuitButtonClicked() {
         Platform.exit();
     }

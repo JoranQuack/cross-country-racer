@@ -48,14 +48,15 @@ public class RaceSelectionScreenController extends ScreenController {
 
         raceSelectionHideCompleted.setOnAction(event -> {
             boolean isChecked = raceSelectionHideCompleted.isSelected();
-
-            // Your re-rendering logic here
-            renderRaceList(getGameEnvironment().getRaces(), isChecked); // for example
+            renderRaceList(getGameEnvironment().getRaces(), isChecked);
         });
     }
 
     /**
      * Renders the race list in the raceListView.
+     *
+     * @param races         The races to be displayed.
+     * @param hideCompleted Whether to hide completed races.
      */
     private void renderRaceList(List<Race> races, boolean hideCompleted) {
 
@@ -78,6 +79,9 @@ public class RaceSelectionScreenController extends ScreenController {
 
     /**
      * Creates a race list element to be displayed in the raceListView.
+     *
+     * @param race The race to be made into a list element.
+     * @return A Pane containing the list element.
      */
     private Pane makeRaceListElement(Race race) {
         Pane hBox = new HBox();

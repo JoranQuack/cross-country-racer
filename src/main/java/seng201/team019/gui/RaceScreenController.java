@@ -396,6 +396,9 @@ public class RaceScreenController extends ScreenController {
         return markerGroup;
     }
 
+    /**
+     * Triggers a random event based on the current state of the race.
+     */
     private void triggerRandomEvent() {
         gameLoop.stop();
         Platform.runLater(() -> {

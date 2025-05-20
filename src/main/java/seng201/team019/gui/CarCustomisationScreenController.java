@@ -331,6 +331,15 @@ public class CarCustomisationScreenController extends ScreenController {
 
     /**
      * Initializes one part's buttons based on whether the part is owned or not
+     *
+     * @param part             The part to initialize
+     * @param partGrid         The grid pane for the part
+     * @param partImage        The image view for the part
+     * @param partNameLabel    The label for the part name
+     * @param partAddButton    The button to add the part
+     * @param partRemoveButton The button to remove the part
+     * @param partSellButton   The button to sell the part
+     * @param ownedParts       The list of owned parts
      */
     private void initializePartButtons(Upgrade part, GridPane partGrid, ImageView partImage,
             Label partNameLabel, Button partAddButton, Button partRemoveButton, Button partSellButton,
