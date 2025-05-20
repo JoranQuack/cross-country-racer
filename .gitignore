@@ -10,7 +10,7 @@
 logs/
 *.log
 
-# Build artefacts
+# Build artifacts
 build/
 
 # Gradle
