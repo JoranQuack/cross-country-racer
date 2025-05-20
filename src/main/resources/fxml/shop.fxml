@@ -55,7 +55,7 @@
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </GridPane.margin>
                           <children>
-                            <ImageView fx:id="car0Image" fitHeight="120.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                            <ImageView fx:id="car0Image" fitHeight="128.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                             <Label fx:id="car0NameLabel" text="car0 name" GridPane.rowIndex="1" />
                             <GridPane GridPane.rowIndex="2">
                               <columnConstraints>
@@ -185,7 +185,7 @@
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </GridPane.margin>
                           <children>
-                            <ImageView fx:id="car1Image" fitHeight="120.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                            <ImageView fx:id="car1Image" fitHeight="128.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                             <Label fx:id="car1NameLabel" text="car1 name" GridPane.rowIndex="1" />
                             <GridPane GridPane.rowIndex="2">
                               <columnConstraints>
@@ -312,7 +312,7 @@
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </GridPane.margin>
                           <children>
-                            <ImageView fx:id="car2Image" fitHeight="120.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                            <ImageView fx:id="car2Image" fitHeight="128.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                             <Label fx:id="car2NameLabel" text="car2 name" GridPane.rowIndex="1" />
                             <GridPane GridPane.rowIndex="2">
                               <columnConstraints>
