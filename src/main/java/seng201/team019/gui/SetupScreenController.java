@@ -7,9 +7,14 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Difficulty;
+import seng201.team019.services.StringValidator;
 
 /**
- * Controller for the setup.fxml window
+ * Controller for the setup.fxml window that allows the player to set up
+ * their game environment before starting the game.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class SetupScreenController extends ScreenController {
 
@@ -22,12 +27,18 @@ public class SetupScreenController extends ScreenController {
     @FXML
     private ComboBox<Difficulty> setupDifficultyField;
 
+    /**
+     * Constructor for the SetupScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public SetupScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
     /**
-     * Initialize the window
+     * Initialize the window and set up the difficulty field
+     * with the available difficulty options.
      */
     public void initialize() {
         setupDifficultyField.setItems(FXCollections.observableArrayList(Difficulty.values()));
@@ -39,12 +50,14 @@ public class SetupScreenController extends ScreenController {
         int seasonLength = (int) setupSeasonLengthField.getValue();
         String name = setupNameField.getText();
 
-        // reset colors of Fields
+        // reset colors of fields
         setupNameField.setStyle("-fx-border-color: none");
         setupDifficultyField.setStyle("-fx-border-color: none");
 
+        StringValidator validator = new StringValidator();
+
         // check name length
-        if (name.length() < 3 || name.length() > 15) {
+        if (!validator.isValid(name, 3, 15)) {
             setupNameField.setStyle("-fx-border-color: red");
             return;
         }

@@ -13,6 +13,9 @@ import seng201.team019.GameEnvironment;
  * Handles displaying the player's bank balance, races remaining,
  * and providing functionality to navigate to other screens:
  * race selection, garage, and shop.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class DashboardScreenController extends ScreenController {
     @FXML
@@ -39,6 +42,11 @@ public class DashboardScreenController extends ScreenController {
     @FXML
     private Label dashboardRacesRemainingLabel;
 
+    /**
+     * Constructor for the DashboardScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public DashboardScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
@@ -49,28 +57,25 @@ public class DashboardScreenController extends ScreenController {
     public void initialize() {
         int racesComplete = getGameEnvironment().getRacesCompleted();
         int seasonLength = getGameEnvironment().getSeasonLength();
-        int racesRemaining = seasonLength - racesComplete;
-
         double bankBalance = getGameEnvironment().getBankBalance();
         double maximumBankBalance = getGameEnvironment().getMaximumBankBalance();
-        int carCount = getGameEnvironment().getGarage().size();
 
         endGameVBox.setVisible(false);
         endGameVBox.setMouseTransparent(true);
 
-        if (racesRemaining == 0) {
+        // Guide the user to the end screen if the game over conditions are met
+        if (getGameEnvironment().isGameOver()) {
             mainGrid.setDisable(true);
-            endGameLabel.setText("You have completed all the races!");
             endGameVBox.setVisible(true);
             endGameVBox.setMouseTransparent(false);
-        } else if (bankBalance <= 15000 && carCount == 0) {
-            mainGrid.setDisable(true);
-            endGameLabel.setText("You have insufficient funds to continue playing.");
-            endGameVBox.setVisible(true);
-            endGameVBox.setMouseTransparent(false);
+            if (getGameEnvironment().isSeasonOver()) {
+                endGameLabel.setText("You have completed all the races!");
+            } else {
+                endGameLabel.setText("You have insufficient funds to continue playing.");
+            }
         }
 
-        if (getGameEnvironment().getGarage().size() == 0 || getGameEnvironment().getGarage().get(0).isBroken()) {
+        if (getGameEnvironment().getGarage().get(0).isBroken()) {
             raceButton.setDisable(true);
         }
 
@@ -83,9 +88,6 @@ public class DashboardScreenController extends ScreenController {
         racesRemainingProgressBar.setProgress((double) racesComplete / seasonLength);
     }
 
-    /**
-     * Action handler for the end game button.
-     */
     @FXML
     private void onEndGameButtonClicked() {
         getGameEnvironment().getNavigator().launchEndScreen(getGameEnvironment());

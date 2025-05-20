@@ -44,11 +44,11 @@ Go to build directory
 Open the application
 
 ```bash
-  java -jar seng201_team0-1.0-SNAPSHOT.jar
+  java -jar seng201_team019-1.0-SNAPSHOT.jar
 ```
 
 > [!IMPORTANT]
-> This Jar is NOT cross-platform, so you must build the jar on the appropriate OS to where you want to run it.
+> This Jar is NOT cross-platform, so you must build the jar on the appropriate OS (and machine) to where you want to run it.
 
 ## Running Tests
 

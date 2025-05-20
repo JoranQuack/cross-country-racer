@@ -49,12 +49,13 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints vgrow="SOMETIMES" />
+                                          <RowConstraints />
                           </rowConstraints>
                           <GridPane.margin>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </GridPane.margin>
                           <children>
-                            <ImageView fx:id="car0Image" fitHeight="150.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                            <ImageView fx:id="car0Image" fitHeight="128.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                             <Label fx:id="car0NameLabel" text="car0 name" GridPane.rowIndex="1" />
                             <GridPane GridPane.rowIndex="2">
                               <columnConstraints>
@@ -65,11 +66,11 @@
                                 <RowConstraints vgrow="SOMETIMES" />
                               </rowConstraints>
                               <children>
-                                <Label text="Range" />
+                                <Label text="Eco" />
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
-                                    <Label fx:id="car0RangeLabel" text="[range]" />
-                                    <Label text="km" />
+                                    <Label fx:id="car0EcoLabel" text="[fuelCon]" />
+                                    <Label text=" L/100km" />
                                   </children>
                                 </HBox>
                               </children>
@@ -87,7 +88,7 @@
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
                                     <Label fx:id="car0SpeedLabel" text="[speed]" />
-                                    <Label text="km/h" />
+                                    <Label text=" km/h" />
                                   </children>
                                 </HBox>
                               </children>
@@ -105,7 +106,40 @@
                                 <ProgressBar fx:id="car0HandlingProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
                               </children>
                             </GridPane>
+                            <!-- Move Reliability to row 6 -->
+                            <GridPane GridPane.rowIndex="5">
+                              <columnConstraints>
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                <Label text="Reliability" />
+                                <ProgressBar fx:id="car0ReliabilityProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
+                              </children>
+                            </GridPane>
+                            <!-- Upgrades stat row -->
                             <GridPane GridPane.rowIndex="6">
+                              <columnConstraints>
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                <Label text="Upgrades" />
+                                <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                                  <children>
+                                    <Label fx:id="car0UpgradesLabel" text="[upgrades]" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </GridPane>
+                            <!-- Price/Buy row stays at row 7 -->
+                            <GridPane GridPane.rowIndex="7">
                               <columnConstraints>
                                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -126,19 +160,9 @@
                                   </children>
                                 </HBox>
                               </children>
-                            </GridPane>
-                            <GridPane GridPane.rowIndex="5">
-                              <columnConstraints>
-                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
-                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
-                              </columnConstraints>
-                              <rowConstraints>
-                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                              </rowConstraints>
-                              <children>
-                                <Label text="Reliability" />
-                                <ProgressBar fx:id="car0ReliabilityProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
-                              </children>
+                                             <GridPane.margin>
+                                                <Insets top="5.0" />
+                                             </GridPane.margin>
                             </GridPane>
                           </children>
                         </GridPane>
@@ -155,12 +179,13 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints vgrow="SOMETIMES" />
+                            <RowConstraints />
                           </rowConstraints>
                           <GridPane.margin>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </GridPane.margin>
                           <children>
-                            <ImageView fx:id="car1Image" fitHeight="150.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                            <ImageView fx:id="car1Image" fitHeight="128.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                             <Label fx:id="car1NameLabel" text="car1 name" GridPane.rowIndex="1" />
                             <GridPane GridPane.rowIndex="2">
                               <columnConstraints>
@@ -171,11 +196,11 @@
                                 <RowConstraints vgrow="SOMETIMES" />
                               </rowConstraints>
                               <children>
-                                <Label text="Range" />
+                                <Label text="Eco" />
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
-                                    <Label fx:id="car1RangeLabel" text="[range]" />
-                                    <Label text="km" />
+                                    <Label fx:id="car1EcoLabel" text="[fuelCon]" />
+                                    <Label text=" L/100km" />
                                   </children>
                                 </HBox>
                               </children>
@@ -193,7 +218,7 @@
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
                                     <Label fx:id="car1SpeedLabel" text="[speed]" />
-                                    <Label text="km/h" />
+                                    <Label text=" km/h" />
                                   </children>
                                 </HBox>
                               </children>
@@ -211,7 +236,37 @@
                                 <ProgressBar fx:id="car1HandlingProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
                               </children>
                             </GridPane>
+                            <GridPane GridPane.rowIndex="5">
+                              <columnConstraints>
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                <Label text="Reliability" />
+                                <ProgressBar fx:id="car1ReliabilityProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
+                              </children>
+                            </GridPane>
                             <GridPane GridPane.rowIndex="6">
+                              <columnConstraints>
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                <Label text="Upgrades" />
+                                <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                                  <children>
+                                    <Label fx:id="car1UpgradesLabel" text="[upgrades]" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </GridPane>
+                            <GridPane GridPane.rowIndex="7">
                               <columnConstraints>
                                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -232,19 +287,9 @@
                                   </children>
                                 </HBox>
                               </children>
-                            </GridPane>
-                            <GridPane GridPane.rowIndex="5">
-                              <columnConstraints>
-                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
-                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
-                              </columnConstraints>
-                              <rowConstraints>
-                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                              </rowConstraints>
-                              <children>
-                                <Label text="Reliability" />
-                                <ProgressBar fx:id="car1ReliabilityProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
-                              </children>
+                              <GridPane.margin>
+                                <Insets top="5.0" />
+                              </GridPane.margin>
                             </GridPane>
                           </children>
                         </GridPane>
@@ -261,12 +306,13 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints vgrow="SOMETIMES" />
+                            <RowConstraints />
                           </rowConstraints>
                           <GridPane.margin>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </GridPane.margin>
                           <children>
-                            <ImageView fx:id="car2Image" fitHeight="150.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
+                            <ImageView fx:id="car2Image" fitHeight="128.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="0" />
                             <Label fx:id="car2NameLabel" text="car2 name" GridPane.rowIndex="1" />
                             <GridPane GridPane.rowIndex="2">
                               <columnConstraints>
@@ -277,11 +323,11 @@
                                 <RowConstraints vgrow="SOMETIMES" />
                               </rowConstraints>
                               <children>
-                                <Label text="Range" />
+                                <Label text="Eco" />
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
-                                    <Label fx:id="car2RangeLabel" text="[range]" />
-                                    <Label text="km" />
+                                    <Label fx:id="car2EcoLabel" text="[fuelCon]" />
+                                    <Label text=" L/100km" />
                                   </children>
                                 </HBox>
                               </children>
@@ -299,7 +345,7 @@
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                   <children>
                                     <Label fx:id="car2SpeedLabel" text="[speed]" />
-                                    <Label text="km/h" />
+                                    <Label text=" km/h" />
                                   </children>
                                 </HBox>
                               </children>
@@ -317,7 +363,37 @@
                                 <ProgressBar fx:id="car2HandlingProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
                               </children>
                             </GridPane>
+                            <GridPane GridPane.rowIndex="5">
+                              <columnConstraints>
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                <Label text="Reliability" />
+                                <ProgressBar fx:id="car2ReliabilityProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
+                              </children>
+                            </GridPane>
                             <GridPane GridPane.rowIndex="6">
+                              <columnConstraints>
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                <Label text="Upgrades" />
+                                <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                                  <children>
+                                    <Label fx:id="car2UpgradesLabel" text="[upgrades]" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </GridPane>
+                            <GridPane GridPane.rowIndex="7">
                               <columnConstraints>
                                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -338,19 +414,9 @@
                                   </children>
                                 </HBox>
                               </children>
-                            </GridPane>
-                            <GridPane GridPane.rowIndex="5">
-                              <columnConstraints>
-                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
-                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
-                              </columnConstraints>
-                              <rowConstraints>
-                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                              </rowConstraints>
-                              <children>
-                                <Label text="Reliability" />
-                                <ProgressBar fx:id="car2ReliabilityProgressBar" prefHeight="20.0" prefWidth="100.0" progress="0.0" GridPane.columnIndex="1" />
-                              </children>
+                              <GridPane.margin>
+                                <Insets top="5.0" />
+                              </GridPane.margin>
                             </GridPane>
                           </children>
                         </GridPane>

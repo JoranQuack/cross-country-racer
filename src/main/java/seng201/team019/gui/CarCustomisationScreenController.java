@@ -15,8 +15,20 @@ import javafx.scene.layout.VBox;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
 import seng201.team019.models.Upgrade;
+import seng201.team019.services.StringValidator;
 
+/**
+ * Controller for the carCustomisation.fxml window.
+ * Handles displaying the car's information and allowing the player to
+ * customise their car by equipping or selling parts.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
+ */
 public class CarCustomisationScreenController extends ScreenController {
+    @FXML
+    private Button carSellButton;
+
     @FXML
     private Button carRepairButton;
 
@@ -147,9 +159,9 @@ public class CarCustomisationScreenController extends ScreenController {
     private Button part4RemoveButton;
 
     /**
-     * Creates a CarCustomisationScreenController with the given game environment.
+     * Constructor for the CarCustomisationScreenController.
      *
-     * @param gameEnvironment The game environment for this controller
+     * @param gameEnvironment The game environment instance.
      */
     public CarCustomisationScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -157,26 +169,18 @@ public class CarCustomisationScreenController extends ScreenController {
 
     /**
      * Initializes the window by hiding the car info and populating
-     * the parts grid with tuning parts from the player's garage.
+     * the parts grid with upgrades that they have bought or equipped
      */
     public void initialize() {
         initializeCar();
         initializeParts();
     }
 
-    /**
-     * Handles the back button click event.
-     * Returns to the dashboard screen.
-     */
     @FXML
     public void onBackButtonClicked() {
         getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
     }
 
-    /**
-     * Handles the home button click event.
-     * Returns to the dashboard screen.
-     */
     @FXML
     public void onHomeButtonClicked() {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
@@ -184,26 +188,16 @@ public class CarCustomisationScreenController extends ScreenController {
 
     @FXML
     public void onRepairButtonClicked() {
-        Car car = getGameEnvironment().getSelectedCar();
-        car.setBroken(false);
+        getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 500);
+        getGameEnvironment().getSelectedCar().setBroken(false);
         carRepairButton.setDisable(true);
     }
 
-    /**
-     * Gets the FXML file path for this controller
-     *
-     * @return The path to the carCustomisation.fxml file
-     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/carCustomisation.fxml";
     }
 
-    /**
-     * Gets the window title for this screen
-     *
-     * @return The title string for the carCustomisation screen
-     */
     @Override
     protected String getTitle() {
         return "Car Customisation";
@@ -215,8 +209,15 @@ public class CarCustomisationScreenController extends ScreenController {
     @FXML
     private void onCarNameChanged() {
         String newName = carName.getText();
-        Car car = getGameEnvironment().getSelectedCar();
-        car.setName(newName);
+        StringValidator validator = new StringValidator();
+
+        if (!validator.isValid(newName, 3, 15)) {
+            carName.setStyle("-fx-border-color: red");
+            return;
+        } else {
+            carName.setStyle("-fx-border-color: none");
+            getGameEnvironment().getSelectedCar().setName(newName);
+        }
     }
 
     /**
@@ -258,6 +259,11 @@ public class CarCustomisationScreenController extends ScreenController {
             carRepairButton.setDisable(false);
         } else {
             carRepairButton.setDisable(true);
+        }
+        if (getGameEnvironment().getGarage().size() == 1) {
+            carSellButton.setDisable(true);
+        } else {
+            carSellButton.setDisable(false);
         }
     }
 
@@ -325,6 +331,15 @@ public class CarCustomisationScreenController extends ScreenController {
 
     /**
      * Initializes one part's buttons based on whether the part is owned or not
+     *
+     * @param part             The part to initialize
+     * @param partGrid         The grid pane for the part
+     * @param partImage        The image view for the part
+     * @param partNameLabel    The label for the part name
+     * @param partAddButton    The button to add the part
+     * @param partRemoveButton The button to remove the part
+     * @param partSellButton   The button to sell the part
+     * @param ownedParts       The list of owned parts
      */
     private void initializePartButtons(Upgrade part, GridPane partGrid, ImageView partImage,
             Label partNameLabel, Button partAddButton, Button partRemoveButton, Button partSellButton,

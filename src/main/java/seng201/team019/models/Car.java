@@ -5,21 +5,54 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 
+/**
+ * Class representing a car in the game.
+ * This class contains attributes such as name, model, age, price,
+ * speed, handling, reliability, range, fuel consumption, and upgrades.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
+ */
 public class Car {
-    private String name; // Name of the car
+    /** Name of the car */
+    private String name;
+    /** Model of the car */
     private String model;
-    private int age; // Age in years
-    private double price; // Price of the car in NZD
-    private double speed; // Speed in km/h
-    private double handling; // Handling rating (0.0-1.0)
-    private double reliability; // Reliability rating (0.0-1.0)
-    private int range; // Range in km
-    private double fuelConsumption; // Fuel consumption in L/100km
-    private String imagePath; // Path to the car image (always a PNG file with same name as the car)
-    private List<Upgrade> upgrades = new ArrayList<Upgrade>(); // Array of upgrades applied on the car
-    private int fuelCapacity; // gives the fuel capacity in L
-    private boolean isBroken; // Indicates if the car is broken
+    /** Age in years */
+    private int age;
+    /** Price of the car in NZD */
+    private double price;
+    /** Speed in km/h */
+    private double speed;
+    /** Handling rating (0.0-1.0) */
+    private double handling;
+    /** Reliability rating (0.0-1.0) */
+    private double reliability;
+    /** Range in km */
+    private int range;
+    /** Fuel consumption in L/100km */
+    private double fuelConsumption;
+    /** Path to the car image (always a PNG file with same name as the car) */
+    private String imagePath;
+    /** Array of upgrades applied on the car */
+    private List<Upgrade> upgrades = new ArrayList<Upgrade>();
+    /** Fuel capacity in L */
+    private int fuelCapacity;
+    /** Indicates if the car is broken */
+    private boolean isBroken;
 
+    /**
+     * Constructor for the Car class.
+     *
+     * @param name            Name of the car
+     * @param age             Age of the car in years
+     * @param price           Price of the car in NZD
+     * @param speed           Speed of the car in km/h
+     * @param handling        Handling rating (0.0-1.0)
+     * @param reliability     Reliability rating (0.0-1.0)
+     * @param fuelConsumption Fuel consumption in L/100km
+     * @param fuelCapacity    Fuel capacity in L
+     */
     public Car(String name, int age, double price, double speed, double handling, double reliability,
             double fuelConsumption, int fuelCapacity) {
         this.name = name;
@@ -32,12 +65,18 @@ public class Car {
         this.fuelConsumption = fuelConsumption;
         this.isBroken = false;
 
-        model = name; // Initialize model with the same value as name
-        imagePath = "images/" + name + ".png"; // Initialize image path based on name
+        model = name;
+        imagePath = "images/" + name + ".png";
         upgrades = new ArrayList<Upgrade>();
         updateRange();
     }
 
+    /**
+     * Adds an upgrade to the car. This will update the car's attributes based on
+     * the upgrade's bonuses.
+     *
+     * @param upgrade
+     */
     public void addUpgrade(Upgrade upgrade) {
         upgrades.add(upgrade);
         speed += upgrade.getSpeedBonus();
@@ -48,6 +87,12 @@ public class Car {
         updateRange(); // Update range after adding an upgrade
     }
 
+    /**
+     * Removes an upgrade from the car. This will update the car's attributes
+     * based on the upgrade's bonuses.
+     *
+     * @param upgrade
+     */
     public void removeUpgrade(Upgrade upgrade) {
         upgrades.remove(upgrade);
         speed -= upgrade.getSpeedBonus();
@@ -58,6 +103,12 @@ public class Car {
         updateRange(); // Update range after removing an upgrade
     }
 
+    /**
+     * Updates the range of the car based on the fuel capacity and fuel
+     * consumption.
+     *
+     * @throws ArithmeticException if fuel consumption is zero
+     */
     public void updateRange() throws ArithmeticException {
         if (fuelConsumption == 0) {
             throw new ArithmeticException("Fuel consumption cannot be zero.");

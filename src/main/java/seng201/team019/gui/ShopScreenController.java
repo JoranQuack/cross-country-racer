@@ -18,11 +18,35 @@ import seng201.team019.models.Car;
 import seng201.team019.models.Upgrade;
 
 /**
- * Controller for the shop.fxml window
+ * Controller for the shop.fxml window that displays the cars and parts
+ * available for purchase in the shop.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class ShopScreenController extends ScreenController {
+    /** Logger for the ShopScreenController errors and logs */
     private static final Logger LOGGER = Logger.getLogger(ShopScreenController.class.getName());
+    /** Maximum number of items to display in the shop */
     private static final int MAX_ITEMS = 3;
+
+    @FXML
+    private Label car0UpgradesLabel;
+
+    @FXML
+    private Label car1UpgradesLabel;
+
+    @FXML
+    private Label car2UpgradesLabel;
+
+    @FXML
+    private Label car0EcoLabel;
+
+    @FXML
+    private Label car1EcoLabel;
+
+    @FXML
+    private Label car2EcoLabel;
 
     @FXML
     private Button homeButton;
@@ -97,9 +121,6 @@ public class ShopScreenController extends ScreenController {
     private Label car0NameLabel;
 
     @FXML
-    private Label car0RangeLabel;
-
-    @FXML
     private Label car0SpeedLabel;
 
     @FXML
@@ -122,9 +143,6 @@ public class ShopScreenController extends ScreenController {
 
     @FXML
     private Label car1NameLabel;
-
-    @FXML
-    private Label car1RangeLabel;
 
     @FXML
     private Label car1SpeedLabel;
@@ -151,9 +169,6 @@ public class ShopScreenController extends ScreenController {
     private Label car2NameLabel;
 
     @FXML
-    private Label car2RangeLabel;
-
-    @FXML
     private Label car2SpeedLabel;
 
     @FXML
@@ -171,12 +186,18 @@ public class ShopScreenController extends ScreenController {
     @FXML
     private Label balanceLabel;
 
+    /**
+     * Constructor for the ShopScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public ShopScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
     /**
-     * Initialize the window
+     * Initialize the window by setting the bank balance and initialising cars and
+     * parts. The home button is also set to "Start Game" if in setup mode.
      */
     public void initialize() {
         updateBalanceLabel();
@@ -192,6 +213,10 @@ public class ShopScreenController extends ScreenController {
 
     @FXML
     private void onHomeButtonClicked() {
+        if (getGameEnvironment().isSettingUp()) {
+            getGameEnvironment().setSettingUp(false);
+            getGameEnvironment().refreshShop();
+        }
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 
@@ -239,21 +264,23 @@ public class ShopScreenController extends ScreenController {
 
                 ImageView carImage = (ImageView) getClass().getDeclaredField("car" + i + "Image").get(this);
                 Label carNameLabel = (Label) getClass().getDeclaredField("car" + i + "NameLabel").get(this);
-                Label carRangeLabel = (Label) getClass().getDeclaredField("car" + i + "RangeLabel").get(this);
+                Label carEcoLabel = (Label) getClass().getDeclaredField("car" + i + "EcoLabel").get(this);
                 Label carSpeedLabel = (Label) getClass().getDeclaredField("car" + i + "SpeedLabel").get(this);
                 ProgressBar carHandlingProgressBar = (ProgressBar) getClass()
                         .getDeclaredField("car" + i + "HandlingProgressBar").get(this);
                 ProgressBar carReliabilityProgressBar = (ProgressBar) getClass()
                         .getDeclaredField("car" + i + "ReliabilityProgressBar").get(this);
+                Label carUpgradesLabel = (Label) getClass().getDeclaredField("car" + i + "UpgradesLabel").get(this);
                 Label carPriceLabel = (Label) getClass().getDeclaredField("car" + i + "PriceLabel").get(this);
                 Button carBuyButton = (Button) getClass().getDeclaredField("car" + i + "BuyButton").get(this);
 
                 carImage.setImage(car.getImage());
                 carNameLabel.setText(String.format("%s %s", car.getModel(), (Year.now().getValue() - car.getAge())));
-                carRangeLabel.setText(String.valueOf(car.getRange()));
+                carEcoLabel.setText(String.valueOf(car.getFuelConsumption()));
                 carSpeedLabel.setText(String.valueOf(String.format("%.0f", car.getSpeed())));
                 carHandlingProgressBar.setProgress(car.getHandling());
                 carReliabilityProgressBar.setProgress(car.getReliability());
+                carUpgradesLabel.setText(String.valueOf(car.getUpgrades().size()));
                 carPriceLabel.setText(String.format("%.0f", car.getPrice()));
 
                 final Car currentCar = car;
@@ -335,12 +362,11 @@ public class ShopScreenController extends ScreenController {
             updateBalanceLabel();
             homeButton.setDisable(false);
             partsTab.setDisable(false);
-            getGameEnvironment().setSettingUp(false);
             showAlert(AlertType.INFORMATION, "Purchase Successful",
                     "You have successfully purchased the " + car.getModel() + "!");
         } else {
             showAlert(AlertType.ERROR, "Purchase Failed",
-                    "You don't have enough money to buy this car.");
+                    "You don't have enough money, or your garage is full.");
         }
     }
 

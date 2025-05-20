@@ -32,10 +32,18 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Controller for the raceScreen.fxml window
+ * Controller for the raceScreen.fxml window that handles rendering the
+ * race in action, updating the leaderboard, and displaying the player's
+ * progress.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class RaceScreenController extends ScreenController {
 
+    /**
+     * Enum representing the different types of markers
+     */
     public enum MarkerType {
         FINISH {
             @Override
@@ -102,11 +110,21 @@ public class RaceScreenController extends ScreenController {
     @FXML
     private Line raceProgressLine;
 
+    /** The current race being played */
     private final Race race;
+    /** The icons being displayed to represent the racers in the race */
     private final Map<Racer, FontIcon> racerCircles = new HashMap<>();
+    /** Timer used to loop */
     private final AnimationTimer gameLoop;
+    /** Multiplier for how fast the race goes */
     private int gameSpeedMultiplier = 1;
 
+    /**
+     * Constructor for the RaceScreenController
+     *
+     * @param gameEnvironment the game environment
+     * @param selectedRace
+     */
     public RaceScreenController(GameEnvironment gameEnvironment, Race selectedRace) {
         super(gameEnvironment);
         this.race = selectedRace;
@@ -114,10 +132,12 @@ public class RaceScreenController extends ScreenController {
     }
 
     /**
-     * Initialize the window
+     * Initialize the window by setting button states and adding
+     * action listeners to the buttons. Also initializes the
+     * progress line and the leaderboard.
      */
     public void initialize() {
-        // add action to buttons
+        // add action to start, refuel and continue buttons
         raceStartButton.setOnAction(event -> {
             raceStartButton.setDisable(true);
             raceRefuelButton.setDisable(false);
@@ -129,8 +149,7 @@ public class RaceScreenController extends ScreenController {
         });
 
         raceContinueButton.setOnAction(event -> {
-            getGameEnvironment().applyRaceOutcome(race.getPlayerProfit());
-            race.setCompleted(true);
+            getGameEnvironment().applyRaceOutcome(race);
             getGameEnvironment().getNavigator().launchRaceFinishScreen(getGameEnvironment(), race);
         });
 
@@ -148,6 +167,9 @@ public class RaceScreenController extends ScreenController {
             toggleGameSpeedMultiplierButtons();
         });
 
+
+        // change listener for width of raceProgressLineWrapper as width of this is required for initializeProgressLine()
+        // Had bug where width of raceProgressLineWrapper was -10 of load possibly due to the order of JavaFX render pass being inconsistent.
         ChangeListener<Number> widthListener = new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
@@ -190,6 +212,10 @@ public class RaceScreenController extends ScreenController {
             racePlayerDistanceToFuelLabel.setText(String.format("%.2fKM", distanceToFuel));
         }
         racePlayerIsRefuelingLabel.setText(race.getPlayer().isRefuelingNextStop() ? "Yes" : "No");
+        // disable button if player is refueling next stop, or is finished or dnf
+        raceRefuelButton.setDisable(
+                race.getPlayer().isRefuelingNextStop() || race.getPlayer().isFinished() || race.getPlayer().didDNF());
+
         // Update race leaderboard
         renderRaceLeaderboard();
         // update progress line
@@ -220,7 +246,7 @@ public class RaceScreenController extends ScreenController {
      * goes through the racers and updates the leaderboard
      */
     private void renderRaceLeaderboard() {
-        raceLeaderboard.getChildren().clear(); // TODO: Make this more efficient avoid unnecessary clears
+        raceLeaderboard.getChildren().clear();
 
         VBox.setVgrow(raceLeaderboard, Priority.ALWAYS);
 
@@ -373,8 +399,14 @@ public class RaceScreenController extends ScreenController {
         return markerGroup;
     }
 
+    /**
+     * Triggers a random event based on the current state of the race.
+     */
     private void triggerRandomEvent() {
         gameLoop.stop();
+
+        // use Platform.runLater() here as we need to wait for the game loop to finish its final render before we can show alerts
+        // require action and require the JavaFX application thread.
         Platform.runLater(() -> {
             RandomEvent event = race.getRandomEvent();
 
@@ -459,8 +491,9 @@ public class RaceScreenController extends ScreenController {
 
                 lastTime = nowMilliseconds;
 
-                // TODO: instead split out incrementRaceTime then is finished ?
-                if (race.incrementRaceTime(delta)) {
+                race.incrementRaceTime(delta);
+
+                if (race.isRaceFinished()) {
                     race.setDNFOfDurationExceedingRacers();
 
                     raceRefuelButton.setDisable(true);

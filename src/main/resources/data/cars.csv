@@ -1,6 +1,9 @@
 Name,AgeYears,PriceNZD,TopSpeed_kmh,Handling_0to1,Reliability_0to1,FuelConsumption_L100km,TankSize_L
-Sucky Lift,5,15000,124,0.2,0.4,6.1,10
-Panda Funk,6,18000,131,0.25,0.3,6.3,11
-Kiwi Platonic,4,20000,155,0.2,0.42,6.8,12
-Lord Banger,1,47000,195,0.3,0.7,8.9,32
-Masala XAEA-12,3,55000,207,0.32,0.5,8.1,28
+Sucky Lift,5,15000,124,0.2,0.3,6.1,10
+Hounder Funk,6,18000,131,0.25,0.25,6.3,11
+Kiwi Platonic,4,20000,155,0.2,0.31,6.8,12
+Lord Banger,1,47000,195,0.3,0.5,8.9,32
+Magma XAEA-12,3,52000,207,0.32,0.56,8.1,28
+Toy Otter Carrera,3,29000,175,0.27,0.4,7.3,20
+Hounder Saloon,2,35000,182,0.29,0.47,7.0,22
+Folks Wagon Go,2,42000,188,0.3,0.49,7.5,24

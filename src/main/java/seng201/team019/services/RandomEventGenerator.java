@@ -7,14 +7,31 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * RandomEventGenerator is a utility class for generating random events during
+ * a race.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
+ */
 public class RandomEventGenerator {
 
+    /** Random class from java.util */
     private final Random rand = new Random();
 
+    /**
+     * Checks if a random event should occur based on the given percentage.
+     *
+     * @param percentage
+     * @return true if the random event should occur, false otherwise
+     */
     public boolean raceHasRandomEvent(float percentage) {
         return rand.nextDouble() <= percentage;
     }
 
+    /**
+     * Generates a random event for a race.
+     */
     public RandomEvent generateRandomEvent(Race race) {
 
         double chanceOfReliabilityEvent = 1 - race.getPlayer().getCar().getReliability();
@@ -29,6 +46,9 @@ public class RandomEventGenerator {
 
     }
 
+    /**
+     * Calculates the event trigger time based on the start and end times.
+     */
     public long eventTriggerTime(long startTime, long endTime) {
         return rand.nextInt((int) (endTime - startTime)) + startTime;
     }

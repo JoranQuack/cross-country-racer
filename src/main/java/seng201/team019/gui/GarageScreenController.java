@@ -19,6 +19,9 @@ import seng201.team019.models.Car;
  * Controller for the garage.fxml window.
  * Handles displaying the player's car collection, showing car statistics,
  * and providing functionality to set active cars and customise vehicles.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class GarageScreenController extends ScreenController {
     @FXML
@@ -118,17 +121,18 @@ public class GarageScreenController extends ScreenController {
     private Label numUpgradesLabel;
 
     /**
-     * Creates a GarageScreenController with the given game environment.
+     * Constructor for the GarageScreenController.
+     * Initializes the controller with the provided game environment.
      *
-     * @param gameEnvironment The game environment for this controller
+     * @param gameEnvironment The game environment to be used by this controller
      */
     public GarageScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
     /**
-     * Initializes the window by hiding the car stats panel and populating
-     * the car grid with vehicles from the player's garage.
+     * Initialises the window by hiding the car stats panel and populating
+     * the car grid with cars from the player's garage.
      */
     public void initialize() {
         hideCarStats();
@@ -146,10 +150,6 @@ public class GarageScreenController extends ScreenController {
         showAlert(AlertType.INFORMATION, "Car Set Active", "You have set " + car.getName() + " as your active car.");
     }
 
-    /**
-     * Handles the home button click event.
-     * Returns to the dashboard screen.
-     */
     @FXML
     public void onHomeButtonClicked() {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
@@ -185,7 +185,7 @@ public class GarageScreenController extends ScreenController {
             return;
         }
 
-        // make all car grids visible by default
+        // Make all car grids visible by default
         for (int i = 0; i < 5; i++) {
             try {
                 GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
@@ -195,7 +195,7 @@ public class GarageScreenController extends ScreenController {
             }
         }
 
-        // populate with car data or hide if no car available
+        // Populate with car data or hide if no car available
         for (int i = 0; i < 5; i++) {
             try {
                 GridPane carGrid = (GridPane) getClass().getDeclaredField("car" + i + "Grid").get(this);
