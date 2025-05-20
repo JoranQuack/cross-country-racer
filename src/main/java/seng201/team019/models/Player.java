@@ -37,16 +37,19 @@ public class Player extends Racer {
 
     /**
      * The time the player started refueling in milliseconds.
+     * Only relevant when {@code isRefuelingNextStop} is {@code true} and distance >= stop distance.
      */
     private long startRefuelTime;
 
     /**
      * The time the player picked up a traveller in milliseconds.
+     * Only relevant when the {@link RandomEvent} is {@code PlayerStrandedTraveler}.
      */
     private long startPickupTime;
 
     /**
      * The reason the player DNF.
+     * Only relevant when {@code didDNF} is {@code true}
      */
     private String dnfReason;
 
