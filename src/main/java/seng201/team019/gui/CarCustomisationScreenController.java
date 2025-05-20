@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
 import seng201.team019.models.Upgrade;
+import seng201.team019.services.StringValidator;
 
 /**
  * Controller for the carCustomisation.fxml window.
@@ -208,8 +209,15 @@ public class CarCustomisationScreenController extends ScreenController {
     @FXML
     private void onCarNameChanged() {
         String newName = carName.getText();
-        Car car = getGameEnvironment().getSelectedCar();
-        car.setName(newName);
+        StringValidator validator = new StringValidator();
+
+        if (!validator.isValid(newName, 3, 15)) {
+            carName.setStyle("-fx-border-color: red");
+            return;
+        } else {
+            carName.setStyle("-fx-border-color: none");
+            getGameEnvironment().getSelectedCar().setName(newName);
+        }
     }
 
     /**
