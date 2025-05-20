@@ -20,6 +20,6 @@ public class StringValidator {
      */
     public boolean isValid(String string, int minLength, int maxLength) {
         return string.length() >= minLength && string.length() <= maxLength
-                && VALID_STRING_REGEX.matcher(string).matches();
+                && VALID_STRING_REGEX.matcher(string.replaceAll("\\s+", "")).matches();
     }
 }
