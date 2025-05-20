@@ -5,13 +5,11 @@ import java.util.List;
 
 import static java.util.Collections.max;
 
-import java.io.Serializable;
-
 /**
  * Class representing a player in the game.
  * The player is a racer who can refuel and has a fuel amount.
  */
-public class Player extends Racer implements Serializable {
+public class Player extends Racer {
     public final static long REFUEL_DURATION = Duration.ofMinutes(2).toMillis();
     public final static long PICKUP_DURATION = Duration.ofMinutes(2).toMillis();
     public final static float FUEL_DRAIN_MULTIPLIER = 1f;

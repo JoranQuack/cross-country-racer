@@ -1,11 +1,9 @@
 package seng201.team019.models;
 
-import java.io.Serializable;
-
 /**
  * Enum representing an opponent racer.
  */
-public class Opponent extends Racer implements Serializable {
+public class Opponent extends Racer {
     private boolean isGoingToDNF;
     private long dnfTime;
 
