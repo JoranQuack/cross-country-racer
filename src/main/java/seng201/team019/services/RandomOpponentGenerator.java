@@ -13,12 +13,12 @@ import seng201.team019.models.Route;
 public class RandomOpponentGenerator {
 
     private final Random rand = new Random();
-    private RandomNameGenerator randName;
-    private List<Car> availableCars;
-    private List<Route> availableRoutes;
-    private double opponentDNFPercentage;
-    private RandomEventGenerator randomEventGenerator;
-    private Race race;
+    private final RandomNameGenerator randName;
+    private final List<Car> availableCars;
+    private final List<Route> availableRoutes;
+    private final double opponentDNFPercentage;
+    private final RandomEventGenerator randomEventGenerator;
+    private final Race race;
 
     public RandomOpponentGenerator(GameEnvironment gameEnvironment, Race race, List<Route> routes, double opponentDNFPercentage) {
         this.availableCars = new ArrayList<Car>();
