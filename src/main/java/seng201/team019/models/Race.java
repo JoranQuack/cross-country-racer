@@ -76,16 +76,21 @@ public class Race {
 
     /**
      * Indicates whether a random event has occurred during the race.
+     * Only relevant when {@code isEventScheduledThisRace} is {@code true}
      */
     private boolean eventHasOccurred = false;
 
     /**
      * The time that a random event will occur during a race.
+     * Only relevant when {@code isEventScheduledThisRace} and {@code eventHasOccurred} is {@code true}
+     *
      */
     private long eventTriggerTime = -1;
 
     /**
      * The {@link RandomEvent} that will occur during a race.
+     * Only relevant when {@code isEventScheduledThisRace} is {@code true}
+     *
      */
     RandomEvent selectedEvent = null;
 

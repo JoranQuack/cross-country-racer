@@ -37,6 +37,7 @@ public abstract class Racer {
 
     /**
      * The finish time of the player in milliseconds
+     * Only relevant when {@code isFinished} is {@code true}
      */
     protected long finishTime;
 
