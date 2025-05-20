@@ -48,7 +48,7 @@ Open the application
 ```
 
 > [!IMPORTANT]
-> This Jar is NOT cross-platform, so you must build the jar on the appropriate OS to where you want to run it.
+> This Jar is NOT cross-platform, so you must build the jar on the appropriate OS (and machine) to where you want to run it.
 
 ## Running Tests
 
