@@ -147,6 +147,7 @@ public class Race {
     /**
      * Sets the player instance that is going to be playing in the race.
      * If the random event is to pick up standard traveler we need to set the pickup time on the player object.
+     *
      * @param player the {@link Player} instance that should be set
      */
     public void setPlayer(Player player) {
@@ -160,6 +161,7 @@ public class Race {
 
     /**
      * gets all the racers, including the player, involved in the race.
+     *
      * @return list of all {@link Racer}'s in race.
      */
     public List<Racer> getRacers() {
@@ -178,6 +180,7 @@ public class Race {
 
     /**
      * Increase the race time by delta
+     *
      * @param delta the time increment in milliseconds.
      */
     public void incrementRaceTime(long delta) {
@@ -191,6 +194,7 @@ public class Race {
     /**
      * Indicates whether a random event should trigger
      * Based on if its trigger time has passed and/or the event has already occurred.
+     *
      * @return true if the event should trigger, false otherwise
      */
     public boolean shouldTriggerRandomEvent() {
@@ -205,6 +209,7 @@ public class Race {
 
     /**
      * Loops through the racers racing and increased their distance traveled in the time delta
+     *
      * @param delta the time increment in milliseconds.
      */
     public void updateRacers(long delta) {
@@ -233,6 +238,7 @@ public class Race {
 
     /**
      * Indicates whether the race is finished
+     *
      * @return true if race is finished, false if race is not finished.
      */
     public boolean isRaceFinished() {
@@ -244,6 +250,7 @@ public class Race {
      * Racers that have DNF are last,
      * then sort by distance percentage with the highest completion first,
      * then sort by finish time with the lowest time.
+     *
      * @return ordered list of {@link Racer}'s
      */
     public List<Racer> getOrderedRacers() {
@@ -256,6 +263,7 @@ public class Race {
 
     /**
      * Gets the finishing position of the player, if the player DNF the -1 is returned.
+     *
      * @return player finishing position as an integer.
      */
     public int getPlayerFinishedPosition() {
@@ -351,6 +359,7 @@ public class Race {
 
         /**
          * Constructs a new {@link Race} instance with the fields set.
+         *
          * @return a new race instance
          * @throws IllegalStateException if required fields (routes, prizeMoney, duration) are not set
          */
