@@ -44,7 +44,7 @@ Go to build directory
 Open the application
 
 ```bash
-  java -jar seng201_team0-1.0-SNAPSHOT.jar
+  java -jar seng201_team019-1.0-SNAPSHOT.jar
 ```
 
 > [!IMPORTANT]
