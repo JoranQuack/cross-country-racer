@@ -24,21 +24,27 @@ import seng201.team019.models.Route;
  * @author Joran Le Quellec
  */
 public class RaceSetupScreenController extends ScreenController {
+    /** Label for displaying the prize money. */
     @FXML
     private Label raceSetupPrizeMoneyLabel;
 
+    /** Label for displaying the number of opponents. */
     @FXML
     private Label raceSetupNumOfOpsLabel;
 
+    /** Label for displaying the route description. */
     @FXML
     private Label raceSetupRouteDescriptionLabel;
 
+    /** Label for displaying the route distance. */
     @FXML
     private Label raceSetupRouteDistanceLabel;
 
+    /** Label for displaying the number of fuel stops. */
     @FXML
     private Label raceSetupRouteFuelStopsLabel;
 
+    /** VBox containing the list of routes. */
     @FXML
     private VBox raceSetupRouteListView;
 
@@ -74,8 +80,8 @@ public class RaceSetupScreenController extends ScreenController {
     }
 
     /**
-     * Sets the selected route and updates the route description, distance, and
-     * fuel stops labels.
+     * Sets the selected route and updates the route description, distance, and fuel
+     * stops labels.
      *
      * @param selectedRoute The route that has been selected.
      */
@@ -142,14 +148,10 @@ public class RaceSetupScreenController extends ScreenController {
         progressBar.setProgress(route.computeDifficulty(getGameEnvironment().getGarage().getFirst()));
         HBox difficulty = new HBox(5, new Label("Difficulty"), progressBar);
 
-        vBox.getChildren().addAll(
-                nameLabel,
-                new Label(String.format("Distance: %.2f km", route.getDistance())),
-                new Label(String.format("Fuel Stops: %s", route.getFuelStopCount())),
-                difficulty);
+        vBox.getChildren().addAll(nameLabel, new Label(String.format("Distance: %.2f km", route.getDistance())),
+                new Label(String.format("Fuel Stops: %s", route.getFuelStopCount())), difficulty);
 
-        hBox.getChildren().addAll(
-                vBox);
+        hBox.getChildren().addAll(vBox);
 
         hBox.setOnMouseClicked(e -> {
             setSelectedRoute(route);

@@ -23,9 +23,11 @@ import java.util.List;
  */
 public class RaceSelectionScreenController extends ScreenController {
 
+    /** VBox containing the list of races. */
     @FXML
     private VBox raceListView;
 
+    /** Checkbox to hide completed races. */
     @FXML
     private CheckBox raceSelectionHideCompleted;
 
@@ -39,8 +41,8 @@ public class RaceSelectionScreenController extends ScreenController {
     }
 
     /**
-     * Initialize the window by setting the race list and adding an action
-     * listener to the checkbox.
+     * Initialize the window by setting the race list and adding an action listener
+     * to the checkbox.
      */
     public void initialize() {
 
@@ -96,8 +98,7 @@ public class RaceSelectionScreenController extends ScreenController {
 
         nameLabel.setFont(new Font(20));
 
-        vBox.getChildren().addAll(
-                nameLabel,
+        vBox.getChildren().addAll(nameLabel,
                 new Label(String.format("Duration: %s", timeFormatter.formatTimeShort(race.getDuration()))),
                 new Label(String.format("Opponents: %s", race.getNumOfOpponents())),
                 new Label(String.format("prize money: $%.2f", race.getPrizeMoney())),
@@ -105,8 +106,7 @@ public class RaceSelectionScreenController extends ScreenController {
 
         );
 
-        hBox.getChildren().addAll(
-                vBox);
+        hBox.getChildren().addAll(vBox);
 
         hBox.setOnMouseClicked(e -> {
             if (race.isCompleted()) {
@@ -129,6 +129,10 @@ public class RaceSelectionScreenController extends ScreenController {
         return "Playing Screen";
     }
 
+    /**
+     * Handles the action when the back button is clicked on the race selection
+     * screen. Navigates to the dashboard screen.
+     */
     @FXML
     private void raceSelectionBackOnAction() {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());

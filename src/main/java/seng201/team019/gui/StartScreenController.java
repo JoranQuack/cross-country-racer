@@ -14,9 +14,9 @@ import seng201.team019.services.GameSaver;
  * @author Joran Le Quellec
  */
 public class StartScreenController extends ScreenController {
+    /** Continue button */
     @FXML
     private Button continueButton;
-
 
     /**
      * Constructor for the StartScreenController.
@@ -27,6 +27,10 @@ public class StartScreenController extends ScreenController {
         super(gameEnvironment);
     }
 
+    /**
+     * Initializes the start screen and enables the continue button if a save file
+     * exists.
+     */
     public void initialize() {
         if (getGameEnvironment().getGameSaver().isSaveFileExists()) {
             continueButton.setDisable(false);
@@ -34,8 +38,7 @@ public class StartScreenController extends ScreenController {
     }
 
     /**
-     * Method to call when start button is clicked
-     * Launches the setup screen
+     * Method to call when start button is clicked Launches the setup screen
      */
     @FXML
     public void onPlayClicked() {
@@ -43,9 +46,8 @@ public class StartScreenController extends ScreenController {
     }
 
     /**
-     * Method to call when continue button is clicked
-     * Attempts to load the game environment from the save file
-     * If successful, launches the dashboard screen
+     * Method to call when continue button is clicked Attempts to load the game
+     * environment from the save file If successful, launches the dashboard screen
      */
     @FXML
     public void onContinueClicked() {
@@ -64,11 +66,21 @@ public class StartScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Returns the FXML file path.
+     *
+     * @return the FXML file path
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/start.fxml";
     }
 
+    /**
+     * Returns the window title.
+     *
+     * @return the window title
+     */
     @Override
     protected String getTitle() {
         return "Start Screen";

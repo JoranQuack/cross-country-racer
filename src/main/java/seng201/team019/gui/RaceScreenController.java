@@ -32,9 +32,8 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Controller for the raceScreen.fxml window that handles rendering the
- * race in action, updating the leaderboard, and displaying the player's
- * progress.
+ * Controller for the raceScreen.fxml window that handles rendering the race in
+ * action, updating the leaderboard, and displaying the player's progress.
  *
  * @author Ethan Elliot
  * @author Joran Le Quellec
@@ -68,45 +67,59 @@ public class RaceScreenController extends ScreenController {
         public abstract FontIcon getIcon();
     }
 
+    /** Label for displaying the race time. */
     @FXML
     private Label raceTimeLabel;
 
+    /** Label for displaying the player's progress. */
     @FXML
     private Label racePlayerProgressLabel;
 
+    /** Button to set race speed multiplier to 1x. */
     @FXML
     private Button raceSpeedMultiplierOne;
 
+    /** Button to set race speed multiplier to 100x. */
     @FXML
     private Button raceSpeedMultiplierHundred;
 
+    /** Button to set race speed multiplier to 500x. */
     @FXML
     private Button raceSpeedMultiplierFiveHundred;
 
+    /** Button to start the race. */
     @FXML
     private Button raceStartButton;
 
+    /** Button to refuel during the race. */
     @FXML
     private Button raceRefuelButton;
 
+    /** Button to continue after the race. */
     @FXML
     private Button raceContinueButton;
 
+    /** Label for displaying the player's fuel. */
     @FXML
     private Label racePlayerFuelLabel;
 
+    /** Label for displaying the player's distance to next fuel stop. */
     @FXML
     private Label racePlayerDistanceToFuelLabel;
 
+    /** Label for displaying if the player is refueling next stop. */
     @FXML
     private Label racePlayerIsRefuelingLabel;
 
+    /** VBox for the race leaderboard. */
     @FXML
     private VBox raceLeaderboard;
 
+    /** Pane wrapper for the race progress line. */
     @FXML
     private Pane raceProgressLineWrapper;
 
+    /** Line representing the race progress. */
     @FXML
     private Line raceProgressLine;
 
@@ -132,9 +145,8 @@ public class RaceScreenController extends ScreenController {
     }
 
     /**
-     * Initialize the window by setting button states and adding
-     * action listeners to the buttons. Also initializes the
-     * progress line and the leaderboard.
+     * Initialize the window by setting button states and adding action listeners to
+     * the buttons. Also initializes the progress line and the leaderboard.
      */
     public void initialize() {
         // add action to start, refuel and continue buttons
@@ -167,9 +179,10 @@ public class RaceScreenController extends ScreenController {
             toggleGameSpeedMultiplierButtons();
         });
 
-
-        // change listener for width of raceProgressLineWrapper as width of this is required for initializeProgressLine()
-        // Had bug where width of raceProgressLineWrapper was -10 of load possibly due to the order of JavaFX render pass being inconsistent.
+        // change listener for width of raceProgressLineWrapper as width of this is
+        // required for initializeProgressLine()
+        // Had bug where width of raceProgressLineWrapper was -10 of load possibly due
+        // to the order of JavaFX render pass being inconsistent.
         ChangeListener<Number> widthListener = new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
@@ -269,10 +282,10 @@ public class RaceScreenController extends ScreenController {
             // Get the value from the entry
             FontIcon racerCar = entry.getValue();
 
-            racerCar.setLayoutX(raceProgressLineWrapper.getPadding().getLeft()
-                    - racerCar.getLayoutBounds().getWidth() / 2
-                    + racer.getRoute().normalizeDistance(racer.getDistance())
-                            * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
+            racerCar.setLayoutX(
+                    raceProgressLineWrapper.getPadding().getLeft() - racerCar.getLayoutBounds().getWidth() / 2
+                            + racer.getRoute().normalizeDistance(racer.getDistance())
+                                    * (raceProgressLine.getEndX() - raceProgressLine.getStartX()));
 
         }
     }
@@ -367,18 +380,18 @@ public class RaceScreenController extends ScreenController {
         double lineEndY;
 
         switch (markerType) {
-            case START, FINISH -> {
-                lineStartY = raceProgressLine.getLayoutY() - 15;
-                lineEndY = raceProgressLine.getLayoutY() + 15;
-            }
-            case MarkerType.FUEL_STOP -> {
-                lineStartY = raceProgressLine.getLayoutY() - 10;
-                lineEndY = raceProgressLine.getLayoutY();
-            }
-            default -> {
-                lineStartY = 0;
-                lineEndY = 0;
-            }
+        case START, FINISH -> {
+            lineStartY = raceProgressLine.getLayoutY() - 15;
+            lineEndY = raceProgressLine.getLayoutY() + 15;
+        }
+        case MarkerType.FUEL_STOP -> {
+            lineStartY = raceProgressLine.getLayoutY() - 10;
+            lineEndY = raceProgressLine.getLayoutY();
+        }
+        default -> {
+            lineStartY = 0;
+            lineEndY = 0;
+        }
         }
 
         Line markerLine = new Line(lineX, lineStartY, lineX, lineEndY);
@@ -405,51 +418,50 @@ public class RaceScreenController extends ScreenController {
     private void triggerRandomEvent() {
         gameLoop.stop();
 
-        // use Platform.runLater() here as we need to wait for the game loop to finish its final render before we can show alerts
+        // use Platform.runLater() here as we need to wait for the game loop to finish
+        // its final render before we can show alerts
         // require action and require the JavaFX application thread.
         Platform.runLater(() -> {
             RandomEvent event = race.getRandomEvent();
 
             switch (event) {
-                case RouteWeather: {
-                    event.trigger(getGameEnvironment(), race);
-                    showAlert(Alert.AlertType.INFORMATION, "Weather Event", event.getMessage());
-                    break;
+            case RouteWeather: {
+                event.trigger(getGameEnvironment(), race);
+                showAlert(Alert.AlertType.INFORMATION, "Weather Event", event.getMessage());
+                break;
+            }
+            case PlayerStrandedTraveler: {
+                if (race.getPlayer().isFinished())
+                    break; // player is finished cant pick people up
+                showAlert(Alert.AlertType.INFORMATION, "Traveler Event", event.getMessage());
+                event.trigger(getGameEnvironment(), race);
+                break;
+            }
+            case PlayerBreaksDown: {
+                if (race.getPlayer().isFinished())
+                    break; // player is finished cant break down
+                boolean canAfford = getGameEnvironment().getBankBalance() >= 1000;
+
+                Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
+                alert.getDialogPane().getStylesheets()
+                        .add(getClass().getResource("/styles/global.css").toExternalForm());
+
+                alert.setHeaderText(null);
+                alert.setGraphic(null);
+
+                alert.setTitle("Player Breaks Down Event");
+                alert.setContentText(event.getMessage() + (canAfford ? "You can pay $1000 to fix your car and continue."
+                        : "You cannot afford to continue."));
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (canAfford && result.isPresent() && result.get() == ButtonType.OK) {
+                    event.triggerYes(getGameEnvironment(), race);
+                } else {
+                    event.triggerNo(getGameEnvironment(), race);
                 }
-                case PlayerStrandedTraveler: {
-                    if (race.getPlayer().isFinished())
-                        break; // player is finished cant pick people up
-                    showAlert(Alert.AlertType.INFORMATION, "Traveler Event", event.getMessage());
-                    event.trigger(getGameEnvironment(), race);
-                    break;
-                }
-                case PlayerBreaksDown: {
-                    if (race.getPlayer().isFinished())
-                        break; // player is finished cant break down
-                    boolean canAfford = getGameEnvironment().getBankBalance() >= 1000;
-
-                    Alert alert = new Alert(canAfford ? Alert.AlertType.CONFIRMATION : Alert.AlertType.INFORMATION);
-                    alert.getDialogPane().getStylesheets()
-                            .add(getClass().getResource("/styles/global.css").toExternalForm());
-
-                    alert.setHeaderText(null);
-                    alert.setGraphic(null);
-
-                    alert.setTitle("Player Breaks Down Event");
-                    alert.setContentText(event.getMessage() +
-                            (canAfford
-                                    ? "You can pay $1000 to fix your car and continue."
-                                    : "You cannot afford to continue."));
-
-                    Optional<ButtonType> result = alert.showAndWait();
-
-                    if (canAfford && result.isPresent() && result.get() == ButtonType.OK) {
-                        event.triggerYes(getGameEnvironment(), race);
-                    } else {
-                        event.triggerNo(getGameEnvironment(), race);
-                    }
-                    break;
-                }
+                break;
+            }
             }
 
             gameLoop.start(); // Resume game

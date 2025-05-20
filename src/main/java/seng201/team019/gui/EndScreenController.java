@@ -13,18 +13,23 @@ import seng201.team019.GameEnvironment;
  * @author Joran Le Quellec
  */
 public class EndScreenController extends ScreenController {
+    /** Label for displaying the player's name. */
     @FXML
     private Label playerNameLabel;
 
+    /** Label for displaying the season length. */
     @FXML
     private Label seasonLengthLabel;
 
+    /** Label for displaying the number of races completed. */
     @FXML
     private Label racesCompletedLabel;
 
+    /** Label for displaying the average placing. */
     @FXML
     private Label averagePlacingLabel;
 
+    /** Label for displaying the total prize money. */
     @FXML
     private Label totalPrizeMoneyLabel;
 
@@ -61,16 +66,29 @@ public class EndScreenController extends ScreenController {
         getGameEnvironment().getGameSaver().deleteSaveFile();
     }
 
+    /**
+     * Handles the event when the quit button is clicked. Exits the application.
+     */
     @FXML
     public void onQuitButtonClicked() {
         Platform.exit();
     }
 
+    /**
+     * Returns the FXML file path for this screen.
+     *
+     * @return The FXML file path.
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/end.fxml";
     }
 
+    /**
+     * Returns the title for this screen.
+     *
+     * @return The screen title.
+     */
     @Override
     protected String getTitle() {
         return "End Screen";

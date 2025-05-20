@@ -16,113 +16,145 @@ import seng201.team019.GameEnvironment;
 import seng201.team019.models.Car;
 
 /**
- * Controller for the garage.fxml window.
- * Handles displaying the player's car collection, showing car statistics,
- * and providing functionality to set active cars and customise vehicles.
+ * Controller for the garage.fxml window. Handles displaying the player's car
+ * collection, showing car statistics, and providing functionality to set active
+ * cars and customise vehicles.
  *
  * @author Ethan Elliot
  * @author Joran Le Quellec
  */
 public class GarageScreenController extends ScreenController {
+    /** Main anchor pane for the garage screen. */
     @FXML
     private AnchorPane mainAnchorPane;
 
+    /** Main HBox containing car grids. */
     @FXML
     private HBox mainHBox;
 
+    /** GridPane for car 0. */
     @FXML
     private GridPane car0Grid;
 
+    /** ImageView for car 0. */
     @FXML
     private ImageView car0Image;
 
+    /** Label for car 0 name. */
     @FXML
     private Label car0NameLabel;
 
+    /** Button to customise car 0. */
     @FXML
     private Button car0CustomiseButton;
 
+    /** GridPane for car 1. */
     @FXML
     private GridPane car1Grid;
 
+    /** ImageView for car 1. */
     @FXML
     private ImageView car1Image;
 
+    /** Label for car 1 name. */
     @FXML
     private Label car1NameLabel;
 
+    /** Button to set car 1 as active. */
     @FXML
     private Button car1ActiveButton;
 
+    /** Button to customise car 1. */
     @FXML
     private Button car1CustomiseButton;
 
+    /** GridPane for car 2. */
     @FXML
     private GridPane car2Grid;
 
+    /** ImageView for car 2. */
     @FXML
     private ImageView car2Image;
 
+    /** Label for car 2 name. */
     @FXML
     private Label car2NameLabel;
 
+    /** Button to set car 2 as active. */
     @FXML
     private Button car2ActiveButton;
 
+    /** Button to customise car 2. */
     @FXML
     private Button car2CustomiseButton;
 
+    /** GridPane for car 3. */
     @FXML
     private GridPane car3Grid;
 
+    /** ImageView for car 3. */
     @FXML
     private ImageView car3Image;
 
+    /** Label for car 3 name. */
     @FXML
     private Label car3NameLabel;
 
+    /** Button to set car 3 as active. */
     @FXML
     private Button car3ActiveButton;
 
+    /** Button to customise car 3. */
     @FXML
     private Button car3CustomiseButton;
 
+    /** GridPane for car 4. */
     @FXML
     private GridPane car4Grid;
 
+    /** ImageView for car 4. */
     @FXML
     private ImageView car4Image;
 
+    /** Label for car 4 name. */
     @FXML
     private Label car4NameLabel;
 
+    /** Button to set car 4 as active. */
     @FXML
     private Button car4ActiveButton;
 
+    /** Button to customise car 4. */
     @FXML
     private Button car4CustomiseButton;
 
+    /** VBox container for car stats. */
     @FXML
     private VBox statsContainer;
 
+    /** Label for car range. */
     @FXML
     private Label rangeLabel;
 
+    /** Label for car speed. */
     @FXML
     private Label speedLabel;
 
+    /** ProgressBar for car handling. */
     @FXML
     private ProgressBar handlingProgressBar;
 
+    /** ProgressBar for car reliability. */
     @FXML
     private ProgressBar reliabilityProgressBar;
 
+    /** Label for number of upgrades. */
     @FXML
     private Label numUpgradesLabel;
 
     /**
-     * Constructor for the GarageScreenController.
-     * Initializes the controller with the provided game environment.
+     * Constructor for the GarageScreenController. Initializes the controller with
+     * the provided game environment.
      *
      * @param gameEnvironment The game environment to be used by this controller
      */
@@ -131,8 +163,8 @@ public class GarageScreenController extends ScreenController {
     }
 
     /**
-     * Initialises the window by hiding the car stats panel and populating
-     * the car grid with cars from the player's garage.
+     * Initialises the window by hiding the car stats panel and populating the car
+     * grid with cars from the player's garage.
      */
     public void initialize() {
         hideCarStats();
@@ -166,10 +198,10 @@ public class GarageScreenController extends ScreenController {
     }
 
     /**
-     * Populates the UI with cars from the player's garage.
-     * Makes all car grids visible by default, then either displays car data
-     * or hides the grid if no car is available for that position.
-     * Also sets up event handlers for mouse interactions and button clicks.
+     * Populates the UI with cars from the player's garage. Makes all car grids
+     * visible by default, then either displays car data or hides the grid if no car
+     * is available for that position. Also sets up event handlers for mouse
+     * interactions and button clicks.
      */
     private void initializeCars() {
         List<Car> cars = super.getGameEnvironment().getGarage();
@@ -245,8 +277,8 @@ public class GarageScreenController extends ScreenController {
     }
 
     /**
-     * Sets the selected car when the customise button is clicked.
-     * Navigates to the car customisation screen.
+     * Sets the selected car when the customise button is clicked. Navigates to the
+     * car customisation screen.
      *
      * @param car The car to customise
      */
@@ -256,8 +288,8 @@ public class GarageScreenController extends ScreenController {
     }
 
     /**
-     * Displays the statistics for the given car in the stats panel.
-     * Shows range, speed, handling, reliability, and number of upgrades.
+     * Displays the statistics for the given car in the stats panel. Shows range,
+     * speed, handling, reliability, and number of upgrades.
      *
      * @param car The car whose statistics should be displayed
      */
@@ -271,8 +303,7 @@ public class GarageScreenController extends ScreenController {
     }
 
     /**
-     * Hides the car statistics panel.
-     * Called when the mouse exits a car grid.
+     * Hides the car statistics panel. Called when the mouse exits a car grid.
      */
     private void hideCarStats() {
         statsContainer.setVisible(false);

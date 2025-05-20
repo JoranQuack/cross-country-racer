@@ -26,135 +26,179 @@ import seng201.team019.services.StringValidator;
  * @author Joran Le Quellec
  */
 public class CarCustomisationScreenController extends ScreenController {
+    /** Button to sell the car. */
     @FXML
     private Button carSellButton;
 
+    /** Button to repair the car. */
     @FXML
     private Button carRepairButton;
 
+    /** Button to sell part 0. */
     @FXML
     private Button part0SellButton;
 
+    /** Button to sell part 1. */
     @FXML
     private Button part1SellButton;
 
+    /** Button to sell part 2. */
     @FXML
     private Button part2SellButton;
 
+    /** Button to sell part 3. */
     @FXML
     private Button part3SellButton;
 
+    /** Button to sell part 4. */
     @FXML
     private Button part4SellButton;
 
+    /** VBox containing the parts. */
     @FXML
     private VBox partsVBox;
 
+    /** Label for part 0 name. */
     @FXML
     private Label part0NameLabel;
 
+    /** Label for part 1 name. */
     @FXML
     private Label part1NameLabel;
 
+    /** Label for part 2 name. */
     @FXML
     private Label part2NameLabel;
 
+    /** Label for part 3 name. */
     @FXML
     private Label part3NameLabel;
 
+    /** Label for part 4 name. */
     @FXML
     private Label part4NameLabel;
 
+    /** Label for fuel consumption. */
     @FXML
     private Label fuelConsumptionLabel;
 
+    /** Label for fuel capacity. */
     @FXML
     private Label fuelCapacityLabel;
 
+    /** ImageView for the car image. */
     @FXML
     private ImageView carImage;
 
+    /** TextField for the car name. */
     @FXML
     private TextField carName;
 
+    /** Label for the car model name. */
     @FXML
     private Label modelNameLabel;
 
+    /** Label for the car age. */
     @FXML
     private Label ageLabel;
 
+    /** Label for the car range. */
     @FXML
     private Label rangeLabel;
 
+    /** Label for the car speed. */
     @FXML
     private Label speedLabel;
 
+    /** ProgressBar for car handling. */
     @FXML
     private ProgressBar handlingProgressBar;
 
+    /** ProgressBar for car reliability. */
     @FXML
     private ProgressBar reliabilityProgressBar;
 
+    /** Label for the number of upgrades. */
     @FXML
     private Label numUpgradesLabel;
 
+    /** GridPane for part 0. */
     @FXML
     private GridPane part0Grid;
 
+    /** ImageView for part 0. */
     @FXML
     private ImageView part0Image;
 
+    /** Button to add part 0. */
     @FXML
     private Button part0AddButton;
 
+    /** Button to remove part 0. */
     @FXML
     private Button part0RemoveButton;
 
+    /** GridPane for part 1. */
     @FXML
     private GridPane part1Grid;
 
+    /** ImageView for part 1. */
     @FXML
     private ImageView part1Image;
 
+    /** Button to add part 1. */
     @FXML
     private Button part1AddButton;
 
+    /** Button to remove part 1. */
     @FXML
     private Button part1RemoveButton;
 
+    /** GridPane for part 2. */
     @FXML
     private GridPane part2Grid;
 
+    /** ImageView for part 2. */
     @FXML
     private ImageView part2Image;
 
+    /** Button to add part 2. */
     @FXML
     private Button part2AddButton;
 
+    /** Button to remove part 2. */
     @FXML
     private Button part2RemoveButton;
 
+    /** GridPane for part 3. */
     @FXML
     private GridPane part3Grid;
 
+    /** ImageView for part 3. */
     @FXML
     private ImageView part3Image;
 
+    /** Button to add part 3. */
     @FXML
     private Button part3AddButton;
 
+    /** Button to remove part 3. */
     @FXML
     private Button part3RemoveButton;
 
+    /** GridPane for part 4. */
     @FXML
     private GridPane part4Grid;
 
+    /** ImageView for part 4. */
     @FXML
     private ImageView part4Image;
 
+    /** Button to add part 4. */
     @FXML
     private Button part4AddButton;
 
+    /** Button to remove part 4. */
     @FXML
     private Button part4RemoveButton;
 
@@ -169,23 +213,35 @@ public class CarCustomisationScreenController extends ScreenController {
 
     /**
      * Initializes the window by hiding the car info and populating
-     * the parts grid with upgrades that they have bought or equipped
+     * the parts grid with upgrades that they have bought or equipped.
      */
     public void initialize() {
         initializeCar();
         initializeParts();
     }
 
+    /**
+     * Handles the event when the back button is clicked.
+     * Navigates back to the garage screen.
+     */
     @FXML
     public void onBackButtonClicked() {
         getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
     }
 
+    /**
+     * Handles the event when the home button is clicked.
+     * Navigates to the dashboard screen.
+     */
     @FXML
     public void onHomeButtonClicked() {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 
+    /**
+     * Handles the event when the repair button is clicked.
+     * Repairs the selected car and updates the bank balance.
+     */
     @FXML
     public void onRepairButtonClicked() {
         getGameEnvironment().setBankBalance(getGameEnvironment().getBankBalance() - 500);
@@ -193,18 +249,29 @@ public class CarCustomisationScreenController extends ScreenController {
         carRepairButton.setDisable(true);
     }
 
+    /**
+     * Returns the FXML file path for this screen.
+     *
+     * @return The FXML file path.
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/carCustomisation.fxml";
     }
 
+    /**
+     * Returns the title for this screen.
+     *
+     * @return The screen title.
+     */
     @Override
     protected String getTitle() {
         return "Car Customisation";
     }
 
     /**
-     * Updates the car's name in the game environment
+     * Updates the car's name in the game environment.
+     * Validates the new name and updates the car if valid.
      */
     @FXML
     private void onCarNameChanged() {
@@ -221,7 +288,7 @@ public class CarCustomisationScreenController extends ScreenController {
     }
 
     /**
-     * Sells the selected car and shows an alert with the result
+     * Sells the selected car and shows an alert with the result.
      */
     @FXML
     private void onSellCarButtonClicked() {
@@ -237,9 +304,9 @@ public class CarCustomisationScreenController extends ScreenController {
     }
 
     /**
-     * Initializes the car information display
+     * Initializes the car information display.
      * Sets the car image, name, model, age, range, speed, handling, reliability,
-     * and number of upgrades based on the selected car in the garage
+     * and number of upgrades based on the selected car in the garage.
      */
     private void initializeCar() {
         // Get the selected car from the garage and set its attributes to the labels
@@ -270,7 +337,7 @@ public class CarCustomisationScreenController extends ScreenController {
     /**
      * Initializes the parts grid with tuning parts from the player's garage.
      * Each part grid is populated with the corresponding part image, label, and
-     * buttons
+     * buttons.
      */
     private void initializeParts() {
         List<Upgrade> carParts = super.getGameEnvironment().getSelectedCar().getUpgrades();
@@ -330,16 +397,16 @@ public class CarCustomisationScreenController extends ScreenController {
     }
 
     /**
-     * Initializes one part's buttons based on whether the part is owned or not
+     * Initializes one part's buttons based on whether the part is owned or not.
      *
-     * @param part             The part to initialize
-     * @param partGrid         The grid pane for the part
-     * @param partImage        The image view for the part
-     * @param partNameLabel    The label for the part name
-     * @param partAddButton    The button to add the part
-     * @param partRemoveButton The button to remove the part
-     * @param partSellButton   The button to sell the part
-     * @param ownedParts       The list of owned parts
+     * @param part             The part to initialize.
+     * @param partGrid         The grid pane for the part.
+     * @param partImage        The image view for the part.
+     * @param partNameLabel    The label for the part name.
+     * @param partAddButton    The button to add the part.
+     * @param partRemoveButton The button to remove the part.
+     * @param partSellButton   The button to sell the part.
+     * @param ownedParts       The list of owned parts.
      */
     private void initializePartButtons(Upgrade part, GridPane partGrid, ImageView partImage,
             Label partNameLabel, Button partAddButton, Button partRemoveButton, Button partSellButton,

@@ -10,20 +10,23 @@ import seng201.team019.models.Difficulty;
 import seng201.team019.services.StringValidator;
 
 /**
- * Controller for the setup.fxml window that allows the player to set up
- * their game environment before starting the game.
+ * Controller for the setup.fxml window that allows the player to set up their
+ * game environment before starting the game.
  *
  * @author Ethan Elliot
  * @author Joran Le Quellec
  */
 public class SetupScreenController extends ScreenController {
 
+    /** TextField for entering the player's name. */
     @FXML
     private TextField setupNameField;
 
+    /** Slider for selecting the season length. */
     @FXML
     private Slider setupSeasonLengthField;
 
+    /** ComboBox for selecting the game difficulty. */
     @FXML
     private ComboBox<Difficulty> setupDifficultyField;
 
@@ -37,13 +40,17 @@ public class SetupScreenController extends ScreenController {
     }
 
     /**
-     * Initialize the window and set up the difficulty field
-     * with the available difficulty options.
+     * Initialize the window and set up the difficulty field with the available
+     * difficulty options.
      */
     public void initialize() {
         setupDifficultyField.setItems(FXCollections.observableArrayList(Difficulty.values()));
     }
 
+    /**
+     * Handles the action when the start button is clicked on the setup screen.
+     * Validates input and starts the game if valid.
+     */
     @FXML
     public void setupStartAction() {
         Difficulty difficulty = setupDifficultyField.getValue();
@@ -72,11 +79,21 @@ public class SetupScreenController extends ScreenController {
         getGameEnvironment().getNavigator().launchShopScreen(getGameEnvironment());
     }
 
+    /**
+     * Returns the FXML file path for this screen.
+     *
+     * @return The FXML file path.
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/setup.fxml";
     }
 
+    /**
+     * Returns the title for this screen.
+     *
+     * @return The screen title.
+     */
     @Override
     protected String getTitle() {
         return "Setup Screen";

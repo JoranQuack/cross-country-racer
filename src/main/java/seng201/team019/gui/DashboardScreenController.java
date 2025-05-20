@@ -18,27 +18,35 @@ import seng201.team019.GameEnvironment;
  * @author Joran Le Quellec
  */
 public class DashboardScreenController extends ScreenController {
+    /** Button to start a race. */
     @FXML
     private Button raceButton;
 
+    /** VBox shown at end of game. */
     @FXML
     private VBox endGameVBox;
 
+    /** Label for end game message. */
     @FXML
     private Label endGameLabel;
 
+    /** Main grid layout for dashboard. */
     @FXML
     private GridPane mainGrid;
 
+    /** Progress bar for bank balance. */
     @FXML
     private ProgressBar bankBalanceProgressBar;
 
+    /** Progress bar for races remaining. */
     @FXML
     private ProgressBar racesRemainingProgressBar;
 
+    /** Label for dashboard bank balance. */
     @FXML
     private Label dashboardBankBalLabel;
 
+    /** Label for dashboard races remaining. */
     @FXML
     private Label dashboardRacesRemainingLabel;
 
@@ -90,31 +98,57 @@ public class DashboardScreenController extends ScreenController {
         racesRemainingProgressBar.setProgress((double) racesComplete / seasonLength);
     }
 
+    /**
+     * Handles the event when the end game button is clicked.
+     * Navigates to the end screen.
+     */
     @FXML
     private void onEndGameButtonClicked() {
         getGameEnvironment().getNavigator().launchEndScreen(getGameEnvironment());
     }
 
+    /**
+     * Returns the FXML file path for this screen.
+     *
+     * @return The FXML file path.
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/dashboard.fxml";
     }
 
+    /**
+     * Returns the title for this screen.
+     *
+     * @return The screen title.
+     */
     @Override
     protected String getTitle() {
         return "Dashboard";
     }
 
+    /**
+     * Handles the action when the race button is clicked.
+     * Navigates to the race selection screen.
+     */
     @FXML
     private void dashboardRaceAction() {
         getGameEnvironment().getNavigator().launchRaceSelectionScreen(getGameEnvironment());
     }
 
+    /**
+     * Handles the action when the garage button is clicked.
+     * Navigates to the garage screen.
+     */
     @FXML
     private void dashboardGarageAction() {
         getGameEnvironment().getNavigator().launchGarageScreen(getGameEnvironment());
     }
 
+    /**
+     * Handles the action when the shop button is clicked.
+     * Navigates to the shop screen.
+     */
     @FXML
     private void dashboardShopAction() {
         getGameEnvironment().getNavigator().launchShopScreen(getGameEnvironment());

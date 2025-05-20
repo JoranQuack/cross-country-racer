@@ -30,159 +30,211 @@ public class ShopScreenController extends ScreenController {
     /** Maximum number of items to display in the shop */
     private static final int MAX_ITEMS = 3;
 
+    /** Label for car 0 upgrades */
     @FXML
     private Label car0UpgradesLabel;
 
+    /** Label for car 1 upgrades */
     @FXML
     private Label car1UpgradesLabel;
 
+    /** Label for car 2 upgrades */
     @FXML
     private Label car2UpgradesLabel;
 
+    /** Label for car 0 eco */
     @FXML
     private Label car0EcoLabel;
 
+    /** Label for car 1 eco */
     @FXML
     private Label car1EcoLabel;
 
+    /** Label for car 2 eco */
     @FXML
     private Label car2EcoLabel;
 
+    /** Home button */
     @FXML
     private Button homeButton;
 
+    /** Tab for cars */
     @FXML
     private Tab carsTab;
 
+    /** Tab for parts */
     @FXML
     private Tab partsTab;
 
+    /** Grid for part 0 */
     @FXML
     private GridPane part0Grid;
 
+    /** Image for part 0 */
     @FXML
     private ImageView part0Image;
 
+    /** Name label for part 0 */
     @FXML
     private Label part0NameLabel;
 
+    /** Buy button for part 0 */
     @FXML
     private Button part0BuyButton;
 
+    /** Price label for part 0 */
     @FXML
     private Label part0PriceLabel;
 
+    /** Description label for part 0 */
     @FXML
     private Label part0DescriptionLabel;
 
+    /** Grid for part 1 */
     @FXML
     private GridPane part1Grid;
 
+    /** Image for part 1 */
     @FXML
     private ImageView part1Image;
 
+    /** Name label for part 1 */
     @FXML
     private Label part1NameLabel;
 
+    /** Buy button for part 1 */
     @FXML
     private Button part1BuyButton;
 
+    /** Price label for part 1 */
     @FXML
     private Label part1PriceLabel;
 
+    /** Description label for part 1 */
     @FXML
     private Label part1DescriptionLabel;
 
+    /** Grid for part 2 */
     @FXML
     private GridPane part2Grid;
 
+    /** Image for part 2 */
     @FXML
     private ImageView part2Image;
 
+    /** Name label for part 2 */
     @FXML
     private Label part2NameLabel;
 
+    /** Buy button for part 2 */
     @FXML
     private Button part2BuyButton;
 
+    /** Price label for part 2 */
     @FXML
     private Label part2PriceLabel;
 
+    /** Description label for part 2 */
     @FXML
     private Label part2DescriptionLabel;
 
+    /** Grid for car 0 */
     @FXML
     private GridPane car0Grid;
 
+    /** Image for car 0 */
     @FXML
     private ImageView car0Image;
 
+    /** Name label for car 0 */
     @FXML
     private Label car0NameLabel;
 
+    /** Speed label for car 0 */
     @FXML
     private Label car0SpeedLabel;
 
+    /** Handling progress bar for car 0 */
     @FXML
     private ProgressBar car0HandlingProgressBar;
 
+    /** Buy button for car 0 */
     @FXML
     private Button car0BuyButton;
 
+    /** Price label for car 0 */
     @FXML
     private Label car0PriceLabel;
 
+    /** Reliability progress bar for car 0 */
     @FXML
     private ProgressBar car0ReliabilityProgressBar;
 
+    /** Grid for car 1 */
     @FXML
     private GridPane car1Grid;
 
+    /** Image for car 1 */
     @FXML
     private ImageView car1Image;
 
+    /** Name label for car 1 */
     @FXML
     private Label car1NameLabel;
 
+    /** Speed label for car 1 */
     @FXML
     private Label car1SpeedLabel;
 
+    /** Handling progress bar for car 1 */
     @FXML
     private ProgressBar car1HandlingProgressBar;
 
+    /** Buy button for car 1 */
     @FXML
     private Button car1BuyButton;
 
+    /** Price label for car 1 */
     @FXML
     private Label car1PriceLabel;
 
+    /** Reliability progress bar for car 1 */
     @FXML
     private ProgressBar car1ReliabilityProgressBar;
 
+    /** Grid for car 2 */
     @FXML
     private GridPane car2Grid;
 
+    /** Image for car 2 */
     @FXML
     private ImageView car2Image;
 
+    /** Name label for car 2 */
     @FXML
     private Label car2NameLabel;
 
+    /** Speed label for car 2 */
     @FXML
     private Label car2SpeedLabel;
 
+    /** Handling progress bar for car 2 */
     @FXML
     private ProgressBar car2HandlingProgressBar;
 
+    /** Buy button for car 2 */
     @FXML
     private Button car2BuyButton;
 
+    /** Price label for car 2 */
     @FXML
     private Label car2PriceLabel;
 
+    /** Reliability progress bar for car 2 */
     @FXML
     private ProgressBar car2ReliabilityProgressBar;
 
+    /** Label for balance */
     @FXML
     private Label balanceLabel;
 
@@ -211,6 +263,9 @@ public class ShopScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Handles the home button click event.
+     */
     @FXML
     private void onHomeButtonClicked() {
         if (getGameEnvironment().isSettingUp()) {
@@ -220,11 +275,21 @@ public class ShopScreenController extends ScreenController {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());
     }
 
+    /**
+     * Returns the FXML file path.
+     *
+     * @return the FXML file path
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/shop.fxml";
     }
 
+    /**
+     * Returns the window title.
+     *
+     * @return the window title
+     */
     @Override
     protected String getTitle() {
         return "Shop";
@@ -326,8 +391,7 @@ public class ShopScreenController extends ScreenController {
                 ImageView partImage = (ImageView) getClass().getDeclaredField("part" + i + "Image").get(this);
                 Label partNameLabel = (Label) getClass().getDeclaredField("part" + i + "NameLabel").get(this);
                 Label partPriceLabel = (Label) getClass().getDeclaredField("part" + i + "PriceLabel").get(this);
-                Button partBuyButton = (Button) getClass().getDeclaredField("part" + i +
-                        "BuyButton").get(this);
+                Button partBuyButton = (Button) getClass().getDeclaredField("part" + i + "BuyButton").get(this);
                 Label partDescriptionLabel = (Label) getClass().getDeclaredField("part" + i + "DescriptionLabel")
                         .get(this);
 
@@ -365,8 +429,7 @@ public class ShopScreenController extends ScreenController {
             showAlert(AlertType.INFORMATION, "Purchase Successful",
                     "You have successfully purchased the " + car.getModel() + "!");
         } else {
-            showAlert(AlertType.ERROR, "Purchase Failed",
-                    "You don't have enough money, or your garage is full.");
+            showAlert(AlertType.ERROR, "Purchase Failed", "You don't have enough money, or your garage is full.");
         }
     }
 
@@ -382,8 +445,7 @@ public class ShopScreenController extends ScreenController {
             showAlert(AlertType.INFORMATION, "Purchase Successful",
                     "You have successfully purchased the " + part.getName() + "!");
         } else {
-            showAlert(AlertType.ERROR, "Purchase Failed",
-                    "You don't have enough money to buy this part.");
+            showAlert(AlertType.ERROR, "Purchase Failed", "You don't have enough money to buy this part.");
         }
     }
 }
