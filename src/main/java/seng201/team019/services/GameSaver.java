@@ -11,13 +11,23 @@ import java.io.Serializable;
 import seng201.team019.GameEnvironment;
 
 /**
- * Class that handles saving and loading the game state.
- * It uses Java serialization to save the game environment to a file.
+ * Class that handles saving and loading the game state. It uses Java
+ * serialization to save the game environment to a file.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class GameSaver implements Serializable {
+    /** The name of the save file. */
     private static final String SAVE_FILE_NAME = "save.ser";
+    /** The path to the save directory. */
     private String pathname;
 
+    /**
+     * Constructs a GameSaver with the specified path.
+     *
+     * @param pathname the path to the save directory
+     */
     public GameSaver(String pathname) {
         this.pathname = pathname;
         // Check if the saves directory exists, if not create it
@@ -35,7 +45,7 @@ public class GameSaver implements Serializable {
     public void saveGame(GameEnvironment gameEnvironment) throws FileProcessException {
         try (FileOutputStream fileOut = new FileOutputStream(pathname + SAVE_FILE_NAME);
 
-             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(gameEnvironment);
         } catch (IOException i) {
             throw new FileProcessException("An unknown error occurred when saving to file.");
@@ -50,7 +60,7 @@ public class GameSaver implements Serializable {
     public GameEnvironment loadGame() throws FileProcessException {
         GameEnvironment gameEnvironment = null;
         try (FileInputStream fileIn = new FileInputStream(pathname + SAVE_FILE_NAME);
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+                ObjectInputStream in = new ObjectInputStream(fileIn)) {
             gameEnvironment = (GameEnvironment) in.readObject();
         } catch (IOException i) {
             throw new FileProcessException("Save File not found or File may be corrupted.");
@@ -76,8 +86,7 @@ public class GameSaver implements Serializable {
     }
 
     /**
-     * Deletes the save file.
-     * This method is used to reset the game state.
+     * Deletes the save file. This method is used to reset the game state.
      */
     public void deleteSaveFile() {
         File saveFile = new java.io.File(pathname + SAVE_FILE_NAME);

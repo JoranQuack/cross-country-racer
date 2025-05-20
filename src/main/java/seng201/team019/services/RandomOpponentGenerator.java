@@ -13,8 +13,8 @@ import seng201.team019.models.Route;
 /**
  * RandomOpponentGenerator is a utility class for generating random opponents
  * for the player to race against. It randomly selects a car, name, and route
- * for the opponent, and can also assign a DNF (Did Not Finish) status based
- * on a specified probability.
+ * for the opponent, and can also assign a DNF (Did Not Finish) status based on
+ * a specified probability.
  *
  * @author Ethan Elliot
  * @author Joran Le Quellec
@@ -57,6 +57,8 @@ public class RandomOpponentGenerator {
 
     /**
      * Generates a random opponent for the race
+     *
+     * @return Opponent object with random name, car, and route
      */
     public Opponent generateRandomOpponent() {
         Car randCar = availableCars.get(rand.nextInt(availableCars.size()));

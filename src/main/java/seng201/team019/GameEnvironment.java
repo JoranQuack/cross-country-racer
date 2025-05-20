@@ -25,22 +25,11 @@ import java.util.Random;
 public class GameEnvironment implements Serializable {
 
     /** An array of the race file names to deserialize */
-    public static final String[] RACE_FILE_NAMES = {
-            "/data/races/race1.json",
-            "/data/races/race2.json",
-            "/data/races/race3.json",
-            "/data/races/race4.json",
-            "/data/races/race6.json",
-            "/data/races/race7.json",
-            "/data/races/race8.json",
-            "/data/races/race9.json",
-            "/data/races/race10.json",
-            "/data/races/race11.json",
-            "/data/races/race12.json",
-            "/data/races/race13.json",
-            "/data/races/race14.json",
-            "/data/races/race15.json",
-    };
+    public static final String[] RACE_FILE_NAMES = { "/data/races/race1.json", "/data/races/race2.json",
+            "/data/races/race3.json", "/data/races/race4.json", "/data/races/race6.json", "/data/races/race7.json",
+            "/data/races/race8.json", "/data/races/race9.json", "/data/races/race10.json", "/data/races/race11.json",
+            "/data/races/race12.json", "/data/races/race13.json", "/data/races/race14.json",
+            "/data/races/race15.json", };
 
     /** The file name of the upgrades CSV file */
     private static final String UPGRADE_FILE_NAME = "/data/upgrades.csv";
@@ -93,10 +82,9 @@ public class GameEnvironment implements Serializable {
     private boolean isSettingUp;
 
     /**
-     * Constructor for the GameEnvironment class.
-     * Initializes the game environment with a ScreenNavigator instance.
-     * Sets the initial bank balance, available cars and parts, and initializes
-     * some game data.
+     * Constructor for the GameEnvironment class. Initializes the game environment
+     * with a ScreenNavigator instance. Sets the initial bank balance, available
+     * cars and parts, and initializes some game data.
      *
      * @param navigator The ScreenNavigator instance for navigating between screens
      */
@@ -118,8 +106,7 @@ public class GameEnvironment implements Serializable {
 
     /**
      * Completes the game environment setup by setting the difficulty, season
-     * length,
-     * and name.
+     * length, and name.
      *
      * @param difficulty
      * @param seasonLength
@@ -390,9 +377,8 @@ public class GameEnvironment implements Serializable {
     }
 
     /**
-     * Sets the ScreenNavigator for this GameEnvironment.
-     * This is primarily used after deserialization to restore the transient
-     * navigator.
+     * Sets the ScreenNavigator for this GameEnvironment. This is primarily used
+     * after deserialization to restore the transient navigator.
      *
      * @param navigator The ScreenNavigator instance.
      */
@@ -474,22 +460,47 @@ public class GameEnvironment implements Serializable {
         this.selectedCar = selectedCar;
     }
 
+    /**
+     * Gets the average placing of the player.
+     *
+     * @return the average placing
+     */
     public Double getAveragePlacing() {
         return averagePlacing;
     }
 
+    /**
+     * Gets the total prize money earned by the player.
+     *
+     * @return the total prize money
+     */
     public float getTotalPrizeMoney() {
         return totalPrizeMoney;
     }
 
+    /**
+     * Returns whether the game is in setup mode.
+     *
+     * @return true if setting up, false otherwise
+     */
     public boolean isSettingUp() {
         return isSettingUp;
     }
 
+    /**
+     * Sets whether the game is in setup mode.
+     *
+     * @param settingUp true if setting up, false otherwise
+     */
     public void setSettingUp(boolean settingUp) {
         isSettingUp = settingUp;
     }
 
+    /**
+     * Gets the GameSaver instance.
+     *
+     * @return the GameSaver
+     */
     public GameSaver getGameSaver() {
         return this.gameSaver;
     }

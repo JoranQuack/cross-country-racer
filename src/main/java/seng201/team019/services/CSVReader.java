@@ -23,15 +23,12 @@ public class CSVReader {
      * Parsers for different types of objects.
      */
     public static Function<String[], Car> carParser = values -> new Car(values[0], Integer.parseInt(values[1]),
-            Double.parseDouble(values[2]), Double.parseDouble(values[3]),
-            Double.parseDouble(values[4]), Double.parseDouble(values[5]),
-            Double.parseDouble(values[6]), Integer.parseInt(values[7]));
+            Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]),
+            Double.parseDouble(values[5]), Double.parseDouble(values[6]), Integer.parseInt(values[7]));
 
     public static Function<String[], Upgrade> upgradeParser = values -> new Upgrade(values[0],
-            Double.parseDouble(values[1]),
-            Double.parseDouble(values[2]), Double.parseDouble(values[3]),
-            Double.parseDouble(values[4]), Integer.parseInt(values[5]),
-            Double.parseDouble(values[6]), values[7]);
+            Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]),
+            Double.parseDouble(values[4]), Integer.parseInt(values[5]), Double.parseDouble(values[6]), values[7]);
 
     /**
      * Reads a CSV file from the resources folder and parses it into a list of
@@ -46,8 +43,8 @@ public class CSVReader {
     public <T> List<T> readCSV(String resourcePath, Function<String[], T> parser) {
         List<T> items = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                getClass().getResourceAsStream(resourcePath)))) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(getClass().getResourceAsStream(resourcePath)))) {
             String line;
             br.readLine(); // Skip header
 
