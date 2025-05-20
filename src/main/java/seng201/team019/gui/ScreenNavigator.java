@@ -18,6 +18,8 @@ import java.io.IOException;
  * center area of the border pane, replacing the previous screen if any.
  *
  * @author seng201 teaching team
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class ScreenNavigator {
 

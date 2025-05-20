@@ -10,7 +10,11 @@ import seng201.team019.models.Difficulty;
 import seng201.team019.services.StringValidator;
 
 /**
- * Controller for the setup.fxml window
+ * Controller for the setup.fxml window that allows the player to set up
+ * their game environment before starting the game.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class SetupScreenController extends ScreenController {
 
@@ -23,6 +27,11 @@ public class SetupScreenController extends ScreenController {
     @FXML
     private ComboBox<Difficulty> setupDifficultyField;
 
+    /**
+     * Constructor for the SetupScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public SetupScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }

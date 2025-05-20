@@ -5,12 +5,21 @@ import javafx.scene.control.Button;
 import seng201.team019.GameEnvironment;
 
 /**
- * Controller for the start.fxml window
+ * Controller for the start.fxml window that handles the start screen of the
+ * game.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class StartScreenController extends ScreenController {
     @FXML
     private Button playButton;
 
+    /**
+     * Constructor for the StartScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public StartScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
@@ -19,9 +28,6 @@ public class StartScreenController extends ScreenController {
         // No initialisation needed for this screen
     }
 
-    /**
-     * Method to call when start button is clicked
-     */
     @FXML
     public void onPlayClicked() {
         getGameEnvironment().launchSetupScreen();

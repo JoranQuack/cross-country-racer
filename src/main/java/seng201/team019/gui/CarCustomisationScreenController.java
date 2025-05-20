@@ -20,6 +20,9 @@ import seng201.team019.models.Upgrade;
  * Controller for the carCustomisation.fxml window.
  * Handles displaying the car's information and allowing the player to
  * customise their car by equipping or selling parts.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class CarCustomisationScreenController extends ScreenController {
     @FXML
@@ -154,6 +157,11 @@ public class CarCustomisationScreenController extends ScreenController {
     @FXML
     private Button part4RemoveButton;
 
+    /**
+     * Constructor for the CarCustomisationScreenController.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public CarCustomisationScreenController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }

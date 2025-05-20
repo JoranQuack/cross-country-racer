@@ -32,10 +32,18 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Controller for the raceScreen.fxml window
+ * Controller for the raceScreen.fxml window that handles rendering the
+ * race in action, updating the leaderboard, and displaying the player's
+ * progress.
+ *
+ * @author Ethan Elliot
+ * @author Joran Le Quellec
  */
 public class RaceScreenController extends ScreenController {
 
+    /**
+     * Enum representing the different types of markers
+     */
     public enum MarkerType {
         FINISH {
             @Override
@@ -102,11 +110,21 @@ public class RaceScreenController extends ScreenController {
     @FXML
     private Line raceProgressLine;
 
+    /** The current race being played */
     private final Race race;
+    /** The icons being displayed to represent the racers in the race */
     private final Map<Racer, FontIcon> racerCircles = new HashMap<>();
+    /** Timer used to loop */
     private final AnimationTimer gameLoop;
+    /** Multiplier for how fast the race goes */
     private int gameSpeedMultiplier = 1;
 
+    /**
+     * Constructor for the RaceScreenController
+     *
+     * @param gameEnvironment the game environment
+     * @param selectedRace
+     */
     public RaceScreenController(GameEnvironment gameEnvironment, Race selectedRace) {
         super(gameEnvironment);
         this.race = selectedRace;
@@ -114,7 +132,9 @@ public class RaceScreenController extends ScreenController {
     }
 
     /**
-     * Initialize the window
+     * Initialize the window by setting button states and adding
+     * action listeners to the buttons. Also initializes the
+     * progress line and the leaderboard.
      */
     public void initialize() {
         // add action to buttons
