@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GameSaverTest {
 
     private GameSaver gameSaver;
-    private static final Path SAVE_FILE_PATH = Paths.get("saves", "save.ser");
+    private static final Path SAVE_FILE_PATH = Paths.get("src/test/resources/saves/", "save.ser");
     private static final Path SAVES_DIRECTORY_PATH = SAVE_FILE_PATH.getParent();
 
     @Mock
@@ -24,7 +24,7 @@ public class GameSaverTest {
     @BeforeEach
     void setUp() throws IOException {
         MockitoAnnotations.openMocks(this);
-        gameSaver = new GameSaver();
+        gameSaver = new GameSaver("src/test/resources/saves/");
 
         if (SAVES_DIRECTORY_PATH != null && !Files.exists(SAVES_DIRECTORY_PATH)) {
             Files.createDirectories(SAVES_DIRECTORY_PATH);
@@ -81,15 +81,15 @@ public class GameSaverTest {
 
         gameSaver.deleteSaveFile();
 
-        assertTrue(Files.exists(SAVE_FILE_PATH));
-        assertEquals(0, Files.size(SAVE_FILE_PATH));
+        assertFalse(Files.exists(SAVE_FILE_PATH));
         assertNull(gameSaver.loadGame());
 
         Files.deleteIfExists(SAVE_FILE_PATH);
         assertFalse(Files.exists(SAVE_FILE_PATH));
+
         gameSaver.deleteSaveFile();
-        assertTrue(Files.exists(SAVE_FILE_PATH));
-        assertEquals(0, Files.size(SAVE_FILE_PATH));
+
+        assertFalse(Files.exists(SAVE_FILE_PATH));
         assertNull(gameSaver.loadGame());
     }
 }
