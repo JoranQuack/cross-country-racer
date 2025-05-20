@@ -95,6 +95,8 @@ public class GameEnvironment {
      * Initializes the game environment with a ScreenNavigator instance.
      * Sets the initial bank balance, available cars and parts, and initializes
      * some game data.
+     *
+     * @param navigator The ScreenNavigator instance for navigating between screens
      */
     public GameEnvironment(ScreenNavigator navigator) {
         this.garage = new ArrayList<Car>();
@@ -171,6 +173,8 @@ public class GameEnvironment {
 
     /**
      * Gets all upgrades that are applied to cars in the game.
+     *
+     * @return a list of all upgrades applied to cars in the game
      */
     public List<Upgrade> getAllPlayerUpgrades() {
         List<Upgrade> allUpgrades = new ArrayList<Upgrade>();
@@ -265,7 +269,8 @@ public class GameEnvironment {
      * list.
      *
      * @param part
-     * @return
+     * @return true if the part was successfully bought and added to the own
+     *         upgrades list.
      */
     public boolean buyPart(Upgrade part) {
         if (bankBalance >= part.getPrice()) {
@@ -319,6 +324,8 @@ public class GameEnvironment {
 
     /**
      * Checks if the season is over
+     *
+     * @return true if the season is over, false otherwise
      */
     public boolean isSeasonOver() {
         return this.racesCompleted >= this.seasonLength;
@@ -326,6 +333,8 @@ public class GameEnvironment {
 
     /**
      * Checks if the game is over
+     *
+     * @return true if the game is over, false otherwise
      */
     public boolean isGameOver() {
         return (bankBalance < 500 && garage.size() == 1 && garage.get(0).isBroken()) || (isSeasonOver());
@@ -334,6 +343,8 @@ public class GameEnvironment {
     /**
      * Applies the outcome of the completed race to the player's bank balance and
      * updates the race status.
+     *
+     * @param race
      */
     public void applyRaceOutcome(Race race) {
         setBankBalance(getBankBalance() + race.getPlayerProfit());
@@ -345,6 +356,8 @@ public class GameEnvironment {
     /**
      * Updates the average placing of the player based on the placing in the
      * previous race.
+     *
+     * @param placing the placing in the previous
      */
     public void updateAveragePlacing(int placing) {
         if (averagePlacing == 0) {
