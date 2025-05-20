@@ -1,6 +1,6 @@
 Name,Price,SpeedBonus,HandlingBonus,ReliabilityBonus,FuelCapacityBonus,FuelConsumptionBonus,Description
-Sport Tires,8000,0.0,0.5,0,0,0,Improves handling
-Reinforced Suspension,10000,0.0,0.0,0.5,0,0,Enhances reliability
-Eco Engine,19000,0,0,0,0,-2.0,Improves fuel efficiency
-Larger Tank,12000,0.0,0.0,0.0,50,0.0,Increases fuel capacity
-Turbocharger,10000,75.0,0.0,0.0,0,0.0,Boosts speed
+Sport Tires,8000,0.0,0.5,0,0,0,1.5x handling
+Reinforced Suspension,10000,0.0,0.0,0.5,0,0,1.5x reliability
+Eco Engine,19000,0,0,0,0,-2.0,-2 L/100km
+Larger Tank,12000,0.0,0.0,0.0,50,0.0,+50 L
+Turbocharger,10000,75.0,0.0,0.0,0,0.0,+75 km/h
