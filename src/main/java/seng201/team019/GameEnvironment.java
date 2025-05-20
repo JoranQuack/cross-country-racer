@@ -399,63 +399,137 @@ public class GameEnvironment implements Serializable {
         }
     }
 
-    // Getters and Setters for the GameEnvironment class
+    /**
+     * Gets the list of available cars for purchase.
+     *
+     * @return the list of available cars
+     */
     public List<Car> getAvailableCars() {
         return availableCars;
     }
 
+    /**
+     * Gets the list of available upgrades for purchase.
+     *
+     * @return the list of available upgrades
+     */
     public List<Upgrade> getAvailableUpgrades() {
         return availableUpgrades;
     }
 
+    /**
+     * Gets the player's current bank balance.
+     *
+     * @return the bank balance
+     */
     public Double getBankBalance() {
         return bankBalance;
     }
 
+    /**
+     * Gets the difficulty level of the game.
+     *
+     * @return the difficulty
+     */
     public Difficulty getDifficulty() {
         return difficulty;
     }
 
+    /**
+     * Gets the list of cars in the player's garage.
+     *
+     * @return the garage list
+     */
     public List<Car> getGarage() {
         return garage;
     }
 
+    /**
+     * Gets the maximum bank balance achieved by the player.
+     *
+     * @return the maximum bank balance
+     */
     public Double getMaximumBankBalance() {
         return maximumBankBalance;
     }
 
+    /**
+     * Gets the player's name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the ScreenNavigator instance.
+     *
+     * @return the navigator
+     */
     public ScreenNavigator getNavigator() {
         return navigator;
     }
 
+    /**
+     * Gets the list of upgrades owned by the player.
+     *
+     * @return the list of owned upgrades
+     */
     public List<Upgrade> getOwnUpgrades() {
         return ownUpgrades;
     }
 
+    /**
+     * Sets the list of upgrades owned by the player.
+     *
+     * @param ownUpgrades the list of owned upgrades
+     */
     public void setOwnUpgrades(List<Upgrade> ownUpgrades) {
         this.ownUpgrades = ownUpgrades;
     }
 
+    /**
+     * Gets the list of races available in the game.
+     *
+     * @return the list of races
+     */
     public List<Race> getRaces() {
         return races;
     }
 
+    /**
+     * Gets the number of races completed by the player.
+     *
+     * @return the number of races completed
+     */
     public int getRacesCompleted() {
         return this.racesCompleted;
     }
 
+    /**
+     * Gets the length of the season in number of races.
+     *
+     * @return the season length
+     */
     public int getSeasonLength() {
         return seasonLength;
     }
 
+    /**
+     * Gets the currently selected car in the garage.
+     *
+     * @return the selected car
+     */
     public Car getSelectedCar() {
         return selectedCar;
     }
 
+    /**
+     * Sets the currently selected car in the garage.
+     *
+     * @param selectedCar the car to select
+     */
     public void setSelectedCar(Car selectedCar) {
         this.selectedCar = selectedCar;
     }
