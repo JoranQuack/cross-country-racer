@@ -10,6 +10,14 @@ import java.time.Duration;
  * @author Joran Le Quellec
  */
 public class TimeFormatter {
+
+    /**
+     * Constructs a new {@link TimeFormatter} instance.
+     */
+    public TimeFormatter() {
+        // No initialization required
+    }
+
     /**
      * Returns a nice string of a time in milliseconds
      *

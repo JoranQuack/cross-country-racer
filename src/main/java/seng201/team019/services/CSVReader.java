@@ -20,16 +20,27 @@ import seng201.team019.models.Upgrade;
  */
 public class CSVReader {
 
+
     /**
-     * Parsers for different types of objects.
+     * Parser for car types of objects.
      */
     public static Function<String[], Car> carParser = values -> new Car(values[0], Integer.parseInt(values[1]),
             Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]),
             Double.parseDouble(values[5]), Double.parseDouble(values[6]), Integer.parseInt(values[7]));
 
+    /**
+     * Parser for upgrade types of objects.
+     */
     public static Function<String[], Upgrade> upgradeParser = values -> new Upgrade(values[0],
             Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]),
             Double.parseDouble(values[4]), Integer.parseInt(values[5]), Double.parseDouble(values[6]), values[7]);
+
+    /**
+     * Constructs a new {@link CSVReader} instance.
+     */
+    public CSVReader() {
+        // No initialization required
+    }
 
     /**
      * Reads a CSV file from the resources folder and parses it into a list of

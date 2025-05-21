@@ -182,6 +182,10 @@ public class GarageScreenController extends ScreenController {
         showAlert(AlertType.INFORMATION, "Car Set Active", "You have set " + car.getName() + " as your active car.");
     }
 
+
+    /**
+     * Method for home when home button clicked
+     */
     @FXML
     public void onHomeButtonClicked() {
         getGameEnvironment().getNavigator().launchDashboardScreen(getGameEnvironment());

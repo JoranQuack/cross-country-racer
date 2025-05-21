@@ -20,6 +20,13 @@ public class RandomNameGenerator {
     private final Random rand = new Random();
 
     /**
+     * Constructs a new {@link RandomNameGenerator} instance.
+     */
+    public RandomNameGenerator() {
+        // No initialization required
+    }
+
+    /**
      * Generates a random name for a racer by combining a random prefix with a
      * random animal name.
      *

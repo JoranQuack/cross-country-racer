@@ -15,6 +15,14 @@ import java.util.Objects;
  * @author Joran Le Quellec
  */
 public class FXAppEntry extends Application {
+
+    /**
+     * Constructs a new {@link FXAppEntry} instance.
+     */
+    public FXAppEntry() {
+        // No initialization required
+    }
+
     /**
      * Creates the {@link GameEnvironment} with a {@link ScreenNavigator} for the
      * given {@link Stage}

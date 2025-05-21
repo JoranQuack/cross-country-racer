@@ -44,6 +44,9 @@ public class RaceScreenController extends ScreenController {
      * Enum representing the different types of markers
      */
     public enum MarkerType {
+        /**
+         * Marker for the finish line
+         */
         FINISH {
             @Override
             public FontIcon getIcon() {
@@ -51,12 +54,18 @@ public class RaceScreenController extends ScreenController {
             }
 
         },
+        /**
+         * Marker for the start line
+         */
         START {
             @Override
             public FontIcon getIcon() {
                 return new FontIcon("fas-map-marker-alt");
             }
         },
+        /**
+         * Marker for a fuel stop
+         */
         FUEL_STOP {
             @Override
             public FontIcon getIcon() {
@@ -64,6 +73,10 @@ public class RaceScreenController extends ScreenController {
             }
         };
 
+        /**
+         * gets the FontIcon associated with each marker.
+         * @return {@link FontIcon}
+         */
         public abstract FontIcon getIcon();
     }
 
@@ -136,7 +149,7 @@ public class RaceScreenController extends ScreenController {
      * Constructor for the RaceScreenController
      *
      * @param gameEnvironment the game environment
-     * @param selectedRace
+     * @param selectedRace the race selected by user
      */
     public RaceScreenController(GameEnvironment gameEnvironment, Race selectedRace) {
         super(gameEnvironment);

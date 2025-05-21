@@ -42,10 +42,11 @@ public class RandomOpponentGenerator {
      * @param gameEnvironment The game environment instance.
      * @param race            Current race the opponent is being generated for.
      * @param routes          List of available routes for the opponent.
+     * @param opponentDNFPercentage the percentage any given opponent will DNF
      */
     public RandomOpponentGenerator(GameEnvironment gameEnvironment, Race race, List<Route> routes,
             double opponentDNFPercentage) {
-        this.availableCars = new ArrayList<Car>();
+        this.availableCars = new ArrayList<>();
         this.race = race;
         this.availableCars.addAll(gameEnvironment.getAvailableCars());
         this.availableCars.addAll(gameEnvironment.getGarage());

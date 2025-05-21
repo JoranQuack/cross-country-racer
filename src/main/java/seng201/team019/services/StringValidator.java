@@ -11,11 +11,20 @@ import java.util.regex.Pattern;
  */
 public class StringValidator {
     private static final Pattern VALID_STRING_REGEX = Pattern.compile("[a-zA-Z0-9]+$");
+    
+    /**
+     * Constructs a new {@link StringValidator} instance.
+     */
+    public StringValidator() {
+        // No initialization required
+    }
 
     /**
      * Checks if a string is only made up of non-special characters.
      *
-     * @param string input
+     * @param string    input
+     * @param maxLength the max valid length
+     * @param minLength the min valid length
      * @return true if string is valid
      */
     public boolean isInvalid(String string, int minLength, int maxLength) {

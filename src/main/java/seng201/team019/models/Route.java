@@ -103,7 +103,8 @@ public class Route implements Serializable {
     }
 
     /**
-     * @return distance between each fuel stop.
+     * Gets the distance between each fuel stop.
+     * @return distance in km
      */
     public float getDistanceBetweenFuelStops() {
         return distance / ((float) fuelStops + 1);

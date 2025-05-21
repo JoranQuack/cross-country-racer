@@ -73,6 +73,10 @@ public class Race implements Serializable {
      */
     RandomEvent selectedEvent = null;
 
+    /**
+     * constructs the race object
+     * @param builder for creating race object.
+     */
     public Race(Builder builder) {
         this.name = builder.name;
         this.routes = builder.routes;
@@ -132,10 +136,18 @@ public class Race implements Serializable {
         return racers;
     }
 
+    /**
+     * Gets a list of all the routes a race has
+     * @return list of {@link Route}
+     */
     public List<Route> getRoutes() {
         return routes;
     }
 
+    /**
+     * Gets the duration of the race.
+     * @return time in milliseconds
+     */
     public long getDuration() {
         return duration;
     }
@@ -263,16 +275,25 @@ public class Race implements Serializable {
                 * getPrizeMoney();
     }
 
+    /**
+     * Returns boolean for if the race is completed
+     * @return true if race is completed, false otherwise
+     */
     public boolean isCompleted() {
         return isCompleted;
     }
 
+    /**
+     * Sets boolean for if the race is completed,
+     * @param isCompleted true if race is completed, false otherwise
+     */
     public void setCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
 
     /**
-     * @return a Builder object for creating a new race instance.
+     * Returns a Builder object for creating a new race instance.
+     * @return {@link Builder}
      */
     public static Builder builder() {
         return new Builder();
@@ -293,31 +314,68 @@ public class Race implements Serializable {
         @JsonProperty(value = "numOfOpponents", required = true)
         private int numOfOpponents;
 
+        /**
+         * Constructs a new {@link Builder} instance.
+         */
+        public Builder() {
+            // No initialization required
+        }
+
+        /**
+         * Sets the name of race
+         * @param name name of race
+         * @return {@link Builder} to continue the building process with.
+         */
         public Builder name(String name) {
             this.name = name;
             return this;
         }
 
+        /**
+         * Sets the prize money earned in a race
+         * @param prizeMoney in dollars
+         * @return {@link Builder} to continue the building process with.
+         */
         public Builder prizeMoney(float prizeMoney) {
             this.prizeMoney = prizeMoney;
             return this;
         }
 
+        /**
+         * Sets the number of opponents in a race
+         * @param numOfOpponents number of opponents
+         * @return {@link Builder} to continue the building process with.
+         */
         public Builder numOfOpponents(int numOfOpponents) {
             this.numOfOpponents = numOfOpponents;
             return this;
         }
 
+        /**
+         * Sets the duration of the race
+         * @param time time in milliseconds
+         * @return {@link Builder} to continue the building process with.
+         */
         public Builder duration(long time) {
             this.duration = time;
             return this;
         }
 
+        /**
+         * Adds a {@link Route} to the race
+         * @param route route of the race
+         * @return {@link Builder} to continue the building process with.
+         */
         public Builder addRoute(Route route) {
             routes.add(route);
             return this;
         }
 
+        /**
+         * Adds {@link Route}'s to the race
+         * @param routes routes to be added the race
+         * @return {@link Builder} to continue the building process with.
+         */
         public Builder routes(List<Route> routes) {
             this.routes.addAll(routes);
             return this;

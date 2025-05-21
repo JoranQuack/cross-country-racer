@@ -29,6 +29,10 @@ public class JsonRaceDeserializer {
 
     /**
      * Reads a JSON file from the resources folder and parses it.
+     * @param jsonFileName the file name
+     * @return the {@link InputStream} representation of that file
+     * @throws IOException if an error occurs.
+     * @throws NullPointerException if the file name is invalid
      */
     public InputStream readJsonRaceFile(String jsonFileName) throws IOException, NullPointerException {
         InputStream is = getClass().getResourceAsStream(jsonFileName);
@@ -40,6 +44,9 @@ public class JsonRaceDeserializer {
 
     /**
      * Reads a JSON file from the input stream and parses it
+     * @param jsonFile an input stream of the jsonfile
+     * @return a {@link Race} instance with attributes set from json
+     * @throws IOException when input stream is invalid
      */
     public Race readRaceFromInputStream(InputStream jsonFile) throws IOException {
         Race.Builder raceBuilder = objectMapper.readValue(jsonFile, Race.Builder.class);

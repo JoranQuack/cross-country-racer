@@ -40,24 +40,28 @@ public class GameEnvironment implements Serializable {
 
     /** ScreenNavigator instance for navigating between screens */
     private transient ScreenNavigator navigator; // ScreenNavigator instance for navigating between screens
+
+    /**
+     * GameSaver instance for saving state
+     */
     private final GameSaver gameSaver = new GameSaver("saves/"); // GameSaver instance for saving and loading game
 
     /** List of cars owned by the player */
-    private List<Car> garage = new ArrayList<Car>();
+    private List<Car> garage = new ArrayList<>();
     /** List of cars available for purchase */
-    private List<Car> availableCars = new ArrayList<Car>();
+    private List<Car> availableCars = new ArrayList<>();
     /** List of all cars in the game */
-    private List<Car> allCars = new ArrayList<Car>();
+    private List<Car> allCars = new ArrayList<>();
 
     /** List of upgrades owned by the player */
-    private List<Upgrade> ownUpgrades = new ArrayList<Upgrade>();
+    private List<Upgrade> ownUpgrades = new ArrayList<>();
     /** List of upgrades available for purchase */
-    private List<Upgrade> availableUpgrades = new ArrayList<Upgrade>();
+    private List<Upgrade> availableUpgrades = new ArrayList<>();
     /** List of all upgrades in the game */
-    private List<Upgrade> allUpgrades = new ArrayList<Upgrade>();
+    private List<Upgrade> allUpgrades = new ArrayList<>();
 
     /** List of races available in the game */
-    private List<Race> races = new ArrayList<Race>();
+    private List<Race> races = new ArrayList<>();
 
     /** Name of the player */
     private String name;
@@ -89,8 +93,6 @@ public class GameEnvironment implements Serializable {
      * @param navigator The ScreenNavigator instance for navigating between screens
      */
     public GameEnvironment(ScreenNavigator navigator) {
-        this.garage = new ArrayList<Car>();
-        this.ownUpgrades = new ArrayList<Upgrade>();
         this.racesCompleted = 0;
         averagePlacing = 0.0;
         totalPrizeMoney = 0;
@@ -132,7 +134,7 @@ public class GameEnvironment implements Serializable {
     public void initializeCars() {
         CSVReader reader = new CSVReader();
         allCars = reader.readCSV(CARS_FILE_NAME, CSVReader.carParser);
-        availableCars = new ArrayList<Car>(allCars.subList(0, 3));
+        availableCars = new ArrayList<>(allCars.subList(0, 3));
     }
 
     /**
@@ -141,7 +143,7 @@ public class GameEnvironment implements Serializable {
     public void initializeUpgrades() {
         CSVReader reader = new CSVReader();
         allUpgrades = reader.readCSV(UPGRADE_FILE_NAME, CSVReader.upgradeParser);
-        availableUpgrades = new ArrayList<Upgrade>(allUpgrades.subList(0, 3));
+        availableUpgrades = new ArrayList<>(allUpgrades.subList(0, 3));
     }
 
     /**
@@ -166,7 +168,7 @@ public class GameEnvironment implements Serializable {
      * @return a list of all upgrades applied to cars in the game
      */
     public List<Upgrade> getAllPlayerUpgrades() {
-        List<Upgrade> allUpgrades = new ArrayList<Upgrade>();
+        List<Upgrade> allUpgrades = new ArrayList<>();
         for (Car car : garage) {
             allUpgrades.addAll(car.getUpgrades());
         }
@@ -185,12 +187,12 @@ public class GameEnvironment implements Serializable {
         availableUpgrades.clear();
 
         // Gets a list of unused cars and randomises their order
-        List<Car> unusedCars = new ArrayList<Car>(allCars);
+        List<Car> unusedCars = new ArrayList<>(allCars);
         unusedCars.removeAll(garage);
         Collections.shuffle(unusedCars, new Random());
 
         // Gets a list of unused upgrades and randomises their order
-        List<Upgrade> unusedUpgrades = new ArrayList<Upgrade>(allUpgrades);
+        List<Upgrade> unusedUpgrades = new ArrayList<>(allUpgrades);
         unusedUpgrades.removeAll(ownUpgrades);
         unusedUpgrades.removeAll(getAllPlayerUpgrades());
         Collections.shuffle(unusedUpgrades, new Random());
