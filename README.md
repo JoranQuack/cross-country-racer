@@ -4,9 +4,9 @@ This project is a JavaFX-based racing game. Players can acquire and customise ca
 
 ## Authors
 
-- SENG201 Teaching Team
-- Ethan Elliot
-- Joran Le Quellec
+- ['Ethan Elliot'](@ethanelliot)
+- ['Joran Le Quellec'](@JoranQuack)
+- SENG201 Teaching Team (project structure setup)
 
 ## Prerequisites
 
